@@ -1,0 +1,208 @@
+{
+  "categories": [
+    {
+      "id": "motorcycles",
+      "name": "Motorcycles",
+      "description": "Master the art of riding, maintenance, and safety"
+    },
+    {
+      "id": "finance",
+      "name": "Finance",
+      "description": "Build wealth, invest smartly, and achieve financial freedom"
+    },
+    {
+      "id": "travel",
+      "name": "Travel",
+      "description": "Explore the world with confidence and insider knowledge"
+    },
+    {
+      "id": "children",
+      "name": "Children",
+      "description": "Educational guides and resources for children"
+    },
+    {
+      "id": "parenting",
+      "name": "Parenting",
+      "description": "Expert advice and strategies for modern parenting"
+    }
+  ],
+  "ebooks": [
+    {
+      "id": "motorcycle-beginners-1",
+      "title": "Complete Beginner's Guide to Motorcycling",
+      "author": "John Rider",
+      "price": 199,
+      "cover": "https://images.unsplash.com/photo-1558980664-1e0f30c0c0a6?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/motorcycle-beginners.pdf",
+      "category": "motorcycles",
+      "synopsis": "Everything you need to know to start your riding journey safely and confidently. From choosing your first bike to mastering basic techniques.",
+      "featured": true
+    },
+    {
+      "id": "advanced-riding-2",
+      "title": "Advanced Riding Techniques",
+      "author": "Sarah Speed",
+      "price": 249,
+      "cover": "https://images.unsplash.com/photo-1558980664-769d59546b3d?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/advanced-riding.pdf",
+      "category": "motorcycles",
+      "synopsis": "Master cornering, braking, and control for experienced riders. Take your skills to the next level with professional techniques.",
+      "featured": true
+    },
+    {
+      "id": "investing-beginners-3",
+      "title": "Investing for Beginners",
+      "author": "Michael Wealth",
+      "price": 299,
+      "cover": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/investing-beginners.pdf",
+      "category": "finance",
+      "synopsis": "Build a solid foundation in stocks, bonds, and portfolio management. Start your journey to financial independence today.",
+      "featured": true
+    },
+    {
+      "id": "solo-travel-4",
+      "title": "Solo Travel Essentials",
+      "author": "Emma Explorer",
+      "price": 189,
+      "cover": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/solo-travel.pdf",
+      "category": "travel",
+      "synopsis": "Travel the world alone with confidence, safety, and insider tips. Discover hidden gems and make unforgettable memories.",
+      "featured": true
+    },
+    {
+      "id": "kids-learning-5",
+      "title": "Fun Learning Activities for Kids",
+      "author": "Lisa Teacher",
+      "price": 149,
+      "cover": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/kids-learning.pdf",
+      "category": "children",
+      "synopsis": "Engaging educational activities that make learning fun. Perfect for parents and teachers looking to inspire young minds.",
+      "featured": true
+    },
+    {
+      "id": "modern-parenting-6",
+      "title": "Modern Parenting Guide",
+      "author": "Dr. Parent",
+      "price": 279,
+      "cover": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/modern-parenting.pdf",
+      "category": "parenting",
+      "synopsis": "Expert advice and strategies for navigating the challenges of modern parenting. Build stronger relationships with your children.",
+      "featured": true
+    },
+    {
+      "id": "motorcycle-maintenance-7",
+      "title": "Motorcycle Maintenance Mastery",
+      "author": "Alex Mechanic",
+      "price": 229,
+      "cover": "https://images.unsplash.com/photo-1558980664-3a0c9b8e8b8b?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/motorcycle-maintenance.pdf",
+      "category": "motorcycles",
+      "synopsis": "Keep your bike running smoothly with DIY maintenance and repair. Learn essential skills to maintain your motorcycle.",
+      "featured": false
+    },
+    {
+      "id": "financial-freedom-8",
+      "title": "Financial Freedom Blueprint",
+      "author": "Priya Finance",
+      "price": 349,
+      "cover": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/financial-freedom.pdf",
+      "category": "finance",
+      "synopsis": "Create multiple income streams and achieve early retirement. Practical strategies for building lasting wealth.",
+      "featured": false
+    },
+    {
+      "id": "budget-travel-9",
+      "title": "Budget Travel Hacks",
+      "author": "James Backpacker",
+      "price": 179,
+      "cover": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/budget-travel.pdf",
+      "category": "travel",
+      "synopsis": "See the world without breaking the bank. Proven strategies for affordable adventures and memorable experiences.",
+      "featured": false
+    },
+    {
+      "id": "kids-creativity-10",
+      "title": "Creative Activities for Children",
+      "author": "Maria Art",
+      "price": 159,
+      "cover": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/kids-creativity.pdf",
+      "category": "children",
+      "synopsis": "Spark creativity and imagination in children with fun, hands-on activities. Perfect for home and classroom.",
+      "featured": false
+    },
+    {
+      "id": "positive-parenting-11",
+      "title": "Positive Parenting Strategies",
+      "author": "Dr. Sarah Love",
+      "price": 299,
+      "cover": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/positive-parenting.pdf",
+      "category": "parenting",
+      "synopsis": "Build strong, positive relationships with your children using evidence-based parenting techniques and strategies.",
+      "featured": false
+    },
+    {
+      "id": "motorcycle-safety-12",
+      "title": "Motorcycle Safety Essentials",
+      "author": "Safety First",
+      "price": 199,
+      "cover": "https://images.unsplash.com/photo-1558980664-1e0f30c0c0a6?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/motorcycle-safety.pdf",
+      "category": "motorcycles",
+      "synopsis": "Comprehensive guide to protective gear and safe riding practices. Stay safe on every journey.",
+      "featured": false
+    },
+    {
+      "id": "crypto-investing-13",
+      "title": "Crypto & Digital Assets Guide",
+      "author": "Crypto Expert",
+      "price": 319,
+      "cover": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/crypto-guide.pdf",
+      "category": "finance",
+      "synopsis": "Navigate the world of cryptocurrency and blockchain technology. Learn to invest wisely in digital assets.",
+      "featured": false
+    },
+    {
+      "id": "europe-travel-14",
+      "title": "Complete Europe Travel Guide",
+      "author": "Travel Pro",
+      "price": 249,
+      "cover": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/europe-guide.pdf",
+      "category": "travel",
+      "synopsis": "Discover Europe's hidden gems and must-see destinations. Your complete guide to European adventures.",
+      "featured": false
+    },
+    {
+      "id": "early-learning-15",
+      "title": "Early Learning Fundamentals",
+      "author": "Education Expert",
+      "price": 169,
+      "cover": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/early-learning.pdf",
+      "category": "children",
+      "synopsis": "Essential learning activities for early childhood development. Help your child build strong foundations.",
+      "featured": false
+    },
+    {
+      "id": "teen-parenting-16",
+      "title": "Parenting Teenagers Guide",
+      "author": "Dr. Teen Expert",
+      "price": 319,
+      "cover": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=600&fit=crop",
+      "pdf": "/ebooks/teen-parenting.pdf",
+      "category": "parenting",
+      "synopsis": "Navigate the teenage years with confidence. Practical advice for understanding and connecting with your teen.",
+      "featured": false
+    }
+  ]
+}
+
