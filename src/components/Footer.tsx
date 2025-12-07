@@ -6,6 +6,7 @@ export default function Footer() {
     <footer className="bg-slate-900 text-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+
           {/* Branding */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -27,13 +28,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-slate-400 hover:text-white transition-colors">
-                  Terms & Conditions
+                <Link to="/privacy-policy" className="text-slate-400 hover:text-white transition-colors">
+                  Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link to="/shipping" className="text-slate-400 hover:text-white transition-colors">
-                  Shipping Policy
+                <Link to="/terms" className="text-slate-400 hover:text-white transition-colors">
+                  Terms & Conditions
                 </Link>
               </li>
               <li>
@@ -49,17 +50,26 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-4">Categories</h3>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => document.getElementById('motorcycles')?.scrollIntoView({ behavior: 'smooth' })} className="text-slate-400 hover:text-white transition-colors">
+                <button 
+                  onClick={() => document.getElementById('motorcycles')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
                   Motorcycles
                 </button>
               </li>
               <li>
-                <button onClick={() => document.getElementById('finance')?.scrollIntoView({ behavior: 'smooth' })} className="text-slate-400 hover:text-white transition-colors">
+                <button 
+                  onClick={() => document.getElementById('finance')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
                   Finance
                 </button>
               </li>
               <li>
-                <button onClick={() => document.getElementById('travel')?.scrollIntoView({ behavior: 'smooth' })} className="text-slate-400 hover:text-white transition-colors">
+                <button 
+                  onClick={() => document.getElementById('travel')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
                   Travel
                 </button>
               </li>
@@ -80,19 +90,24 @@ export default function Footer() {
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
-            <a href="mailto:hello@guiderr.com" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+
+            <a 
+              href="mailto:rohanrworld@gmail.com" 
+              className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
+            >
               <Mail className="w-5 h-5" />
-              hello@guiderr.com
+              rohanrworld@gmail.com
             </a>
           </div>
         </div>
 
-        {/* Bottom */}
+        {/* Bottom Section */}
         <div className="border-t border-slate-800 pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-slate-400 text-sm text-center sm:text-left">
               © 2025 Guiderr. All rights reserved.
             </p>
+
             <div className="flex gap-6 text-sm">
               <Link to="/privacy-policy" className="text-slate-400 hover:text-white transition-colors">
                 Privacy Policy
@@ -102,6 +117,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
+
           <p className="text-slate-500 text-xs mt-4 text-center sm:text-left">
             Disclaimer: Digital products are for educational purposes. Results may vary based on individual effort and circumstances.
           </p>

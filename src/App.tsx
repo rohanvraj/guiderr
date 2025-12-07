@@ -10,6 +10,9 @@ import ContactUs from './pages/ContactUs';
 import TermsAndConditions from './pages/TermsAndConditions';
 import ShippingPolicy from './pages/ShippingPolicy';
 import CancellationsRefunds from './pages/CancellationsRefunds';
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+
+
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/shipping" element={<ShippingPolicy />} />
           <Route path="/refunds" element={<CancellationsRefunds />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
         </Routes>
       </BrowserRouter>
     </CartProvider>
