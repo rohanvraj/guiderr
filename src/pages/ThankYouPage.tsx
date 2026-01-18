@@ -169,6 +169,7 @@ export default function ThankYouPage() {
               <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-bold text-blue-900 mb-2">Check Your Email</h3>
+                <p className="text-blue-800 mb-2 font-semibold">You’ll receive your ebook(s) via email shortly.</p>
                 <p className="text-blue-800 mb-4">
                   Your ebook(s) and digital product(s) will be sent to <span className="font-semibold">{order.buyer_email}</span> within <span className="font-semibold">2-4 hours</span>.
                 </p>

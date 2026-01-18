@@ -87,7 +87,10 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       );
 
       await openRazorpayCheckout({
+        // Pass a local order id for tracking and also send explicit amount for client-side checkout
         order_id: razorpayOrderId,
+        amount: totalAmount * 100, // amount in paise
+        currency: 'INR',
         name: 'Guiderr - Digital Products',
         description: `${items.length} ebook${items.length > 1 ? 's' : ''}`,
         prefill: {

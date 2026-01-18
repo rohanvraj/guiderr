@@ -32,8 +32,10 @@ export interface RazorpayOrderOptions {
 }
 
 export interface RazorpayCheckoutOptions {
-  key_id?: string; // Optional, will be set by openRazorpayCheckout if not provided
-  order_id: string;
+  key_id?: string; // optional alias; the SDK expects `key` at runtime
+  order_id?: string; // optional server-created Razorpay order id
+  amount?: number; // amount in paise
+  currency?: string; // e.g. 'INR'
   name: string;
   description?: string;
   image?: string;
@@ -60,9 +62,15 @@ export async function openRazorpayCheckout(options: RazorpayCheckoutOptions) {
   }
 
   return new Promise<void>((resolve, reject) => {
-    const checkoutOptions: RazorpayCheckoutOptions = {
-      key_id: RAZORPAY_KEY_ID,
-      ...options,
+    // Use a loose any here because Razorpay expects fields like `key`, `amount`, `currency`, or `order_id`
+    const checkoutOptions: any = {
+      key: options.key_id || RAZORPAY_KEY_ID,
+      name: options.name,
+      description: options.description,
+      image: options.image,
+      prefill: options.prefill,
+      notes: options.notes,
+      theme: options.theme,
       modal: {
         ondismiss: () => {
           reject(new Error('Payment cancelled'));
@@ -73,6 +81,15 @@ export async function openRazorpayCheckout(options: RazorpayCheckoutOptions) {
         resolve();
       },
     };
+
+    // If an explicit amount is provided use it (paise) and set currency (default INR)
+    if (options.amount) {
+      checkoutOptions.amount = options.amount;
+      checkoutOptions.currency = options.currency || 'INR';
+    } else if (options.order_id) {
+      // If a server-created Razorpay order id was supplied, pass it through
+      checkoutOptions.order_id = options.order_id;
+    }
 
     try {
       const rzp = new window.Razorpay(checkoutOptions);
