@@ -3,11 +3,13 @@ export interface Ebook {
   title: string;
   author: string;
   price: number;
-  cover: string;
+  cover?: string;
+  coverImage?: string; // Cloudinary public URL
   pdf: string;
   category: string;
   synopsis: string;
   featured?: boolean;
+  downloadLink?: string;
 }
 
 export interface Category {

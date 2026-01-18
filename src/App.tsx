@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import ThankYouPage from './pages/ThankYouPage';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminEbookDashboard from './pages/AdminEbookDashboard';
 import SuperadminDashboard from './pages/SuperadminDashboard';
 import ContactUs from './pages/ContactUs';
 import TermsAndConditions from './pages/TermsAndConditions';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/:category" element={<CategoryPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/ebooks" element={<AdminEbookDashboard />} />
           <Route path="/superadmin" element={<SuperadminDashboard />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/terms" element={<TermsAndConditions />} />

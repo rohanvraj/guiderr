@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { CheckCircle, Mail, Download, ArrowRight } from 'lucide-react';
+import { CheckCircle, Mail, Download, ArrowRight, ExternalLink } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getOrderByRazorpayId, getOrderItems } from '../utils/supabase';
 import { Order, OrderItem } from '../utils/supabase';
+import ebooksData from '../data/ebooks.json';
 
 export default function ThankYouPage() {
   const [searchParams] = useSearchParams();
@@ -207,6 +208,63 @@ export default function ThankYouPage() {
               </div>
             </div>
           </div>
+
+          {/* Download Links Section */}
+          {items.length > 0 && (
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-3xl shadow-lg p-8 sm:p-12 mb-8 border border-slate-100 animate-fade-in-up">
+              <div className="mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Download className="w-6 h-6 text-emerald-600" />
+                  <h3 className="text-2xl font-bold text-slate-900">Download Your Ebooks</h3>
+                </div>
+                <p className="text-slate-600">Direct access links to your purchased ebooks:</p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4">
+                {items.map((item) => {
+                  // Find the corresponding ebook data to get the download link
+                  const ebookData = ebooksData.ebooks.find(
+                    (ebook) => ebook.id === item.product_id
+                  );
+
+                  if (!ebookData || !ebookData.downloadLink) {
+                    return null;
+                  }
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="bg-white rounded-xl p-4 border border-emerald-100 hover:border-emerald-300 transition-colors flex items-center justify-between"
+                    >
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-slate-900 mb-1">
+                          {ebookData.title}
+                        </h4>
+                        {ebookData.author && (
+                          <p className="text-slate-600 text-sm">By {ebookData.author}</p>
+                        )}
+                      </div>
+                      <a
+                        href={ebookData.downloadLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-4 flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 active:scale-95 transition-all duration-200"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Download
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800">
+                  <span className="font-semibold">Note:</span> These links are for personal use only. Please do not share.
+                </p>
+              </div>
+            </div>
+          )}
 
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 mb-8 animate-fade-in-up">
             <div className="flex gap-4">

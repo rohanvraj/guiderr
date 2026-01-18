@@ -62,7 +62,7 @@ export default function CartPanel() {
                 <div key={index} className="bg-slate-50 rounded-lg p-4 hover:bg-slate-100 transition-colors">
                   <div className="flex gap-4">
                     <img
-                      src={item.ebook.cover}
+                      src={item.ebook.coverImage || item.ebook.cover}
                       alt={item.ebook.title}
                       className="w-16 h-16 rounded-lg object-cover"
                       onError={(e) => {

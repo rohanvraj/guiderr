@@ -33,7 +33,9 @@
       "author": "John Rider",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1558980664-1e0f30c0c0a6?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1558980664-1e0f30c0c0a6",
       "pdf": "/ebooks/motorcycle-beginners.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1motorcycle-beginners",
       "category": "motorcycles",
       "synopsis": "Everything you need to know to start your riding journey safely and confidently. From choosing your first bike to mastering basic techniques.",
       "featured": true
@@ -44,7 +46,9 @@
       "author": "Sarah Speed",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1558980664-769d59546b3d?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1558980664-769d59546b3d",
       "pdf": "/ebooks/advanced-riding.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1advanced-riding",
       "category": "motorcycles",
       "synopsis": "Master cornering, braking, and control for experienced riders. Take your skills to the next level with professional techniques.",
       "featured": true
@@ -55,7 +59,9 @@
       "author": "Michael Wealth",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
       "pdf": "/ebooks/investing-beginners.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1investing-beginners",
       "category": "finance",
       "synopsis": "Build a solid foundation in stocks, bonds, and portfolio management. Start your journey to financial independence today.",
       "featured": true
@@ -66,7 +72,9 @@
       "author": "Emma Explorer",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1488646953014-85cb44e25828",
       "pdf": "/ebooks/solo-travel.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1solo-travel",
       "category": "travel",
       "synopsis": "Travel the world alone with confidence, safety, and insider tips. Discover hidden gems and make unforgettable memories.",
       "featured": true
@@ -77,7 +85,9 @@
       "author": "Lisa Teacher",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9",
       "pdf": "/ebooks/kids-learning.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1kids-learning",
       "category": "children",
       "synopsis": "Engaging educational activities that make learning fun. Perfect for parents and teachers looking to inspire young minds.",
       "featured": true
@@ -88,7 +98,9 @@
       "author": "Dr. Parent",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1511895426328-dc8714191300",
       "pdf": "/ebooks/modern-parenting.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1modern-parenting",
       "category": "parenting",
       "synopsis": "Expert advice and strategies for navigating the challenges of modern parenting. Build stronger relationships with your children.",
       "featured": true
@@ -99,7 +111,9 @@
       "author": "Alex Mechanic",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1558980664-3a0c9b8e8b8b?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1558980664-3a0c9b8e8b8b",
       "pdf": "/ebooks/motorcycle-maintenance.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1motorcycle-maintenance",
       "category": "motorcycles",
       "synopsis": "Keep your bike running smoothly with DIY maintenance and repair. Learn essential skills to maintain your motorcycle.",
       "featured": false
@@ -110,7 +124,9 @@
       "author": "Priya Finance",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1579621970563-ebec7560ff3e",
       "pdf": "/ebooks/financial-freedom.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1financial-freedom",
       "category": "finance",
       "synopsis": "Create multiple income streams and achieve early retirement. Practical strategies for building lasting wealth.",
       "featured": false
@@ -121,7 +137,9 @@
       "author": "James Backpacker",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
       "pdf": "/ebooks/budget-travel.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1budget-travel",
       "category": "travel",
       "synopsis": "See the world without breaking the bank. Proven strategies for affordable adventures and memorable experiences.",
       "featured": false
@@ -132,7 +150,9 @@
       "author": "Maria Art",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9",
       "pdf": "/ebooks/kids-creativity.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1kids-creativity",
       "category": "children",
       "synopsis": "Spark creativity and imagination in children with fun, hands-on activities. Perfect for home and classroom.",
       "featured": false
@@ -143,7 +163,9 @@
       "author": "Dr. Sarah Love",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1511895426328-dc8714191300",
       "pdf": "/ebooks/positive-parenting.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1positive-parenting",
       "category": "parenting",
       "synopsis": "Build strong, positive relationships with your children using evidence-based parenting techniques and strategies.",
       "featured": false
@@ -154,7 +176,9 @@
       "author": "Safety First",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1558980664-1e0f30c0c0a6?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1558980664-1e0f30c0c0a6",
       "pdf": "/ebooks/motorcycle-safety.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1motorcycle-safety",
       "category": "motorcycles",
       "synopsis": "Comprehensive guide to protective gear and safe riding practices. Stay safe on every journey.",
       "featured": false
@@ -165,7 +189,9 @@
       "author": "Crypto Expert",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1639762681485-074b7f938ba0",
       "pdf": "/ebooks/crypto-guide.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1crypto-investing",
       "category": "finance",
       "synopsis": "Navigate the world of cryptocurrency and blockchain technology. Learn to invest wisely in digital assets.",
       "featured": false
@@ -176,7 +202,9 @@
       "author": "Travel Pro",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
       "pdf": "/ebooks/europe-guide.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1europe-travel",
       "category": "travel",
       "synopsis": "Discover Europe's hidden gems and must-see destinations. Your complete guide to European adventures.",
       "featured": false
@@ -187,7 +215,9 @@
       "author": "Education Expert",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9",
       "pdf": "/ebooks/early-learning.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1early-learning",
       "category": "children",
       "synopsis": "Essential learning activities for early childhood development. Help your child build strong foundations.",
       "featured": false
@@ -198,11 +228,12 @@
       "author": "Dr. Teen Expert",
       "price": 1,
       "cover": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=600&fit=crop",
+      "coverImage": "https://res.cloudinary.com/demo/image/fetch/w=400,h=600,c=fill/https://images.unsplash.com/photo-1511895426328-dc8714191300",
       "pdf": "/ebooks/teen-parenting.pdf",
+      "downloadLink": "https://drive.google.com/drive/folders/1teen-parenting",
       "category": "parenting",
       "synopsis": "Navigate the teenage years with confidence. Practical advice for understanding and connecting with your teen.",
       "featured": false
     }
   ]
 }
-

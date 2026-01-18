@@ -47,7 +47,7 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
           <div className="flex flex-col md:flex-row gap-6 mb-6">
             <div className="w-full md:w-1/3 flex-shrink-0">
               <img
-                src={ebook.cover}
+                src={ebook.coverImage || ebook.cover}
                 alt={ebook.title}
                 className="w-full aspect-[3/4] object-cover rounded-lg shadow-lg"
                 onError={(e) => {
