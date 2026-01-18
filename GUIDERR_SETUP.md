@@ -35,7 +35,7 @@ Guiderr is a complete ebook marketplace with JSON-driven content management, Raz
         "id": "unique-id",
         "title": "Book Title",
         "author": "Author Name",
-        "price": 199,
+        "price": 1,
         "cover": "/covers/cover.jpg",
         "pdf": "/ebooks/file.pdf",
         "category": "motorcycles",

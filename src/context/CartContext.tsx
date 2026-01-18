@@ -7,11 +7,12 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (ebook: Ebook) => void;
+  addToCart: (ebook: Ebook) => boolean; // returns true if added, false if limit reached
   removeFromCart: (ebookId: string) => void;
   clearCart: () => void;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
+  cartFull: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -19,6 +20,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const MAX_ITEMS_PER_ORDER = 5;
 
   useEffect(() => {
     const saved = localStorage.getItem('cart');
@@ -35,8 +37,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('cart', JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (ebook: Ebook) => {
+  const addToCart = (ebook: Ebook): boolean => {
+    if (items.length >= MAX_ITEMS_PER_ORDER) {
+      return false;
+    }
     setItems([...items, { ebook }]);
+    return true;
   };
 
   const removeFromCart = (ebookId: string) => {
@@ -47,8 +53,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems([]);
   };
 
+  const cartFull = items.length >= MAX_ITEMS_PER_ORDER;
+
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, clearCart, isCartOpen, setIsCartOpen }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, clearCart, isCartOpen, setIsCartOpen, cartFull }}>
       {children}
     </CartContext.Provider>
   );

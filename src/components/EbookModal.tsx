@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import React, { useState } from 'react';
 import { Ebook } from '../types/ebook';
 import { useCart } from '../context/CartContext';
 
@@ -8,11 +9,22 @@ interface EbookModalProps {
 }
 
 export default function EbookModal({ ebook, onClose }: EbookModalProps) {
-  const { addToCart } = useCart();
+  const { addToCart, cartFull } = useCart();
+  const [showLimitAlert, setShowLimitAlert] = useState(false);
 
   const handleAddToCart = () => {
-    addToCart(ebook);
-    onClose();
+    if (cartFull) {
+      setShowLimitAlert(true);
+      setTimeout(() => setShowLimitAlert(false), 3000);
+      return;
+    }
+    const success = addToCart(ebook);
+    if (success) {
+      onClose();
+    } else {
+      setShowLimitAlert(true);
+      setTimeout(() => setShowLimitAlert(false), 3000);
+    }
   };
 
   return (
@@ -58,10 +70,17 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
 
               <button
                 onClick={handleAddToCart}
-                className="w-full md:w-auto px-8 py-3 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 active:scale-95 transition-all duration-300"
+                disabled={cartFull}
+                className="w-full md:w-auto px-8 py-3 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transition-all duration-300"
               >
-                Add to Cart
+                {cartFull ? 'Cart Full (Max 5)' : 'Add to Cart'}
               </button>
+
+              {showLimitAlert && (
+                <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm font-medium">
+                  You can only purchase up to 5 ebooks per order.
+                </div>
+              )}
             </div>
           </div>
         </div>
