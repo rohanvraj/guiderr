@@ -74,3 +74,12 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
 
 
 
+
+
+
+
+
+
+
+
+
