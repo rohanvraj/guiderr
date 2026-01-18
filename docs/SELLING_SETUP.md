@@ -79,4 +79,33 @@ And `order_items` with:
 
 ---
 
-If you'd like, I can also add a short checklist for releasing to production (env variables, test payment, verify Razorpay dashboard). ✅
+## Testing Razorpay locally (Test mode) 🧪
+
+1. Use test keys in `.env`:
+   - `VITE_RAZORPAY_KEY_ID=rzp_test_<your_key>`
+2. Start the dev server and run a local checkout (add item to cart → Proceed to Checkout).
+3. In the checkout, use Razorpay's test cards (found in Razorpay docs) or built-in test flows.
+4. Verify you are redirected to `/thank-you?order_id=ORDER_<timestamp>` and that the page shows the order details and the message: “You’ll receive your ebook(s) via email shortly.”
+5. If the checkout fails, check the browser console and network tab for:
+   - Script load errors (CSP or blocked `https://checkout.razorpay.com/v1/checkout.js`)
+   - 4xx/5xx responses when calling any backend/Supabase endpoints (order creation, payment update)
+   - Any errors thrown by the client — the app will display an actionable message when script loading or payment response fails.
+
+---
+
+## Secure ebook delivery (recommended) 🔒
+
+- Never embed direct, public download URLs in frontend code.
+- Recommended pattern:
+  1. After successful payment, store order + payment id in a secure backend (Supabase or your server).
+  2. Implement a backend endpoint `/api/get-download?order_id=<order_id>` which:
+     - Validates the order exists and `payment_status` is `completed` and has a valid `razorpay_payment_id`.
+     - Optionally verifies payment using Razorpay server-side APIs or webhook signature verification.
+     - Returns a short-lived signed URL (S3, Google Cloud, Drive signed link) or proxies the file bytes.
+  3. The Thank You page should call this endpoint **only** when the user requests the download and then open the signed URL in a new tab.
+
+- The app includes a placeholder call to `/api/get-download` from the Thank You page; implement the endpoint on your backend or in a secure serverless function and ensure it validates the order before returning a link.
+
+---
+
+If you'd like, I can also add a small server example (Express or Netlify Function) that validates the Supabase order record and returns a signed URL. ✅

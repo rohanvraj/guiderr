@@ -13,6 +13,50 @@ export default function ThankYouPage() {
   const [items, setItems] = useState<OrderItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [downloadLoading, setDownloadLoading] = useState(false);
+  const [downloadMessage, setDownloadMessage] = useState('');
+
+  const handleDownload = async () => {
+    setDownloadMessage('');
+    if (!order) {
+      setDownloadMessage('Order not loaded');
+      return;
+    }
+
+    if (order.payment_status !== 'completed' || !order.razorpay_payment_id) {
+      setDownloadMessage('Payment not confirmed yet. If you believe this is an error, contact support.');
+      return;
+    }
+
+    setDownloadLoading(true);
+
+    try {
+      // Try to fetch a server-validated download link. This endpoint is intentionally backend-only
+      // and must validate the order/payment before returning a signed URL. If not implemented, handle gracefully.
+      const res = await fetch(`/api/get-download?order_id=${order.id}`);
+      if (res.status === 404) {
+        setDownloadMessage('Download unavailable. Our team will email the files shortly. Contact support if urgent.');
+        return;
+      }
+      if (!res.ok) {
+        const txt = await res.text();
+        setDownloadMessage(`Failed to get download: ${txt}`);
+        return;
+      }
+
+      const data = await res.json();
+      if (data && data.url) {
+        window.open(data.url, '_blank');
+      } else {
+        setDownloadMessage('No download link returned. Contact support.');
+      }
+    } catch (err) {
+      console.error('Download error:', err);
+      setDownloadMessage('Failed to fetch download. Contact support.');
+    } finally {
+      setDownloadLoading(false);
+    }
+  };
 
   const razorpayOrderId = searchParams.get('order_id');
 
@@ -211,7 +255,23 @@ export default function ThankYouPage() {
             </div>
           </div>
 
-          <div className="text-center">
+          <div className="text-center space-y-4">
+            {/* Secure download button: only shown if payment is confirmed */}
+            {order && order.payment_status === 'completed' && order.razorpay_payment_id && (
+              <div>
+                <button
+                  onClick={handleDownload}
+                  disabled={downloadLoading}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 active:scale-95 transition-all duration-200"
+                >
+                  {downloadLoading ? 'Preparing download...' : 'Get my ebook(s)'}
+                </button>
+                {downloadMessage && (
+                  <p className="text-sm text-red-600 mt-2">{downloadMessage}</p>
+                )}
+              </div>
+            )}
+
             <button
               onClick={() => navigate('/')}
               className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl"

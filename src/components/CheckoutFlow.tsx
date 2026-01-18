@@ -66,7 +66,10 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
     setError('');
 
     try {
-      await loadRazorpayScript();
+      const isScriptLoaded = await loadRazorpayScript();
+      if (!isScriptLoaded) {
+        throw new Error('Failed to load Razorpay script. Check network, CSP, and that https://checkout.razorpay.com is reachable.');
+      }
 
       const razorpayOrderId = `ORDER_${Date.now()}`;
 
@@ -105,6 +108,13 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
         },
         handler: async (response) => {
           try {
+            // Basic verification: ensure Razorpay returned a payment id
+            if (!response || !response.razorpay_payment_id) {
+              console.error('Invalid payment response from Razorpay:', response);
+              setError('Payment failed: no payment confirmation received. Please contact support.');
+              return;
+            }
+
             await updateOrderPayment(orderResponse.id, {
               razorpay_payment_id: response.razorpay_payment_id,
               payment_status: 'completed',
@@ -120,7 +130,12 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       });
     } catch (err: any) {
       console.error('Payment error:', err);
-      setError(err.message || 'Payment failed. Please try again.');
+      // Provide actionable hint for common cases
+      if (err.message && err.message.includes('Razorpay')) {
+        setError(err.message);
+      } else {
+        setError(err.message || 'Payment failed. Please try again or contact support.');
+      }
     } finally {
       setLoading(false);
     }
