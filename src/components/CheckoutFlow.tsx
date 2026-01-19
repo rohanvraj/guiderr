@@ -77,7 +77,7 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
         razorpay_order_id: razorpayOrderId,
         buyer_email: buyerInfo.email,
         buyer_name: buyerInfo.name,
-        total_amount: totalAmount * 100, // Convert to paise
+        total_amount_paise: totalAmount * 100, // Convert to paise
       });
 
       await addOrderItems(

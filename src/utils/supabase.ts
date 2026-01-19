@@ -10,7 +10,7 @@ export interface Order {
   razorpay_order_id: string;
   buyer_email: string;
   buyer_name: string;
-  total_amount: number;
+  total_amount_paise: number;
   referral_code?: string;
   payment_status: 'pending' | 'completed' | 'failed';
   delivery_status: 'pending' | 'delivered';
@@ -32,7 +32,7 @@ export async function createOrder(orderData: {
   razorpay_order_id: string;
   buyer_email: string;
   buyer_name: string;
-  total_amount: number;
+  total_amount_paise: number;
   referral_code?: string;
 }) {
   const { data, error } = await supabase

@@ -106,7 +106,7 @@ export default function OrdersPanel({}: OrdersPanelProps) {
 
                     <div className="text-right">
                       <p className="text-3xl font-bold text-slate-900">
-                        ₹{(order.total_amount / 100).toLocaleString('en-IN')}
+                        ₹{(order.total_amount_paise / 100).toLocaleString('en-IN')}
                       </p>
                       <p className="text-slate-600 text-sm">
                         {new Date(order.created_at).toLocaleDateString()}
