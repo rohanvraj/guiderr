@@ -35,14 +35,31 @@ export async function createOrder(orderData: {
   total_amount_paise: number;
   referral_code?: string;
 }) {
-  const { data, error } = await supabase
+  // Use returning: 'minimal' to avoid SELECT violation with anonymous RLS policy
+  // Anonymous users can INSERT but cannot SELECT their own rows
+  const { error } = await supabase
     .from('orders')
-    .insert([orderData])
-    .select()
-    .maybeSingle();
+    .insert([orderData], { returning: 'minimal' });
 
-  if (error) throw error;
-  return data as Order;
+  if (error) {
+    console.error('Order insertion failed:', error.message);
+    throw error;
+  }
+
+  // Return the razorpay_order_id as the identifier (it's unique and deterministic)
+  // The actual DB order ID cannot be read back due to RLS restrictions on anonymous users
+  // Frontend will use razorpay_order_id to track order items and updates
+  return {
+    id: orderData.razorpay_order_id,
+    razorpay_order_id: orderData.razorpay_order_id,
+    buyer_email: orderData.buyer_email,
+    buyer_name: orderData.buyer_name,
+    total_amount_paise: orderData.total_amount_paise,
+    payment_status: 'pending' as const,
+    delivery_status: 'pending' as const,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  } as Order;
 }
 
 export async function addOrderItems(
@@ -53,9 +70,23 @@ export async function addOrderItems(
     price: number;
   }>
 ) {
+  // Note: orderId here is actually the razorpay_order_id from anonymous checkout
+  // We need to find the actual UUID order record to link order_items to it
+  // Query by razorpay_order_id to get the real order ID
+  const { data: orderData, error: queryError } = await supabase
+    .from('orders')
+    .select('id')
+    .eq('razorpay_order_id', orderId)
+    .maybeSingle();
+
+  if (queryError || !orderData) {
+    console.error('Failed to find order by razorpay_order_id:', queryError?.message);
+    throw new Error(`Could not find order with ID: ${orderId}`);
+  }
+
   const itemsWithOrderId = items.map(item => ({
     ...item,
-    order_id: orderId,
+    order_id: orderData.id,
   }));
 
   const { data, error } = await supabase
@@ -63,7 +94,10 @@ export async function addOrderItems(
     .insert(itemsWithOrderId)
     .select();
 
-  if (error) throw error;
+  if (error) {
+    console.error('Failed to insert order items:', error.message);
+    throw error;
+  }
   return data as OrderItem[];
 }
 
