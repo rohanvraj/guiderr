@@ -1,9 +1,10 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { CheckCircle, Download, ArrowRight, ExternalLink } from 'lucide-react';
+import { CheckCircle, Download, ArrowRight, ExternalLink, AlertCircle } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ebooksData from '../data/ebooks.json';
+import { getOrderByRazorpayId, getOrderItems, Order, OrderItem } from '../utils/supabase';
 
 interface PurchasedEbook {
   id: string;
@@ -15,15 +16,58 @@ interface PurchasedEbook {
 export default function ThankYouPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [orderData, setOrderData] = useState<Order | null>(null);
+  const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Parse query parameters OR fall back to localStorage (for Razorpay Webstore redirects)
+  // Priority 1: Check for order_id parameter (from CheckoutFlow)
+  const orderId = searchParams.get('order_id');
+  
+  // Priority 2: Check for ebooks parameter (URL query params or Webstore)
   const ebooksParam = searchParams.get('ebooks') || 
                      localStorage.getItem('purchasedEbookIds') || 
                      '';
   const refCode = searchParams.get('ref') || 
                  localStorage.getItem('referralCode');
 
-  // Parse ebook IDs from comma-separated string
+  // Fetch order data if order_id is provided
+  useEffect(() => {
+    if (!orderId) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchOrderData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const order = await getOrderByRazorpayId(orderId);
+        
+        if (!order) {
+          setError('Order not found in system');
+          setLoading(false);
+          return;
+        }
+
+        setOrderData(order);
+
+        // Fetch order items
+        const items = await getOrderItems(order.id);
+        setOrderItems(items);
+        setLoading(false);
+      } catch (err: any) {
+        console.error('Failed to fetch order:', err);
+        setError(err.message || 'Failed to load order details');
+        setLoading(false);
+      }
+    };
+
+    fetchOrderData();
+  }, [orderId]);
+
+  // Parse ebook IDs from comma-separated string (for URL params or localStorage)
   const ebookIds = useMemo(() => {
     return ebooksParam
       .split(',')
@@ -31,8 +75,8 @@ export default function ThankYouPage() {
       .filter((id) => id.length > 0);
   }, [ebooksParam]);
 
-  // Match ebook IDs to ebook data
-  const purchasedEbooks = useMemo(() => {
+  // Match ebook IDs to ebook data (used when no order_id)
+  const purchasedEbooksFromParams = useMemo(() => {
     return ebookIds
       .map((id) => {
         const ebook = ebooksData.ebooks.find((e) => e.id === id);
@@ -47,6 +91,25 @@ export default function ThankYouPage() {
       .filter((ebook) => ebook !== null) as PurchasedEbook[];
   }, [ebookIds]);
 
+  // Convert order items to ebook data
+  const purchasedEbooksFromOrder = useMemo(() => {
+    return orderItems
+      .map((item) => {
+        const ebook = ebooksData.ebooks.find((e) => e.id === item.product_id);
+        if (!ebook) return null;
+        return {
+          id: ebook.id,
+          title: ebook.title,
+          author: ebook.author,
+          downloadLink: ebook.downloadLink,
+        };
+      })
+      .filter((ebook) => ebook !== null) as PurchasedEbook[];
+  }, [orderItems]);
+
+  // Use order-based ebooks if available, otherwise fall back to params
+  const purchasedEbooks = orderId && orderData ? purchasedEbooksFromOrder : purchasedEbooksFromParams;
+
   // Clean up localStorage after component mounts (thank you page viewed)
   useEffect(() => {
     if (ebooksParam && !searchParams.get('ebooks')) {
@@ -56,23 +119,106 @@ export default function ThankYouPage() {
     }
   }, [ebooksParam, searchParams]);
 
-  // Handle case where no ebooks are provided
-  if (ebookIds.length === 0) {
+  // Handle loading state
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <Header />
         <div className="pt-32 pb-20 px-4 flex items-center justify-center min-h-[60vh]">
           <div className="text-center max-w-md">
-            <p className="text-lg text-slate-600 font-semibold mb-6">
-              No ebooks specified in order
+            <div className="inline-block mb-6">
+              <div className="animate-spin">
+                <CheckCircle className="w-12 h-12 text-slate-400" />
+              </div>
+            </div>
+            <p className="text-lg text-slate-600 font-semibold mb-2">
+              Loading your order details...
             </p>
-            <button
-              onClick={() => navigate('/')}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all"
-            >
-              <ArrowRight className="w-5 h-5" />
-              Back to Store
-            </button>
+            <p className="text-sm text-slate-500">
+              Please wait while we retrieve your purchased ebooks.
+            </p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Handle error state
+  if (error || (orderId && !orderData)) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        <Header />
+        <div className="pt-32 pb-20 px-4 flex items-center justify-center min-h-[60vh]">
+          <div className="text-center max-w-md bg-white rounded-2xl p-8 border-2 border-red-100">
+            <div className="flex justify-center mb-6">
+              <AlertCircle className="w-16 h-16 text-red-500" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">
+              Unable to Load Order
+            </h2>
+            <p className="text-slate-600 mb-6">
+              {error || 'We could not find your order in our system.'}
+            </p>
+            <div className="space-y-3">
+              <p className="text-sm text-slate-600">
+                <span className="font-semibold">This sometimes happens if:</span>
+              </p>
+              <ul className="text-sm text-slate-600 space-y-2 text-left">
+                <li>• Your payment is still being processed</li>
+                <li>• There was a network delay</li>
+                <li>• Your browser blocked loading the page</li>
+              </ul>
+              <div className="border-t border-slate-200 pt-6 mt-6">
+                <p className="text-sm text-slate-600 mb-4">
+                  Please contact our support team and we'll help immediately:
+                </p>
+                <a
+                  href="mailto:support@guiderr.com"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all"
+                >
+                  support@guiderr.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Handle case where no ebooks are provided (no order_id AND no ebooks param)
+  if (purchasedEbooks.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        <Header />
+        <div className="pt-32 pb-20 px-4 flex items-center justify-center min-h-[60vh]">
+          <div className="text-center max-w-md bg-white rounded-2xl p-8 border-2 border-amber-100">
+            <div className="flex justify-center mb-6">
+              <AlertCircle className="w-16 h-16 text-amber-600" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">
+              No Purchase Data Found
+            </h2>
+            <p className="text-slate-600 mb-6">
+              We couldn't find any ebook information in this link. This can happen if you're visiting this page directly.
+            </p>
+            <div className="space-y-3">
+              <button
+                onClick={() => navigate('/')}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all w-full justify-center"
+              >
+                <ArrowRight className="w-5 h-5" />
+                Back to Store
+              </button>
+              <a
+                href="mailto:support@guiderr.com"
+                className="block text-slate-600 hover:text-slate-900 text-sm font-medium transition-colors"
+              >
+                Need help? Contact support
+              </a>
+            </div>
           </div>
         </div>
         <Footer />
