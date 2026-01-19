@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ebooksData from '../data/ebooks.json';
-import { getOrderByRazorpayId, getOrderItems, Order, OrderItem } from '../utils/supabase';
+import { getOrderByRazorpayId, getOrderItems, getOrderByPublicToken, Order, OrderItem } from '../utils/supabase';
 
 interface PurchasedEbook {
   id: string;
@@ -21,6 +21,7 @@ export default function ThankYouPage() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [guestOrderData, setGuestOrderData] = useState<any>(null);
 
   // ============================================================================
   // TEMPORARY: Supabase Connection Test (Remove after verification)
@@ -64,20 +65,61 @@ export default function ThankYouPage() {
   // END TEMPORARY TEST
   // ============================================================================
 
-  // Priority 1: Check for order_id parameter (from CheckoutFlow)
+  // Priority 1: Check for public_token parameter (from CheckoutFlow - new secure token method)
+  const publicToken = searchParams.get('token');
+  
+  // Priority 2: Check for order_id parameter (from CheckoutFlow - legacy method)
   const orderId = searchParams.get('order_id');
   
-  // Priority 2: Check for ebooks parameter (URL query params or Webstore)
+  // Priority 3: Check for ebooks parameter (URL query params or Webstore)
   const ebooksParam = searchParams.get('ebooks') || 
                      localStorage.getItem('purchasedEbookIds') || 
                      '';
   const refCode = searchParams.get('ref') || 
                  localStorage.getItem('referralCode');
 
-  // Fetch order data if order_id is provided
+  // Fetch order data using public token (new secure method)
   useEffect(() => {
-    if (!orderId) {
-      setLoading(false);
+    if (!publicToken) {
+      return;
+    }
+
+    const fetchOrderDataByToken = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const order = await getOrderByPublicToken(publicToken);
+        
+        // DEBUG: Log what we fetched from the database
+        console.log('🔍 Fetched Order by Token:', order);
+        console.log('   Token:', publicToken);
+        console.log('   Notes (Google Drive link):', order?.notes);
+        
+        if (!order) {
+          console.error('❌ Order not found for token:', publicToken);
+          setError('Order not found. Please check your link and try again.');
+          setLoading(false);
+          return;
+        }
+
+        console.log('✅ Order found! Setting guest order data:', order);
+        setGuestOrderData(order);
+        setLoading(false);
+      } catch (err: any) {
+        console.error('Failed to fetch order by token:', err);
+        setError(err.message || 'Failed to load order details');
+        setLoading(false);
+      }
+    };
+
+    fetchOrderDataByToken();
+  }, [publicToken]);
+
+  // Fetch order data if order_id is provided (legacy method for backward compatibility)
+  useEffect(() => {
+    if (!orderId || publicToken) {
+      // Skip if we have a token (new method takes priority)
       return;
     }
 
@@ -108,7 +150,7 @@ export default function ThankYouPage() {
     };
 
     fetchOrderData();
-  }, [orderId]);
+  }, [orderId, publicToken]);
 
   // Parse ebook IDs from comma-separated string (for URL params or localStorage)
   const ebookIds = useMemo(() => {
@@ -150,6 +192,16 @@ export default function ThankYouPage() {
       .filter((ebook) => ebook !== null) as PurchasedEbook[];
   }, [orderItems]);
 
+  // For token-based guest checkout, show a simple download link from notes
+  const guestDownloadLink = useMemo(() => {
+    if (guestOrderData && guestOrderData.notes) {
+      console.log('✅ Guest download link found:', guestOrderData.notes);
+      return guestOrderData.notes;
+    }
+    console.log('⚠️ No guest download link. guestOrderData:', guestOrderData);
+    return null;
+  }, [guestOrderData]);
+
   // Use order-based ebooks if available, otherwise fall back to params
   const purchasedEbooks = orderId && orderData ? purchasedEbooksFromOrder : purchasedEbooksFromParams;
 
@@ -188,7 +240,9 @@ export default function ThankYouPage() {
   }
 
   // Handle error state
-  if (error || (orderId && !orderData)) {
+  // NOTE: guestOrderData with notes is valid! Don't show error if we have it
+  if (error || (orderId && !orderData) || (publicToken && !guestOrderData && !loading)) {
+    console.log('❌ Error state triggered:', { error, orderId, orderData, publicToken, guestOrderData, loading });
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <Header />
@@ -231,8 +285,10 @@ export default function ThankYouPage() {
     );
   }
 
-  // Handle case where no ebooks are provided (no order_id AND no ebooks param)
-  if (purchasedEbooks.length === 0) {
+  // Handle case where no ebooks are provided AND no guest download link
+  // NOTE: If we have guestOrderData with notes, we should show success! Don't block here
+ if (purchasedEbooks.length === 0 && !guestDownloadLink && !loading && !publicToken) {
+    console.log('⚠️ No purchase data: purchasedEbooks empty, no guest link, no token');
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <Header />
@@ -292,11 +348,16 @@ export default function ThankYouPage() {
               Thank you for your purchase! 🎉
             </p>
 
-            <p className="text-lg text-slate-700 font-semibold">
-              You've purchased {purchasedEbooks.length}{' '}
-              {purchasedEbooks.length === 1 ? 'ebook' : 'ebooks'}
-            </p>
-
+            {guestDownloadLink ? (
+  <p className="text-lg text-slate-700 font-semibold">
+    Your content is ready for access below.
+  </p>
+) : (
+  <p className="text-lg text-slate-700 font-semibold">
+    You've purchased {purchasedEbooks.length}{' '}
+    {purchasedEbooks.length === 1 ? 'ebook' : 'ebooks'}
+  </p>
+)}
             {refCode && (
               <p className="text-slate-600 mt-3">
                 Bought via <span className="font-semibold text-slate-900 capitalize">{refCode}</span>
@@ -304,74 +365,137 @@ export default function ThankYouPage() {
             )}
           </div>
 
-          {/* Purchase Summary Card */}
-          <div className="bg-white rounded-3xl shadow-lg p-8 sm:p-12 mb-8 border border-slate-100 animate-fade-in-up">
-            <p className="text-slate-600 text-sm font-semibold uppercase tracking-wide mb-6">
-              Purchased Ebooks ({purchasedEbooks.length})
-            </p>
-
-            <div className="space-y-3">
-              {purchasedEbooks.map((ebook) => (
-                <div
-                  key={ebook.id}
-                  className="p-4 bg-slate-50 rounded-lg border border-slate-200 hover:border-slate-300 transition-colors"
-                >
-                  <h3 className="font-semibold text-slate-900">{ebook.title}</h3>
-                  <p className="text-slate-600 text-sm">By {ebook.author}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Download Links Section */}
-          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-3xl shadow-lg p-8 sm:p-12 mb-8 animate-fade-in-up">
-            <div className="mb-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Download className="w-6 h-6 text-emerald-600" />
-                <h2 className="text-2xl font-bold text-slate-900">
-                  Download Your Ebooks
-                </h2>
-              </div>
-              <p className="text-slate-600">
-                Click the button below to access your purchased ebook(s):
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4">
-              {purchasedEbooks.map((ebook) => (
-                <a
-                  key={ebook.id}
-                  href={ebook.downloadLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white rounded-xl p-4 border border-emerald-100 hover:border-emerald-400 transition-colors flex items-center justify-between hover:shadow-md"
-                >
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-slate-900 mb-1">
-                      {ebook.title}
-                    </h3>
-                    <p className="text-slate-600 text-sm">By {ebook.author}</p>
+          {/* Special rendering for guest checkout with public token */}
+          {guestDownloadLink && guestOrderData ? (
+            <>
+              {/* Guest Order Summary */}
+              <div className="bg-white rounded-3xl shadow-lg p-8 sm:p-12 mb-8 border border-slate-100 animate-fade-in-up">
+                <p className="text-slate-600 text-sm font-semibold uppercase tracking-wide mb-4">
+                  Order Details
+                </p>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-start">
+                    <span className="text-slate-700 font-medium">Buyer Name:</span>
+                    <span className="text-slate-900 font-semibold">{guestOrderData.buyer_name}</span>
                   </div>
-                  <button
-                    className="ml-4 flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 active:scale-95 transition-all duration-200"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.open(ebook.downloadLink, '_blank');
-                    }}
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Download
-                  </button>
-                </a>
-              ))}
-            </div>
+                  <div className="flex justify-between items-start">
+                    <span className="text-slate-700 font-medium">Amount Paid:</span>
+                    <span className="text-slate-900 font-semibold">
+                      ₹{(guestOrderData.total_amount_paise / 100).toLocaleString('en-IN')}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-start">
+                    <span className="text-slate-700 font-medium">Order Date:</span>
+                    <span className="text-slate-900 font-semibold">
+                      {new Date(guestOrderData.created_at).toLocaleDateString('en-IN')}
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-            <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <p className="text-sm text-yellow-800">
-                <span className="font-semibold">📝 Note:</span> These links are for your personal use. Please do not share with others.
-              </p>
-            </div>
-          </div>
+              {/* Guest Checkout Download Link */}
+              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-3xl shadow-lg p-8 sm:p-12 mb-8 animate-fade-in-up">
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Download className="w-6 h-6 text-emerald-600" />
+                    <h2 className="text-2xl font-bold text-slate-900">
+                      Access Your Purchase
+                    </h2>
+                  </div>
+                  <p className="text-slate-600">
+                    Click below to access your purchased content:
+                  </p>
+                </div>
+
+                <a
+  href={guestDownloadLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 active:scale-95 transition-all duration-200 text-lg shadow-md hover:shadow-lg"
+>
+  <Download className="w-5 h-5" />
+  Download Your eBook Now
+</a>
+
+                <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-sm text-yellow-800">
+                    <span className="font-semibold">📝 Note:</span> This link is for your personal use. Please do not share with others.
+                  </p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Purchase Summary Card */}
+              <div className="bg-white rounded-3xl shadow-lg p-8 sm:p-12 mb-8 border border-slate-100 animate-fade-in-up">
+                <p className="text-slate-600 text-sm font-semibold uppercase tracking-wide mb-6">
+                  Purchased Ebooks ({purchasedEbooks.length})
+                </p>
+
+                <div className="space-y-3">
+                  {purchasedEbooks.map((ebook) => (
+                    <div
+                      key={ebook.id}
+                      className="p-4 bg-slate-50 rounded-lg border border-slate-200 hover:border-slate-300 transition-colors"
+                    >
+                      <h3 className="font-semibold text-slate-900">{ebook.title}</h3>
+                      <p className="text-slate-600 text-sm">By {ebook.author}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Download Links Section */}
+              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-3xl shadow-lg p-8 sm:p-12 mb-8 animate-fade-in-up">
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Download className="w-6 h-6 text-emerald-600" />
+                    <h2 className="text-2xl font-bold text-slate-900">
+                      Download Your Ebooks
+                    </h2>
+                  </div>
+                  <p className="text-slate-600">
+                    Click the button below to access your purchased ebook(s):
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  {purchasedEbooks.map((ebook) => (
+                    <a
+                      key={ebook.id}
+                      href={ebook.downloadLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white rounded-xl p-4 border border-emerald-100 hover:border-emerald-400 transition-colors flex items-center justify-between hover:shadow-md"
+                    >
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-slate-900 mb-1">
+                          {ebook.title}
+                        </h3>
+                        <p className="text-slate-600 text-sm">By {ebook.author}</p>
+                      </div>
+                      <button
+                        className="ml-4 flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 active:scale-95 transition-all duration-200"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open(ebook.downloadLink, '_blank');
+                        }}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Download
+                      </button>
+                    </a>
+                  ))}
+                </div>
+
+                <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-sm text-yellow-800">
+                    <span className="font-semibold">📝 Note:</span> These links are for your personal use. Please do not share with others.
+                  </p>
+                </div>
+              </div>
+            </>
+          )}
 
           {/* Info Section */}
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 mb-8 animate-fade-in-up">
@@ -380,7 +504,7 @@ export default function ThankYouPage() {
               <div>
                 <h3 className="font-bold text-blue-900 mb-2">What to Expect</h3>
                 <ul className="text-blue-800 space-y-2 text-sm">
-                  <li>✓ Instant access to your ebook(s) via the download links above</li>
+                  <li>✓ Instant access to your content via download links</li>
                   <li>✓ Lifetime access to all purchased content</li>
                   <li>✓ Future updates and improvements included</li>
                   <li>✓ Email support for any technical issues</li>
@@ -396,7 +520,7 @@ export default function ThankYouPage() {
               <h3 className="font-semibold text-slate-900">Questions or Issues?</h3>
             </div>
             <p className="text-sm text-slate-700 mb-3">
-              If you experience any issues downloading or accessing your ebooks, our support team is here to help.
+              If you experience any issues downloading or accessing your content, our support team is here to help.
             </p>
             <a
               href="mailto:support@guiderr.com"

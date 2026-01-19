@@ -118,7 +118,8 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
             console.log('Payment received:', response.razorpay_payment_id);
 
             clearCart();
-            navigate(`/thank-you?order_id=${razorpayOrderId}`);
+            // Redirect using public_token for secure guest access to order
+            navigate(`/thank-you?token=${orderResponse.public_token}`);
           } catch (err) {
             console.error('Payment handler error:', err);
             setError('Payment completed but processing failed. Admin will verify your payment.');

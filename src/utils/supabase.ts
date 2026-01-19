@@ -8,6 +8,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export interface Order {
   id: string;
   razorpay_order_id: string;
+  public_token: string;
   buyer_email: string;
   buyer_name: string;
   total_amount_paise: number;
@@ -15,6 +16,7 @@ export interface Order {
   payment_status: 'pending' | 'completed' | 'failed';
   delivery_status: 'pending' | 'delivered';
   razorpay_payment_id?: string;
+  notes?: string;
   created_at: string;
   updated_at: string;
 }
@@ -35,23 +37,30 @@ export async function createOrder(orderData: {
   total_amount_paise: number;
   referral_code?: string;
 }) {
+  // Generate a unique token for secure guest access to the order
+  // This will be passed back to the frontend and used in the thank-you URL
+  const publicToken = crypto.randomUUID();
+
   // Use returning: 'minimal' to avoid SELECT violation with anonymous RLS policy
   // Anonymous users can INSERT but cannot SELECT their own rows
   const { error } = await supabase
     .from('orders')
-    .insert([orderData], { returning: 'minimal' });
+    .insert([{
+      ...orderData,
+      public_token: publicToken,
+    }], { returning: 'minimal' });
 
   if (error) {
     console.error('Order insertion failed:', error.message);
     throw error;
   }
 
-  // Return the razorpay_order_id as the identifier (it's unique and deterministic)
-  // The actual DB order ID cannot be read back due to RLS restrictions on anonymous users
-  // Frontend will use razorpay_order_id to track order items and updates
+  // Return the public_token so frontend can use it for the thank-you page
+  // The thank-you page will use this token to fetch order details securely
   return {
     id: orderData.razorpay_order_id,
     razorpay_order_id: orderData.razorpay_order_id,
+    public_token: publicToken,
     buyer_email: orderData.buyer_email,
     buyer_name: orderData.buyer_name,
     total_amount_paise: orderData.total_amount_paise,
@@ -129,6 +138,17 @@ export async function getOrderByRazorpayId(razorpayOrderId: string) {
 
   if (error) throw error;
   return data as Order | null;
+}
+
+export async function getOrderByPublicToken(publicToken: string) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('buyer_name, notes, total_amount_paise, public_token, created_at')
+    .eq('public_token', publicToken)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data as Partial<Order> | null;
 }
 
 export async function getOrderItems(orderId: string) {
