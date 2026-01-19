@@ -36,13 +36,12 @@ export async function createOrder(orderData: {
   buyer_name: string;
   total_amount_paise: number;
   referral_code?: string;
+  notes?: string; // <--- 1. Added here so the function accepts the link
 }) {
   // Generate a unique token for secure guest access to the order
-  // This will be passed back to the frontend and used in the thank-you URL
   const publicToken = crypto.randomUUID();
 
-  // Use returning: 'minimal' to avoid SELECT violation with anonymous RLS policy
-  // Anonymous users can INSERT but cannot SELECT their own rows
+  // The ...orderData here will now include 'notes' because we added it above
   const { error } = await supabase
     .from('orders')
     .insert([{
@@ -55,8 +54,6 @@ export async function createOrder(orderData: {
     throw error;
   }
 
-  // Return the public_token so frontend can use it for the thank-you page
-  // The thank-you page will use this token to fetch order details securely
   return {
     id: orderData.razorpay_order_id,
     razorpay_order_id: orderData.razorpay_order_id,
@@ -64,6 +61,7 @@ export async function createOrder(orderData: {
     buyer_email: orderData.buyer_email,
     buyer_name: orderData.buyer_name,
     total_amount_paise: orderData.total_amount_paise,
+    notes: orderData.notes, // <--- 2. Added here so the Thank You page gets it back
     payment_status: 'pending' as const,
     delivery_status: 'pending' as const,
     created_at: new Date().toISOString(),

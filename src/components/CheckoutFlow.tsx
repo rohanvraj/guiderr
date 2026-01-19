@@ -71,13 +71,17 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
 
       const razorpayOrderId = `ORDER_${Date.now()}`;
 
+     // 1. Grab the download link from the first item in the cart
+      const downloadLink = items[0]?.ebook?.downloadLink || '';
+
+      // 2. Pass that link into the 'notes' field
       const orderResponse = await createOrder({
         razorpay_order_id: razorpayOrderId,
         buyer_email: buyerInfo.email,
         buyer_name: buyerInfo.name,
-        total_amount_paise: totalAmount * 100, // Convert to paise
+        total_amount_paise: totalAmount * 100,
+        notes: downloadLink, // This is the secret sauce!
       });
-
       // Note: addOrderItems and updateOrderPayment would violate RLS for anonymous users
       // These operations are deferred to:
       // 1. Razorpay webhook (server-side with auth)
