@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { CheckCircle, Download, ArrowRight, ExternalLink } from 'lucide-react';
 import Header from '../components/Header';
@@ -16,9 +16,12 @@ export default function ThankYouPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // Parse query parameters
-  const ebooksParam = searchParams.get('ebooks') || '';
-  const refCode = searchParams.get('ref');
+  // Parse query parameters OR fall back to localStorage (for Razorpay Webstore redirects)
+  const ebooksParam = searchParams.get('ebooks') || 
+                     localStorage.getItem('purchasedEbookIds') || 
+                     '';
+  const refCode = searchParams.get('ref') || 
+                 localStorage.getItem('referralCode');
 
   // Parse ebook IDs from comma-separated string
   const ebookIds = useMemo(() => {
@@ -43,6 +46,15 @@ export default function ThankYouPage() {
       })
       .filter((ebook) => ebook !== null) as PurchasedEbook[];
   }, [ebookIds]);
+
+  // Clean up localStorage after component mounts (thank you page viewed)
+  useEffect(() => {
+    if (ebooksParam && !searchParams.get('ebooks')) {
+      // Data came from localStorage (Razorpay redirect), clear it after display
+      localStorage.removeItem('purchasedEbookIds');
+      localStorage.removeItem('referralCode');
+    }
+  }, [ebooksParam, searchParams]);
 
   // Handle case where no ebooks are provided
   if (ebookIds.length === 0) {
