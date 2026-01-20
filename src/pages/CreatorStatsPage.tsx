@@ -99,7 +99,7 @@ export default function CreatorStatsPage() {
             </div>
             <h2 className="text-2xl font-bold text-slate-900 mb-2">Creator Not Found</h2>
             <p className="text-slate-600 mb-6">
-              The partner code "{partnerCode}" doesn't exist or has no tracked data yet.
+              The secret key "{secretKey}" doesn't exist or has no tracked data yet.
             </p>
             <button
               onClick={() => navigate('/')}
