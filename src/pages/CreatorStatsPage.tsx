@@ -69,7 +69,7 @@ export default function CreatorStatsPage() {
     })}`;
   };
 
-  const referralLink = `${window.location.origin}/?ref=${data.partner.code}`;
+  const referralLink = data ? `${window.location.origin}/?ref=${data.partner.code}` : '';
 
   if (loading) {
     return (
