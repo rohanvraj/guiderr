@@ -5,12 +5,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EbookManager from '../components/admin/EbookManager';
 import OrdersPanel from '../components/admin/OrdersPanel';
+import PartnersAnalytics from '../components/admin/PartnersAnalytics';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [adminPassword, setAdminPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [activeTab, setActiveTab] = useState<'orders' | 'ebooks'>('orders');
+  const [activeTab, setActiveTab] = useState<'orders' | 'ebooks' | 'partners'>('orders');
 
   // Check for existing session in localStorage
   useEffect(() => {
@@ -134,12 +135,23 @@ export default function AdminDashboard() {
             >
               Ebooks
             </button>
+            <button
+              onClick={() => setActiveTab('partners')}
+              className={`px-6 py-3 font-semibold transition-all ${
+                activeTab === 'partners'
+                  ? 'text-slate-900 border-b-2 border-slate-900'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Partners & Analytics
+            </button>
           </div>
 
           {/* Tab Content */}
           <div className="bg-white rounded-2xl shadow-lg p-8">
             {activeTab === 'orders' && <OrdersPanel />}
             {activeTab === 'ebooks' && <EbookManager />}
+            {activeTab === 'partners' && <PartnersAnalytics />}
           </div>
         </div>
       </div>

@@ -74,13 +74,17 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
      // 1. Grab the download link from the first item in the cart
       const downloadLink = items[0]?.ebook?.downloadLink || '';
 
-      // 2. Pass that link into the 'notes' field
+      // 2. Check for active referral code in sessionStorage
+      const referralCode = sessionStorage.getItem('active_referral') || undefined;
+
+      // 3. Pass that link and referral code into the order creation
       const orderResponse = await createOrder({
         razorpay_order_id: razorpayOrderId,
         buyer_email: buyerInfo.email,
         buyer_name: buyerInfo.name,
         total_amount_paise: totalAmount * 100,
         notes: downloadLink, // This is the secret sauce!
+        referral_code: referralCode, // Include referral tracking
       });
       // Note: addOrderItems and updateOrderPayment would violate RLS for anonymous users
       // These operations are deferred to:

@@ -30,6 +30,16 @@ export interface OrderItem {
   delivery_link_sent: boolean;
 }
 
+export interface Partner {
+  id: string;
+  code: string;
+  name: string;
+  upi_id: string;
+  commission_rate: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export async function createOrder(orderData: {
   razorpay_order_id: string;
   buyer_email: string;
@@ -211,3 +221,179 @@ export async function markItemAsDelivered(itemId: string) {
   if (error) throw error;
   return data as OrderItem;
 }
+
+// ==================== PARTNER MANAGEMENT ====================
+
+export async function getAllPartners() {
+  const { data, error } = await supabase
+    .from('partners')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data as Partner[];
+}
+
+export async function createPartner(partnerData: {
+  code: string;
+  name: string;
+  upi_id: string;
+  commission_rate: number;
+}) {
+  // ⚠️ SECURITY: Partner creation must be done via Supabase Dashboard
+  // or through a secure admin auth flow. Frontend cannot write to partners table.
+  throw new Error(
+    'Partner creation is disabled on frontend for security reasons. ' +
+    'Please create partners via the Supabase Dashboard or secure admin console.'
+  );
+}
+
+export async function deletePartner(partnerId: string) {
+  // ⚠️ SECURITY: Partner deletion must be done via Supabase Dashboard
+  throw new Error(
+    'Partner deletion is disabled on frontend for security reasons. ' +
+    'Please delete partners via the Supabase Dashboard.'
+  );
+}
+
+export async function getPartnerStats() {
+  // Get all partners using anon client (read-only)
+  const { data: partners, error: partnersError } = await supabase
+    .from('partners')
+    .select('*');
+
+  if (partnersError) throw partnersError;
+
+  // Get all completed orders with referral codes
+  const { data: orders, error: ordersError } = await supabase
+    .from('orders')
+    .select('referral_code, total_amount_paise, payment_status')
+    .not('referral_code', 'is', null);
+
+  if (ordersError) throw ordersError;
+
+  // Calculate stats for each partner
+  const stats = partners.map(partner => {
+    const partnerOrders = orders.filter(
+      order => order.referral_code === partner.code && order.payment_status === 'completed'
+    );
+
+    const totalRevenue = partnerOrders.reduce(
+      (sum, order) => sum + order.total_amount_paise,
+      0
+    );
+
+    const commissionOwed = (totalRevenue * partner.commission_rate) / 100;
+
+    return {
+      partner_code: partner.code,
+      partner_name: partner.name,
+      partner_id: partner.id,
+      upi_id: partner.upi_id,
+      commission_rate: partner.commission_rate,
+      total_sales: partnerOrders.length,
+      total_revenue: totalRevenue,
+      commission_owed: commissionOwed,
+    };
+  });
+
+  // Also check for orphaned referral codes (codes in orders but not in partners table)
+  const partnerCodes = partners.map(p => p.code);
+  const orphanedCodes = [...new Set(
+    orders
+      .filter(order => order.referral_code && !partnerCodes.includes(order.referral_code))
+      .map(order => order.referral_code)
+  )];
+
+  const orphanedStats = orphanedCodes.map(code => {
+    const codeOrders = orders.filter(
+      order => order.referral_code === code && order.payment_status === 'completed'
+    );
+
+    const totalRevenue = codeOrders.reduce(
+      (sum, order) => sum + order.total_amount_paise,
+      0
+    );
+
+    return {
+      partner_code: code!,
+      partner_name: `[Unregistered: ${code}]`,
+      partner_id: null,
+      upi_id: 'N/A',
+      commission_rate: 0,
+      total_sales: codeOrders.length,
+      total_revenue: totalRevenue,
+      commission_owed: 0,
+    };
+  });
+
+  return [...stats, ...orphanedStats];
+}
+
+// ==================== CREATOR STATS ====================
+
+export async function getCreatorStats(partnerCode: string) {
+  // Trim and normalize partner code
+  const normalizedCode = partnerCode.trim();
+  
+  console.log('[DEBUG] getCreatorStats - Input partnerCode:', partnerCode);
+  console.log('[DEBUG] getCreatorStats - Normalized partnerCode:', normalizedCode);
+  
+  // Fetch creator data using case-insensitive match (from creators table)
+  const { data: partner, error: partnerError } = await supabase
+    .from('creators')
+    .select('id, code, name, commission_rate')
+    .ilike('code', normalizedCode)
+    .maybeSingle();
+
+  if (partnerError) throw partnerError;
+  
+  console.log('[DEBUG] getCreatorStats - Partner lookup result:', partner);
+  
+  if (!partner) {
+    console.log('[DEBUG] getCreatorStats - Partner not found for code:', normalizedCode);
+    return null;
+  }
+
+  // Fetch all completed orders for this referral code
+  // Using columns: referral_code, total_amount_paise, payment_status
+  const { data: orders = [], error: ordersError } = await supabase
+    .from('orders')
+    .select('id, total_amount_paise, payment_status')
+    .ilike('referral_code', normalizedCode)
+    .eq('payment_status', 'completed');
+
+  if (ordersError) throw ordersError;
+  
+  console.log('[DEBUG] getCreatorStats - Orders found:', orders?.length || 0);
+  console.log('[DEBUG] getCreatorStats - Orders data:', orders);
+
+  // Calculate stats (gracefully handle zero orders)
+  const totalSales = orders?.length || 0;
+  
+  // Sum all order amounts (stored in paise in database)
+  const totalRevenuePaise = (orders || []).reduce((sum, order) => sum + order.total_amount_paise, 0);
+  
+  // Calculate earnings: (totalRevenue * commission_rate) / 100
+  // Result is in paise (e.g., 900,000 paise = 9,000 rupees at 50% commission)
+  const earningsPaise = (totalRevenuePaise * partner.commission_rate) / 100;
+
+  const result = {
+    partner: {
+      name: partner.name,
+      code: partner.code,
+      commission_rate: partner.commission_rate,
+      clicks: 0, // clicks not available in creators table
+    },
+    stats: {
+      totalClicks: 0, // clicks not available in creators table
+      totalSales,
+      totalRevenuePaise, // In paise from database
+      earningsPaise,     // In paise (calculated)
+    },
+  };
+  
+  console.log('[DEBUG] getCreatorStats - Final result:', result);
+  return result;
+}
+
