@@ -332,18 +332,18 @@ export async function getPartnerStats() {
 
 // ==================== CREATOR STATS ====================
 
-export async function getCreatorStats(partnerCode: string) {
-  // Trim and normalize partner code
-  const normalizedCode = partnerCode.trim();
+export async function getCreatorStats(secretKey: string) {
+  // Trim and normalize secret key
+  const normalizedSecretKey = secretKey.trim();
   
-  console.log('[DEBUG] getCreatorStats - Input partnerCode:', partnerCode);
-  console.log('[DEBUG] getCreatorStats - Normalized partnerCode:', normalizedCode);
+  console.log('[DEBUG] getCreatorStats - Input secretKey:', secretKey);
+  console.log('[DEBUG] getCreatorStats - Normalized secretKey:', normalizedSecretKey);
   
-  // Fetch partner data from partners table by code
+  // Fetch partner data from partners table by secret_key (exact match)
   const { data: partner, error: partnerError } = await supabase
     .from('partners')
-    .select('id, code, name, commission_rate, upi_id, clicks')
-    .eq('code', normalizedCode)
+    .select('id, code, name, commission_rate, upi_id, clicks, secret_key')
+    .eq('secret_key', normalizedSecretKey)
     .maybeSingle();
 
   if (partnerError) throw partnerError;
@@ -351,16 +351,16 @@ export async function getCreatorStats(partnerCode: string) {
   console.log('[DEBUG] getCreatorStats - Partner lookup result:', partner);
   
   if (!partner) {
-    console.log('[DEBUG] getCreatorStats - Partner not found for code:', normalizedCode);
+    console.log('[DEBUG] getCreatorStats - Partner not found for secret_key:', normalizedSecretKey);
     return null;
   }
 
-  // Fetch all completed orders for this referral code
+  // Fetch all completed orders for this referral code (using partner's code field)
   // Using columns: referral_code, total_amount_paise, payment_status
   const { data: orders = [], error: ordersError } = await supabase
     .from('orders')
     .select('id, total_amount_paise, payment_status')
-    .eq('referral_code', normalizedCode)
+    .eq('referral_code', partner.code)
     .eq('payment_status', 'completed');
 
   if (ordersError) throw ordersError;

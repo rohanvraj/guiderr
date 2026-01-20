@@ -4,6 +4,8 @@ export interface Partner {
   name: string;
   upi_id: string;
   commission_rate: number;
+  secret_key?: string;
+  clicks?: number;
   created_at: string;
   updated_at: string;
 }

@@ -182,6 +182,9 @@ export default function PartnersManagement() {
                       <th className="px-6 py-3 text-left text-xs font-semibold text-slate-900 uppercase tracking-wider">
                         Referral Link
                       </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-900 uppercase tracking-wider">
+                        Stats Link
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200">
@@ -207,6 +210,15 @@ export default function PartnersManagement() {
                           <code className="px-3 py-2 bg-slate-100 rounded-lg text-slate-900 font-mono text-xs break-all">
                             ?ref={partner.code}
                           </code>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {partner.secret_key ? (
+                            <code className="px-3 py-2 bg-purple-100 rounded-lg text-purple-900 font-mono text-xs break-all">
+                              /stats/{partner.secret_key}
+                            </code>
+                          ) : (
+                            <span className="text-slate-400 text-sm">No secret key</span>
+                          )}
                         </td>
                       </tr>
                     ))}

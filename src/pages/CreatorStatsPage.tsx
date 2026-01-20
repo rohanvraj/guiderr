@@ -22,7 +22,7 @@ interface CreatorData {
 
 export default function CreatorStatsPage() {
   const navigate = useNavigate();
-  const { partnerCode } = useParams<{ partnerCode: string }>();
+  const { secretKey } = useParams<{ secretKey: string }>();
   const [data, setData] = useState<CreatorData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -30,7 +30,7 @@ export default function CreatorStatsPage() {
 
   useEffect(() => {
     const loadStats = async () => {
-      if (!partnerCode) {
+      if (!secretKey) {
         setNotFound(true);
         setLoading(false);
         return;
@@ -38,8 +38,8 @@ export default function CreatorStatsPage() {
 
       try {
         setLoading(true);
-        console.log('[DEBUG] CreatorStatsPage - Loading stats for:', partnerCode);
-        const result = await getCreatorStats(partnerCode);
+        console.log('[DEBUG] CreatorStatsPage - Loading stats for:', secretKey);
+        const result = await getCreatorStats(secretKey);
         
         console.log('[DEBUG] CreatorStatsPage - Result:', result);
         
@@ -60,7 +60,7 @@ export default function CreatorStatsPage() {
     };
 
     loadStats();
-  }, [partnerCode]);
+  }, [secretKey]);
 
   const formatCurrency = (paise: number) => {
     return `₹${(paise / 100).toLocaleString('en-IN', {
@@ -69,7 +69,7 @@ export default function CreatorStatsPage() {
     })}`;
   };
 
-  const referralLink = `${window.location.origin}/?ref=${partnerCode}`;
+  const referralLink = `${window.location.origin}/?ref=${data.partner.code}`;
 
   if (loading) {
     return (

@@ -42,7 +42,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/:category" element={<CategoryPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
-          <Route path="/stats/:partnerCode" element={<CreatorStatsPage />} />
+          <Route path="/stats/:secretKey" element={<CreatorStatsPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/partners" element={<PartnersManagement />} />
           <Route path="/superadmin" element={<SuperadminDashboard />} />
