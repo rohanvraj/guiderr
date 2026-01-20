@@ -339,11 +339,11 @@ export async function getCreatorStats(partnerCode: string) {
   console.log('[DEBUG] getCreatorStats - Input partnerCode:', partnerCode);
   console.log('[DEBUG] getCreatorStats - Normalized partnerCode:', normalizedCode);
   
-  // Fetch creator data using case-insensitive match (from partners table)
+  // Fetch partner data from partners table by code
   const { data: partner, error: partnerError } = await supabase
     .from('partners')
-    .select('id, code, name, commission_rate, clicks')
-    .ilike('code', normalizedCode)
+    .select('id, code, name, commission_rate, upi_id, clicks')
+    .eq('code', normalizedCode)
     .maybeSingle();
 
   if (partnerError) throw partnerError;
@@ -360,7 +360,7 @@ export async function getCreatorStats(partnerCode: string) {
   const { data: orders = [], error: ordersError } = await supabase
     .from('orders')
     .select('id, total_amount_paise, payment_status')
-    .ilike('referral_code', normalizedCode)
+    .eq('referral_code', normalizedCode)
     .eq('payment_status', 'completed');
 
   if (ordersError) throw ordersError;
