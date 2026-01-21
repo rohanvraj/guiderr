@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import ebooksData from '../data/ebooks.json';
 import { getOrderByRazorpayId, getOrderItems, getOrderByPublicToken, Order, OrderItem } from '../utils/supabase';
 
-interface PurchasedEbook {
+interface PurchasedProduct {
   id: string;
   title: string;
   author: string;
@@ -71,9 +71,9 @@ export default function ThankYouPage() {
   // Priority 2: Check for order_id parameter (from CheckoutFlow - legacy method)
   const orderId = searchParams.get('order_id');
   
-  // Priority 3: Check for ebooks parameter (URL query params or Webstore)
-  const ebooksParam = searchParams.get('ebooks') || 
-                     localStorage.getItem('purchasedEbookIds') || 
+  // Priority 3: Check for products parameter (URL query params or Webstore)
+  const productsParam = searchParams.get('ebooks') || 
+                     localStorage.getItem('purchasedProductIds') || 
                      '';
   const refCode = searchParams.get('ref') || 
                  localStorage.getItem('referralCode');
@@ -152,44 +152,44 @@ export default function ThankYouPage() {
     fetchOrderData();
   }, [orderId, publicToken]);
 
-  // Parse ebook IDs from comma-separated string (for URL params or localStorage)
-  const ebookIds = useMemo(() => {
-    return ebooksParam
+  // Parse product IDs from comma-separated string (for URL params or localStorage)
+  const productIds = useMemo(() => {
+    return productsParam
       .split(',')
       .map((id) => id.trim())
       .filter((id) => id.length > 0);
-  }, [ebooksParam]);
+  }, [productsParam]);
 
-  // Match ebook IDs to ebook data (used when no order_id)
-  const purchasedEbooksFromParams = useMemo(() => {
-    return ebookIds
+  // Match product IDs to product data (used when no order_id)
+  const purchasedProductsFromParams = useMemo(() => {
+    return productIds
       .map((id) => {
-        const ebook = ebooksData.ebooks.find((e) => e.id === id);
-        if (!ebook) return null;
+        const product = ebooksData.ebooks.find((e) => e.id === id);
+        if (!product) return null;
         return {
-          id: ebook.id,
-          title: ebook.title,
-          author: ebook.author,
-          downloadLink: ebook.downloadLink,
+          id: product.id,
+          title: product.title,
+          author: product.author,
+          downloadLink: product.downloadLink,
         };
       })
-      .filter((ebook) => ebook !== null) as PurchasedEbook[];
-  }, [ebookIds]);
+      .filter((product) => product !== null) as PurchasedProduct[];
+  }, [productIds]);
 
-  // Convert order items to ebook data
-  const purchasedEbooksFromOrder = useMemo(() => {
+  // Convert order items to product data
+  const purchasedProductsFromOrder = useMemo(() => {
     return orderItems
       .map((item) => {
-        const ebook = ebooksData.ebooks.find((e) => e.id === item.product_id);
-        if (!ebook) return null;
+        const product = ebooksData.ebooks.find((e) => e.id === item.product_id);
+        if (!product) return null;
         return {
-          id: ebook.id,
-          title: ebook.title,
-          author: ebook.author,
-          downloadLink: ebook.downloadLink,
+          id: product.id,
+          title: product.title,
+          author: product.author,
+          downloadLink: product.downloadLink,
         };
       })
-      .filter((ebook) => ebook !== null) as PurchasedEbook[];
+      .filter((product) => product !== null) as PurchasedProduct[];
   }, [orderItems]);
 
   // For token-based guest checkout, show a simple download link from notes
@@ -202,17 +202,17 @@ export default function ThankYouPage() {
     return null;
   }, [guestOrderData]);
 
-  // Use order-based ebooks if available, otherwise fall back to params
-  const purchasedEbooks = orderId && orderData ? purchasedEbooksFromOrder : purchasedEbooksFromParams;
+  // Use order-based products if available, otherwise fall back to params
+  const purchasedProducts = orderId && orderData ? purchasedProductsFromOrder : purchasedProductsFromParams;
 
   // Clean up localStorage after component mounts (thank you page viewed)
   useEffect(() => {
-    if (ebooksParam && !searchParams.get('ebooks')) {
+    if (productsParam && !searchParams.get('ebooks')) {
       // Data came from localStorage (Razorpay redirect), clear it after display
-      localStorage.removeItem('purchasedEbookIds');
+      localStorage.removeItem('purchasedProductIds');
       localStorage.removeItem('referralCode');
     }
-  }, [ebooksParam, searchParams]);
+  }, [productsParam, searchParams]);
 
   // Handle loading state
   if (loading) {
@@ -287,8 +287,8 @@ export default function ThankYouPage() {
 
   // Handle case where no ebooks are provided AND no guest download link
   // NOTE: If we have guestOrderData with notes, we should show success! Don't block here
- if (purchasedEbooks.length === 0 && !guestDownloadLink && !loading && !publicToken) {
-    console.log('⚠️ No purchase data: purchasedEbooks empty, no guest link, no token');
+ if (purchasedProducts.length === 0 && !guestDownloadLink && !loading && !publicToken) {
+    console.log('⚠️ No purchase data: purchasedProducts empty, no guest link, no token');
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <Header />
@@ -354,8 +354,8 @@ export default function ThankYouPage() {
   </p>
 ) : (
   <p className="text-lg text-slate-700 font-semibold">
-    You've purchased {purchasedEbooks.length}{' '}
-    {purchasedEbooks.length === 1 ? 'ebook' : 'ebooks'}
+    You've purchased {purchasedProducts.length}{' '}
+    {purchasedProducts.length === 1 ? 'product' : 'products'}
   </p>
 )}
             {refCode && (
@@ -429,7 +429,7 @@ export default function ThankYouPage() {
               {/* Purchase Summary Card */}
               <div className="bg-white rounded-3xl shadow-lg p-8 sm:p-12 mb-8 border border-slate-100 animate-fade-in-up">
                 <p className="text-slate-600 text-sm font-semibold uppercase tracking-wide mb-6">
-                  Purchased Ebooks ({purchasedEbooks.length})
+                  Purchased Products ({purchasedProducts.length})
                 </p>
 
                 <div className="space-y-3">

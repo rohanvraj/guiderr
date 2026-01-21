@@ -5,6 +5,45 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// ==================== ADMIN AUTHENTICATION ====================
+// Creates an authenticated session for admin users with Supabase Auth
+export async function authenticateAdmin(adminEmail: string, adminPassword: string) {
+  try {
+    // Sign in with the real admin email and password created in Supabase
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: adminEmail,
+      password: adminPassword,
+    });
+
+    if (error) {
+      console.error('❌ Supabase auth failed:', error.message);
+      return { success: false, error: error.message, fallback: false };
+    }
+
+    console.log('✅ Supabase auth successful, JWT token created');
+    return { success: true, fallback: false, session: data.session };
+  } catch (err) {
+    console.error('❌ Admin authentication error:', err);
+    return { success: false, error: String(err), fallback: false };
+  }
+}
+
+// Get current authenticated user
+export async function getCurrentUser() {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.debug('No authenticated user:', error.message);
+    return null;
+  }
+  return data.user;
+}
+
+// Check if user is authenticated
+export async function isUserAuthenticated() {
+  const { data } = await supabase.auth.getSession();
+  return !!data.session;
+}
+
 export interface Order {
   id: string;
   razorpay_order_id: string;
@@ -45,6 +84,7 @@ export interface Product {
   name: string;
   price_in_rupees: number;
   delivery_link: string;
+  category?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -63,6 +103,35 @@ export async function getProductByName(productName: string) {
     throw error;
   }
   return data as Product;
+}
+
+export async function getProductsByCategory(category: string) {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('category', category)
+    .eq('product_type', 'ebook')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Failed to fetch products by category:', error.message);
+    return [];
+  }
+  return (data || []) as Product[];
+}
+
+export async function getAllProducts() {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('product_type', 'ebook')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Failed to fetch all products:', error.message);
+    return [];
+  }
+  return (data || []) as Product[];
 }
 
 export async function createOrder(orderData: {

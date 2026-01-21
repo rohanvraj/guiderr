@@ -1,109 +1,282 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Save, X } from 'lucide-react';
-import { updateEbooksData, loadEbooksData } from '../../utils/ebooks';
-import { Ebook, EbooksData } from '../../types/ebook';
+import { supabase, Product } from '../../utils/supabase';
 
-interface EditingEbook extends Ebook {
+interface EditingProduct extends Product {
   isNew?: boolean;
+  product_type?: string;
+  category?: string;
 }
 
-interface EbookManagerProps {
+interface ProductManagerProps {
   // No authentication prop - parent component handles auth
 }
 
-export default function EbookManager({}: EbookManagerProps) {
-  const [ebooks, setEbooks] = useState<Ebook[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
-  const [editingEbook, setEditingEbook] = useState<EditingEbook | null>(null);
+export default function ProductManager({}: ProductManagerProps) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [editingProduct, setEditingProduct] = useState<EditingProduct | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  // Fetch products from Supabase on component mount
   useEffect(() => {
-    // Load initial data
-    const data = loadEbooksData();
-    setEbooks(data.ebooks);
-    setCategories(data.categories);
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Failed to fetch products:', error);
+          setMessage('Failed to load products from database');
+          return;
+        }
+
+        setProducts(data || []);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setMessage('Error loading products');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   const handleAddNew = () => {
-    const newEbook: EditingEbook = {
-      id: `ebook-${Date.now()}`,
-      title: '',
-      author: '',
-      price: 0,
-      cover: '',
-      coverImage: '',
-      pdf: '',
-      category: categories[0]?.id || '',
-      synopsis: '',
-      featured: false,
-      downloadLink: '',
+    const newProduct: EditingProduct = {
+      id: `temp-${Date.now()}`,
+      name: '',
+      price_in_rupees: 0,
+      delivery_link: '',
+      product_type: 'ebook',
+      category: getDefaultCategory('ebook'),
       isNew: true,
     };
-    setEditingEbook(newEbook);
+    setEditingProduct(newProduct);
     setShowForm(true);
   };
 
-  const handleEdit = (ebook: Ebook) => {
-    setEditingEbook(ebook);
+  const handleEdit = (product: Product) => {
+    setEditingProduct(product);
     setShowForm(true);
+  };
+
+  // Get category options based on product type
+  const getCategoryOptions = (productType: string) => {
+    const type = (productType || 'ebook').toLowerCase();
+    
+    switch (type) {
+      case 'ebook':
+        return [
+          { value: 'Motorcycles', label: 'Motorcycles' },
+          { value: 'Finance', label: 'Finance' },
+          { value: 'Travel', label: 'Travel' },
+          { value: 'Children', label: 'Children' },
+          { value: 'Parenting', label: 'Parenting' },
+        ];
+      case 'zoom_call':
+      case 'audit':
+        return [
+          { value: 'Service', label: 'Service' },
+          { value: 'Consultation', label: 'Consultation' },
+        ];
+      case 'lut':
+      case 'template':
+      case 'preset':
+      default:
+        return [
+          { value: 'General', label: 'General' },
+          { value: 'Specialty', label: 'Specialty' },
+        ];
+    }
+  };
+
+  // Get default category for a product type
+  const getDefaultCategory = (productType: string) => {
+    const options = getCategoryOptions(productType);
+    return options.length > 0 ? options[0].value : '';
   };
 
   const handleSave = async () => {
-    if (!editingEbook) return;
+    if (!editingProduct) return;
 
     // Validate required fields
-    if (!editingEbook.title || !editingEbook.author || !editingEbook.category) {
-      alert('Please fill in all required fields');
+    if (!editingProduct.name || !editingProduct.price_in_rupees || !editingProduct.delivery_link) {
+      alert('Please fill in all required fields: name, price, and delivery link');
       return;
     }
 
-    let updatedEbooks: Ebook[];
-
-    if (editingEbook.isNew) {
-      // Add new ebook
-      const newEbook: Ebook = {
-        ...editingEbook,
-      };
-      delete (newEbook as any).isNew;
-      updatedEbooks = [...ebooks, newEbook];
-    } else {
-      // Edit existing ebook
-      updatedEbooks = ebooks.map((e) =>
-        e.id === editingEbook.id
-          ? { ...editingEbook }
-          : e
-      );
+    // Check if admin session exists
+    const adminToken = localStorage.getItem('adminToken');
+    if (!adminToken) {
+      setMessage('Admin session expired. Please log in again.');
+      return;
     }
 
-    const data = loadEbooksData();
-    const newData: EbooksData = {
-      ...data,
-      ebooks: updatedEbooks,
-    };
+    try {
+      setLoading(true);
 
-    await updateEbooksData(newData);
-    setEbooks(updatedEbooks);
-    setEditingEbook(null);
-    setShowForm(false);
-    setMessage('Ebook saved successfully!');
-    setTimeout(() => setMessage(''), 3000);
+      if (editingProduct.isNew) {
+        // Ensure product_type is lowercase and valid
+        const productType = (editingProduct.product_type || 'ebook').toLowerCase().trim();
+        const category = (editingProduct.category || 'Ebook').trim();
+        
+        console.log('📝 Attempting to insert product with:');
+        console.log('   name:', editingProduct.name);
+        console.log('   price_in_rupees:', editingProduct.price_in_rupees);
+        console.log('   product_type:', productType);
+        console.log('   category:', category);
+        console.log('   delivery_link:', editingProduct.delivery_link);
+        
+        // Insert new product into Supabase
+        const { data, error } = await supabase
+          .from('products')
+          .insert([
+            {
+              name: editingProduct.name,
+              price_in_rupees: editingProduct.price_in_rupees,
+              delivery_link: editingProduct.delivery_link,
+              product_type: productType,
+              category: category,
+            },
+          ])
+          .select();
+
+        if (error) {
+          console.error('❌ Failed to insert product:', error);
+          console.error('   Error code:', error.code);
+          console.error('   Error message:', error.message);
+          console.error('   Details:', error.details);
+          
+          // Provide user-friendly error messages
+          if (error.code === 'PGRST301') {
+            setMessage('❌ Access denied - RLS policy rejected the request. Ensure you are logged in as an admin.');
+          } else if (error.message?.includes('check constraint')) {
+            setMessage('❌ Invalid product_type value. Allowed values: ebook, lut, preset, other. Ensure value matches database constraints.');
+          } else if (error.message?.includes('policy')) {
+            setMessage('❌ Database policy error. Check your RLS configuration.');
+          } else {
+            setMessage(`Error saving product: ${error.message}`);
+          }
+          return;
+        }
+
+        if (data && data.length > 0) {
+          setProducts([data[0], ...products]);
+          setMessage('Product added successfully!');
+        }
+      } else {
+        // Ensure product_type is lowercase and valid
+        const productType = (editingProduct.product_type || 'ebook').toLowerCase().trim();
+        const category = (editingProduct.category || 'Ebook').trim();
+        
+        console.log('📝 Attempting to update product with:');
+        console.log('   id:', editingProduct.id);
+        console.log('   product_type:', productType);
+        console.log('   category:', category);
+        
+        // Update existing product in Supabase
+        const { error } = await supabase
+          .from('products')
+          .update({
+            name: editingProduct.name,
+            price_in_rupees: editingProduct.price_in_rupees,
+            delivery_link: editingProduct.delivery_link,
+            product_type: productType,
+            category: category,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', editingProduct.id);
+
+        if (error) {
+          console.error('❌ Failed to update product:', error);
+          console.error('   Error code:', error.code);
+          console.error('   Error message:', error.message);
+          console.error('   Details:', error.details);
+          
+          if (error.code === 'PGRST301') {
+            setMessage('❌ Access denied - RLS policy rejected the request. Ensure you are logged in as an admin.');
+          } else if (error.message?.includes('check constraint')) {
+            setMessage('❌ Invalid product_type value. Allowed values: ebook, lut, preset, other. Ensure value matches database constraints.');
+          } else if (error.message?.includes('policy')) {
+            setMessage('❌ Database policy error. Check your RLS configuration.');
+          } else {
+            setMessage(`Error updating product: ${error.message}`);
+          }
+          return;
+        }
+
+        // Update local state
+        setProducts(
+          products.map((p) =>
+            p.id === editingProduct.id
+              ? {
+                  ...p,
+                  name: editingProduct.name,
+                  price_in_rupees: editingProduct.price_in_rupees,
+                  delivery_link: editingProduct.delivery_link,
+                }
+              : p
+          )
+        );
+        setMessage('Product updated successfully!');
+      }
+
+      setEditingProduct(null);
+      setShowForm(false);
+      setTimeout(() => setMessage(''), 3000);
+    } catch (err) {
+      console.error('Error saving product:', err);
+      setMessage('Error saving product');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this ebook?')) {
-      const updatedEbooks = ebooks.filter((e) => e.id !== id);
+    if (confirm('Are you sure you want to delete this product?')) {
+      // Check if admin session exists
+      const adminToken = localStorage.getItem('adminToken');
+      if (!adminToken) {
+        setMessage('Admin session expired. Please log in again.');
+        return;
+      }
 
-      const data = loadEbooksData();
-      const newData: EbooksData = {
-        ...data,
-        ebooks: updatedEbooks,
-      };
+      try {
+        setLoading(true);
+        const { error } = await supabase.from('products').delete().eq('id', id);
 
-      await updateEbooksData(newData);
-      setEbooks(updatedEbooks);
-      setMessage('Ebook deleted successfully!');
-      setTimeout(() => setMessage(''), 3000);
+        if (error) {
+          console.error('❌ Failed to delete product:', error);
+          console.error('   Error code:', error.code);
+          console.error('   Error message:', error.message);
+          console.error('   Details:', error.details);
+          
+          if (error.code === 'PGRST301') {
+            setMessage('❌ Access denied - RLS policy rejected the request. Ensure you are logged in as an admin.');
+          } else if (error.message?.includes('policy')) {
+            setMessage('❌ Database policy error. Check your RLS configuration.');
+          } else {
+            setMessage(`Error deleting product: ${error.message}`);
+          }
+
+          return;
+        }
+
+        setProducts(products.filter((p) => p.id !== id));
+        setMessage('Product deleted successfully!');
+        setTimeout(() => setMessage(''), 3000);
+      } catch (err) {
+        console.error('Error deleting product:', err);
+        setMessage('Error deleting product');
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -116,77 +289,95 @@ export default function EbookManager({}: EbookManagerProps) {
         </div>
       )}
 
+      {/* Loading indicator */}
+      {loading && (
+        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-800">
+          Loading...
+        </div>
+      )}
+
       {/* Controls */}
       {!showForm && (
         <div>
           <button
             onClick={handleAddNew}
-            className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+            disabled={loading}
+            className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 disabled:opacity-50 transition-colors"
           >
             <Plus className="w-5 h-5" />
-            Add New Ebook
+            Add New Product
           </button>
         </div>
       )}
 
       {/* Form */}
-      {showForm && editingEbook && (
+      {showForm && editingProduct && (
         <div className="bg-white rounded-2xl shadow p-6 border border-slate-200">
           <h3 className="text-xl font-bold mb-6">
-            {editingEbook.isNew ? 'Add New Ebook' : 'Edit Ebook'}
+            {editingProduct.isNew ? 'Add New Product' : 'Edit Product'}
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-semibold mb-2">Title *</label>
+              <label className="block text-sm font-semibold mb-2">Product Name *</label>
               <input
                 type="text"
-                value={editingEbook.title}
+                value={editingProduct.name}
                 onChange={(e) =>
-                  setEditingEbook({ ...editingEbook, title: e.target.value })
+                  setEditingProduct({ ...editingProduct, name: e.target.value })
                 }
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                placeholder="Ebook title"
+                placeholder="e.g., Complete Beginner's Guide to Motorcycling"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-2">Author *</label>
-              <input
-                type="text"
-                value={editingEbook.author}
-                onChange={(e) =>
-                  setEditingEbook({ ...editingEbook, author: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                placeholder="Author name"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold mb-2">Category *</label>
+              <label className="block text-sm font-semibold mb-2">Product Type</label>
               <select
-                value={editingEbook.category}
+                value={editingProduct.product_type || 'ebook'}
+                onChange={(e) => {
+                  const newType = e.target.value;
+                  // Reset category to default for new product type
+                  setEditingProduct({ 
+                    ...editingProduct, 
+                    product_type: newType,
+                    category: getDefaultCategory(newType)
+                  });
+                }}
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
+              >
+                <option value="ebook">Ebook</option>
+                <option value="lut">LUT (Color Grade)</option>
+                <option value="zoom_call">Zoom Call</option>
+                <option value="audit">Audit</option>
+                <option value="template">Template</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold mb-2">Category (Niche) *</label>
+              <select
+                value={editingProduct.category || getDefaultCategory(editingProduct.product_type || 'ebook')}
                 onChange={(e) =>
-                  setEditingEbook({ ...editingEbook, category: e.target.value })
+                  setEditingProduct({ ...editingProduct, category: e.target.value })
                 }
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
               >
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
+                {getCategoryOptions(editingProduct.product_type || 'ebook').map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
                   </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-2">Price (₹)</label>
+              <label className="block text-sm font-semibold mb-2">Price (₹) *</label>
               <input
                 type="number"
-                value={editingEbook.price}
+                value={editingProduct.price_in_rupees}
                 onChange={(e) =>
-                  setEditingEbook({ ...editingEbook, price: parseFloat(e.target.value) })
+                  setEditingProduct({ ...editingProduct, price_in_rupees: parseInt(e.target.value) })
                 }
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                 placeholder="0"
@@ -194,77 +385,39 @@ export default function EbookManager({}: EbookManagerProps) {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-semibold mb-2">Google Drive Download Link</label>
+              <label className="block text-sm font-semibold mb-2">Delivery Link *</label>
               <input
                 type="url"
-                value={editingEbook.downloadLink || ''}
+                value={editingProduct.delivery_link}
                 onChange={(e) =>
-                  setEditingEbook({ ...editingEbook, downloadLink: e.target.value })
+                  setEditingProduct({ ...editingProduct, delivery_link: e.target.value })
                 }
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                placeholder="https://drive.google.com/drive/folders/..."
-              />
-            </div>
-
-            <div className="md:col-span-2">
-              <label className="block text-sm font-semibold mb-2">Cloudinary Cover Image URL</label>
-              <input
-                type="url"
-                value={editingEbook.coverImage || ''}
-                onChange={(e) =>
-                  setEditingEbook({ ...editingEbook, coverImage: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                placeholder="https://res.cloudinary.com/..."
+                placeholder="https://drive.google.com/drive/folders/... or https://..."
               />
               <p className="text-xs text-slate-500 mt-2">
-                Format: https://res.cloudinary.com/your-cloud/image/upload/w=400,h=600,c=fill/your-image-url
+                This link will be sent to customers after successful payment (Google Drive, Dropbox, S3, etc.)
               </p>
-            </div>
-
-            <div className="md:col-span-2">
-              <label className="block text-sm font-semibold mb-2">Synopsis</label>
-              <textarea
-                value={editingEbook.synopsis}
-                onChange={(e) =>
-                  setEditingEbook({ ...editingEbook, synopsis: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                placeholder="Ebook description"
-                rows={4}
-              />
-            </div>
-
-            <div>
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={editingEbook.featured}
-                  onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, featured: e.target.checked })
-                  }
-                  className="w-4 h-4"
-                />
-                <span className="text-sm font-semibold">Featured</span>
-              </label>
             </div>
           </div>
 
           <div className="flex gap-4 mt-6">
             <button
               onClick={handleSave}
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
+              disabled={loading}
+              className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
             >
               <Save className="w-5 h-5" />
-              Save Ebook
+              Save Product
             </button>
 
             <button
               onClick={() => {
                 setShowForm(false);
-                setEditingEbook(null);
+                setEditingProduct(null);
               }}
-              className="flex items-center gap-2 px-6 py-3 bg-slate-300 text-slate-900 font-semibold rounded-lg hover:bg-slate-400 transition-colors"
+              disabled={loading}
+              className="flex items-center gap-2 px-6 py-3 bg-slate-300 text-slate-900 font-semibold rounded-lg hover:bg-slate-400 disabled:opacity-50 transition-colors"
             >
               <X className="w-5 h-5" />
               Cancel
@@ -273,37 +426,35 @@ export default function EbookManager({}: EbookManagerProps) {
         </div>
       )}
 
-      {/* Ebooks List */}
+      {/* Products List */}
       {!showForm && (
         <div>
-          <h3 className="text-xl font-bold mb-4">Ebooks ({ebooks.length})</h3>
+          <h3 className="text-xl font-bold mb-4">Products ({products.length})</h3>
 
           <div className="grid grid-cols-1 gap-3">
-            {ebooks.length === 0 ? (
+            {products.length === 0 ? (
               <div className="bg-slate-50 rounded-lg p-6 text-center text-slate-500">
-                No ebooks yet. Create your first ebook to get started.
+                No products yet. Create your first product to get started.
               </div>
             ) : (
-              ebooks.map((ebook) => (
+              products.map((product) => (
                 <div
-                  key={ebook.id}
+                  key={product.id}
                   className="bg-white rounded-lg shadow p-4 flex items-center justify-between hover:shadow-md transition-shadow border border-slate-100"
                 >
                   <div className="flex-1">
-                    <h4 className="font-bold text-slate-900">{ebook.title}</h4>
-                    <p className="text-sm text-slate-600">By {ebook.author}</p>
+                    <h4 className="font-bold text-slate-900">{product.name}</h4>
                     <div className="mt-2 flex gap-4 text-xs text-slate-500">
-                      <span>Category: {ebook.category}</span>
-                      <span>Price: ₹{ebook.price}</span>
-                      {ebook.featured && (
-                        <span className="text-emerald-600 font-semibold">Featured</span>
-                      )}
+                      <span>Price: ₹{product.price_in_rupees}</span>
+                      <span className="text-emerald-600 font-semibold">
+                        {product.product_type || 'ebook'} 
+                      </span>
                     </div>
                   </div>
 
                   <div className="flex gap-2">
                     <button
-                      onClick={() => handleEdit(ebook)}
+                      onClick={() => handleEdit(product)}
                       className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                       title="Edit"
                     >
@@ -311,7 +462,7 @@ export default function EbookManager({}: EbookManagerProps) {
                     </button>
 
                     <button
-                      onClick={() => handleDelete(ebook.id)}
+                      onClick={() => handleDelete(product.id)}
                       className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                       title="Delete"
                     >

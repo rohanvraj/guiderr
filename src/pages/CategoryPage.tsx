@@ -2,7 +2,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { getCategoryById, getEbooksByCategory } from '../utils/ebooks';
+import { getProductsByCategory } from '../utils/supabase';
 import { Ebook } from '../types/ebook';
+import { Product } from '../utils/supabase';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EbookModal from '../components/EbookModal';
@@ -81,7 +83,45 @@ export default function CategoryPage() {
       const cat = getCategoryById(category);
       if (cat) {
         setCategoryData(cat);
-        setEbooks(getEbooksByCategory(category));
+        
+        // Get ebooks from JSON (legacy)
+        const jsonEbooks = getEbooksByCategory(category);
+        
+        // Get products from Supabase (new)
+        const getCategoryName = () => {
+          // Map category ID to proper case category name for Supabase lookup
+          const categoryMapping: Record<string, string> = {
+            'motorcycles': 'Motorcycles',
+            'finance': 'Finance',
+            'travel': 'Travel',
+            'children': 'Children',
+            'parenting': 'Parenting',
+          };
+          return categoryMapping[category] || category;
+        };
+        
+        getProductsByCategory(getCategoryName()).then((products) => {
+          // Convert Supabase products to Ebook format for display
+          const convertedProducts: Ebook[] = products.map((product) => ({
+            id: product.id,
+            title: product.name,
+            author: 'Guiderr',
+            price: product.price_in_rupees,
+            cover: 'https://via.placeholder.com/150x200?text=' + encodeURIComponent(product.name.substring(0, 10)),
+            pdf: product.delivery_link,
+            category: category,
+            synopsis: product.name,
+            downloadLink: product.delivery_link,
+          }));
+          
+          // Merge JSON ebooks with Supabase products (show Supabase products first)
+          const allEbooks = [...convertedProducts, ...jsonEbooks];
+          setEbooks(allEbooks);
+        }).catch((err) => {
+          console.error('Failed to fetch Supabase products:', err);
+          // Fallback to just JSON ebooks if Supabase fails
+          setEbooks(jsonEbooks);
+        });
       }
     }
   }, [category]);
