@@ -40,6 +40,31 @@ export interface Partner {
   updated_at: string;
 }
 
+export interface Product {
+  id: string;
+  name: string;
+  price_in_rupees: number;
+  delivery_link: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// ==================== PRODUCT MANAGEMENT ====================
+
+export async function getProductByName(productName: string) {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('name', productName)
+    .single();
+
+  if (error) {
+    console.error('Product lookup failed:', error.message);
+    throw error;
+  }
+  return data as Product;
+}
+
 export async function createOrder(orderData: {
   razorpay_order_id: string;
   buyer_email: string;

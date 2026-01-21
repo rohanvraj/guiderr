@@ -1,10 +1,12 @@
 import { X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { openRazorpayCheckout, loadRazorpayScript } from '../utils/razorpay';
 import {
   createOrder,
+  getProductByName,
+  Product,
 } from '../utils/supabase';
 import { CartItem } from '../context/CartContext';
 
@@ -20,6 +22,37 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
   const [error, setError] = useState('');
   const [buyerInfo, setBuyerInfo] = useState({ name: '', email: '' });
   const [showBuyerForm, setShowBuyerForm] = useState(true);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [productLoading, setProductLoading] = useState(true);
+  const [productError, setProductError] = useState('');
+
+  // Fetch product data from Supabase on component mount
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setProductLoading(true);
+        // Fetch the first product from cart to get updated pricing/info from Supabase
+        const firstItem = items[0];
+        if (!firstItem) {
+          setProductError('No items in cart');
+          return;
+        }
+
+        // Query Supabase products table by product name
+        const productData = await getProductByName(firstItem.ebook.title);
+        setProduct(productData);
+      } catch (err: any) {
+        console.error('Failed to fetch product:', err);
+        setProductError(err.message || 'Failed to load product information');
+      } finally {
+        setProductLoading(false);
+      }
+    };
+
+    if (items.length > 0) {
+      fetchProduct();
+    }
+  }, [items]);
 
   if (!items.length) {
     return (
@@ -43,7 +76,10 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
     );
   }
 
-  const totalAmount = items.reduce((sum, item) => sum + item.ebook.price, 0);
+  // Use product pricing from Supabase if available, fallback to cart items
+  const totalAmount = product
+    ? product.price_in_rupees * items.length
+    : items.reduce((sum, item) => sum + item.ebook.price, 0);
 
   const handleBuyerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +96,11 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       return;
     }
 
+    if (!product) {
+      setError('Product information not loaded. Please try again.');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
@@ -72,20 +113,20 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       // Local tracking ID for Razorpay (not stored in DB; for UI reference only)
       const razorpayOrderId = `ORDER_${Date.now()}`;
 
-     // 1. Grab the download link from the first item in the cart
-      const downloadLink = items[0]?.ebook?.downloadLink || '';
+     // Use delivery link from Supabase product table
+      const deliveryLink = product.delivery_link;
 
       // 2. Check for active referral code in sessionStorage
       const referralCode = sessionStorage.getItem('active_referral') || undefined;
 
-      // 3. Pass that link and referral code into the order creation
+      // 3. Pass delivery link and referral code into the order creation
       const orderResponse = await createOrder({
         razorpay_order_id: razorpayOrderId,
         buyer_email: buyerInfo.email,
         buyer_name: buyerInfo.name,
         total_amount_paise: totalAmount * 100,
-        notes: downloadLink, // This is the secret sauce!
-        referral_code: referralCode, // Include referral tracking
+        notes: deliveryLink,
+        referral_code: referralCode,
       });
       // Note: addOrderItems and updateOrderPayment would violate RLS for anonymous users
       // These operations are deferred to:
@@ -96,7 +137,7 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       await openRazorpayCheckout({
         // Pass a local order id for tracking and also send explicit amount for client-side checkout
         order_id: razorpayOrderId,
-        amount: totalAmount * 100, // amount in paise
+        amount: product.price_in_rupees * 100, // amount in paise from Supabase product
         currency: 'INR',
         name: 'Guiderr - Digital Products',
         description: `${items.length} ebook${items.length > 1 ? 's' : ''}`,
@@ -105,7 +146,8 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
           email: buyerInfo.email,
         },
         notes: {
-          // Supabase order UUID for webhook to match payment to order record
+          // Critical: Supabase product UUID and order UUID for webhook handshake
+          product_id: product.id,
           order_id: orderResponse.id,
         },
         theme: {
@@ -213,13 +255,36 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
             </form>
           ) : (
             <div className="space-y-4">
+              {productLoading && (
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-700 text-sm">
+                  Loading product information...
+                </div>
+              )}
+
+              {productError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                  {productError}
+                </div>
+              )}
+
               <div className="space-y-2 max-h-48 overflow-y-auto">
-                {items.map((item) => (
-                  <div key={item.ebook.id} className="p-3 bg-slate-50 rounded-lg">
-                    <p className="font-semibold text-slate-900 text-sm">{item.ebook.title}</p>
-                    <p className="text-slate-600 text-xs">₹{item.ebook.price.toLocaleString('en-IN')}</p>
-                  </div>
-                ))}
+                {product ? (
+                  // Display product data from Supabase
+                  items.map((item) => (
+                    <div key={item.ebook.id} className="p-3 bg-slate-50 rounded-lg">
+                      <p className="font-semibold text-slate-900 text-sm">{product.name}</p>
+                      <p className="text-slate-600 text-xs">₹{product.price_in_rupees.toLocaleString('en-IN')}</p>
+                    </div>
+                  ))
+                ) : (
+                  // Fallback to cart items if product not loaded
+                  items.map((item) => (
+                    <div key={item.ebook.id} className="p-3 bg-slate-50 rounded-lg">
+                      <p className="font-semibold text-slate-900 text-sm">{item.ebook.title}</p>
+                      <p className="text-slate-600 text-xs">₹{item.ebook.price.toLocaleString('en-IN')}</p>
+                    </div>
+                  ))
+                )}
               </div>
 
               <div className="flex justify-between items-center p-4 bg-slate-900 text-white rounded-lg">
