@@ -69,6 +69,7 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
         throw new Error('Failed to load Razorpay script. Check network, CSP, and that https://checkout.razorpay.com is reachable.');
       }
 
+      // Local tracking ID for Razorpay (not stored in DB; for UI reference only)
       const razorpayOrderId = `ORDER_${Date.now()}`;
 
      // 1. Grab the download link from the first item in the cart
@@ -104,6 +105,7 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
           email: buyerInfo.email,
         },
         notes: {
+          // Supabase order UUID for webhook to match payment to order record
           order_id: orderResponse.id,
         },
         theme: {

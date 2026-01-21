@@ -69,7 +69,7 @@ export async function openRazorpayCheckout(options: RazorpayCheckoutOptions) {
       description: options.description,
       image: options.image,
       prefill: options.prefill,
-      notes: options.notes,
+      notes: options.notes, // Passes through notes (including Supabase order UUID for webhook)
       theme: options.theme,
       modal: {
         ondismiss: () => {
