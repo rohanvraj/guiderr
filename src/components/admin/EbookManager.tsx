@@ -18,6 +18,7 @@ export default function ProductManager({}: ProductManagerProps) {
   const [showForm, setShowForm] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   // Fetch products from Supabase on component mount
   useEffect(() => {
@@ -66,6 +67,65 @@ export default function ProductManager({}: ProductManagerProps) {
     setShowForm(true);
   };
 
+  const uploadImageToCloudinary = async (file: File): Promise<string | null> => {
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!cloudName || !uploadPreset) {
+      console.error('Cloudinary environment variables not configured');
+      return null;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', uploadPreset);
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      return data.secure_url;
+    } catch (error) {
+      console.error('Error uploading to Cloudinary:', error);
+      return null;
+    }
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !editingProduct) return;
+
+    try {
+      setUploadingImage(true);
+      const imageUrl = await uploadImageToCloudinary(file);
+      
+      if (imageUrl) {
+        setEditingProduct({
+          ...editingProduct,
+          cover_image_url: imageUrl,
+        });
+        setMessage('✅ Image uploaded successfully!');
+      } else {
+        setMessage('❌ Failed to upload image');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      setMessage('❌ Error uploading image');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   // Get category options based on product type
   const getCategoryOptions = (productType: string) => {
     const type = (productType || 'ebook').toLowerCase();
@@ -91,7 +151,7 @@ export default function ProductManager({}: ProductManagerProps) {
       default:
         return [
           { value: 'General', label: 'General' },
-          { value: 'Specialty', label: 'Specialty' },
+          { value: 'Speciality', label: 'Speciality' },
         ];
     }
   };
@@ -143,6 +203,7 @@ export default function ProductManager({}: ProductManagerProps) {
               delivery_link: editingProduct.delivery_link,
               product_type: productType,
               category: category,
+              cover_image_url: editingProduct.cover_image_url || null,
             },
           ])
           .select();
@@ -157,7 +218,7 @@ export default function ProductManager({}: ProductManagerProps) {
           if (error.code === 'PGRST301') {
             setMessage('❌ Access denied - RLS policy rejected the request. Ensure you are logged in as an admin.');
           } else if (error.message?.includes('check constraint')) {
-            setMessage('❌ Invalid product_type value. Allowed values: ebook, lut, preset, other. Ensure value matches database constraints.');
+            setMessage('❌ Invalid product_type value. Allowed values: ebook, lut, zoom_call, audit, template, consultation. Ensure value matches database constraints.');
           } else if (error.message?.includes('policy')) {
             setMessage('❌ Database policy error. Check your RLS configuration.');
           } else {
@@ -189,6 +250,7 @@ export default function ProductManager({}: ProductManagerProps) {
             delivery_link: editingProduct.delivery_link,
             product_type: productType,
             category: category,
+            cover_image_url: editingProduct.cover_image_url || null,
             updated_at: new Date().toISOString(),
           })
           .eq('id', editingProduct.id);
@@ -202,7 +264,7 @@ export default function ProductManager({}: ProductManagerProps) {
           if (error.code === 'PGRST301') {
             setMessage('❌ Access denied - RLS policy rejected the request. Ensure you are logged in as an admin.');
           } else if (error.message?.includes('check constraint')) {
-            setMessage('❌ Invalid product_type value. Allowed values: ebook, lut, preset, other. Ensure value matches database constraints.');
+            setMessage('❌ Invalid product_type value. Allowed values: ebook, lut, zoom_call, audit, template, consultation. Ensure value matches database constraints.');
           } else if (error.message?.includes('policy')) {
             setMessage('❌ Database policy error. Check your RLS configuration.');
           } else {
@@ -348,9 +410,10 @@ export default function ProductManager({}: ProductManagerProps) {
               >
                 <option value="ebook">Ebook</option>
                 <option value="lut">LUT (Color Grade)</option>
-                <option value="zoom_call">Zoom Call</option>
+                <option value="zoom_call">Online Meeting / Consultation</option>
                 <option value="audit">Audit</option>
                 <option value="template">Template</option>
+                <option value="consultation">Consultation</option>
               </select>
             </div>
 
@@ -385,6 +448,45 @@ export default function ProductManager({}: ProductManagerProps) {
             </div>
 
             <div className="md:col-span-2">
+              <label className="block text-sm font-semibold mb-2">Cover Image</label>
+              <div className="flex gap-4 items-end">
+                <div className="flex-1">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={uploadingImage}
+                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 disabled:opacity-50 cursor-pointer"
+                  />
+                  {uploadingImage && (
+                    <p className="text-xs text-slate-500 mt-2">Uploading...</p>
+                  )}
+                  <p className="text-xs text-slate-500 mt-2">
+                    Select a JPG or PNG image for the product cover
+                  </p>
+                </div>
+                {editingProduct.cover_image_url && (
+                  <div className="flex flex-col gap-2 items-center">
+                    <img
+                      src={editingProduct.cover_image_url}
+                      alt="Cover preview"
+                      className="w-24 h-24 object-cover rounded-lg border border-slate-200"
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setEditingProduct({ ...editingProduct, cover_image_url: '' })
+                      }
+                      className="text-xs px-2 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="md:col-span-2">
               <label className="block text-sm font-semibold mb-2">Delivery Link *</label>
               <input
                 type="url"
@@ -396,7 +498,7 @@ export default function ProductManager({}: ProductManagerProps) {
                 placeholder="https://drive.google.com/drive/folders/... or https://..."
               />
               <p className="text-xs text-slate-500 mt-2">
-                This link will be sent to customers after successful payment (Google Drive, Dropbox, S3, etc.)
+                Paste the meeting link (Zoom, Google Meet, Calendly) or file download link here.
               </p>
             </div>
           </div>
@@ -404,7 +506,7 @@ export default function ProductManager({}: ProductManagerProps) {
           <div className="flex gap-4 mt-6">
             <button
               onClick={handleSave}
-              disabled={loading}
+              disabled={loading || uploadingImage}
               className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
             >
               <Save className="w-5 h-5" />

@@ -85,6 +85,8 @@ export interface Product {
   price_in_rupees: number;
   delivery_link: string;
   category?: string;
+  product_type?: string;
+  cover_image_url?: string;
   created_at?: string;
   updated_at?: string;
 }
