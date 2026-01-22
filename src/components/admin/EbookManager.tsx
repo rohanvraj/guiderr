@@ -470,7 +470,7 @@ export default function ProductManager({}: ProductManagerProps) {
                     <img
                       src={editingProduct.cover_image_url}
                       alt="Cover preview"
-                      className="w-24 h-24 object-cover rounded-lg border border-slate-200"
+                      className="w-24 h-24 object-contain bg-gray-50 rounded-md border border-slate-200"
                     />
                     <button
                       type="button"

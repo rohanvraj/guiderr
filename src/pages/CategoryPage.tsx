@@ -107,7 +107,7 @@ export default function CategoryPage() {
             title: product.name,
             author: 'Guiderr',
             price: product.price_in_rupees,
-            cover: 'https://via.placeholder.com/150x200?text=' + encodeURIComponent(product.name.substring(0, 10)),
+            cover: product.cover_image_url || 'https://via.placeholder.com/150x200?text=' + encodeURIComponent(product.name.substring(0, 10)),
             pdf: product.delivery_link,
             category: category,
             synopsis: product.name,
