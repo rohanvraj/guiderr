@@ -233,6 +233,31 @@ export async function updateOrderPayment(orderId: string, paymentData: {
   return data as Order;
 }
 
+export async function updateOrderWithPayment(params: {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+}) {
+  const { data, error } = await supabase
+    .from('orders')
+    .update({
+      razorpay_payment_id: params.razorpay_payment_id,
+      // Keep status values consistent with existing schema/app logic
+      payment_status: 'completed',
+      updated_at: new Date().toISOString(),
+    })
+    .eq('razorpay_order_id', params.razorpay_order_id)
+    // Forces Supabase to return an error if RLS blocks update (0 rows)
+    .select('*')
+    .single();
+
+  if (error) {
+    console.error('Database sync failed:', error);
+    throw error;
+  }
+
+  return data as Order;
+}
+
 export async function getOrderByRazorpayId(razorpayOrderId: string) {
   const { data, error } = await supabase
     .from('orders')

@@ -7,6 +7,7 @@ import {
   createOrder,
   getProductByName,
   Product,
+  updateOrderWithPayment,
 } from '../utils/supabase';
 import { createRazorpayOrderViaEdgeFunction } from '../utils/edgeFunction';
 import { CartItem } from '../context/CartContext';
@@ -206,6 +207,12 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
               return;
             }
 
+            // Persist payment details to Supabase BEFORE any state changes or redirect
+            await updateOrderWithPayment({
+              razorpay_order_id: razorpayOrder.id,
+              razorpay_payment_id: response.razorpay_payment_id,
+            });
+
             // Note: updateOrderPayment would violate RLS for anonymous users
             // Payment status and items will be updated via:
             // 1. Razorpay webhook (server-side with auth)
@@ -218,7 +225,7 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
             navigate(`/thank-you?token=${orderResponse.public_token}`);
           } catch (err) {
             console.error('Payment handler error:', err);
-            setError('Payment completed but processing failed. Admin will verify your payment.');
+            setError('Payment succeeded but database sync failed. Please contact support.');
           }
         },
       });
