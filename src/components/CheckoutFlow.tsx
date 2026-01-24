@@ -8,6 +8,7 @@ import {
   getProductByName,
   Product,
 } from '../utils/supabase';
+import { createRazorpayOrderViaEdgeFunction } from '../utils/edgeFunction';
 import { CartItem } from '../context/CartContext';
 
 interface CheckoutFlowProps {
@@ -110,23 +111,66 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
         throw new Error('Failed to load Razorpay script. Check network, CSP, and that https://checkout.razorpay.com is reachable.');
       }
 
-      // Local tracking ID for Razorpay (not stored in DB; for UI reference only)
-      const razorpayOrderId = `ORDER_${Date.now()}`;
+      // Convert amount to paise (e.g., ₹100 = 10000 paise)
+      // Ensure integer precision for database insert and Razorpay API
+      const amountInPaise = Math.round(product.price_in_rupees * 100);
 
-     // Use delivery link from Supabase product table
+      // 1. Call Edge Function to create Razorpay order
+      console.log('[CHECKOUT] Initiating payment', {
+        product_id: product.id,
+        product_name: product.name,
+        amount_in_rupees: product.price_in_rupees,
+        amount_in_paise: amountInPaise,
+        buyer_email: buyerInfo.email,
+        buyer_name: buyerInfo.name,
+        items_count: items.length,
+      });
+
+      const razorpayOrder = await createRazorpayOrderViaEdgeFunction({
+        amount_paise: amountInPaise,
+        buyer_email: buyerInfo.email,
+        buyer_name: buyerInfo.name,
+        notes: {
+          items_count: items.length,
+          timestamp: new Date().toISOString(),
+        },
+      });
+
+      console.log('[CHECKOUT] Order created successfully:', razorpayOrder);
+
+      // Use delivery link from Supabase product table
       const deliveryLink = product.delivery_link;
 
       // 2. Check for active referral code in sessionStorage
       const referralCode = sessionStorage.getItem('active_referral') || undefined;
 
       // 3. Pass delivery link and referral code into the order creation
-      const orderResponse = await createOrder({
-        razorpay_order_id: razorpayOrderId,
+      // Create order record BEFORE opening Razorpay (persist tracking + token)
+      console.log('[CHECKOUT] About to insert order to Supabase', {
+        razorpay_order_id: razorpayOrder.id,
         buyer_email: buyerInfo.email,
         buyer_name: buyerInfo.name,
-        total_amount_paise: totalAmount * 100,
+        total_amount_paise: amountInPaise,
+        total_amount_paise_type: typeof amountInPaise,
+        is_integer: Number.isInteger(amountInPaise),
+        notes_length: deliveryLink?.length || 0,
+        referral_code: referralCode,
+      });
+
+      const orderResponse = await createOrder({
+        razorpay_order_id: razorpayOrder.id,
+        buyer_email: buyerInfo.email,
+        buyer_name: buyerInfo.name,
+        total_amount_paise: amountInPaise,
         notes: deliveryLink,
         referral_code: referralCode,
+      });
+
+      console.log('[CHECKOUT] Order inserted successfully to Supabase', {
+        order_id: orderResponse.id,
+        public_token: orderResponse.public_token,
+        public_token_length: orderResponse.public_token?.length || 0,
+        razorpay_order_id: orderResponse.razorpay_order_id,
       });
       // Note: addOrderItems and updateOrderPayment would violate RLS for anonymous users
       // These operations are deferred to:
@@ -135,9 +179,9 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       // The order is created; items and payment status will be linked after verification
 
       await openRazorpayCheckout({
-        // Pass a local order id for tracking and also send explicit amount for client-side checkout
-        order_id: razorpayOrderId,
-        amount: product.price_in_rupees * 100, // amount in paise from Supabase product
+        // Use Razorpay order ID from Edge Function
+        order_id: razorpayOrder.id,
+        amount: amountInPaise,
         currency: 'INR',
         name: 'Guiderr - Digital Products',
         description: `${items.length} ebook${items.length > 1 ? 's' : ''}`,
@@ -180,11 +224,27 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       });
     } catch (err: any) {
       console.error('Payment error:', err);
-      // Provide actionable hint for common cases
-      if (err.message && err.message.includes('Razorpay')) {
-        setError(err.message);
+      
+      // Extract error message safely
+      let errorMessage = 'Payment failed. Please try again or contact support.';
+      
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === 'string') {
+        errorMessage = err;
+      }
+
+      // Provide more specific error messages
+      if (errorMessage.includes('Edge Function')) {
+        setError(`Backend error: ${errorMessage}`);
+      } else if (errorMessage.includes('Razorpay')) {
+        setError(`Payment error: ${errorMessage}`);
+      } else if (errorMessage.includes('Invalid response') || errorMessage.includes('No order ID')) {
+        setError(`Backend communication error: ${errorMessage}. Please try again or contact support.`);
+      } else if (errorMessage.includes('status')) {
+        setError(`Server error: ${errorMessage}`);
       } else {
-        setError(err.message || 'Payment failed. Please try again or contact support.');
+        setError(errorMessage);
       }
     } finally {
       setLoading(false);

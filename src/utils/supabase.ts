@@ -337,49 +337,41 @@ export async function createPartner(partnerData: {
   commission_rate: number;
 }) {
   // ⚠️ SECURITY: Partner creation must be done via Supabase Dashboard
-  // or through a secure admin auth flow. Frontend cannot write to partners table.
-  throw new Error(
-    'Partner creation is disabled on frontend for security reasons. ' +
-    'Please create partners via the Supabase Dashboard or secure admin console.'
-  );
-}
-
-export async function deletePartner(partnerId: string) {
-  // ⚠️ SECURITY: Partner deletion must be done via Supabase Dashboard
-  throw new Error(
-    'Partner deletion is disabled on frontend for security reasons. ' +
-    'Please delete partners via the Supabase Dashboard.'
-  );
+  // or through a secure admin-authenticated flow. The public frontend should not write to `partners`.
+  // This function is intentionally blocked client-side.
+  console.warn('[SUPABASE] createPartner blocked (client-side)', {
+    code: partnerData.code,
+    name: partnerData.name,
+  });
+  throw new Error('Partner creation must be done via Supabase Dashboard.');
 }
 
 export async function getPartnerStats() {
-  // Get all partners using anon client (read-only)
-  const { data: partners, error: partnersError } = await supabase
+  const { data: partners = [], error: partnersError } = await supabase
     .from('partners')
     .select('*');
 
   if (partnersError) throw partnersError;
 
-  // Get all completed orders with referral codes
-  const { data: orders, error: ordersError } = await supabase
+  // Get all orders that have a referral code (we'll filter to completed in memory)
+  const { data: orders = [], error: ordersError } = await supabase
     .from('orders')
     .select('referral_code, total_amount_paise, payment_status')
     .not('referral_code', 'is', null);
 
   if (ordersError) throw ordersError;
 
-  // Calculate stats for each partner
-  const stats = partners.map(partner => {
-    const partnerOrders = orders.filter(
-      order => order.referral_code === partner.code && order.payment_status === 'completed'
+  const stats = (partners || []).map((partner: any) => {
+    const partnerOrders = (orders || []).filter(
+      (order: any) => order.referral_code === partner.code && order.payment_status === 'completed'
     );
 
     const totalRevenue = partnerOrders.reduce(
-      (sum, order) => sum + order.total_amount_paise,
+      (sum: number, order: any) => sum + (order.total_amount_paise || 0),
       0
     );
 
-    const commissionOwed = (totalRevenue * partner.commission_rate) / 100;
+    const commissionOwed = Math.round((totalRevenue * (partner.commission_rate || 0)) / 100);
 
     return {
       partner_code: partner.code,
@@ -394,20 +386,20 @@ export async function getPartnerStats() {
   });
 
   // Also check for orphaned referral codes (codes in orders but not in partners table)
-  const partnerCodes = partners.map(p => p.code);
+  const partnerCodes = (partners || []).map((p: any) => p.code);
   const orphanedCodes = [...new Set(
-    orders
-      .filter(order => order.referral_code && !partnerCodes.includes(order.referral_code))
-      .map(order => order.referral_code)
+    (orders || [])
+      .filter((order: any) => order.referral_code && !partnerCodes.includes(order.referral_code))
+      .map((order: any) => order.referral_code)
   )];
 
-  const orphanedStats = orphanedCodes.map(code => {
-    const codeOrders = orders.filter(
-      order => order.referral_code === code && order.payment_status === 'completed'
+  const orphanedStats = orphanedCodes.map((code) => {
+    const codeOrders = (orders || []).filter(
+      (order: any) => order.referral_code === code && order.payment_status === 'completed'
     );
 
     const totalRevenue = codeOrders.reduce(
-      (sum, order) => sum + order.total_amount_paise,
+      (sum: number, order: any) => sum + (order.total_amount_paise || 0),
       0
     );
 
