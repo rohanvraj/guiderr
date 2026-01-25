@@ -137,6 +137,8 @@ Deno.serve(async (req) => {
       amount: amount_paise,
       currency: 'INR',
       receipt: `order_${Date.now()}`,
+      // 🟢 THE FIX: Forces status to 'Captured' instead of 'Authorized'
+      payment_capture: 1,
       notes: {
         buyer_email,
         buyer_name,
