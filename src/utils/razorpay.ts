@@ -82,12 +82,14 @@ export async function openRazorpayCheckout(options: RazorpayCheckoutOptions) {
       },
     };
 
-    // If an explicit amount is provided use it (paise) and set currency (default INR)
+    // Forward any explicit amount (paise) and currency (default INR)
     if (options.amount) {
       checkoutOptions.amount = options.amount;
       checkoutOptions.currency = options.currency || 'INR';
-    } else if (options.order_id) {
-      // If a server-created Razorpay order id was supplied, pass it through
+    }
+
+    // Forward server-created Razorpay order id if supplied (must not be dropped)
+    if (options.order_id) {
       checkoutOptions.order_id = options.order_id;
     }
 
