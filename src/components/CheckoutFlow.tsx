@@ -179,8 +179,6 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
       // 2. Admin functions (authenticated)
       // The order is created; items and payment status will be linked after verification
 
-      console.log('DEBUG: What is the Order ID?', razorpayOrder?.id);
-
       await openRazorpayCheckout({
         // Use Razorpay order ID from Edge Function
         order_id: razorpayOrder.id,
