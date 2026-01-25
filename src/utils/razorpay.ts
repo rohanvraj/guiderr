@@ -82,19 +82,20 @@ export async function openRazorpayCheckout(options: RazorpayCheckoutOptions) {
       },
     };
 
-    // Forward any explicit amount (paise) and currency (default INR)
-    if (options.amount) {
+    // Prefer order-based checkout when an order id exists.
+    // Important: Do NOT pass amount/currency alongside order_id, otherwise Razorpay may treat it as a direct payment.
+    if (options.order_id) {
+      checkoutOptions.order_id = options.order_id;
+      delete checkoutOptions.amount;
+      delete checkoutOptions.currency;
+    } else if (options.amount) {
+      // Fallback: amount-based checkout (paise)
       checkoutOptions.amount = options.amount;
       checkoutOptions.currency = options.currency || 'INR';
     }
 
-    // Forward server-created Razorpay order id if supplied (must not be dropped)
-    if (options.order_id) {
-      checkoutOptions.order_id = options.order_id;
-    }
-
     try {
-        console.log('FINAL CHECKOUT OPTIONS:', checkoutOptions);
+      console.log('FINAL CHECKOUT OPTIONS:', checkoutOptions);
       const rzp = new window.Razorpay(checkoutOptions);
       rzp.open();
     } catch (error) {
