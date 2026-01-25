@@ -94,6 +94,7 @@ export async function openRazorpayCheckout(options: RazorpayCheckoutOptions) {
     }
 
     try {
+        console.log('FINAL CHECKOUT OPTIONS:', checkoutOptions);
       const rzp = new window.Razorpay(checkoutOptions);
       rzp.open();
     } catch (error) {
