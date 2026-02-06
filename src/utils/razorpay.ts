@@ -77,8 +77,19 @@ export async function openRazorpayCheckout(options: RazorpayCheckoutOptions) {
         },
       },
       handler: (response: any) => {
-        options.handler(response);
-        resolve();
+        // IMPORTANT: Razorpay SDK expects a synchronous handler.
+        // The handler must complete synchronously so the SDK can close the modal.
+        // We run the user's handler FIRST (which does navigate/clearCart synchronously),
+        // then resolve the outer promise.
+        try {
+          options.handler(response);
+          resolve();
+        } catch (err) {
+          // If the handler throws synchronously, reject the promise
+          // (this shouldn't happen since navigate/clearCart don't throw)
+          console.error('[RAZORPAY] Handler error:', err);
+          resolve(); // Still resolve so the modal closes
+        }
       },
     };
 

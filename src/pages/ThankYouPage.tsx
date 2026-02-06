@@ -43,7 +43,7 @@ export default function ThankYouPage() {
         // Test query: Fetch 1 ebook from the table
         console.log('🔄 Testing Supabase connection...');
         const { data, error: queryError } = await supabase
-          .from('ebooks')
+          .from('products')
           .select('*')
           .limit(1);
 
@@ -51,7 +51,7 @@ export default function ThankYouPage() {
           console.error('❌ Supabase query failed:', queryError);
         } else {
           console.log('✅ Supabase connection successful!');
-          console.log('   Sample ebook data:', data);
+          console.log('   Sample product data:', data);
         }
       } catch (err) {
         console.error('❌ Supabase connection error:', err);
@@ -444,13 +444,13 @@ export default function ThankYouPage() {
                 </p>
 
                 <div className="space-y-3">
-                  {purchasedEbooks.map((ebook) => (
+                  {purchasedProducts.map((product) => (
                     <div
-                      key={ebook.id}
+                      key={product.id}
                       className="p-4 bg-slate-50 rounded-lg border border-slate-200 hover:border-slate-300 transition-colors"
                     >
-                      <h3 className="font-semibold text-slate-900">{ebook.title}</h3>
-                      <p className="text-slate-600 text-sm">By {ebook.author}</p>
+                      <h3 className="font-semibold text-slate-900">{product.title}</h3>
+                      <p className="text-slate-600 text-sm">By {product.author}</p>
                     </div>
                   ))}
                 </div>
@@ -471,25 +471,25 @@ export default function ThankYouPage() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-4">
-                  {purchasedEbooks.map((ebook) => (
+                  {purchasedProducts.map((product) => (
                     <a
-                      key={ebook.id}
-                      href={ebook.downloadLink}
+                      key={product.id}
+                      href={product.downloadLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-white rounded-xl p-4 border border-emerald-100 hover:border-emerald-400 transition-colors flex items-center justify-between hover:shadow-md"
                     >
                       <div className="flex-1">
                         <h3 className="font-semibold text-slate-900 mb-1">
-                          {ebook.title}
+                          {product.title}
                         </h3>
-                        <p className="text-slate-600 text-sm">By {ebook.author}</p>
+                        <p className="text-slate-600 text-sm">By {product.author}</p>
                       </div>
                       <button
                         className="ml-4 flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 active:scale-95 transition-all duration-200"
                         onClick={(e) => {
                           e.preventDefault();
-                          window.open(ebook.downloadLink, '_blank');
+                          window.open(product.downloadLink, '_blank');
                         }}
                       >
                         <ExternalLink className="w-4 h-4" />

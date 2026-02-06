@@ -192,41 +192,44 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
         },
         notes: {
           // Critical: Supabase product UUID and order UUID for webhook handshake
-          product_id: product.id,
-          order_id: orderResponse.id,
+          // Razorpay requires all note values to be strings (max 256 chars each)
+          product_id: String(product.id),
+          order_id: String(orderResponse.id),
         },
         theme: {
           color: '#1e293b',
         },
-        handler: async (response) => {
-          try {
-            // Basic verification: ensure Razorpay returned a payment id
-            if (!response || !response.razorpay_payment_id) {
-              console.error('Invalid payment response from Razorpay:', response);
-              setError('Payment failed: no payment confirmation received. Please contact support.');
-              return;
-            }
+        handler: (response) => {
+          // ---------------------------------------------------------------
+          // CRITICAL: This handler MUST be synchronous.
+          // Razorpay SDK calls handler() then immediately closes the modal.
+          // If this were async, the SDK hangs on the QR/payment overlay.
+          // ---------------------------------------------------------------
 
-            // Persist payment details to Supabase BEFORE any state changes or redirect
-            await updateOrderWithPayment({
-              razorpay_order_id: razorpayOrder.id,
-              razorpay_payment_id: response.razorpay_payment_id,
-            });
-
-            // Note: updateOrderPayment would violate RLS for anonymous users
-            // Payment status and items will be updated via:
-            // 1. Razorpay webhook (server-side with auth)
-            // 2. Admin verification and processing
-            // Store payment ID locally for reference
-            console.log('Payment received:', response.razorpay_payment_id);
-
-            clearCart();
-            // Redirect using public_token for secure guest access to order
-            navigate(`/thank-you?token=${orderResponse.public_token}`);
-          } catch (err) {
-            console.error('Payment handler error:', err);
-            setError('Payment succeeded but database sync failed. Please contact support.');
+          if (!response || !response.razorpay_payment_id) {
+            console.error('Invalid payment response from Razorpay:', response);
+            setError('Payment failed: no payment confirmation received. Please contact support.');
+            return;
           }
+
+          console.log('[CHECKOUT] Payment received:', response.razorpay_payment_id);
+
+          // 1. Navigate FIRST (synchronous, instant)
+          //    public_token was captured in closure from createOrder above.
+          navigate(`/thank-you?token=${orderResponse.public_token}`);
+
+          // 2. Clear cart (synchronous)
+          clearCart();
+
+          // 3. Persist payment details in background (fire-and-forget)
+          //    If RLS blocks this update for anon users, it's OK —
+          //    the webhook or admin will reconcile payment_status later.
+          updateOrderWithPayment({
+            razorpay_order_id: razorpayOrder.id,
+            razorpay_payment_id: response.razorpay_payment_id,
+          }).catch((err) => {
+            console.warn('[CHECKOUT] Background DB sync failed (non-blocking):', err);
+          });
         },
       });
     } catch (err: any) {
