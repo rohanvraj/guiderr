@@ -136,6 +136,68 @@ export async function getAllProducts() {
   return (data || []) as Product[];
 }
 
+// ==================== ADMIN PRODUCT CRUD ====================
+
+export async function createProduct(productData: {
+  name: string;
+  price_in_rupees: number;
+  delivery_link: string;
+  category: string;
+  cover_image_url?: string;
+}) {
+  const { data, error } = await supabase
+    .from('products')
+    .insert([{
+      ...productData,
+      product_type: 'ebook',
+    }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Failed to create product:', error.message);
+    throw error;
+  }
+  return data as Product;
+}
+
+export async function updateProduct(productId: string, productData: {
+  name?: string;
+  price_in_rupees?: number;
+  delivery_link?: string;
+  category?: string;
+  cover_image_url?: string;
+}) {
+  const { data, error } = await supabase
+    .from('products')
+    .update({
+      ...productData,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', productId)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Failed to update product:', error.message);
+    throw error;
+  }
+  return data as Product;
+}
+
+export async function deleteProduct(productId: string) {
+  const { error } = await supabase
+    .from('products')
+    .delete()
+    .eq('id', productId);
+
+  if (error) {
+    console.error('Failed to delete product:', error.message);
+    throw error;
+  }
+  return true;
+}
+
 export async function createOrder(orderData: {
   razorpay_order_id: string;
   buyer_email: string;

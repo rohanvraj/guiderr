@@ -1,27 +1,48 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Lock, LogOut, Save, X } from 'lucide-react';
-import { getAllEbooks, updateEbooksData, getCategories, loadEbooksData } from '../utils/ebooks';
-import { Ebook, EbooksData } from '../types/ebook';
+import { Plus, Edit2, Trash2, Lock, LogOut, Save, X, Loader2 } from 'lucide-react';
+import { getCategories } from '../utils/ebooks';
+import { getAllProducts, createProduct, updateProduct, deleteProduct, Product } from '../utils/supabase';
 
-interface EditingEbook extends Ebook {
+interface EditingProduct {
+  id?: string;
+  name: string;
+  price_in_rupees: number;
+  delivery_link: string;
+  category: string;
+  cover_image_url: string;
   isNew?: boolean;
 }
 
 export default function AdminEbookDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
-  const [ebooks, setEbooks] = useState<Ebook[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
-  const [editingEbook, setEditingEbook] = useState<EditingEbook | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories] = useState(getCategories());
+  const [editingProduct, setEditingProduct] = useState<EditingProduct | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
 
+  // Load products from Supabase on mount
   useEffect(() => {
-    // Load initial data
-    const data = loadEbooksData();
-    setEbooks(data.ebooks);
-    setCategories(data.categories);
-  }, []);
+    if (isAuthenticated) {
+      loadProducts();
+    }
+  }, [isAuthenticated]);
+
+  const loadProducts = async () => {
+    setLoading(true);
+    try {
+      const data = await getAllProducts();
+      setProducts(data);
+    } catch (err) {
+      console.error('Failed to load products:', err);
+      setMessage('Failed to load products from database');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogin = () => {
     const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'guiderr2024';
@@ -36,89 +57,103 @@ export default function AdminEbookDashboard() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     setPassword('');
-    setEditingEbook(null);
+    setEditingProduct(null);
     setShowForm(false);
   };
 
   const handleAddNew = () => {
-    const newEbook: EditingEbook = {
-      id: `ebook-${Date.now()}`,
-      title: '',
-      author: '',
-      price: 0,
-      cover: '',
-      coverImage: '',
-      pdf: '',
-      category: categories[0]?.id || '',
-      synopsis: '',
-      featured: false,
-      downloadLink: '',
+    const newProduct: EditingProduct = {
+      name: '',
+      price_in_rupees: 0,
+      delivery_link: '',
+      category: categories[0]?.id || 'motorcycles',
+      cover_image_url: '',
       isNew: true,
     };
-    setEditingEbook(newEbook);
+    setEditingProduct(newProduct);
     setShowForm(true);
   };
 
-  const handleEdit = (ebook: Ebook) => {
-    setEditingEbook(ebook);
+  const handleEdit = (product: Product) => {
+    setEditingProduct({
+      id: product.id,
+      name: product.name,
+      price_in_rupees: product.price_in_rupees,
+      delivery_link: product.delivery_link,
+      category: product.category || 'motorcycles',
+      cover_image_url: product.cover_image_url || '',
+      isNew: false,
+    });
     setShowForm(true);
   };
 
   const handleSave = async () => {
-    if (!editingEbook) return;
+    if (!editingProduct) return;
 
     // Validate required fields
-    if (!editingEbook.title || !editingEbook.author || !editingEbook.category) {
-      alert('Please fill in all required fields');
+    if (!editingProduct.name || !editingProduct.category) {
+      alert('Please fill in all required fields (Title and Category)');
       return;
     }
 
-    let updatedEbooks: Ebook[];
-
-    if (editingEbook.isNew) {
-      // Add new ebook
-      const newEbook: Ebook = {
-        ...editingEbook,
+    setSaving(true);
+    try {
+      // Map category slug to PascalCase for Supabase
+      const categoryMapping: Record<string, string> = {
+        'motorcycles': 'Motorcycles',
+        'finance': 'Finance',
+        'travel': 'Travel',
+        'children': 'Children',
+        'parenting': 'Parenting',
       };
-      delete (newEbook as any).isNew;
-      updatedEbooks = [...ebooks, newEbook];
-    } else {
-      // Edit existing ebook
-      updatedEbooks = ebooks.map((e) =>
-        e.id === editingEbook.id
-          ? { ...editingEbook }
-          : e
-      );
+      const categoryName = categoryMapping[editingProduct.category] || editingProduct.category;
+
+      if (editingProduct.isNew) {
+        // Create new product in Supabase
+        await createProduct({
+          name: editingProduct.name,
+          price_in_rupees: editingProduct.price_in_rupees,
+          delivery_link: editingProduct.delivery_link,
+          category: categoryName,
+          cover_image_url: editingProduct.cover_image_url,
+        });
+        setMessage('Product created successfully!');
+      } else if (editingProduct.id) {
+        // Update existing product in Supabase
+        await updateProduct(editingProduct.id, {
+          name: editingProduct.name,
+          price_in_rupees: editingProduct.price_in_rupees,
+          delivery_link: editingProduct.delivery_link,
+          category: categoryName,
+          cover_image_url: editingProduct.cover_image_url,
+        });
+        setMessage('Product updated successfully!');
+      }
+
+      // Reload products from Supabase
+      await loadProducts();
+      setEditingProduct(null);
+      setShowForm(false);
+    } catch (err: any) {
+      console.error('Failed to save product:', err);
+      setMessage(`Error: ${err.message || 'Failed to save product'}`);
+    } finally {
+      setSaving(false);
+      setTimeout(() => setMessage(''), 3000);
     }
-
-    const data = loadEbooksData();
-    const newData: EbooksData = {
-      ...data,
-      ebooks: updatedEbooks,
-    };
-
-    await updateEbooksData(newData);
-    setEbooks(updatedEbooks);
-    setEditingEbook(null);
-    setShowForm(false);
-    setMessage('Ebook saved successfully!');
-    setTimeout(() => setMessage(''), 3000);
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this ebook?')) {
-      const updatedEbooks = ebooks.filter((e) => e.id !== id);
-
-      const data = loadEbooksData();
-      const newData: EbooksData = {
-        ...data,
-        ebooks: updatedEbooks,
-      };
-
-      await updateEbooksData(newData);
-      setEbooks(updatedEbooks);
-      setMessage('Ebook deleted successfully!');
-      setTimeout(() => setMessage(''), 3000);
+    if (confirm('Are you sure you want to delete this product? This cannot be undone.')) {
+      try {
+        await deleteProduct(id);
+        await loadProducts();
+        setMessage('Product deleted successfully!');
+        setTimeout(() => setMessage(''), 3000);
+      } catch (err: any) {
+        console.error('Failed to delete product:', err);
+        setMessage(`Error: ${err.message || 'Failed to delete product'}`);
+      }
     }
   };
 
@@ -194,51 +229,38 @@ export default function AdminEbookDashboard() {
               className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors"
             >
               <Plus className="w-5 h-5" />
-              Add New Ebook
+              Add New Product
             </button>
           </div>
         )}
 
         {/* Form */}
-        {showForm && editingEbook && (
+        {showForm && editingProduct && (
           <div className="bg-white rounded-3xl shadow-lg p-8 mb-8">
             <h2 className="text-2xl font-bold mb-6">
-              {editingEbook.isNew ? 'Add New Ebook' : 'Edit Ebook'}
+              {editingProduct.isNew ? 'Add New Product' : 'Edit Product'}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+              <div className="md:col-span-2">
                 <label className="block text-sm font-semibold mb-2">Title *</label>
                 <input
                   type="text"
-                  value={editingEbook.title}
+                  value={editingProduct.name}
                   onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, title: e.target.value })
+                    setEditingProduct({ ...editingProduct, name: e.target.value })
                   }
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                  placeholder="Ebook title"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold mb-2">Author *</label>
-                <input
-                  type="text"
-                  value={editingEbook.author}
-                  onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, author: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                  placeholder="Author name"
+                  placeholder="Product title"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold mb-2">Category *</label>
                 <select
-                  value={editingEbook.category}
+                  value={editingProduct.category}
                   onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, category: e.target.value })
+                    setEditingProduct({ ...editingProduct, category: e.target.value })
                   }
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                 >
@@ -254,9 +276,9 @@ export default function AdminEbookDashboard() {
                 <label className="block text-sm font-semibold mb-2">Price (₹)</label>
                 <input
                   type="number"
-                  value={editingEbook.price}
+                  value={editingProduct.price_in_rupees}
                   onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, price: parseFloat(e.target.value) })
+                    setEditingProduct({ ...editingProduct, price_in_rupees: parseFloat(e.target.value) || 0 })
                   }
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                   placeholder="0"
@@ -267,9 +289,9 @@ export default function AdminEbookDashboard() {
                 <label className="block text-sm font-semibold mb-2">Google Drive Download Link</label>
                 <input
                   type="url"
-                  value={editingEbook.downloadLink || ''}
+                  value={editingProduct.delivery_link}
                   onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, downloadLink: e.target.value })
+                    setEditingProduct({ ...editingProduct, delivery_link: e.target.value })
                   }
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                   placeholder="https://drive.google.com/drive/folders/..."
@@ -277,62 +299,50 @@ export default function AdminEbookDashboard() {
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-semibold mb-2">Cloudinary Cover Image URL</label>
+                <label className="block text-sm font-semibold mb-2">Cover Image URL</label>
                 <input
                   type="url"
-                  value={editingEbook.coverImage || ''}
+                  value={editingProduct.cover_image_url}
                   onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, coverImage: e.target.value })
+                    setEditingProduct({ ...editingProduct, cover_image_url: e.target.value })
                   }
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                  placeholder="https://res.cloudinary.com/..."
+                  placeholder="https://res.cloudinary.com/... or any image URL"
                 />
-                <p className="text-xs text-slate-500 mt-2">
-                  Format: https://res.cloudinary.com/your-cloud/image/upload/w=400,h=600,c=fill/your-image-url
-                </p>
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold mb-2">Synopsis</label>
-                <textarea
-                  value={editingEbook.synopsis}
-                  onChange={(e) =>
-                    setEditingEbook({ ...editingEbook, synopsis: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
-                  placeholder="Ebook description"
-                  rows={4}
-                />
-              </div>
-
-              <div>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={editingEbook.featured}
-                    onChange={(e) =>
-                      setEditingEbook({ ...editingEbook, featured: e.target.checked })
-                    }
-                    className="w-4 h-4"
-                  />
-                  <span className="text-sm font-semibold">Featured</span>
-                </label>
+                {editingProduct.cover_image_url && (
+                  <div className="mt-4">
+                    <p className="text-xs text-slate-500 mb-2">Preview:</p>
+                    <img 
+                      src={editingProduct.cover_image_url} 
+                      alt="Cover preview" 
+                      className="w-24 h-32 object-cover rounded-lg border border-slate-200"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
             <div className="flex gap-4 mt-8">
               <button
                 onClick={handleSave}
-                className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
+                disabled={saving}
+                className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Save className="w-5 h-5" />
-                Save Ebook
+                {saving ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Save className="w-5 h-5" />
+                )}
+                {saving ? 'Saving...' : 'Save Product'}
               </button>
 
               <button
                 onClick={() => {
                   setShowForm(false);
-                  setEditingEbook(null);
+                  setEditingProduct(null);
                 }}
                 className="flex items-center gap-2 px-6 py-3 bg-slate-300 text-slate-900 font-semibold rounded-lg hover:bg-slate-400 transition-colors"
               >
@@ -343,49 +353,60 @@ export default function AdminEbookDashboard() {
           </div>
         )}
 
-        {/* Ebooks List */}
+        {/* Products List */}
         {!showForm && (
           <div>
-            <h2 className="text-2xl font-bold mb-6">Ebooks ({ebooks.length})</h2>
+            <h2 className="text-2xl font-bold mb-6">Products ({products.length})</h2>
 
-            <div className="grid grid-cols-1 gap-4">
-              {ebooks.map((ebook) => (
-                <div
-                  key={ebook.id}
-                  className="bg-white rounded-xl shadow p-6 flex items-center justify-between hover:shadow-lg transition-shadow"
-                >
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-slate-900">{ebook.title}</h3>
-                    <p className="text-sm text-slate-600">By {ebook.author}</p>
-                    <div className="mt-2 flex gap-4 text-sm text-slate-500">
-                      <span>Category: {ebook.category}</span>
-                      <span>Price: ₹{ebook.price}</span>
-                      {ebook.featured && (
-                        <span className="text-emerald-600 font-semibold">Featured</span>
+            {products.length === 0 ? (
+              <div className="bg-white rounded-xl shadow p-8 text-center text-slate-500">
+                No products yet. Click "Add New Product" to create one.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4">
+                {products.map((product) => (
+                  <div
+                    key={product.id}
+                    className="bg-white rounded-xl shadow p-6 flex items-center justify-between hover:shadow-lg transition-shadow"
+                  >
+                    <div className="flex items-center gap-4 flex-1">
+                      {product.cover_image_url && (
+                        <img 
+                          src={product.cover_image_url} 
+                          alt={product.name}
+                          className="w-12 h-16 object-cover rounded-lg"
+                        />
                       )}
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900">{product.name}</h3>
+                        <div className="mt-1 flex gap-4 text-sm text-slate-500">
+                          <span>Category: {product.category}</span>
+                          <span>Price: ₹{product.price_in_rupees}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => handleEdit(product)}
+                        className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                        title="Edit"
+                      >
+                        <Edit2 className="w-5 h-5 text-blue-600" />
+                      </button>
+
+                      <button
+                        onClick={() => handleDelete(product.id)}
+                        className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-5 h-5 text-red-600" />
+                      </button>
                     </div>
                   </div>
-
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => handleEdit(ebook)}
-                      className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                      title="Edit"
-                    >
-                      <Edit2 className="w-5 h-5 text-blue-600" />
-                    </button>
-
-                    <button
-                      onClick={() => handleDelete(ebook.id)}
-                      className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-5 h-5 text-red-600" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
