@@ -75,6 +75,7 @@ const products = {
 
 function ProductCard({ product, index }: { product: typeof products.motorcycles[0]; index: number }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -99,15 +100,16 @@ function ProductCard({ product, index }: { product: typeof products.motorcycles[
     <div
       ref={cardRef}
       className={`group bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${
-        isVisible ? 'animate-fade-in-up' : 'opacity-0'
+        isVisible && imageLoaded ? 'animate-fade-in-up' : 'opacity-0'
       }`}
-      style={{ animationDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+      style={{ animationDelay: isVisible && imageLoaded ? `${index * 100}ms` : '0ms' }}
     >
       <div className="relative h-56 sm:h-64 overflow-hidden">
         <img
           src={product.image}
           alt={product.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          onLoad={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>

@@ -11,6 +11,7 @@ import EbookModal from '../components/EbookModal';
 
 function EbookCard({ ebook, index }: { ebook: Ebook; index: number }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -37,9 +38,9 @@ function EbookCard({ ebook, index }: { ebook: Ebook; index: number }) {
       <div
         ref={cardRef}
         className={`group cursor-pointer bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border border-slate-200 ${
-          isVisible ? 'animate-fade-in-up' : 'opacity-0'
+          isVisible && imageLoaded ? 'animate-fade-in-up' : 'opacity-0'
         }`}
-        style={{ animationDelay: isVisible ? `${index * 50}ms` : '0ms' }}
+        style={{ animationDelay: isVisible && imageLoaded ? `${index * 50}ms` : '0ms' }}
         onClick={() => setIsModalOpen(true)}
       >
         <div className="relative aspect-[3/4] overflow-hidden">
@@ -47,8 +48,10 @@ function EbookCard({ ebook, index }: { ebook: Ebook; index: number }) {
             src={ebook.cover}
             alt={ebook.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onLoad={() => setImageLoaded(true)}
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150x200?text=Cover';
+              setImageLoaded(true);
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

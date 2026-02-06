@@ -24,6 +24,9 @@ export default function Hero() {
   const categories = getCategories();
   const featuredEbooks = getFeaturedEbooks().slice(0, 6);
   const heroRef = useRef<HTMLDivElement>(null);
+  const [carouselReady, setCarouselReady] = useState(false);
+  const loadedImagesRef = useRef(new Set<string>());
+  
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -38,6 +41,14 @@ export default function Hero() {
   
   // Calculate width per item (each item takes equal portion when showing all items)
   const itemWidth = 100 / featuredEbooks.length;
+  
+  // Track image loading for carousel
+  const handleImageLoad = (ebookId: string) => {
+    loadedImagesRef.current.add(ebookId);
+    if (loadedImagesRef.current.size >= featuredEbooks.length) {
+      setCarouselReady(true);
+    }
+  };
 
   return (
     <>
@@ -259,7 +270,7 @@ export default function Hero() {
                 <motion.div
                   className="flex"
                   animate={{
-                    x: featuredEbooks.length > 0 ? `-${itemWidth * featuredEbooks.length}%` : 0,
+                    x: carouselReady && featuredEbooks.length > 0 ? `-${itemWidth * featuredEbooks.length}%` : 0,
                   }}
                   transition={{
                     x: {
@@ -282,9 +293,12 @@ export default function Hero() {
                           <img
                             src={ebook.coverImage || ebook.cover}
                             alt={ebook.title}
-                            className="w-28 h-40 sm:w-32 sm:h-44 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                            className="w-28 h-40 sm:w-32 sm:h-44 object-cover rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                            style={{ opacity: carouselReady ? 1 : 0 }}
+                            onLoad={() => handleImageLoad(ebook.id)}
                             onError={(e) => {
                               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200x300?text=Cover';
+                              handleImageLoad(ebook.id);
                             }}
                           />
                           <div className="text-center max-w-[200px]">
