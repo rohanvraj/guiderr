@@ -1,10 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, BookOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { getCategoryById, getEbooksByCategory } from '../utils/ebooks';
+import { getCategoryById } from '../utils/ebooks';
 import { getProductsByCategory } from '../utils/supabase';
 import { Ebook } from '../types/ebook';
-import { Product } from '../utils/supabase';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EbookModal from '../components/EbookModal';
@@ -79,6 +78,7 @@ export default function CategoryPage() {
   const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
   const [ebooks, setEbooks] = useState<Ebook[]>([]);
+  const [loading, setLoading] = useState(true);
   const [categoryData, setCategoryData] = useState<{ id: string; name: string; description: string } | null>(null);
 
   useEffect(() => {
@@ -86,25 +86,18 @@ export default function CategoryPage() {
       const cat = getCategoryById(category);
       if (cat) {
         setCategoryData(cat);
-        
-        // Get ebooks from JSON (legacy)
-        const jsonEbooks = getEbooksByCategory(category);
-        
-        // Get products from Supabase (new)
-        const getCategoryName = () => {
-          // Map category ID to proper case category name for Supabase lookup
-          const categoryMapping: Record<string, string> = {
-            'motorcycles': 'Motorcycles',
-            'finance': 'Finance',
-            'travel': 'Travel',
-            'children': 'Children',
-            'parenting': 'Parenting',
-          };
-          return categoryMapping[category] || category;
+
+        // Map category slug to PascalCase for Supabase lookup
+        const categoryMapping: Record<string, string> = {
+          'motorcycles': 'Motorcycles',
+          'finance': 'Finance',
+          'travel': 'Travel',
+          'children': 'Children',
+          'parenting': 'Parenting',
         };
-        
-        getProductsByCategory(getCategoryName()).then((products) => {
-          // Convert Supabase products to Ebook format for display
+        const categoryName = categoryMapping[category] || category;
+
+        getProductsByCategory(categoryName).then((products) => {
           const convertedProducts: Ebook[] = products.map((product) => ({
             id: product.id,
             title: product.name,
@@ -116,16 +109,18 @@ export default function CategoryPage() {
             synopsis: product.name,
             downloadLink: product.delivery_link,
           }));
-          
-          // Merge JSON ebooks with Supabase products (show Supabase products first)
-          const allEbooks = [...convertedProducts, ...jsonEbooks];
-          setEbooks(allEbooks);
+          setEbooks(convertedProducts);
         }).catch((err) => {
           console.error('Failed to fetch Supabase products:', err);
-          // Fallback to just JSON ebooks if Supabase fails
-          setEbooks(jsonEbooks);
+          setEbooks([]);
+        }).finally(() => {
+          setLoading(false);
         });
+      } else {
+        setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
   }, [category]);
 
@@ -173,9 +168,15 @@ export default function CategoryPage() {
             </p>
           </div>
 
-          {ebooks.length === 0 ? (
+          {loading ? (
             <div className="text-center py-12">
-              <p className="text-slate-600 text-lg">No ebooks available in this category yet.</p>
+              <div className="animate-pulse text-slate-400 text-lg">Loading ebooks...</div>
+            </div>
+          ) : ebooks.length === 0 ? (
+            <div className="text-center py-16">
+              <BookOpen className="w-14 h-14 text-slate-300 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Coming Soon</h3>
+              <p className="text-slate-600 text-lg">New ebooks in this category are on the way. Check back soon!</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">

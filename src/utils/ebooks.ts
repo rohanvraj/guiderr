@@ -1,15 +1,21 @@
-import ebooksData from '../data/ebooks.json';
 import { Ebook, Category, EbooksData } from '../types/ebook';
 
-const defaultData = ebooksData as EbooksData;
+// Canonical category definitions used across the app (Header nav, Hero tiles, routing).
+// These are NOT mock ebooks — they define the storefront structure.
+const categories: Category[] = [
+  { id: 'motorcycles', name: 'Motorcycles', description: 'Master the art of riding, maintenance, and safety' },
+  { id: 'finance', name: 'Finance', description: 'Build wealth, invest smartly, and achieve financial freedom' },
+  { id: 'travel', name: 'Travel', description: 'Explore the world with confidence and insider knowledge' },
+  { id: 'children', name: 'Children', description: 'Educational guides and resources for children' },
+  { id: 'parenting', name: 'Parenting', description: 'Expert advice and strategies for modern parenting' },
+];
 
-// For admin: load ebooks data (check localStorage first, then fallback to JSON)
+// For admin: load ebooks data from localStorage (Superadmin dashboard uses this)
 export function loadEbooksData(): EbooksData {
   const stored = localStorage.getItem('ebooks_data');
   if (stored) {
     try {
       const parsed = JSON.parse(stored);
-      // Ensure it has the right structure
       if (parsed.categories && parsed.ebooks) {
         return parsed;
       }
@@ -17,44 +23,24 @@ export function loadEbooksData(): EbooksData {
       console.error('Failed to parse stored ebooks data:', e);
     }
   }
-  return defaultData;
-}
-
-// Get current data (always from loadEbooksData to ensure consistency)
-function getData(): EbooksData {
-  return loadEbooksData();
+  return { categories, ebooks: [] };
 }
 
 export function getCategories(): Category[] {
-  return getData().categories;
+  return categories;
 }
 
 export function getCategoryById(id: string): Category | undefined {
-  return getData().categories.find(cat => cat.id === id);
-}
-
-export function getEbooksByCategory(categoryId: string): Ebook[] {
-  return getData().ebooks.filter(ebook => ebook.category === categoryId);
-}
-
-export function getEbookById(id: string): Ebook | undefined {
-  return getData().ebooks.find(ebook => ebook.id === id);
-}
-
-export function getFeaturedEbooks(): Ebook[] {
-  return getData().ebooks.filter(ebook => ebook.featured);
+  return categories.find(cat => cat.id === id);
 }
 
 export function getAllEbooks(): Ebook[] {
-  return getData().ebooks;
+  return loadEbooksData().ebooks;
 }
 
 // For admin: update ebooks data
 export async function updateEbooksData(newData: EbooksData): Promise<void> {
-  // In a real app, this would save to a backend/database
-  // For now, we'll use localStorage as a temporary solution
   localStorage.setItem('ebooks_data', JSON.stringify(newData));
-  // Trigger a custom event to notify other components
   window.dispatchEvent(new CustomEvent('ebooksDataUpdated'));
 }
 

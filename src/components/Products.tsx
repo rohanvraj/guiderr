@@ -1,79 +1,17 @@
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, BookOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { getAllProducts, Product } from '../utils/supabase';
+import { getCategories } from '../utils/ebooks';
 
-const products = {
-  motorcycles: [
-    {
-      id: 1,
-      title: 'Complete Beginner\'s Guide to Motorcycling',
-      description: 'Everything you need to know to start your riding journey safely and confidently',
-      price: 1999,
-      image: 'https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-    {
-      id: 2,
-      title: 'Advanced Riding Techniques',
-      description: 'Master cornering, braking, and control for experienced riders',
-      price: 2499,
-      image: 'https://images.pexels.com/photos/3612932/pexels-photo-3612932.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-    {
-      id: 3,
-      title: 'Motorcycle Maintenance Mastery',
-      description: 'Keep your bike running smoothly with DIY maintenance and repair',
-      price: 2199,
-      image: 'https://images.pexels.com/photos/1416169/pexels-photo-1416169.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-  ],
-  finance: [
-    {
-      id: 4,
-      title: 'Investing for Beginners',
-      description: 'Build a solid foundation in stocks, bonds, and portfolio management',
-      price: 2999,
-      image: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-    {
-      id: 5,
-      title: 'Financial Freedom Blueprint',
-      description: 'Create multiple income streams and achieve early retirement',
-      price: 3299,
-      image: 'https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-    {
-      id: 6,
-      title: 'Crypto & Digital Assets Guide',
-      description: 'Navigate the world of cryptocurrency and blockchain technology',
-      price: 2699,
-      image: 'https://images.pexels.com/photos/8369770/pexels-photo-8369770.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-  ],
-  travel: [
-    {
-      id: 7,
-      title: 'Solo Travel Essentials',
-      description: 'Travel the world alone with confidence, safety, and insider tips',
-      price: 1899,
-      image: 'https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-    {
-      id: 8,
-      title: 'Budget Travel Hacks',
-      description: 'See the world without breaking the bank with proven strategies',
-      price: 1699,
-      image: 'https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-    {
-      id: 9,
-      title: 'Digital Nomad Handbook',
-      description: 'Work remotely while traveling the globe - complete lifestyle guide',
-      price: 3599,
-      image: 'https://images.pexels.com/photos/7241426/pexels-photo-7241426.jpeg?auto=compress&cs=tinysrgb&w=600',
-    },
-  ],
-};
+interface DisplayProduct {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+}
 
-function ProductCard({ product, index }: { product: typeof products.motorcycles[0]; index: number }) {
+function ProductCard({ product, index }: { product: DisplayProduct; index: number }) {
   const [isVisible, setIsVisible] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -110,6 +48,10 @@ function ProductCard({ product, index }: { product: typeof products.motorcycles[
           alt={product.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           onLoad={() => setImageLoaded(true)}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/600x400?text=Cover';
+            setImageLoaded(true);
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
@@ -141,12 +83,14 @@ function ProductCard({ product, index }: { product: typeof products.motorcycles[
 function ProductSection({
   id,
   title,
-  products
+  products,
 }: {
   id: string;
   title: string;
-  products: typeof products.motorcycles
+  products: DisplayProduct[];
 }) {
+  if (products.length === 0) return null;
+
   return (
     <section id={id} className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -165,11 +109,76 @@ function ProductSection({
 }
 
 export default function Products() {
+  const [productsByCategory, setProductsByCategory] = useState<Record<string, DisplayProduct[]>>({});
+  const [loading, setLoading] = useState(true);
+  const categories = getCategories();
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const allProducts = await getAllProducts();
+        const grouped: Record<string, DisplayProduct[]> = {};
+
+        for (const p of allProducts) {
+          const catKey = (p.category || 'other').toLowerCase();
+          if (!grouped[catKey]) grouped[catKey] = [];
+          grouped[catKey].push({
+            id: p.id,
+            title: p.name,
+            description: p.name,
+            price: p.price_in_rupees,
+            image: p.cover_image_url || 'https://via.placeholder.com/600x400?text=Cover',
+          });
+        }
+
+        setProductsByCategory(grouped);
+      } catch (err) {
+        console.error('Failed to fetch products:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="bg-gradient-to-b from-white to-slate-50 py-20 text-center">
+        <div className="animate-pulse text-slate-400 text-lg">Loading products...</div>
+      </div>
+    );
+  }
+
+  const hasProducts = Object.values(productsByCategory).some((arr) => arr.length > 0);
+
+  if (!hasProducts) {
+    return (
+      <div className="bg-gradient-to-b from-white to-slate-50 py-20">
+        <div className="max-w-2xl mx-auto text-center px-4">
+          <BookOpen className="w-16 h-16 text-slate-300 mx-auto mb-6" />
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Coming Soon</h2>
+          <p className="text-lg text-slate-600">
+            We're preparing an amazing collection of digital guides. Check back soon!
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gradient-to-b from-white to-slate-50">
-      <ProductSection id="motorcycles" title="Motorcycles" products={products.motorcycles} />
-      <ProductSection id="finance" title="Finance" products={products.finance} />
-      <ProductSection id="travel" title="Travel" products={products.travel} />
+      {categories.map((cat) => {
+        const catProducts = productsByCategory[cat.id] || [];
+        return (
+          <ProductSection
+            key={cat.id}
+            id={cat.id}
+            title={cat.name}
+            products={catProducts}
+          />
+        );
+      })}
     </div>
   );
 }

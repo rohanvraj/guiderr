@@ -1,8 +1,9 @@
 import { Bike, TrendingUp, Plane, Baby, Heart, ArrowRight, BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getCategories, getFeaturedEbooks } from '../utils/ebooks';
+import { getCategories } from '../utils/ebooks';
+import { getAllProducts, Product } from '../utils/supabase';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 const iconMap: Record<string, any> = {
   motorcycles: Bike,
@@ -22,10 +23,10 @@ const gradientMap: Record<string, string> = {
 
 export default function Hero() {
   const categories = getCategories();
-  const featuredEbooks = getFeaturedEbooks().slice(0, 6);
   const heroRef = useRef<HTMLDivElement>(null);
   const [carouselReady, setCarouselReady] = useState(false);
   const loadedImagesRef = useRef(new Set<string>());
+  const [featuredEbooks, setFeaturedEbooks] = useState<Product[]>([]);
   
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -35,12 +36,25 @@ export default function Hero() {
   // Sticky animation for hero image
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Fetch featured products from Supabase (latest 6 uploads)
+  useEffect(() => {
+    async function fetchFeatured() {
+      try {
+        const products = await getAllProducts();
+        setFeaturedEbooks(products.slice(0, 6));
+      } catch (err) {
+        console.error('Failed to fetch featured ebooks:', err);
+      }
+    }
+    fetchFeatured();
+  }, []);
   
   // Duplicate ebooks for seamless infinite scroll
   const duplicatedEbooks = [...featuredEbooks, ...featuredEbooks];
   
   // Calculate width per item (each item takes equal portion when showing all items)
-  const itemWidth = 100 / featuredEbooks.length;
+  const itemWidth = featuredEbooks.length > 0 ? 100 / featuredEbooks.length : 100;
   
   // Track image loading for carousel
   const handleImageLoad = (ebookId: string) => {
@@ -291,8 +305,8 @@ export default function Hero() {
                       <div className="p-4 sm:p-6">
                         <div className="flex flex-col items-center gap-3">
                           <img
-                            src={ebook.coverImage || ebook.cover}
-                            alt={ebook.title}
+                            src={ebook.cover_image_url || 'https://via.placeholder.com/200x300?text=Cover'}
+                            alt={ebook.name}
                             className="w-28 h-40 sm:w-32 sm:h-44 object-cover rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                             style={{ opacity: carouselReady ? 1 : 0 }}
                             onLoad={() => handleImageLoad(ebook.id)}
@@ -302,11 +316,10 @@ export default function Hero() {
                             }}
                           />
                           <div className="text-center max-w-[200px]">
-                            <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1 line-clamp-2 leading-tight">{ebook.title}</h3>
-                            <p className="text-xs text-slate-600 mb-1">by {ebook.author}</p>
-                            <p className="text-xs text-slate-700 mb-2 line-clamp-2 leading-snug">{ebook.synopsis}</p>
+                            <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1 line-clamp-2 leading-tight">{ebook.name}</h3>
+                            <p className="text-xs text-slate-600 mb-1">by Guiderr</p>
                             <div className="text-lg sm:text-xl font-bold text-slate-900">
-                              ₹{ebook.price.toLocaleString('en-IN')}
+                              ₹{ebook.price_in_rupees.toLocaleString('en-IN')}
                             </div>
                           </div>
                         </div>

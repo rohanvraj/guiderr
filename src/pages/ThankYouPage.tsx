@@ -4,8 +4,7 @@ import { CheckCircle, Download, ArrowRight, ExternalLink, AlertCircle } from 'lu
 import { createClient } from '@supabase/supabase-js';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ebooksData from '../data/ebooks.json';
-import { getOrderByRazorpayId, getOrderItems, getOrderByPublicToken, Order, OrderItem } from '../utils/supabase';
+import { getOrderByRazorpayId, getOrderItems, getOrderByPublicToken, Order, OrderItem, supabase } from '../utils/supabase';
 
 interface PurchasedProduct {
   id: string;
@@ -160,36 +159,48 @@ export default function ThankYouPage() {
       .filter((id) => id.length > 0);
   }, [productsParam]);
 
-  // Match product IDs to product data (used when no order_id)
-  const purchasedProductsFromParams = useMemo(() => {
-    return productIds
-      .map((id) => {
-        const product = ebooksData.ebooks.find((e) => e.id === id);
-        if (!product) return null;
-        return {
-          id: product.id,
-          title: product.title,
-          author: product.author,
-          downloadLink: product.downloadLink,
-        };
-      })
-      .filter((product) => product !== null) as PurchasedProduct[];
+  // Match product IDs to product data from Supabase (used when no order_id)
+  const [purchasedProductsFromParams, setPurchasedProductsFromParams] = useState<PurchasedProduct[]>([]);
+
+  useEffect(() => {
+    if (productIds.length === 0) return;
+
+    async function fetchProductsByIds() {
+      try {
+        const { data: products, error } = await supabase
+          .from('products')
+          .select('id, name, delivery_link')
+          .in('id', productIds);
+
+        if (error || !products) {
+          console.error('Failed to fetch products by IDs:', error);
+          return;
+        }
+
+        setPurchasedProductsFromParams(
+          products.map((p: any) => ({
+            id: p.id,
+            title: p.name,
+            author: 'Guiderr',
+            downloadLink: p.delivery_link,
+          }))
+        );
+      } catch (err) {
+        console.error('Error fetching products:', err);
+      }
+    }
+
+    fetchProductsByIds();
   }, [productIds]);
 
-  // Convert order items to product data
+  // Convert order items to product data (uses order_items which already have product_title)
   const purchasedProductsFromOrder = useMemo(() => {
-    return orderItems
-      .map((item) => {
-        const product = ebooksData.ebooks.find((e) => e.id === item.product_id);
-        if (!product) return null;
-        return {
-          id: product.id,
-          title: product.title,
-          author: product.author,
-          downloadLink: product.downloadLink,
-        };
-      })
-      .filter((product) => product !== null) as PurchasedProduct[];
+    return orderItems.map((item) => ({
+      id: item.product_id,
+      title: item.product_title,
+      author: 'Guiderr',
+      downloadLink: '', // Download link comes from order notes (guest checkout flow)
+    }));
   }, [orderItems]);
 
   // For token-based guest checkout, show a simple download link from notes
