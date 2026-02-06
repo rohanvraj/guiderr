@@ -8,6 +8,7 @@ const categories: Category[] = [
   { id: 'travel', name: 'Travel', description: 'Explore the world with confidence and insider knowledge' },
   { id: 'children', name: 'Children', description: 'Educational guides and resources for children' },
   { id: 'parenting', name: 'Parenting', description: 'Expert advice and strategies for modern parenting' },
+  { id: 'art', name: 'Art', description: 'Unleash creativity with guides on painting, drawing, and design' },
 ];
 
 // For admin: load ebooks data from localStorage (Superadmin dashboard uses this)

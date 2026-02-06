@@ -94,6 +94,7 @@ export default function CategoryPage() {
           'travel': 'Travel',
           'children': 'Children',
           'parenting': 'Parenting',
+          'art': 'Art',
         };
         const categoryName = categoryMapping[category] || category;
 

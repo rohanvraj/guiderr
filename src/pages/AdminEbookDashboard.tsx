@@ -105,6 +105,7 @@ export default function AdminEbookDashboard() {
         'travel': 'Travel',
         'children': 'Children',
         'parenting': 'Parenting',
+        'art': 'Art',
       };
       const categoryName = categoryMapping[editingProduct.category] || editingProduct.category;
 
