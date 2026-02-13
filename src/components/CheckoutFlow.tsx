@@ -15,9 +15,10 @@ import { CartItem } from '../context/CartContext';
 interface CheckoutFlowProps {
   items: CartItem[];
   onClose: () => void;
+  onPaymentSuccess?: () => void;
 }
 
-export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
+export default function CheckoutFlow({ items, onClose, onPaymentSuccess }: CheckoutFlowProps) {
   const navigate = useNavigate();
   const { clearCart } = useCart();
   const [loading, setLoading] = useState(false);
@@ -82,6 +83,9 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
   const totalAmount = product
     ? product.price_in_rupees * items.length
     : items.reduce((sum, item) => sum + item.ebook.price, 0);
+
+  // Safety check to prevent NaN display
+  const displayAmount = isNaN(totalAmount) || totalAmount < 0 ? 0 : totalAmount;
 
   const handleBuyerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -214,14 +218,23 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
 
           console.log('[CHECKOUT] Payment received:', response.razorpay_payment_id);
 
-          // 1. Navigate FIRST (synchronous, instant)
+          // 1. Close modals FIRST to prevent NaN errors and blocking UI
+          //    This ensures a clean transition before cart is cleared
+          if (onPaymentSuccess) {
+            onPaymentSuccess();
+          }
+
+          // 2. Navigate to Thank You page (synchronous, instant)
           //    public_token was captured in closure from createOrder above.
           navigate(`/thank-you?token=${orderResponse.public_token}`);
 
-          // 2. Clear cart (synchronous)
-          clearCart();
+          // 3. Clear cart after navigation (synchronous but after modal close)
+          //    Using setTimeout ensures modals fully close before cart state changes
+          setTimeout(() => {
+            clearCart();
+          }, 100);
 
-          // 3. Persist payment details in background (fire-and-forget)
+          // 4. Persist payment details in background (fire-and-forget)
           //    If RLS blocks this update for anon users, it's OK —
           //    the webhook or admin will reconcile payment_status later.
           updateOrderWithPayment({
@@ -360,7 +373,7 @@ export default function CheckoutFlow({ items, onClose }: CheckoutFlowProps) {
               <div className="flex justify-between items-center p-4 bg-slate-900 text-white rounded-lg">
                 <span className="font-semibold">Total Amount</span>
                 <span className="text-2xl font-bold">
-                  ₹{totalAmount.toLocaleString('en-IN')}
+                  ₹{displayAmount.toLocaleString('en-IN')}
                 </span>
               </div>
 

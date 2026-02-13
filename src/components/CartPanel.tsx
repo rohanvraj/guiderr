@@ -19,10 +19,16 @@ export default function CartPanel() {
     setIsCheckingOut(false);
   };
 
+  const handlePaymentSuccess = () => {
+    // Close both checkout modal and cart panel on payment success
+    setIsCheckingOut(false);
+    setIsCartOpen(false);
+  };
+
   return (
     <>
       {isCheckingOut && items.length > 0 && (
-        <CheckoutFlow items={items} onClose={handleCloseCheckout} />
+        <CheckoutFlow items={items} onClose={handleCloseCheckout} onPaymentSuccess={handlePaymentSuccess} />
       )}
 
       <div
