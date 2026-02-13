@@ -56,6 +56,7 @@ export default function ProductManager({}: ProductManagerProps) {
       delivery_link: '',
       product_type: 'ebook',
       category: getDefaultCategory('ebook'),
+      author: '',
       isNew: true,
     };
     setEditingProduct(newProduct);
@@ -203,6 +204,7 @@ export default function ProductManager({}: ProductManagerProps) {
               delivery_link: editingProduct.delivery_link,
               product_type: productType,
               category: category,
+              author: editingProduct.author || null,
               cover_image_url: editingProduct.cover_image_url || null,
             },
           ])
@@ -250,6 +252,7 @@ export default function ProductManager({}: ProductManagerProps) {
             delivery_link: editingProduct.delivery_link,
             product_type: productType,
             category: category,
+            author: editingProduct.author || null,
             cover_image_url: editingProduct.cover_image_url || null,
             updated_at: new Date().toISOString(),
           })
@@ -391,6 +394,22 @@ export default function ProductManager({}: ProductManagerProps) {
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                 placeholder="e.g., Complete Beginner's Guide to Motorcycling"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold mb-2">Author Name</label>
+              <input
+                type="text"
+                value={editingProduct.author || ''}
+                onChange={(e) =>
+                  setEditingProduct({ ...editingProduct, author: e.target.value })
+                }
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
+                placeholder="e.g., John Doe"
+              />
+              <p className="text-xs text-slate-500 mt-1">
+                Shown as &ldquo;by Author&rdquo; on the storefront
+              </p>
             </div>
 
             <div>

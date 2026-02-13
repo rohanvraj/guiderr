@@ -181,7 +181,7 @@ export default function ThankYouPage() {
           products.map((p: any) => ({
             id: p.id,
             title: p.name,
-            author: 'Guiderr',
+            author: p.author || 'Guiderr',
             downloadLink: p.delivery_link,
           }))
         );
@@ -198,7 +198,7 @@ export default function ThankYouPage() {
     return orderItems.map((item) => ({
       id: item.product_id,
       title: item.product_title,
-      author: 'Guiderr',
+      author: (item as any).author || 'Guiderr',
       downloadLink: '', // Download link comes from order notes (guest checkout flow)
     }));
   }, [orderItems]);

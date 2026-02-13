@@ -102,7 +102,7 @@ export default function CategoryPage() {
           const convertedProducts: Ebook[] = products.map((product) => ({
             id: product.id,
             title: product.name,
-            author: 'Guiderr',
+            author: product.author || 'Guiderr',
             price: product.price_in_rupees,
             cover: product.cover_image_url || 'https://via.placeholder.com/150x200?text=' + encodeURIComponent(product.name.substring(0, 10)),
             pdf: product.delivery_link,

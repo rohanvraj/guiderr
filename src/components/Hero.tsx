@@ -317,7 +317,7 @@ export default function Hero() {
                           />
                           <div className="text-center max-w-[200px]">
                             <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1 line-clamp-2 leading-tight">{ebook.name}</h3>
-                            <p className="text-xs text-slate-600 mb-1">by Guiderr</p>
+                            <p className="text-xs text-slate-600 mb-1">by {ebook.author || 'Guiderr'}</p>
                             <div className="text-lg sm:text-xl font-bold text-slate-900">
                               ₹{ebook.price_in_rupees.toLocaleString('en-IN')}
                             </div>

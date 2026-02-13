@@ -86,6 +86,7 @@ export interface Product {
   delivery_link: string;
   category?: string;
   product_type?: string;
+  author?: string;
   cover_image_url?: string;
   created_at?: string;
   updated_at?: string;

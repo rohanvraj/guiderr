@@ -20,7 +20,7 @@ function toEbook(p: Product): Ebook {
   return {
     id: p.id,
     title: p.name,
-    author: 'Guiderr',
+    author: p.author || 'Guiderr',
     price: p.price_in_rupees,
     cover: p.cover_image_url || 'https://via.placeholder.com/600x400?text=Cover',
     coverImage: p.cover_image_url,
