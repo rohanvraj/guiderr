@@ -371,6 +371,8 @@ export default function Hero() {
           })}
           </div>
 
+          {/* Stats Section - Temporarily hidden */}
+          {false && (
           <div className="grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto text-center">
             <div className="animate-fade-in animation-delay-200">
               <div className="text-3xl sm:text-4xl font-bold text-slate-900 mb-1">100+</div>
@@ -385,6 +387,7 @@ export default function Hero() {
               <div className="text-sm sm:text-base text-slate-600">Avg Rating</div>
             </div>
           </div>
+          )}
         </div>
       </section>
     </>
