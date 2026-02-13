@@ -273,7 +273,8 @@ export default function Hero() {
       </section>
 
       {/* Featured Ebooks Carousel - Below Hero */}
-      {featuredEbooks.length > 0 && (
+      {/* Temporarily hidden until more products are available */}
+      {false && featuredEbooks.length > 0 && (
         <section id="featured" className="py-16 sm:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-8 sm:mb-12 text-center">
