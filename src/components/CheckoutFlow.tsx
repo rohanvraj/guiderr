@@ -218,21 +218,19 @@ export default function CheckoutFlow({ items, onClose, onPaymentSuccess }: Check
 
           console.log('[CHECKOUT] Payment received:', response.razorpay_payment_id);
 
-          // 1. Close modals FIRST to prevent NaN errors and blocking UI
-          //    This ensures a clean transition before cart is cleared
+          // 1. Close modals FIRST to prevent blocking UI
+          //    Cart panel and checkout modal are now hidden from user
           if (onPaymentSuccess) {
             onPaymentSuccess();
           }
 
-          // 2. Navigate to Thank You page (synchronous, instant)
-          //    public_token was captured in closure from createOrder above.
-          navigate(`/thank-you?token=${orderResponse.public_token}`);
+          // 2. Clear cart state immediately (safe since modals are closed)
+          //    User won't see empty cart since panel is already hidden
+          clearCart();
 
-          // 3. Clear cart after navigation (synchronous but after modal close)
-          //    Using setTimeout ensures modals fully close before cart state changes
-          setTimeout(() => {
-            clearCart();
-          }, 100);
+          // 3. Navigate to Thank You page
+          //    public_token was captured in closure from createOrder above
+          navigate(`/thank-you?token=${orderResponse.public_token}`);
 
           // 4. Persist payment details in background (fire-and-forget)
           //    If RLS blocks this update for anon users, it's OK —

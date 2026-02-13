@@ -13,6 +13,8 @@ interface CartContextType {
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
   cartFull: boolean;
+  notification: string;
+  clearNotification: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -20,7 +22,8 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const MAX_ITEMS_PER_ORDER = 5;
+  const [notification, setNotification] = useState('');
+  const MAX_ITEMS_PER_ORDER = 1; // Business rule: 1 item per checkout for instant processing
 
   useEffect(() => {
     const saved = localStorage.getItem('cart');
@@ -38,10 +41,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items]);
 
   const addToCart = (ebook: Ebook): boolean => {
-    if (items.length >= MAX_ITEMS_PER_ORDER) {
-      return false;
+    // Business rule: Only 1 item per checkout
+    // Auto-clear existing items when adding a new one
+    if (items.length > 0) {
+      setItems([{ ebook }]);
+      setNotification('Cart updated! We currently support one item per checkout for instant processing.');
+      setTimeout(() => setNotification(''), 4000);
+      return true;
     }
-    setItems([...items, { ebook }]);
+    
+    setItems([{ ebook }]);
     return true;
   };
 
@@ -53,10 +62,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems([]);
   };
 
+  const clearNotification = () => {
+    setNotification('');
+  };
+
   const cartFull = items.length >= MAX_ITEMS_PER_ORDER;
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, clearCart, isCartOpen, setIsCartOpen, cartFull }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, clearCart, isCartOpen, setIsCartOpen, cartFull, notification, clearNotification }}>
       {children}
     </CartContext.Provider>
   );

@@ -4,11 +4,15 @@ import { useCart } from '../context/CartContext';
 import CheckoutFlow from './CheckoutFlow';
 
 export default function CartPanel() {
-  const { items, isCartOpen, setIsCartOpen, removeFromCart, clearCart } = useCart();
+  const { items, isCartOpen, setIsCartOpen, removeFromCart, clearCart, notification, clearNotification } = useCart();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const getTotalPrice = () => {
-    return items.reduce((total, item) => total + item.ebook.price, 0);
+    // Safety: handle undefined/null prices and empty cart
+    return items.reduce((total, item) => {
+      const price = item.ebook?.price || 0;
+      return total + price;
+    }, 0);
   };
 
   const handleCheckout = () => {
@@ -43,6 +47,21 @@ export default function CartPanel() {
           isCartOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
+        {/* Cart Notification */}
+        {notification && (
+          <div className="absolute top-4 left-4 right-4 z-10 bg-blue-50 border border-blue-200 rounded-lg p-3 shadow-lg animate-fade-in">
+            <div className="flex items-start justify-between gap-2">
+              <p className="text-sm text-blue-800 font-medium">{notification}</p>
+              <button
+                onClick={clearNotification}
+                className="text-blue-600 hover:text-blue-800 flex-shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center justify-between p-6 border-b border-slate-200">
           <div className="flex items-center gap-2">
             <ShoppingCart className="w-6 h-6 text-slate-900" />
