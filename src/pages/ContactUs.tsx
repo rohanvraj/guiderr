@@ -6,7 +6,7 @@ export default function ContactUs() {
       <h1 className="text-3xl font-bold mb-6 text-center">Contact Us</h1>
       <p className="mb-4 text-center text-gray-700">
         Have questions or need help? Reach out to us using the form below or email us directly at{' '}
-        <a href="mailto:hello@guiderr.com" className="text-blue-600 underline">hello@guiderr.com</a>.
+        <a href="mailto:rohanrworld@gmail.com" className="text-blue-600 underline">rohanrworld@gmail.com</a>.
       </p>
 
       <form className="max-w-xl mx-auto bg-white p-6 rounded shadow space-y-4">
