@@ -8,6 +8,7 @@ const RAZORPAY_KEY_SECRET = Deno.env.get('RAZORPAY_KEY_SECRET')!;
 const ALLOWED_ORIGINS = [
   'https://guiderr.in',
   'https://www.guiderr.in',
+  'https://legendary-guiderr-662402.netlify.app',
   'http://localhost:5173',   // Vite dev server
   'http://localhost:4173',   // Vite preview
 ];

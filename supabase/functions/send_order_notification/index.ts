@@ -4,6 +4,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const ALLOWED_ORIGINS = [
   'https://guiderr.in',
   'https://www.guiderr.in',
+  'https://legendary-guiderr-662402.netlify.app',
   'http://localhost:5173',
   'http://localhost:4173',
 ];
