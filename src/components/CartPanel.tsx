@@ -91,7 +91,7 @@ export default function CartPanel() {
                       alt={item.ebook.title}
                       className="w-16 h-16 rounded-lg object-cover"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/100?text=Cover';
+                        (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
                       }}
                     />
                     <div className="flex-1">

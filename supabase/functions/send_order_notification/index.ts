@@ -1,10 +1,40 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
-};
+// ─── Strict CORS: only your production domain + localhost for testing ───
+const ALLOWED_ORIGINS = [
+  'https://guiderr.in',
+  'https://www.guiderr.in',
+  'http://localhost:5173',
+  'http://localhost:4173',
+];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get('origin') || '';
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : '';
+  return {
+    'Access-Control-Allow-Origin': allowedOrigin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Client-Info, Apikey',
+    'Content-Type': 'application/json',
+    'Vary': 'Origin',
+  };
+}
+
+// ─── In-memory rate limiter ───
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function isRateLimited(clientIp: string, maxRequests = 5, windowMs = 60_000): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(clientIp);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(clientIp, { count: 1, resetAt: now + windowMs });
+    return false;
+  }
+
+  entry.count++;
+  return entry.count > maxRequests;
+}
 
 interface OrderNotificationRequest {
   order_id: string;
@@ -19,6 +49,8 @@ interface OrderNotificationRequest {
 }
 
 serve(async (req: Request) => {
+  const corsHeaders = getCorsHeaders(req);
+
   if (req.method === "OPTIONS") {
     return new Response(null, {
       status: 200,
@@ -26,10 +58,30 @@ serve(async (req: Request) => {
     });
   }
 
+  // Reject disallowed origins
+  if (!corsHeaders['Access-Control-Allow-Origin']) {
+    return new Response(JSON.stringify({ error: 'Origin not allowed' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Rate limit by IP
+  const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('cf-connecting-ip')
+    || 'unknown';
+
+  if (isRateLimited(clientIp)) {
+    return new Response(JSON.stringify({ error: 'Too many requests.' }), {
+      status: 429,
+      headers: corsHeaders,
+    });
+  }
+
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
       status: 405,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: corsHeaders,
     });
   }
 
@@ -40,7 +92,7 @@ serve(async (req: Request) => {
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
 
     if (!resendApiKey) {
-      console.warn("RESEND_API_KEY not configured. Email notifications disabled.");
+      console.warn("RESEND_API_KEY not configured.");
       return new Response(
         JSON.stringify({
           success: true,
@@ -48,7 +100,7 @@ serve(async (req: Request) => {
         }),
         {
           status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: corsHeaders,
         }
       );
     }
@@ -151,7 +203,7 @@ Guiderr Team
       }),
       {
         status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: corsHeaders,
       }
     );
   } catch (error) {
@@ -159,11 +211,10 @@ Guiderr Team
     return new Response(
       JSON.stringify({
         error: "Failed to process notification",
-        details: String(error),
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: corsHeaders,
       }
     );
   }

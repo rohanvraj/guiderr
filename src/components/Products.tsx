@@ -24,7 +24,7 @@ function toEbook(p: Product): Ebook {
     title: p.name,
     author: p.author || 'Guiderr',
     price: p.price_in_rupees,
-    cover: p.cover_image_url || 'https://via.placeholder.com/600x400?text=Cover',
+    cover: p.cover_image_url || '/covers/placeholder.svg',
     coverImage: p.cover_image_url,
     pdf: p.delivery_link,
     category: p.category || '',
@@ -75,7 +75,7 @@ function ProductCard({ product, index }: { product: DisplayProduct; index: numbe
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {
-              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/600x400?text=Cover';
+              (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
               setImageLoaded(true);
             }}
           />
@@ -157,7 +157,7 @@ export default function Products() {
       title: p.name,
       description: p.name,
       price: p.price_in_rupees,
-      image: p.cover_image_url || 'https://via.placeholder.com/600x400?text=Cover',
+      image: p.cover_image_url || '/covers/placeholder.svg',
       _source: p,
     });
   }

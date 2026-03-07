@@ -92,37 +92,45 @@ CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id);
 CREATE INDEX IF NOT EXISTS idx_referral_tracking_referral_code ON referral_tracking(referral_code);
 
 -- RLS Policies for orders table
+DROP POLICY IF EXISTS "Public can read orders by email" ON orders;
 CREATE POLICY "Public can read orders by email"
   ON orders FOR SELECT
   USING (true);
 
+DROP POLICY IF EXISTS "Public can create orders" ON orders;
 CREATE POLICY "Public can create orders"
   ON orders FOR INSERT
   WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Admin can update orders" ON orders;
 CREATE POLICY "Admin can update orders"
   ON orders FOR UPDATE
   USING (true)
   WITH CHECK (true);
 
 -- RLS Policies for order_items table
+DROP POLICY IF EXISTS "Public can read order items" ON order_items;
 CREATE POLICY "Public can read order items"
   ON order_items FOR SELECT
   USING (true);
 
+DROP POLICY IF EXISTS "Public can create order items" ON order_items;
 CREATE POLICY "Public can create order items"
   ON order_items FOR INSERT
   WITH CHECK (true);
 
 -- RLS Policies for referral_tracking table
+DROP POLICY IF EXISTS "Public can read referral tracking" ON referral_tracking;
 CREATE POLICY "Public can read referral tracking"
   ON referral_tracking FOR SELECT
   USING (true);
 
+DROP POLICY IF EXISTS "Public can create referral entries" ON referral_tracking;
 CREATE POLICY "Public can create referral entries"
   ON referral_tracking FOR INSERT
   WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Admin can update referral tracking" ON referral_tracking;
 CREATE POLICY "Admin can update referral tracking"
   ON referral_tracking FOR UPDATE
   USING (true)

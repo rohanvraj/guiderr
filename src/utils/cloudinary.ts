@@ -23,7 +23,7 @@ export function optimizeCloudinaryUrl(
 ): string {
   if (!url) return '';
 
-  // Pass through non-Cloudinary URLs (via.placeholder.com, etc.)
+  // Pass through non-Cloudinary URLs (local placeholders, etc.)
   if (!url.includes('res.cloudinary.com')) return url;
 
   // Don't double-apply: if transforms already present, return as-is

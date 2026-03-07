@@ -4,7 +4,7 @@
  * Includes comprehensive diagnostic logging for 400 Bad Request debugging
  */
 
-const EDGE_FUNCTION_URL = 'https://luxeufxyluqxrwuejjpx.supabase.co/functions/v1/create-razorpay-order';
+const EDGE_FUNCTION_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-razorpay-order`;
 
 export interface CreateRazorpayOrderRequest {
   amount_paise: number; // Amount in paise (e.g., ₹100 = 10000)

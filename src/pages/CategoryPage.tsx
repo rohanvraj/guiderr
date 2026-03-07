@@ -51,7 +51,7 @@ function EbookCard({ ebook, index }: { ebook: Ebook; index: number }) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {
-              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150x200?text=Cover';
+              (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
               setImageLoaded(true);
             }}
           />
@@ -106,7 +106,7 @@ export default function CategoryPage() {
             title: product.name,
             author: product.author || 'Guiderr',
             price: product.price_in_rupees,
-            cover: product.cover_image_url || 'https://via.placeholder.com/150x200?text=' + encodeURIComponent(product.name.substring(0, 10)),
+            cover: product.cover_image_url || '/covers/placeholder.svg',
             pdf: product.delivery_link,
             category: category,
             synopsis: product.name,

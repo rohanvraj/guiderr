@@ -38,14 +38,17 @@ DROP POLICY IF EXISTS "orders_update_auth" ON orders;
 -- 3. Calls function with: razorpay_payment_id, buyer_email, etc.
 -- This way, browser never touches orders table directly.
 --
+DROP POLICY IF EXISTS "orders_insert_anonymous_checkout" ON orders;
 CREATE POLICY "orders_insert_anonymous_checkout" ON orders
   FOR INSERT WITH CHECK (TRUE);
 
 -- POLICY 2: SELECT - Authenticated only (admin dashboard reads)
+DROP POLICY IF EXISTS "orders_select_authenticated" ON orders;
 CREATE POLICY "orders_select_authenticated" ON orders
   FOR SELECT USING (auth.role() = 'authenticated');
 
 -- POLICY 3: UPDATE - Authenticated only (admin marking as delivered, updating payment status)
+DROP POLICY IF EXISTS "orders_update_authenticated" ON orders;
 CREATE POLICY "orders_update_authenticated" ON orders
   FOR UPDATE USING (auth.role() = 'authenticated')
   WITH CHECK (auth.role() = 'authenticated');

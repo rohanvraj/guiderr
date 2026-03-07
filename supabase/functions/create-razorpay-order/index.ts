@@ -4,55 +4,91 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const RAZORPAY_KEY_ID = Deno.env.get('RAZORPAY_KEY_ID')!;
 const RAZORPAY_KEY_SECRET = Deno.env.get('RAZORPAY_KEY_SECRET')!;
 
-// CORS headers for all responses
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Content-Type': 'application/json',
-};
+// ─── Strict CORS: only your production domain + localhost for testing ───
+const ALLOWED_ORIGINS = [
+  'https://guiderr.in',
+  'https://www.guiderr.in',
+  'http://localhost:5173',   // Vite dev server
+  'http://localhost:4173',   // Vite preview
+];
 
-// Diagnostic logging helper
-function logDiagnostics(stage: string, data: any) {
-  console.log(`\n[RAZORPAY-DIAGNOSTICS] ${stage}`);
-  console.log(JSON.stringify(data, null, 2));
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get('origin') || '';
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : '';
+  return {
+    'Access-Control-Allow-Origin': allowedOrigin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Content-Type': 'application/json',
+    'Vary': 'Origin',
+  };
+}
+
+// ─── In-memory rate limiter (resets on cold start — fine for Edge Functions) ───
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function isRateLimited(clientIp: string, maxRequests = 5, windowMs = 60_000): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(clientIp);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(clientIp, { count: 1, resetAt: now + windowMs });
+    return false;
+  }
+
+  entry.count++;
+  return entry.count > maxRequests;
 }
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+
   // 1. Handle CORS preflight request (MUST be first)
   if (req.method === 'OPTIONS') {
-    logDiagnostics('CORS Preflight', { method: req.method });
     return new Response('ok', { 
       headers: corsHeaders,
       status: 200,
     });
   }
 
+  // 2. Reject disallowed origins
+  if (!corsHeaders['Access-Control-Allow-Origin']) {
+    return new Response(JSON.stringify({ error: 'Origin not allowed' }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 403,
+    });
+  }
+
+  // 3. Rate limit by IP
+  const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('cf-connecting-ip')
+    || 'unknown';
+
+  if (isRateLimited(clientIp)) {
+    return new Response(JSON.stringify({ error: 'Too many requests. Please try again later.' }), {
+      headers: corsHeaders,
+      status: 429,
+    });
+  }
+
   try {
-    // 2. Validate request method
+    // 4. Validate request method
     if (req.method !== 'POST') {
-      logDiagnostics('Invalid method', { method: req.method });
       return new Response(JSON.stringify({ 
         error: 'Only POST requests are allowed',
-        received_method: req.method,
       }), {
         headers: corsHeaders,
         status: 405,
       });
     }
 
-    // 3. Parse request body
+    // 5. Parse request body
     let requestData;
     try {
       requestData = await req.json();
-      logDiagnostics('Request parsed successfully', requestData);
-    } catch (parseError) {
-      logDiagnostics('JSON Parse Error', {
-        error: parseError instanceof Error ? parseError.message : String(parseError),
-      });
+    } catch (_parseError) {
       return new Response(JSON.stringify({ 
         error: 'Invalid JSON in request body',
-        details: parseError instanceof Error ? parseError.message : String(parseError),
       }), {
         headers: corsHeaders,
         status: 400,
@@ -61,83 +97,66 @@ Deno.serve(async (req) => {
 
     const { amount_paise, buyer_email, buyer_name, notes } = requestData;
 
-    // 4. Validate required fields
-    logDiagnostics('Field validation', {
-      has_amount_paise: !!amount_paise,
-      has_buyer_email: !!buyer_email,
-      has_buyer_name: !!buyer_name,
-      amount_paise_value: amount_paise,
-      buyer_email_value: buyer_email,
-      buyer_name_value: buyer_name,
-    });
-
+    // 6. Validate required fields
     if (!amount_paise || !buyer_email || !buyer_name) {
       const missingFields = [];
       if (!amount_paise) missingFields.push('amount_paise');
       if (!buyer_email) missingFields.push('buyer_email');
       if (!buyer_name) missingFields.push('buyer_name');
 
-      logDiagnostics('Missing required fields', { missing: missingFields });
-
       return new Response(JSON.stringify({ 
         error: `Missing required fields: ${missingFields.join(', ')}`,
-        received_fields: Object.keys(requestData),
       }), {
         headers: corsHeaders,
         status: 400,
       });
     }
 
-    // 5. Validate amount is positive
-    if (amount_paise <= 0) {
-      logDiagnostics('Invalid amount', { amount_paise });
-      return new Response(JSON.stringify({ 
-        error: 'Amount must be greater than 0',
-        received_amount: amount_paise,
-      }), {
+    // 7. Input validation — email format, name length, amount range
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(buyer_email)) {
+      return new Response(JSON.stringify({ error: 'Invalid email format' }), {
         headers: corsHeaders,
         status: 400,
       });
     }
 
-    // 6. Validate environment variables
-    logDiagnostics('Environment check', {
-      has_key_id: !!RAZORPAY_KEY_ID,
-      has_key_secret: !!RAZORPAY_KEY_SECRET,
-      key_id_length: RAZORPAY_KEY_ID?.length || 0,
-      key_secret_length: RAZORPAY_KEY_SECRET?.length || 0,
-    });
+    if (typeof buyer_name !== 'string' || buyer_name.length < 2 || buyer_name.length > 100) {
+      return new Response(JSON.stringify({ error: 'Invalid name' }), {
+        headers: corsHeaders,
+        status: 400,
+      });
+    }
 
+    // Amount range: ₹1 – ₹50,000 in paise
+    if (!Number.isInteger(amount_paise) || amount_paise < 100 || amount_paise > 5_000_000) {
+      return new Response(JSON.stringify({ error: 'Invalid amount' }), {
+        headers: corsHeaders,
+        status: 400,
+      });
+    }
+
+    // 8. Validate environment variables
     if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
-      logDiagnostics('Missing Razorpay credentials', {
-        error: 'RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET not set in environment',
-      });
       return new Response(JSON.stringify({ 
-        error: 'Server configuration error: Missing Razorpay credentials',
-        status: 'error',
+        error: 'Server configuration error',
       }), {
         headers: corsHeaders,
         status: 500,
       });
     }
 
-    // 7. Build Basic Auth header
-    // Matches curl: `curl -u "$RAZORPAY_KEY_ID:$RAZORPAY_KEY_SECRET" ...`
-    // (i.e., Authorization: Basic base64(key_id:key_secret))
+    // 9. Build Basic Auth header
     const keyId = RAZORPAY_KEY_ID.trim();
     const keySecret = RAZORPAY_KEY_SECRET.trim();
     const basicAuth = btoa(`${keyId}:${keySecret}`);
-    logDiagnostics('Authorization header', {
-      auth_format: `Basic [redacted - length: ${basicAuth.length}]`,
-      using_credentials: 'YES - built from RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET',
-    });
 
-    // 8. Prepare Razorpay request payload
+    // 10. Prepare Razorpay request payload
     const razorpayPayload = {
       amount: amount_paise,
       currency: 'INR',
       receipt: `order_${Date.now()}`,
-      // 🟢 THE FIX: Forces status to 'Captured' instead of 'Authorized'
+      // 🟢 Forces status to 'Captured' instead of 'Authorized'
       payment_capture: 1,
       notes: {
         buyer_email,
@@ -145,11 +164,8 @@ Deno.serve(async (req) => {
         ...notes,
       },
     };
-    logDiagnostics('Razorpay API payload', razorpayPayload);
 
-    // 9. Call Razorpay Orders API
-    logDiagnostics('Calling Razorpay API', { url: 'https://api.razorpay.com/v1/orders' });
-    
+    // 11. Call Razorpay Orders API
     const razorpayResponse = await fetch('https://api.razorpay.com/v1/orders', {
       method: 'POST',
       headers: {
@@ -159,28 +175,13 @@ Deno.serve(async (req) => {
       body: JSON.stringify(razorpayPayload),
     });
 
-    // 10. Parse Razorpay response
+    // 12. Parse Razorpay response
     const orderData = await razorpayResponse.json();
-    logDiagnostics('Razorpay response received', {
-      status: razorpayResponse.status,
-      status_ok: razorpayResponse.ok,
-      response_body: orderData,
-    });
 
-    // 11. Check if Razorpay returned an error
+    // 13. Check if Razorpay returned an error
     if (!razorpayResponse.ok) {
-      logDiagnostics('Razorpay API Error', {
-        status_code: razorpayResponse.status,
-        error_object: orderData.error,
-        full_response: orderData,
-      });
-
       return new Response(JSON.stringify({ 
         error: orderData.error?.description || 'Failed to create Razorpay order',
-        razorpay_error_code: orderData.error?.code,
-        razorpay_error_description: orderData.error?.description,
-        razorpay_error_source: orderData.error?.source,
-        razorpay_error_reason: orderData.error?.reason,
         status: 'error',
       }), {
         headers: corsHeaders,
@@ -188,37 +189,24 @@ Deno.serve(async (req) => {
       });
     }
 
-    // 12. Return successful order data to frontend
-    const successResponse = {
+    // 14. Return successful order data to frontend
+    return new Response(JSON.stringify({
       id: orderData.id,
       amount: orderData.amount,
       currency: orderData.currency,
       receipt: orderData.receipt,
       created_at: new Date(orderData.created_at * 1000).toISOString(),
       status: 'success',
-    };
-    logDiagnostics('Success - returning to frontend', successResponse);
-
-    return new Response(JSON.stringify(successResponse), {
+    }), {
       headers: corsHeaders,
       status: 200,
     });
 
   } catch (error) {
-    // 13. Catch unexpected errors and return clear JSON
-    logDiagnostics('Unexpected error caught', {
-      error_type: error instanceof Error ? 'Error' : typeof error,
-      error_message: error instanceof Error ? error.message : String(error),
-      error_stack: error instanceof Error ? error.stack : null,
-      full_error: JSON.stringify(error, null, 2),
-    });
-    
-    const errorMessage = error instanceof Error ? error.message : 'Unexpected server error';
-    
+    // 15. Catch unexpected errors — return safe message without leaking stack traces
     return new Response(JSON.stringify({ 
-      error: errorMessage,
+      error: 'Unexpected server error',
       status: 'error',
-      timestamp: new Date().toISOString(),
     }), {
       headers: corsHeaders,
       status: 500,

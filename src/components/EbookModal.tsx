@@ -39,7 +39,7 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
                 alt={ebook.title}
                 className="w-full aspect-[3/4] object-cover rounded-lg shadow-lg"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x400?text=Cover';
+                  (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
                 }}
               />
             </div>
