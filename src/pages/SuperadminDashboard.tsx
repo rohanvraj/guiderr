@@ -10,6 +10,7 @@ import {
   updateEbooksData,
 } from '../utils/ebooks';
 import { Category, Ebook, EbooksData } from '../types/ebook';
+import { authenticateAdmin } from '../utils/supabase';
 
 export default function SuperadminDashboard() {
   const navigate = useNavigate();
@@ -33,8 +34,10 @@ export default function SuperadminDashboard() {
     synopsis: '',
   });
 
-  const ADMIN_USERNAME = 'admin';
-  const ADMIN_PASSWORD = 'guiderr123';
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [loginLoading, setLoginLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -48,17 +51,22 @@ export default function SuperadminDashboard() {
     setEbooks(data.ebooks);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const username = (document.getElementById('username') as HTMLInputElement)?.value;
-    const password = (document.getElementById('password') as HTMLInputElement)?.value;
+    setLoginError('');
+    setLoginLoading(true);
 
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    const result = await authenticateAdmin(loginEmail, loginPassword);
+
+    if (result.success) {
       setIsAuthenticated(true);
       setShowAuthModal(false);
+      setLoginEmail('');
+      setLoginPassword('');
     } else {
-      alert('Invalid credentials');
+      setLoginError(result.error || 'Invalid credentials. Check your Supabase admin account.');
     }
+    setLoginLoading(false);
   };
 
   const saveData = (newData: EbooksData) => {
@@ -234,28 +242,35 @@ export default function SuperadminDashboard() {
             <h2 className="text-2xl font-bold text-slate-900 mb-6">Superadmin Login</h2>
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-slate-900 mb-2">Username</label>
+                <label className="block text-sm font-semibold text-slate-900 mb-2">Admin Email</label>
                 <input
-                  id="username"
-                  type="text"
+                  type="email"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
                   required
+                  placeholder="admin@example.com"
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                 />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-900 mb-2">Password</label>
                 <input
-                  id="password"
                   type="password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
                   required
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                 />
               </div>
+              {loginError && (
+                <p className="text-red-600 text-sm">{loginError}</p>
+              )}
               <button
                 type="submit"
-                className="w-full py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-all"
+                disabled={loginLoading}
+                className="w-full py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-all disabled:opacity-50"
               >
-                Login
+                {loginLoading ? 'Logging in...' : 'Login'}
               </button>
             </form>
             <button

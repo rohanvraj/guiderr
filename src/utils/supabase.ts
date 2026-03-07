@@ -111,10 +111,12 @@ export async function getProductByName(productName: string) {
 export async function getProductsByCategory(category: string) {
   const { data, error } = await supabase
     .from('products')
-    .select('*')
+    // delivery_link intentionally excluded from storefront queries — only fetched during checkout
+    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type')
     .eq('category', category)
     .eq('product_type', 'ebook')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(50);
 
   if (error) {
     console.error('Failed to fetch products by category:', error.message);
@@ -126,9 +128,11 @@ export async function getProductsByCategory(category: string) {
 export async function getAllProducts() {
   const { data, error } = await supabase
     .from('products')
-    .select('*')
+    // delivery_link intentionally excluded from storefront queries — only fetched during checkout
+    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type')
     .eq('product_type', 'ebook')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(50);
 
   if (error) {
     console.error('Failed to fetch all products:', error.message);
@@ -414,8 +418,10 @@ export async function markItemAsDelivered(itemId: string) {
 export async function getAllPartners() {
   const { data, error } = await supabase
     .from('partners')
-    .select('*')
-    .order('created_at', { ascending: false });
+    // secret_key intentionally excluded — it is only accessed server-side via getCreatorStats()
+    .select('id, code, name, upi_id, commission_rate, clicks, created_at, updated_at')
+    .order('created_at', { ascending: false })
+    .limit(200);
 
   if (error) throw error;
   return data as Partner[];

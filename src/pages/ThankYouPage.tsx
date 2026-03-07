@@ -1,7 +1,6 @@
 import { useMemo, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { CheckCircle, Download, ArrowRight, ExternalLink, AlertCircle } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getOrderByRazorpayId, getOrderItems, getOrderByPublicToken, Order, OrderItem, supabase } from '../utils/supabase';
@@ -21,48 +20,6 @@ export default function ThankYouPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [guestOrderData, setGuestOrderData] = useState<any>(null);
-
-  // ============================================================================
-  // TEMPORARY: Supabase Connection Test (Remove after verification)
-  // ============================================================================
-  useEffect(() => {
-    const testSupabaseConnection = async () => {
-      try {
-        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-        if (!supabaseUrl || !supabaseKey) {
-          console.error('❌ Supabase env vars missing');
-          console.error('  - VITE_SUPABASE_URL:', supabaseUrl ? '✓ set' : '✗ missing');
-          console.error('  - VITE_SUPABASE_ANON_KEY:', supabaseKey ? '✓ set' : '✗ missing');
-          return;
-        }
-
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
-        // Test query: Fetch 1 ebook from the table
-        console.log('🔄 Testing Supabase connection...');
-        const { data, error: queryError } = await supabase
-          .from('products')
-          .select('*')
-          .limit(1);
-
-        if (queryError) {
-          console.error('❌ Supabase query failed:', queryError);
-        } else {
-          console.log('✅ Supabase connection successful!');
-          console.log('   Sample product data:', data);
-        }
-      } catch (err) {
-        console.error('❌ Supabase connection error:', err);
-      }
-    };
-
-    testSupabaseConnection();
-  }, []); // Runs once on component mount
-  // ============================================================================
-  // END TEMPORARY TEST
-  // ============================================================================
 
   // Priority 1: Check for public_token parameter (from CheckoutFlow - new secure token method)
   const publicToken = searchParams.get('token');
