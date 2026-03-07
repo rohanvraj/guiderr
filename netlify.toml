@@ -1,0 +1,42 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA catch-all: all routes serve index.html so React Router handles navigation
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ─── Security headers for every page ────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # CSP: scoped to the exact origins Guiderr needs.
+    # Razorpay checkout iframes + scripts, Cloudinary images, Supabase API,
+    # Google Fonts, and placeholder for future AdSense.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://cdn.razorpay.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://res.cloudinary.com https://via.placeholder.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://api.razorpay.com https://lux.razorpay.com https://api.cloudinary.com; frame-src https://api.razorpay.com https://checkout.razorpay.com;"
+
+# ─── Aggressive caching for Vite-hashed assets (/assets/main.abc123.js) ─────
+# Vite fingerprints every asset filename — safe to cache immutably for 1 year.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ─── Cache uploaded cover images ────────────────────────────────────────────
+[[headers]]
+  for = "/covers/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# ─── Never cache HTML — always serve fresh for SPA entry point ──────────────
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

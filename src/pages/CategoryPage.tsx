@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { getCategoryById } from '../utils/ebooks';
 import { getProductsByCategory } from '../utils/supabase';
 import { Ebook } from '../types/ebook';
@@ -44,8 +45,9 @@ function EbookCard({ ebook, index }: { ebook: Ebook; index: number }) {
       >
         <div className="relative aspect-[3/4] overflow-hidden">
           <img
-            src={ebook.cover}
+            src={optimizeCloudinaryUrl(ebook.cover, { width: 400 })}
             alt={ebook.title}
+            loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {

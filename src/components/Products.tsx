@@ -2,6 +2,7 @@ import { ShoppingCart, BookOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getAllProducts, Product } from '../utils/supabase';
+import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { getCategories } from '../utils/ebooks';
 import { Ebook } from '../types/ebook';
 import EbookModal from './EbookModal';
@@ -68,8 +69,9 @@ function ProductCard({ product, index }: { product: DisplayProduct; index: numbe
       >
         <div className="relative h-56 sm:h-64 overflow-hidden">
           <img
-            src={product.image}
+            src={optimizeCloudinaryUrl(product.image, { width: 400 })}
             alt={product.title}
+            loading="lazy"
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {

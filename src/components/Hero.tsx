@@ -2,6 +2,7 @@ import { Bike, TrendingUp, Plane, Baby, Heart, ArrowRight, BookOpen, Book, Libra
 import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
 import { getAllProducts, Product } from '../utils/supabase';
+import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -301,8 +302,9 @@ export default function Hero() {
                       <div className="p-4 sm:p-6">
                         <div className="flex flex-col items-center gap-3">
                           <img
-                            src={ebook.cover_image_url || 'https://via.placeholder.com/200x300?text=Cover'}
+                            src={optimizeCloudinaryUrl(ebook.cover_image_url, { width: 800 }) || 'https://via.placeholder.com/200x300?text=Cover'}
                             alt={ebook.name}
+                            loading="lazy"
                             className="w-28 h-40 sm:w-32 sm:h-44 object-cover rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                             style={{ opacity: carouselReady ? 1 : 0 }}
                             onLoad={() => handleImageLoad(ebook.id)}

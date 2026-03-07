@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Upload, Save, LogOut, Camera } from 'lucide-react';
 import { supabase, getCurrentUserProfile, updateUserProfile, UserProfile } from '../utils/supabase';
+import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
 export default function ExpertProfilePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -212,8 +213,9 @@ export default function ExpertProfilePage() {
               <div className="flex-shrink-0">
                 {formData.profile_image_url ? (
                   <img
-                    src={formData.profile_image_url}
+                    src={optimizeCloudinaryUrl(formData.profile_image_url, { width: 200 })}
                     alt="Profile"
+                    loading="lazy"
                     className="w-24 h-24 rounded-full object-cover border-4 border-slate-200"
                   />
                 ) : (
