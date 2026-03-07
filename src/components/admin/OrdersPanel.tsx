@@ -1,27 +1,22 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle, Clock, Mail } from 'lucide-react';
-import { getAllOrders, getOrderItems, markOrderAsDelivered, Order, OrderItem } from '../../utils/supabase';
+import { getAllOrdersWithItems, markOrderAsDelivered, OrderWithItems } from '../../utils/supabase';
 
 interface OrdersPanelProps {
   // No authentication prop - parent component handles auth
 }
 
 export default function OrdersPanel({}: OrdersPanelProps) {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<OrderWithItems[]>([]);
   const [loading, setLoading] = useState(true);
-  const [orderItemsMap, setOrderItemsMap] = useState<Record<string, OrderItem[]>>({});
 
+  // Single joined query — replaces the previous N+1 loop (getAllOrders + getOrderItems per order).
+  // With 100 orders this was 101 API calls; now it is always 1.
   const loadOrders = async () => {
     setLoading(true);
     try {
-      const ordersData = await getAllOrders();
+      const ordersData = await getAllOrdersWithItems();
       setOrders(ordersData);
-
-      const itemsMap: Record<string, OrderItem[]> = {};
-      for (const order of ordersData) {
-        itemsMap[order.id] = await getOrderItems(order.id);
-      }
-      setOrderItemsMap(itemsMap);
     } catch (error) {
       console.error('Failed to load orders:', error);
     } finally {
@@ -73,7 +68,7 @@ export default function OrdersPanel({}: OrdersPanelProps) {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => {
-            const items = orderItemsMap[order.id] || [];
+            const items = order.order_items || [];
             const isDelivered = order.delivery_status === 'delivered';
 
             return (

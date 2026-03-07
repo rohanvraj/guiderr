@@ -1,5 +1,6 @@
 import { ShoppingCart, BookOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getAllProducts, Product } from '../utils/supabase';
 import { getCategories } from '../utils/ebooks';
 import { Ebook } from '../types/ebook';
@@ -137,41 +138,29 @@ function ProductSection({
 }
 
 export default function Products() {
-  const [productsByCategory, setProductsByCategory] = useState<Record<string, DisplayProduct[]>>({});
-  const [loading, setLoading] = useState(true);
   const categories = getCategories();
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const allProducts = await getAllProducts();
-        const grouped: Record<string, DisplayProduct[]> = {};
+  // Same queryKey as Hero.tsx — React Query deduplicates: homepage makes 1 API call, not 2.
+  const { data: allProducts = [], isLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: getAllProducts,
+  });
 
-        for (const p of allProducts) {
-          const catKey = (p.category || 'other').toLowerCase();
-          if (!grouped[catKey]) grouped[catKey] = [];
-          grouped[catKey].push({
-            id: p.id,
-            title: p.name,
-            description: p.name,
-            price: p.price_in_rupees,
-            image: p.cover_image_url || 'https://via.placeholder.com/600x400?text=Cover',
-            _source: p,
-          });
-        }
+  const productsByCategory: Record<string, DisplayProduct[]> = {};
+  for (const p of allProducts) {
+    const catKey = (p.category || 'other').toLowerCase();
+    if (!productsByCategory[catKey]) productsByCategory[catKey] = [];
+    productsByCategory[catKey].push({
+      id: p.id,
+      title: p.name,
+      description: p.name,
+      price: p.price_in_rupees,
+      image: p.cover_image_url || 'https://via.placeholder.com/600x400?text=Cover',
+      _source: p,
+    });
+  }
 
-        setProductsByCategory(grouped);
-      } catch (err) {
-        console.error('Failed to fetch products:', err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchProducts();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="bg-gradient-to-b from-white to-slate-50 py-20 text-center">
         <div className="animate-pulse text-slate-400 text-lg">Loading products...</div>

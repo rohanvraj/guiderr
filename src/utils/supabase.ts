@@ -386,6 +386,22 @@ export async function getAllOrders(limit = 100) {
   return data as Order[];
 }
 
+// Replaces the N+1 loop in OrdersPanel: fetches all orders + their items in 1 query.
+export interface OrderWithItems extends Order {
+  order_items: OrderItem[];
+}
+
+export async function getAllOrdersWithItems(limit = 100) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*, order_items(*)')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  if (error) throw error;
+  return (data || []) as OrderWithItems[];
+}
+
 export async function markOrderAsDelivered(orderId: string) {
   const { data, error } = await supabase
     .from('orders')

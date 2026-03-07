@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
 import { getAllProducts, Product } from '../utils/supabase';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 const iconMap: Record<string, any> = {
   motorcycles: Bike,
@@ -26,7 +27,14 @@ export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [carouselReady, setCarouselReady] = useState(false);
   const loadedImagesRef = useRef(new Set<string>());
-  const [featuredEbooks, setFeaturedEbooks] = useState<Product[]>([]);
+
+  // Shares the ['products'] queryKey with Products.tsx — React Query deduplicates
+  // the request so this costs 0 extra API calls when both components are on screen.
+  const { data: allProducts = [] } = useQuery({
+    queryKey: ['products'],
+    queryFn: getAllProducts,
+  });
+  const featuredEbooks = allProducts.slice(0, 6);
   
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -37,19 +45,6 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  // Fetch featured products from Supabase (latest 6 uploads)
-  useEffect(() => {
-    async function fetchFeatured() {
-      try {
-        const products = await getAllProducts();
-        setFeaturedEbooks(products.slice(0, 6));
-      } catch (err) {
-        console.error('Failed to fetch featured ebooks:', err);
-      }
-    }
-    fetchFeatured();
-  }, []);
-  
   // Duplicate ebooks for seamless infinite scroll
   const duplicatedEbooks = [...featuredEbooks, ...featuredEbooks];
   
