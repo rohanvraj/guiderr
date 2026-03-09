@@ -2,6 +2,11 @@ backend:
   name: git-gateway
   branch: main
 
+# Tell Decap CMS the canonical domain so invitation/reset emails link to guiderr.in
+# not the old legendary-guiderr-662402.netlify.app subdomain.
+site_url: https://www.guiderr.in
+logo_url: https://www.guiderr.in/favicon.ico
+
 # ── Cloudinary Media Library ─────────────────────────────────────────────────
 # All blog images are stored on Cloudinary — zero repo bloat, CDN-served.
 media_library:

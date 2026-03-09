@@ -19,11 +19,16 @@
     <meta name="twitter:title" content="Guiderr - Premium Ebooks" />
     <meta name="twitter:description" content="Transform your knowledge with expert digital guides. Personalized learning, real results, and full support — wherever you are." />
     <meta name="twitter:image" content="https://legendary-guiderr-662402.netlify.app/og-image.png" />
+    <!-- Netlify Identity Widget: must load synchronously so window.netlifyIdentity
+         is defined before the redirect handler below runs. Do NOT add 'async' or 'defer'. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Netlify Identity redirect handler (needed for /cms blog dashboard login) -->
+    <!-- Netlify Identity redirect handler: fires after login on the main site,
+         sends the user to the CMS dashboard. Safe — never runs on /admin
+         because Supabase auth is entirely separate (no window.netlifyIdentity there). -->
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', function(user) {
@@ -35,6 +40,5 @@
         });
       }
     </script>
-    <script async src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </body>
 </html>
