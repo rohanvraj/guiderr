@@ -14,6 +14,8 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import ShippingPolicy from './pages/ShippingPolicy';
 import CancellationsRefunds from './pages/CancellationsRefunds';
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import BlogListingPage from './pages/BlogListingPage';
+import BlogPostPage from './pages/BlogPostPage';
 
 // Component to handle referral tracking
 function ReferralTracker() {
@@ -40,6 +42,8 @@ function App() {
         <CartPanel />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/guides" element={<BlogListingPage />} />
+          <Route path="/guides/:slug" element={<BlogPostPage />} />
           <Route path="/:category" element={<CategoryPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/stats/:secretKey" element={<CreatorStatsPage />} />

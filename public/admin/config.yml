@@ -1,0 +1,44 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# ── Cloudinary Media Library ─────────────────────────────────────────────────
+# All blog images are stored on Cloudinary — zero repo bloat, CDN-served.
+# Replace YOUR_CLOUDINARY_API_KEY with your actual public API key from the
+# Cloudinary dashboard → Settings → Access Keys.
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: dhzxdbo8q
+    api_key: 489542285784989
+    output_filename_only: false
+    default_transformations:
+      - fetch_format: auto
+        quality: "auto:eco"
+
+# Fallback local media folder (only used if Cloudinary is not configured)
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
+
+# ── Collections ──────────────────────────────────────────────────────────────
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Motorcycles"
+          - "Finance"
+          - "Travel"
+          - "Children"
+          - "Parenting"
+          - "Art"
+      - { label: "Featured Image", name: "featured_image", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }
