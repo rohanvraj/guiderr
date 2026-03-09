@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { getCategoryById } from '../utils/ebooks';
 import { getProductsByCategory } from '../utils/supabase';
@@ -79,53 +80,39 @@ function EbookCard({ ebook, index }: { ebook: Ebook; index: number }) {
 export default function CategoryPage() {
   const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
-  const [ebooks, setEbooks] = useState<Ebook[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [categoryData, setCategoryData] = useState<{ id: string; name: string; description: string } | null>(null);
 
-  useEffect(() => {
-    if (category) {
-      const cat = getCategoryById(category);
-      if (cat) {
-        setCategoryData(cat);
+  const categoryData = category ? getCategoryById(category) : undefined;
 
-        // Map category slug to PascalCase for Supabase lookup
-        const categoryMapping: Record<string, string> = {
-          'motorcycles': 'Motorcycles',
-          'finance': 'Finance',
-          'travel': 'Travel',
-          'children': 'Children',
-          'parenting': 'Parenting',
-          'art': 'Art',
-        };
-        const categoryName = categoryMapping[category] || category;
+  // Map category slug to PascalCase for Supabase lookup
+  const categoryMapping: Record<string, string> = {
+    'motorcycles': 'Motorcycles',
+    'finance': 'Finance',
+    'travel': 'Travel',
+    'children': 'Children',
+    'parenting': 'Parenting',
+    'art': 'Art',
+  };
 
-        getProductsByCategory(categoryName).then((products) => {
-          const convertedProducts: Ebook[] = products.map((product) => ({
-            id: product.id,
-            title: product.name,
-            author: product.author || 'Guiderr',
-            price: product.price_in_rupees,
-            cover: product.cover_image_url || '/covers/placeholder.svg',
-            pdf: product.delivery_link,
-            category: category,
-            synopsis: product.name,
-            downloadLink: product.delivery_link,
-          }));
-          setEbooks(convertedProducts);
-        }).catch((err) => {
-          console.error('Failed to fetch Supabase products:', err);
-          setEbooks([]);
-        }).finally(() => {
-          setLoading(false);
-        });
-      } else {
-        setLoading(false);
-      }
-    } else {
-      setLoading(false);
-    }
-  }, [category]);
+  // React Query caches by ['products', category] — navigating back won't re-fetch within staleTime.
+  const { data: ebooks = [], isLoading: loading } = useQuery({
+    queryKey: ['products', category],
+    queryFn: async () => {
+      const categoryName = categoryMapping[category!] || category!;
+      const products = await getProductsByCategory(categoryName);
+      return products.map((product): Ebook => ({
+        id: product.id,
+        title: product.name,
+        author: product.author || 'Guiderr',
+        price: product.price_in_rupees,
+        cover: product.cover_image_url || '/covers/placeholder.svg',
+        pdf: product.delivery_link,
+        category: category!,
+        synopsis: product.name,
+        downloadLink: product.delivery_link,
+      }));
+    },
+    enabled: !!category && !!categoryData,
+  });
 
   if (!category || !categoryData) {
     return (

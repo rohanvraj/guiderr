@@ -29,7 +29,7 @@ export function optimizeCloudinaryUrl(
   // Don't double-apply: if transforms already present, return as-is
   if (url.includes('/upload/f_') || url.includes('/upload/q_')) return url;
 
-  const { width = 600, quality = 'auto' } = options;
+  const { width = 400, quality = 'auto:eco' } = options;
   const transforms = `f_auto,q_${quality},w_${width}`;
 
   // Insert transforms right after /upload/

@@ -302,7 +302,7 @@ export default function Hero() {
                       <div className="p-4 sm:p-6">
                         <div className="flex flex-col items-center gap-3">
                           <img
-                            src={optimizeCloudinaryUrl(ebook.cover_image_url, { width: 800 }) || '/covers/placeholder.svg'}
+                            src={optimizeCloudinaryUrl(ebook.cover_image_url, { width: 300 }) || '/covers/placeholder.svg'}
                             alt={ebook.name}
                             loading="lazy"
                             className="w-28 h-40 sm:w-32 sm:h-44 object-cover rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
