@@ -4,8 +4,6 @@ backend:
 
 # ── Cloudinary Media Library ─────────────────────────────────────────────────
 # All blog images are stored on Cloudinary — zero repo bloat, CDN-served.
-# Replace YOUR_CLOUDINARY_API_KEY with your actual public API key from the
-# Cloudinary dashboard → Settings → Access Keys.
 media_library:
   name: cloudinary
   config:

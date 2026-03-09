@@ -2,7 +2,13 @@
   command = "npm run build"
   publish = "dist"
 
-# SPA catch-all: all routes serve index.html so React Router handles navigation
+# Serve the Decap CMS dashboard from its own static HTML — not the SPA
+[[redirects]]
+  from = "/cms/*"
+  to = "/cms/index.html"
+  status = 200
+
+# SPA catch-all: all other routes serve index.html so React Router handles navigation
 [[redirects]]
   from = "/*"
   to = "/index.html"
