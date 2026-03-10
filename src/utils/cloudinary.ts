@@ -14,24 +14,34 @@
 
 /**
  * Appends Cloudinary transformation parameters to a URL if it is a Cloudinary URL.
- * - Non-Cloudinary URLs (placeholders, external images) are returned unchanged.
+ * Also constructs a full optimized URL from bare Cloudinary Public IDs
+ * (returned by Decap CMS when output_filename_only: true).
+ * - Non-Cloudinary external URLs are returned unchanged.
  * - URLs that already contain transformation parameters (f_ or q_) are returned unchanged.
  */
+const CLOUD_NAME = 'dhzxdbo8q';
+
 export function optimizeCloudinaryUrl(
   url: string | undefined | null,
   options: { width?: number; quality?: string } = {}
 ): string {
   if (!url) return '';
 
-  // Pass through non-Cloudinary URLs (local placeholders, etc.)
-  if (!url.includes('res.cloudinary.com')) return url;
-
-  // Don't double-apply: if transforms already present, return as-is
-  if (url.includes('/upload/f_') || url.includes('/upload/q_')) return url;
-
   const { width = 400, quality = 'auto:eco' } = options;
   const transforms = `f_auto,q_${quality},w_${width}`;
 
-  // Insert transforms right after /upload/
-  return url.replace('/upload/', `/upload/${transforms}/`);
+  // Case 1 — Full Cloudinary URL: inject transforms after /upload/
+  if (url.includes('res.cloudinary.com')) {
+    if (url.includes('/upload/f_') || url.includes('/upload/q_')) return url;
+    return url.replace('/upload/', `/upload/${transforms}/`);
+  }
+
+  // Case 2 — Bare Public ID from Decap CMS (output_filename_only: true).
+  // Not a URL at all, so construct the full optimized Cloudinary URL.
+  if (!url.startsWith('http')) {
+    return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${transforms}/${url}`;
+  }
+
+  // Case 3 — Non-Cloudinary external URL (local placeholders, etc.)
+  return url;
 }
