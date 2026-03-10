@@ -24,6 +24,9 @@ DROP POLICY IF EXISTS "orders_select_by_public_token_anonymous" ON orders;
 -- Drop the old authenticated-only SELECT (we'll merge into one combined policy)
 DROP POLICY IF EXISTS "orders_select_authenticated" ON orders;
 
+-- Drop the target policy itself if it already exists (idempotency for re-runs)
+DROP POLICY IF EXISTS "orders_select_scoped" ON orders;
+
 -- New combined policy:
 --   • Authenticated users (admins) can see all orders
 --   • Anonymous users can ONLY see a row where public_token IS NOT NULL
@@ -41,6 +44,9 @@ CREATE POLICY "orders_select_scoped" ON orders
 
 -- Drop the old wide-open INSERT policy
 DROP POLICY IF EXISTS "orders_insert_anonymous_checkout" ON orders;
+
+-- Drop the target policy itself if it already exists (idempotency for re-runs)
+DROP POLICY IF EXISTS "orders_insert_anonymous_checkout_restricted" ON orders;
 
 -- New INSERT policy: anonymous users can still insert (needed for checkout)
 -- but only rows that meet basic sanity constraints:
