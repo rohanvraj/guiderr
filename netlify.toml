@@ -26,7 +26,10 @@
     # CSP: scoped to the exact origins Guiderr needs.
     # Razorpay checkout iframes + scripts, Cloudinary images, Supabase API,
     # Google Fonts, and placeholder for future AdSense.
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://cdn.razorpay.com https://www.googletagmanager.com https://unpkg.com https://identity.netlify.com https://media-library.cloudinary.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://res.cloudinary.com https://*.cloudinary.com https://www.guiderr.in; font-src 'self' https://fonts.gstatic.com; connect-src 'self' blob: https://*.supabase.co https://api.razorpay.com https://lux.razorpay.com https://api.cloudinary.com https://res.cloudinary.com https://*.netlify.com https://identity.netlify.com https://media-library.cloudinary.com; frame-src https://api.razorpay.com https://checkout.razorpay.com https://identity.netlify.com https://media-library.cloudinary.com;"
+    # 2026-03-10: Added console.cloudinary.com to frame-src (Cloudinary Media Library
+    # postMessage handshake for Decap CMS picker) and unpkg.com to connect-src
+    # (CMS plugin asset/map file fetches). script-src already carried both origins.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://cdn.razorpay.com https://www.googletagmanager.com https://unpkg.com https://identity.netlify.com https://media-library.cloudinary.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://res.cloudinary.com https://*.cloudinary.com https://www.guiderr.in; font-src 'self' https://fonts.gstatic.com; connect-src 'self' blob: https://*.supabase.co https://api.razorpay.com https://lux.razorpay.com https://api.cloudinary.com https://res.cloudinary.com https://*.netlify.com https://identity.netlify.com https://media-library.cloudinary.com https://unpkg.com; frame-src https://api.razorpay.com https://checkout.razorpay.com https://identity.netlify.com https://media-library.cloudinary.com https://console.cloudinary.com;"
 
 # ─── Aggressive caching for Vite-hashed assets (/assets/main.abc123.js) ─────
 # Vite fingerprints every asset filename — safe to cache immutably for 1 year.
