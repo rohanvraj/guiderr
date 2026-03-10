@@ -14,7 +14,8 @@ media_library:
   config:
     cloud_name: dhzxdbo8q
     api_key: 489542285784989
-    output_filename_only: true
+    output_filename_only: false
+    use_secure_url: true
     default_transformations:
       - fetch_format: auto
         quality: "auto:eco"
