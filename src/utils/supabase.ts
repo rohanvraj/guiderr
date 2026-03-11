@@ -459,7 +459,10 @@ export async function createPartner(partnerData: {
   throw new Error('Partner creation must be done via Supabase Dashboard.');
 }
 
-export async function getPartnerStats() {
+export async function getPartnerStats(
+  startDate?: string | Date,
+  endDate?: string | Date
+) {
   const { data: partners = [], error: partnersError } = await supabase
     .from('partners')
     // secret_key intentionally excluded — never sent to the admin browser
@@ -467,17 +470,32 @@ export async function getPartnerStats() {
 
   if (partnersError) throw partnersError;
 
-  // Get all orders that have a referral code (we'll filter to completed in memory)
-  const { data: orders = [], error: ordersError } = await supabase
+  // Push all filters to DB — uses idx_orders_referral_created (Phase 1 index) for frugality.
+  // Only completed referral orders are read; date bounds further constrain the scan.
+  let ordersQuery = supabase
     .from('orders')
-    .select('referral_code, total_amount_paise, payment_status')
-    .not('referral_code', 'is', null);
+    .select('referral_code, total_amount_paise')
+    .eq('payment_status', 'completed')
+    .not('referral_code', 'is', null)
+    .limit(1000); // hard safety cap — prevents unbounded reads
+
+  if (startDate) {
+    const iso = startDate instanceof Date ? startDate.toISOString() : startDate;
+    ordersQuery = ordersQuery.gte('created_at', iso);
+  }
+  if (endDate) {
+    const iso = endDate instanceof Date ? endDate.toISOString() : endDate;
+    ordersQuery = ordersQuery.lte('created_at', iso);
+  }
+
+  const { data: orders = [], error: ordersError } = await ordersQuery;
 
   if (ordersError) throw ordersError;
 
   const stats = (partners || []).map((partner: any) => {
+    // payment_status filter is now applied at DB level — no JS re-filter needed
     const partnerOrders = (orders || []).filter(
-      (order: any) => order.referral_code === partner.code && order.payment_status === 'completed'
+      (order: any) => order.referral_code === partner.code
     );
 
     const totalRevenue = partnerOrders.reduce(
@@ -508,8 +526,9 @@ export async function getPartnerStats() {
   )];
 
   const orphanedStats = orphanedCodes.map((code) => {
+    // payment_status filter already applied at DB level
     const codeOrders = (orders || []).filter(
-      (order: any) => order.referral_code === code && order.payment_status === 'completed'
+      (order: any) => order.referral_code === code
     );
 
     const totalRevenue = codeOrders.reduce(

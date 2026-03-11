@@ -146,8 +146,8 @@ export default function CheckoutFlow({ items, onClose, onPaymentSuccess }: Check
       // Use delivery link from Supabase product table
       const deliveryLink = product.delivery_link;
 
-      // 2. Check for active referral code in sessionStorage
-      const referralCode = sessionStorage.getItem('active_referral') || undefined;
+      // 2. Check for active referral code in localStorage (written by ReferralTracker in App.tsx)
+      const referralCode = localStorage.getItem('active_referral') || undefined;
 
       // 3. Pass delivery link and referral code into the order creation
       // Create order record BEFORE opening Razorpay (persist tracking + token)

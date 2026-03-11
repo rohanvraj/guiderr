@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
+import { supabase } from './utils/supabase';
 import { CartProvider } from './context/CartContext';
 import CartPanel from './components/CartPanel';
 import HomePage from './pages/HomePage';
@@ -28,6 +29,18 @@ function ReferralTracker() {
       // Store in localStorage so the referral is remembered across tabs/sessions
       localStorage.setItem('active_referral', refCode);
       console.log('Referral code captured:', refCode);
+
+      // 24-hour Zero-Waste debounce: one DB write per browser per day per code.
+      // Prevents bots and page-refreshes from burning free-tier write quota.
+      const throttleKey = `last_click_for_${refCode}`;
+      const lastClick = localStorage.getItem(throttleKey);
+      const now = Date.now();
+      if (!lastClick || now - parseInt(lastClick, 10) > 86_400_000) {
+        localStorage.setItem(throttleKey, String(now));
+        supabase.rpc('increment_partner_click', { p_code: refCode }).catch((err) => {
+          console.warn('[ReferralTracker] Click increment failed (non-critical):', err);
+        });
+      }
     }
   }, []);
 

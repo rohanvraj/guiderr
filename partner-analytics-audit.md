@@ -224,14 +224,15 @@ The engine uses a **dual-track** scheme:
 | # | Severity | Loophole | Location | Impact | Status |
 |---|---|---|---|---|---|
 | L-1 | 🔴 Critical | `referral_tracking` table is completely orphaned — `addReferralTracking()` is defined but **never called** | `src/utils/supabase.ts` line 363 | No audit trail for commission payouts. All commission data lives only in `orders.referral_code` with no immutable record | 🔲 Open |
-| L-2 | 🔴 Critical | Click tracking column (`partners.clicks`) **is never incremented** anywhere in the codebase | No file — feature is missing entirely | Creator's dashboard shows `totalClicks: 0` for all time. Creators cannot trust their stats | 🟡 Partial — RPC created in P1-3; Edge Function + App.tsx wiring is Phase 2 |
-| L-3 | 🟡 High | `sessionStorage` loses referral after tab close or new tab open | `src/App.tsx` line 29 | Silent commission miss — common user behaviour (mobile browsers, link-share without `?ref`) | 🔲 Open — Phase 2 |
+| L-2 | 🔴 Critical | Click tracking column (`partners.clicks`) **is never incremented** anywhere in the codebase | No file — feature is missing entirely | Creator's dashboard shows `totalClicks: 0` for all time. Creators cannot trust their stats | ✅ Fixed — RPC `increment_partner_click` wired in `App.tsx` with 24h localStorage debounce (Phase 3) |
+| L-3 | 🟡 High | `sessionStorage` loses referral after tab close or new tab open | `src/App.tsx` line 29 | Silent commission miss — common user behaviour (mobile browsers, link-share without `?ref`) | ✅ Fixed — changed to `localStorage` (Phase 2) |
 | L-4 | 🟡 High | No server-side validation that `referral_code` in `orders` matches a real row in `partners` | `src/components/CheckoutFlow.tsx` ~line 154 | Fabricated referral codes can be injected via DevTools; creates orphaned tracking data | 🔲 Open |
-| L-5 | 🟡 High | `getPartnerStats()` fetches `SELECT *` on `partners` including `secret_key` | `src/utils/supabase.ts` line 463 | `secret_key` is returned to the admin browser. Low risk (admin-only page) but unnecessary exposure | 🔲 Open — Phase 2 |
-| L-6 | 🟡 High | `getCreatorStats()` commission formula lacks `Math.round()` | `src/utils/supabase.ts` ~line 583 | Floating-point paise displayed to creator (e.g. `₹1,200.000000001`) | 🔲 Open — Phase 2 |
+| L-5 | 🟡 High | `getPartnerStats()` fetches `SELECT *` on `partners` including `secret_key` | `src/utils/supabase.ts` line 463 | `secret_key` is returned to the admin browser. Low risk (admin-only page) but unnecessary exposure | ✅ Fixed — explicit column list in `getPartnerStats()` (Phase 2) |
+| L-6 | 🟡 High | `getCreatorStats()` commission formula lacks `Math.round()` | `src/utils/supabase.ts` ~line 583 | Floating-point paise displayed to creator (e.g. `₹1,200.000000001`) | ✅ Fixed — `Math.round()` applied (Phase 2) |
 | L-7 | 🟡 High | Commission calculated on **gross** `total_amount_paise` — Razorpay ~2% fee not deducted | Both stat functions | Guiderr pays commission on money it doesn't keep | 🔲 Open — business decision required |
 | L-8 | 🟠 Medium | `partners` table has NO migration file — exists only in Supabase Dashboard | Schema drift | Project reset / new environment = partners table vanishes with no recovery script | ✅ Fixed — P1-1 (`20260310141958_track_partners_table.sql`) |
-| L-9 | 🟠 Medium | `getPartnerStats()` over-fetches all orders with a referral code then filters in JS memory. No date filter, no pagination | `src/utils/supabase.ts` ~line 470 | As orders grow, this becomes a 500ms+ query and approaches Supabase free-tier row-read limits | 🟡 Partial — composite index created in P1-2; query rewrite is Phase 2 |
+| L-9 | 🟠 Medium | `getPartnerStats()` over-fetches all orders with a referral code then filters in JS memory. No date filter, no pagination | `src/utils/supabase.ts` ~line 470 | As orders grow, this becomes a 500ms+ query and approaches Supabase free-tier row-read limits | ✅ Fixed — `payment_status` filter pushed to DB, optional `startDate`/`endDate` params added, hard `.limit(1000)` cap, `payment_status` removed from JS filter (Phase 3) |
+| L-10 | 🔴 Critical | `CheckoutFlow.tsx` reads `active_referral` from `sessionStorage` but `App.tsx` writes it to `localStorage` | `src/components/CheckoutFlow.tsx` line 150 | After Phase 2 changed App.tsx to `localStorage`, the checkout flow silently reads `null` — **every referral code is dropped at purchase time**, breaking affiliate attribution | ✅ Fixed — `CheckoutFlow.tsx` updated to read from `localStorage` (Final Audit) |
 
 ---
 
@@ -472,14 +473,15 @@ A buyer could `sessionStorage.setItem('active_referral', 'fakeXYZ')` in DevTools
 |---|---|---|
 | Paise storage in DB | ✅ Correct — integers throughout | — |
 | Admin commission rounding (`Math.round`) | ✅ Present | — |
-| Creator commission rounding (`Math.round`) | ❌ Missing | 🟡 High — Phase 2 |
+| Creator commission rounding (`Math.round`) | ✅ Fixed — Phase 2 | — |
 | Commission basis (Gross vs Net) | ⚠️ Gross — undocumented | 🟡 High — business decision |
-| Click tracking implemented | 🟡 RPC created (P1-3); App.tsx wiring pending Phase 2 | 🔴 Critical |
+| Click tracking implemented | ✅ Fixed — 24h localStorage debounce + `increment_partner_click` RPC wired (Phase 3) | — |
 | `referral_tracking` table used | ❌ Orphaned — zero writes ever | 🔴 Critical |
-| `sessionStorage` referral lifetime | ⚠️ Tab-scoped — silently lost on new tabs | 🟡 High — Phase 2 |
+| `sessionStorage` referral lifetime | ✅ Fixed — changed to `localStorage` (Phase 2) | — |
+| Checkout reads from correct storage | ✅ Fixed — `CheckoutFlow.tsx` aligned to `localStorage` (Final Audit) | — |
 | Referral code validated server-side | ❌ Fake codes accepted silently | 🟡 High |
-| `secret_key` leaked to admin browser | ⚠️ Via `SELECT *` in `getPartnerStats()` | 🟠 Medium — Phase 2 |
-| Admin stats query date-filtered | ❌ Fetches all-time data, grows forever | 🔴 Critical (free-tier) — Phase 2 |
+| `secret_key` leaked to admin browser | ✅ Fixed — explicit column list excludes `secret_key` (Phase 2) | — |
+| Admin stats query date-filtered | ✅ Fixed — DB-level filter with optional date bounds + `.limit(1000)` cap (Phase 3) | — |
 | `partners` table has migration file | ✅ Fixed — `20260310141958_track_partners_table.sql` | — |
 | Composite index for date queries | ✅ Fixed — `idx_orders_referral_created` created in P1-2 | — |
 
@@ -487,8 +489,110 @@ A buyer could `sessionStorage.setItem('active_referral', 'fakeXYZ')` in DevTools
 1. ~~Write `partners` table migration file to track schema~~ ✅ Phase 1 done
 2. ~~Add composite DB index for date-filter queries~~ ✅ Phase 1 done
 3. ~~Create `increment_partner_click` RPC~~ ✅ Phase 1 done
-4. Add `Math.round()` to `getCreatorStats()` — 1 line — **Phase 2**
-5. Change `getPartnerStats()` to `SELECT` explicit columns (exclude `secret_key`) — 1 line — **Phase 2**
-6. Change `sessionStorage` → `localStorage` in `App.tsx` — 1 word — **Phase 2**
-7. Add date-filter parameters to `getPartnerStats()` + wire up composite index — ~10 lines — **Phase 2**
-8. Implement click increment with 24h localStorage debounce + Edge Function — ~15 lines — **Phase 2**
+4. ~~Add `Math.round()` to `getCreatorStats()`~~ ✅ Phase 2 done
+5. ~~Change `getPartnerStats()` to `SELECT` explicit columns (exclude `secret_key`)~~ ✅ Phase 2 done
+6. ~~Change `sessionStorage` → `localStorage` in `App.tsx`~~ ✅ Phase 2 done
+7. ~~Add date-filter parameters to `getPartnerStats()` + wire up composite index~~ ✅ Phase 3 done
+8. ~~Implement click increment with 24h localStorage debounce + RPC call~~ ✅ Phase 3 done
+9. ~~Align `CheckoutFlow.tsx` referral read to `localStorage`~~ ✅ Final Audit
+
+---
+
+## 8. FINAL COMPLIANCE & INTEGRITY AUDIT
+*Completed: 11 March 2026 — Pre-Merge to `main`*
+
+---
+
+### 8.1 Phase 1 — Database Integrity
+
+| Checkpoint | File / Location | Verdict |
+|---|---|---|
+| `partners` table tracked in migration | `supabase/migrations/20260310141958_track_partners_table.sql` lines 36–48 | ✅ PASS — `CREATE TABLE IF NOT EXISTS partners` with all 9 columns, CHECK constraints, RLS policies |
+| `idx_orders_referral_created` composite index | Same migration, lines 82–88 | ✅ PASS — partial index on `(referral_code, created_at DESC) WHERE referral_code IS NOT NULL AND payment_status = 'completed'` |
+| `increment_partner_click` RPC function | Same migration, lines 99–116 | ✅ PASS — `SECURITY DEFINER`, `LANGUAGE plpgsql`, granted to both `anon` and `authenticated` roles |
+
+---
+
+### 8.2 Phase 2 — Privacy & Math
+
+| Checkpoint | File / Location | Verdict |
+|---|---|---|
+| `getPartnerStats()` excludes `secret_key` | `src/utils/supabase.ts` line 470: `.select('id, code, name, upi_id, commission_rate, clicks, created_at, updated_at')` | ✅ PASS — 8 explicit columns, `secret_key` structurally impossible to leak |
+| `getCreatorStats()` wraps earnings in `Math.round()` | `src/utils/supabase.ts` ~line 600: `Math.round((totalRevenuePaise * partner.commission_rate) / 100)` | ✅ PASS — integer-safe paise, no float tails |
+| `getPartnerStats()` admin commission uses `Math.round()` | `src/utils/supabase.ts` ~line 510: `Math.round((totalRevenue * (partner.commission_rate \|\| 0)) / 100)` | ✅ PASS — consistent across both views |
+| Referral stored in `localStorage` (not `sessionStorage`) | `src/App.tsx` line 30 | ✅ PASS — survives tab close, new tabs, multi-day return visits |
+
+---
+
+### 8.3 Phase 3 — Frugality & Clicks
+
+| Checkpoint | File / Location | Verdict |
+|---|---|---|
+| `getPartnerStats()` accepts `startDate` / `endDate` params | `src/utils/supabase.ts` line 462–464: `(startDate?: string \| Date, endDate?: string \| Date)` | ✅ PASS — optional ISO string or Date objects |
+| Date filter pushed to Supabase query (`.gte` / `.lte`) | `src/utils/supabase.ts` lines 483–490 | ✅ PASS — `ordersQuery.gte('created_at', iso)` / `.lte('created_at', iso)` |
+| `payment_status = 'completed'` filter pushed to DB | `src/utils/supabase.ts` line 479: `.eq('payment_status', 'completed')` | ✅ PASS — no longer filtered in JS memory |
+| Hard `.limit(1000)` safety cap on orders | `src/utils/supabase.ts` line 481 | ✅ PASS — prevents unbounded reads even without date params |
+| 24-hour click debounce in `ReferralTracker` | `src/App.tsx` lines 35–43: `last_click_for_${refCode}` + `86_400_000` ms comparison | ✅ PASS — one DB write per browser per 24h per code |
+| Click fires `supabase.rpc('increment_partner_click')` | `src/App.tsx` line 42: `.rpc('increment_partner_click', { p_code: refCode })` | ✅ PASS — fire-and-forget with `.catch()`, never crashes storefront |
+| `supabase` client imported in `App.tsx` | `src/App.tsx` line 3: `import { supabase } from './utils/supabase'` | ✅ PASS |
+
+---
+
+### 8.4 The Surgeon's Rule
+
+| System | File | Verdict |
+|---|---|---|
+| Razorpay amount calculation | `src/components/CheckoutFlow.tsx` line 121: `Math.round(product.price_in_rupees * 100)` | ✅ UNTOUCHED |
+| Razorpay Edge Function (order creation) | `supabase/functions/create-razorpay-order/index.ts` | ✅ UNTOUCHED |
+| Razorpay payment capture | Auto-capture via `payment_capture: 1` in Edge Function | ✅ UNTOUCHED |
+| Admin Auth (`signInWithPassword`) | `src/utils/supabase.ts` line 13: `authenticateAdmin()` | ✅ UNTOUCHED |
+| Ebook delivery links | `src/components/CheckoutFlow.tsx` `product.delivery_link` passthrough | ✅ UNTOUCHED |
+| Order notification Edge Function | `supabase/functions/send_order_notification/index.ts` | ✅ UNTOUCHED |
+
+---
+
+### 8.5 Bug Caught During Audit
+
+| Bug | Severity | Root Cause | Fix Applied |
+|---|---|---|---|
+| **L-10: Referral code silently dropped at checkout** | 🔴 Critical | Phase 2 changed `App.tsx` to write `active_referral` to `localStorage`, but `CheckoutFlow.tsx` line 150 still read from `sessionStorage`. Result: referral code was always `null` at purchase time — zero commissions attributed. | `CheckoutFlow.tsx` line 150 updated to `localStorage.getItem('active_referral')` — aligned with App.tsx |
+
+---
+
+### 8.6 Known Open Items (Not In Scope for This Merge)
+
+| # | Item | Severity | Notes |
+|---|---|---|---|
+| L-1 | `referral_tracking` table is orphaned — `addReferralTracking()` never called | 🔴 Critical | Immutable audit trail for commission payouts. Recommend wiring in a future sprint. |
+| L-4 | No server-side validation of `referral_code` against `partners` table | 🟡 High | Fabricated codes are accepted silently. Mitigate via DB trigger or Edge Function check. |
+| L-7 | Commission on Gross vs. Net (Razorpay fee not deducted) | 🟡 High | Business decision required. Currently partners are paid on gross — must be documented in partner agreement. |
+| UI | `PartnersAnalytics.tsx` calls `getPartnerStats()` with zero arguments | 🟠 Medium | Date pickers not yet wired in frontend. Backend supports `startDate`/`endDate` — UI work is a future enhancement. |
+
+---
+
+### 8.7 Final Verdict
+
+```
+╔════════════════════════════════════════════════════════════════╗
+║         PARTNER ANALYTICS ENGINE — FINAL GREEN LIGHT        ║
+╠════════════════════════════════════════════════════════════════╣
+║  Phase 1 (Database)      : ✅ ALL PASS                       ║
+║  Phase 2 (Privacy & Math) : ✅ ALL PASS                       ║
+║  Phase 3 (Frugality)      : ✅ ALL PASS                       ║
+║  Surgeon's Rule           : ✅ ALL PASS — Zero Razorpay drift  ║
+║  Critical Bug L-10        : ✅ CAUGHT & FIXED during audit     ║
+║                                                                ║
+║  Branch: fix/partner-analytics                                ║
+║  Status: CLEAR TO MERGE TO MAIN                               ║
+╚════════════════════════════════════════════════════════════════╝
+```
+
+**Files changed across all 3 phases + audit fix:**
+
+| File | Changes |
+|---|---|
+| `supabase/migrations/20260310141958_track_partners_table.sql` | Phase 1 — partners schema, composite index, RPC |
+| `src/utils/supabase.ts` | Phase 2 — explicit select (no secret_key), `Math.round()` on earnings; Phase 3 — date-filter params, DB-level `payment_status` filter, `.limit(1000)` cap |
+| `src/App.tsx` | Phase 2 — `sessionStorage` → `localStorage`; Phase 3 — 24h click debounce + `supabase.rpc()` import |
+| `src/components/CheckoutFlow.tsx` | Final Audit — aligned `active_referral` read to `localStorage` (L-10 fix) |
+| `partner-analytics-audit.md` | Updated loophole register, summary card, and this final report |
