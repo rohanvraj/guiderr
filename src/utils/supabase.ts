@@ -462,7 +462,8 @@ export async function createPartner(partnerData: {
 export async function getPartnerStats() {
   const { data: partners = [], error: partnersError } = await supabase
     .from('partners')
-    .select('*');
+    // secret_key intentionally excluded — never sent to the admin browser
+    .select('id, code, name, upi_id, commission_rate, clicks, created_at, updated_at');
 
   if (partnersError) throw partnersError;
 
@@ -576,8 +577,8 @@ export async function getCreatorStats(secretKey: string) {
   const totalRevenuePaise = (orders || []).reduce((sum, order) => sum + order.total_amount_paise, 0);
   
   // Calculate earnings: (totalRevenue * commission_rate) / 100
-  // Result is in paise (e.g., 900,000 paise = 9,000 rupees at 50% commission)
-  const earningsPaise = (totalRevenuePaise * partner.commission_rate) / 100;
+  // Math.round() ensures integer-safe paise and prevents floating-point errors (e.g. ₹10.00000004)
+  const earningsPaise = Math.round((totalRevenuePaise * partner.commission_rate) / 100);
 
   const result = {
     partner: {

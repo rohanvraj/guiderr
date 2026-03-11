@@ -25,8 +25,8 @@ function ReferralTracker() {
     const refCode = params.get('ref');
     
     if (refCode) {
-      // Store in sessionStorage for the duration of the session
-      sessionStorage.setItem('active_referral', refCode);
+      // Store in localStorage so the referral is remembered across tabs/sessions
+      localStorage.setItem('active_referral', refCode);
       console.log('Referral code captured:', refCode);
     }
   }, []);
