@@ -8,16 +8,15 @@
     <title>Guiderr — Content Manager</title>
     <!-- Netlify Identity Widget (required for Git Gateway auth) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- LOAD ORDER IS CRITICAL — each script depends on the global set by the previous one -->
-    <!-- 1. Cloudinary core: defines the global `cloudinary` object the bridge hooks into -->
+    <!-- 1. Load Cloudinary Core -->
     <script src="https://unpkg.com/cloudinary-core@^2.13.0/cloudinary-core-shrinkwrap.min.js"></script>
-    <!-- 2. Cloudinary Media Library Widget: the actual picker UI -->
+    <!-- 2. Load the Media Library Widget -->
     <script src="https://media-library.cloudinary.com/global/all.js"></script>
-    <!-- 3. Decap CMS ↔ Cloudinary bridge: runs AFTER the cloudinary global exists -->
+    <!-- 3. Load Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+    <!-- 4. Load the Cloudinary-Decap Bridge (AFTER CMS so CMS.registerMediaLibrary exists) -->
     <script src="https://unpkg.com/netlify-cms-media-library-cloudinary@^1.3.10/dist/netlify-cms-media-library-cloudinary.js"></script>
   </head>
   <body>
-    <!-- 4. Decap CMS: registers the bridge and boots the CMS UI -->
-    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
   </body>
 </html>
