@@ -6,22 +6,70 @@
     <meta name="robots" content="noindex" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>Guiderr — Content Manager</title>
-    <!-- Netlify Identity Widget (required for Git Gateway auth) -->
-    <!-- defer: guarantees all scripts execute after full DOM parse, preventing the -->
-    <!-- 'Cannot read properties of null (reading appendChild)' crash on /cms      -->
+
+    <!-- ── Manual Cloudinary Handshake ─────────────────────────────────────────
+         WHY INLINE (no defer): Inline scripts execute immediately during HTML
+         parsing and register a DOMContentLoaded listener BEFORE the deferred
+         scripts below are even fetched. Guaranteed execution order:
+           1. HTML parsed → this script runs, registers DOMContentLoaded handler
+           2. Deferred scripts execute in document order:
+              identity → cloudinary-core → all.js → decap-cms.js
+              (window.CMS and window.cloudinary are now defined)
+           3. DOMContentLoaded fires → our handler runs FIRST (registered before
+              Decap CMS's own init listener) → CMS.registerMediaLibrary() called
+           4. Decap CMS's DOMContentLoaded handler runs → CMS.init() picks up
+              our registered library automatically.
+
+         WHY NO BRIDGE SCRIPT: netlify-cms-media-library-cloudinary@^1.3.10 was
+         built for legacy Netlify CMS. Its insertHandler does [...data.assets]
+         which crashes when the Cloudinary widget returns a single asset object
+         (objects have no Symbol.iterator). This inline handshake is the fix:
+         we explicitly guarantee data.assets is always an Array before Decap
+         CMS ever touches it — making the Spread TypeError mathematically
+         impossible. ─────────────────────────────────────────────────────── -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        CMS.registerMediaLibrary({
+          name: 'cloudinary',
+          init: function (options) {
+            var cfg = options.config || {};
+            var cloud_name = cfg.cloud_name;
+            var api_key = cfg.api_key;
+            // Collect remaining config keys without mutating the original
+            var rest = {};
+            Object.keys(cfg).forEach(function (k) {
+              if (k !== 'cloud_name' && k !== 'api_key') rest[k] = cfg[k];
+            });
+
+            return window.cloudinary.createMediaLibrary(
+              Object.assign({ cloud_name: cloud_name, api_key: api_key }, rest),
+              {
+                insertHandler: function (data) {
+                  // CRITICAL FIX: guarantee assets is always an Array.
+                  // The bridge crashed here because it did [...data.assets] on
+                  // a plain object (no Symbol.iterator). We wrap defensively.
+                  var raw = data && data.assets;
+                  var assets = Array.isArray(raw) ? raw : (raw ? [raw] : []);
+                  options.onInsert(assets);
+                }
+              }
+            );
+          }
+        });
+      });
+    </script>
+
+    <!-- Scripts pinned to EXACT versions (no ^ caret) to prevent silent drift.
+         ^ on decap-cms@^3.3.3 was silently loading 3.11.0 (any 3.x.x ≥ 3.3.3).
+         defer guarantees DOM is ready before any script executes. ----------->
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- 1. Load Cloudinary Core -->
-    <script defer src="https://unpkg.com/cloudinary-core@^2.13.0/cloudinary-core-shrinkwrap.min.js"></script>
-    <!-- 2. Load the Media Library Widget -->
+    <script defer src="https://unpkg.com/cloudinary-core@2.13.0/cloudinary-core-shrinkwrap.min.js"></script>
     <script defer src="https://media-library.cloudinary.com/global/all.js"></script>
-    <!-- 3. Load Decap CMS -->
-    <script defer src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
-    <!-- 4. Load the Cloudinary-Decap Bridge (AFTER CMS so CMS.registerMediaLibrary exists) -->
-    <script defer src="https://unpkg.com/netlify-cms-media-library-cloudinary@^1.3.10/dist/netlify-cms-media-library-cloudinary.js"></script>
+    <script defer src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"></script>
+    <!-- Bridge script removed — manual handshake above replaces it entirely -->
   </head>
   <body>
-    <!-- Explicit mount point: Decap CMS mounts its UI here. Declaring it avoids -->
-    <!-- any remaining timing ambiguity around dynamic element creation.          -->
+    <!-- Explicit mount point: Decap CMS mounts into this element -->
     <div id="nc-root"></div>
   </body>
 </html>
