@@ -7,24 +7,12 @@ backend:
 site_url: https://www.guiderr.in
 logo_url: https://www.guiderr.in/favicon.ico
 
-# ── Cloudinary Media Library ─────────────────────────────────────────────────
-# All blog images are stored on Cloudinary — zero repo bloat, CDN-served.
-media_library:
-  name: cloudinary
-  config:
-    cloud_name: dhzxdbo8q
-    api_key: 489542285784989
-    output_filename_only: false
-    use_secure_url: true
-    default_transformations:
-      - fetch_format: auto
-        quality: "auto:eco"
-
-# Fallback local media folder (only used if Cloudinary is not configured)
+# Cloudinary popup widget removed. Blog images are referenced by bare Public ID.
+# optimizeCloudinaryUrl() in src/utils/cloudinary.ts builds the full CDN URL
+# with q_auto:eco,f_auto at render time — zero widget dependency.
 media_folder: "public/images/blog"
 public_folder: "/images/blog"
 
-# ── Collections ──────────────────────────────────────────────────────────────
 collections:
   - name: "blog"
     label: "Blog"
@@ -44,5 +32,12 @@ collections:
           - "Children"
           - "Parenting"
           - "Art"
-      - { label: "Featured Image", name: "featured_image", widget: "image" }
+      - label: "Featured Image"
+        name: "featured_image"
+        widget: "string"
+        required: false
+        hint: >-
+          Enter the Cloudinary Public ID only (e.g. blog/bike-hero).
+          In Cloudinary Dashboard -> Media Library -> click image -> copy the
+          Public ID from the right panel. Do NOT paste the full URL.
       - { label: "Body", name: "body", widget: "markdown" }
