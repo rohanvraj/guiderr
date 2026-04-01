@@ -304,7 +304,7 @@ export default function Hero() {
                           <img
                             src={optimizeCloudinaryUrl(ebook.cover_image_url, { width: 300 }) || '/covers/placeholder.svg'}
                             alt={ebook.name}
-                            loading="lazy"
+                            loading={index < 3 ? 'eager' : 'lazy'}
                             className="w-28 h-40 sm:w-32 sm:h-44 object-cover rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                             style={{ opacity: carouselReady ? 1 : 0 }}
                             onLoad={() => handleImageLoad(ebook.id)}

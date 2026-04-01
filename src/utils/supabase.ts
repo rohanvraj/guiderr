@@ -554,12 +554,8 @@ export async function getPartnerStats(
 // ==================== CREATOR STATS ====================
 
 export async function getCreatorStats(secretKey: string) {
-  // Trim and normalize secret key
   const normalizedSecretKey = secretKey.trim();
-  
-  console.log('[DEBUG] getCreatorStats - Input secretKey:', secretKey);
-  console.log('[DEBUG] getCreatorStats - Normalized secretKey:', normalizedSecretKey);
-  
+
   // Fetch partner data from partners table by secret_key (exact match)
   const { data: partner, error: partnerError } = await supabase
     .from('partners')
@@ -568,16 +564,9 @@ export async function getCreatorStats(secretKey: string) {
     .maybeSingle();
 
   if (partnerError) throw partnerError;
-  
-  console.log('[DEBUG] getCreatorStats - Partner lookup result:', partner);
-  
-  if (!partner) {
-    console.log('[DEBUG] getCreatorStats - Partner not found for secret_key:', normalizedSecretKey);
-    return null;
-  }
+  if (!partner) return null;
 
-  // Fetch all completed orders for this referral code (using partner's code field)
-  // Using columns: referral_code, total_amount_paise, payment_status
+  // Fetch all completed orders attributed to this partner's referral code
   const { data: orders = [], error: ordersError } = await supabase
     .from('orders')
     .select('id, total_amount_paise, payment_status')
@@ -585,21 +574,16 @@ export async function getCreatorStats(secretKey: string) {
     .eq('payment_status', 'completed');
 
   if (ordersError) throw ordersError;
-  
-  console.log('[DEBUG] getCreatorStats - Orders found:', orders?.length || 0);
-  console.log('[DEBUG] getCreatorStats - Orders data:', orders);
 
-  // Calculate stats (gracefully handle zero orders)
   const totalSales = orders?.length || 0;
-  
+
   // Sum all order amounts (stored in paise in database)
   const totalRevenuePaise = (orders || []).reduce((sum, order) => sum + order.total_amount_paise, 0);
-  
-  // Calculate earnings: (totalRevenue * commission_rate) / 100
-  // Math.round() ensures integer-safe paise and prevents floating-point errors (e.g. ₹10.00000004)
+
+  // Math.round() ensures integer-safe paise — prevents floating-point drift (e.g. ₹10.00000004)
   const earningsPaise = Math.round((totalRevenuePaise * partner.commission_rate) / 100);
 
-  const result = {
+  return {
     partner: {
       name: partner.name,
       code: partner.code,
@@ -613,8 +597,5 @@ export async function getCreatorStats(secretKey: string) {
       earningsPaise,     // In paise (calculated)
     },
   };
-  
-  console.log('[DEBUG] getCreatorStats - Final result:', result);
-  return result;
 }
 
