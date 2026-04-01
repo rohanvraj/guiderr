@@ -31,7 +31,11 @@
          sends the user to the CMS dashboard. Safe — never runs on /admin
          because Supabase auth is entirely separate (no window.netlifyIdentity there). -->
     <script>
-      if (window.netlifyIdentity) {
+      // Guard: only register the CMS redirect when the user is on the main site.
+      // Skipping on /cms/* prevents this handler from conflicting with Decap CMS's
+      // own Netlify Identity initialisation, which was causing the login modal to
+      // flicker and close immediately (double-init state reset).
+      if (window.netlifyIdentity && !window.location.pathname.startsWith('/cms')) {
         window.netlifyIdentity.on('init', function(user) {
           if (!user) {
             window.netlifyIdentity.on('login', function() {
