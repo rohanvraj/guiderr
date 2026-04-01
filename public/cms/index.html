@@ -8,14 +8,57 @@
     <title>Guiderr — Content Manager</title>
 
     <!-- Scripts pinned to EXACT versions (no caret ^) to prevent silent drift.
-         Decap CMS 3.3.3 ships a built-in Cloudinary integration — no bridge
-         script or manual registerMediaLibrary call needed.
          defer guarantees DOM is ready before any script executes. ----------->
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script defer src="https://unpkg.com/cloudinary-core@2.13.0/cloudinary-core-shrinkwrap.min.js"></script>
     <script defer src="https://media-library.cloudinary.com/global/all.js"></script>
+
+    <!-- ── Cloudinary assets-array normalisation patch ─────────────────────────
+         EXECUTION ORDER GUARANTEE:
+           type="module" scripts are implicitly deferred and execute in document
+           order alongside classic defer scripts. This slot runs AFTER all.js
+           (window.cloudinary.createMediaLibrary is now defined) but BEFORE
+           decap-cms.js (which calls createMediaLibrary during its own init).
+
+         ROOT CAUSE OF THE CRASH:
+           Decap CMS's built-in Cloudinary integration calls createMediaLibrary
+           and passes an insertHandler that does [...data.assets]. The Cloudinary
+           widget can return data.assets as a plain object (no Symbol.iterator),
+           which causes "TypeError: Spread syntax requires ...iterable
+           [Symbol.iterator] to be a function" inside Decap's own bundle.
+
+         THE FIX:
+           We replace window.cloudinary.createMediaLibrary with a thin wrapper
+           that intercepts every insertHandler passed to it and normalises
+           data.assets to always be a real Array before the original handler runs.
+           Decap's spread then works on a proper Array — crash is impossible.
+
+         WHY THIS SURVIVES VERSION DRIFT:
+           We patch the Cloudinary public API, not Decap's internals. Any future
+           version of Decap CMS that calls createMediaLibrary will automatically
+           receive the normalised data. No CDN update can break this. ────────── -->
+    <script type="module">
+      const _orig = window.cloudinary.createMediaLibrary.bind(window.cloudinary);
+
+      window.cloudinary.createMediaLibrary = function (cfg, callbacks) {
+        if (callbacks && typeof callbacks.insertHandler === 'function') {
+          const _origInsert = callbacks.insertHandler;
+          callbacks = Object.assign({}, callbacks, {
+            insertHandler(data) {
+              // Normalise: plain object → single-element array.
+              // Decap does [...data.assets]; plain objects have no Symbol.iterator.
+              if (data && data.assets != null && !Array.isArray(data.assets)) {
+                data = Object.assign({}, data, { assets: [data.assets] });
+              }
+              return _origInsert(data);
+            }
+          });
+        }
+        return _orig(cfg, callbacks);
+      };
+    </script>
+
     <script defer src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"></script>
-    <!-- Bridge script removed — manual handshake above replaces it entirely -->
   </head>
   <body>
     <!-- Explicit mount point: Decap CMS mounts into this element -->
