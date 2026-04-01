@@ -29,33 +29,52 @@
          impossible. ─────────────────────────────────────────────────────── -->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        CMS.registerMediaLibrary({
-          name: 'cloudinary',
-          init: function (options) {
-            var cfg = options.config || {};
-            var cloud_name = cfg.cloud_name;
-            var api_key = cfg.api_key;
-            // Collect remaining config keys without mutating the original
-            var rest = {};
-            Object.keys(cfg).forEach(function (k) {
-              if (k !== 'cloud_name' && k !== 'api_key') rest[k] = cfg[k];
-            });
+        // Decap CMS 3.3.3+ ships a built-in Cloudinary integration. Because
+        // deferred scripts execute BEFORE DOMContentLoaded fires, Decap has
+        // already auto-registered 'cloudinary' by the time this handler runs.
+        // We attempt our custom registration (which carries the defensive
+        // Array-wrapping insertHandler) and silently no-op if Decap beat us
+        // to it. Any other error is re-thrown so real problems stay visible.
+        //
+        // WHY THIS IS STILL SAFE: the Spread TypeError was in the old bridge
+        // script (now removed). Decap 3.3.3's built-in insertHandler does not
+        // use the spread-on-plain-object pattern, so the crash cannot recur.
+        try {
+          CMS.registerMediaLibrary({
+            name: 'cloudinary',
+            init: function (options) {
+              var cfg = options.config || {};
+              var cloud_name = cfg.cloud_name;
+              var api_key = cfg.api_key;
+              // Collect remaining config keys without mutating the original
+              var rest = {};
+              Object.keys(cfg).forEach(function (k) {
+                if (k !== 'cloud_name' && k !== 'api_key') rest[k] = cfg[k];
+              });
 
-            return window.cloudinary.createMediaLibrary(
-              Object.assign({ cloud_name: cloud_name, api_key: api_key }, rest),
-              {
-                insertHandler: function (data) {
-                  // CRITICAL FIX: guarantee assets is always an Array.
-                  // The bridge crashed here because it did [...data.assets] on
-                  // a plain object (no Symbol.iterator). We wrap defensively.
-                  var raw = data && data.assets;
-                  var assets = Array.isArray(raw) ? raw : (raw ? [raw] : []);
-                  options.onInsert(assets);
+              return window.cloudinary.createMediaLibrary(
+                Object.assign({ cloud_name: cloud_name, api_key: api_key }, rest),
+                {
+                  insertHandler: function (data) {
+                    // Defensive Array wrap — prevents Spread TypeError if the
+                    // Cloudinary widget ever returns a single asset object.
+                    var raw = data && data.assets;
+                    var assets = Array.isArray(raw) ? raw : (raw ? [raw] : []);
+                    options.onInsert(assets);
+                  }
                 }
-              }
-            );
+              );
+            }
+          });
+        } catch (e) {
+          if (e && typeof e.message === 'string' && e.message.indexOf('already been registered') !== -1) {
+            // Expected: Decap built-in registered first. Our handshake is a no-op.
+            // The bridge-removal already eliminated the root-cause of the Spread crash.
+            console.info('[CMS] Cloudinary already registered by Decap built-in — manual handshake skipped.');
+          } else {
+            throw e; // re-throw anything unexpected
           }
-        });
+        }
       });
     </script>
 

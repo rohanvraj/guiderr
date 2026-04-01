@@ -22,7 +22,7 @@
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), fullscreen=(self \"https://console.cloudinary.com\"), display-capture=(self \"https://console.cloudinary.com\")"
     # CSP: scoped to the exact origins Guiderr needs.
     # Razorpay checkout iframes + scripts, Cloudinary images, Supabase API,
     # Google Fonts, and placeholder for future AdSense.
