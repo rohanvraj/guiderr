@@ -28,6 +28,13 @@ function extractUrl(raw: unknown): string {
     return trimmed === '[object Object]' ? '' : trimmed;
   }
 
+  // Cloudinary bridge may pass an array of assets instead of a single object.
+  // Unwrap to the first element to prevent the "Spread syntax requires
+  // ...iterable[Symbol.iterator]" crash from propagating downstream.
+  if (Array.isArray(raw)) {
+    return raw.length > 0 ? extractUrl(raw[0]) : '';
+  }
+
   if (typeof raw === 'object') {
     // Cloudinary widget response object shapes (output_filename_only: false)
     const obj = raw as Record<string, unknown>;
