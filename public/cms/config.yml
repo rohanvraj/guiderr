@@ -5,7 +5,7 @@ backend:
 # Tell Decap CMS the canonical domain so invitation/reset emails link to guiderr.in
 # not the old legendary-guiderr-662402.netlify.app subdomain.
 site_url: https://www.guiderr.in
-logo_url: https://www.guiderr.in/favicon.ico
+logo_url: https://www.guiderr.in/images/guiderr-logo.png
 
 # Cloudinary popup widget removed. Blog images are referenced by bare Public ID.
 # optimizeCloudinaryUrl() in src/utils/cloudinary.ts builds the full CDN URL

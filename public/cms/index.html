@@ -11,7 +11,11 @@
          Decap CMS itself. All Cloudinary widget scripts and monkey-patch removed.
          Images are entered as bare Public ID strings in the CMS text field and
          rendered+optimized by src/utils/cloudinary.ts at display time. -->
-    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Identity widget must load synchronously BEFORE Decap CMS so that
+         window.netlifyIdentity is fully initialized when decap-cms.js runs.
+         Using defer on both caused a double-init race: Decap re-called .init()
+         mid-render which wiped the login input on every keystroke. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script defer src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"></script>
   </head>
   <body>
