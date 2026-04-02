@@ -28,7 +28,7 @@ export default function BlogPostPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <Header />
 
-      <main className="pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+      <main className="pt-28 sm:pt-32 pb-10 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
         <Link to="/guides" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
           &larr; Back to Guides
         </Link>
@@ -41,7 +41,7 @@ export default function BlogPostPage() {
 
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">{post.title}</h1>
 
-        <p className="text-slate-500 mb-8">
+        <p className="text-slate-500 mb-5">
           {new Date(post.date).toLocaleDateString('en-IN', {
             year: 'numeric',
             month: 'long',
@@ -53,7 +53,7 @@ export default function BlogPostPage() {
           <img
             src={optimizeCloudinaryUrl(post.featuredImage, { width: 1200, quality: 'auto:eco' })}
             alt={post.title}
-            className="w-full rounded-2xl mb-10"
+            className="w-full rounded-2xl mb-6"
           />
         )}
 
