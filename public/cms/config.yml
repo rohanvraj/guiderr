@@ -10,8 +10,9 @@ logo_url: https://www.guiderr.in/images/guiderr-logo.png
 # Cloudinary popup widget removed. Blog images are referenced by bare Public ID.
 # optimizeCloudinaryUrl() in src/utils/cloudinary.ts builds the full CDN URL
 # with q_auto:eco,f_auto at render time — zero widget dependency.
-# media_folder / public_folder intentionally omitted: no file-upload UI anywhere
-# in the CMS. All images are entered as Cloudinary Public IDs in text fields.
+# media_folder is required by the Decap CMS schema even when no widget uses it.
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
 
 collections:
   - name: "blog"
