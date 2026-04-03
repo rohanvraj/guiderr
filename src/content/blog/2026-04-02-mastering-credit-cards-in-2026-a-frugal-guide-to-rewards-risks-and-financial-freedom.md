@@ -31,7 +31,7 @@ The credit card industry makes billions from people who don't follow the rules.
 
 Astronomical Interest Rates: If you fail to pay the full amount, interest rates can climb as high as 36% to 42% per year. This is how people fall into debt traps.
 
-The "Minimum Amount Due" Mirage: Banks will encourage you to pay just the "minimum" (usually 5%). This is a trap! The remaining 95% continues to gather high interest every single day.
+The "Minimum Amount Due" Mirage: Banks will encourage you to pay just the "minimum" (usually 5%). This is a trap! The remaining 95% continues to gather high interest every single day..
 
 Hidden Fees: Annual fees, late payment charges, and cash withdrawal fees (never withdraw cash from an ATM with a credit card!) can eat into your savings.
 
