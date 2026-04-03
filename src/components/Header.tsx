@@ -36,7 +36,7 @@ export default function Header() {
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-4">
       <nav className="bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 px-4 sm:px-6 backdrop-saturate-150">
         <div className="flex justify-between items-center h-16 sm:h-20">
-          <Link to="/" className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
             <img
               src="/images/guiderr-logo.png"
               alt="Guiderr Logo"
