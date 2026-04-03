@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getPostBySlug, optimizeBlogImage } from '../utils/blog';
+import { getPostBySlug } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
 export default function BlogPostPage() {
@@ -69,17 +69,18 @@ export default function BlogPostPage() {
         )}
 
         {/* ── Markdown Body ── */}
-        {/* Feather-Weight: every <img> auto-runs through optimizeCloudinaryUrl q_auto:eco */}
+        {/* Feather-Weight: every inline img is a bare Cloudinary Public ID.
+            optimizeCloudinaryUrl builds the full CDN URL with f_auto,q_auto:eco,w_800
+            so browsers get WebP/AVIF automatically. loading=lazy protects bandwidth. */}
         <article className="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-xl">
           <ReactMarkdown
             components={{
-              img: ({ src, alt, ...props }) => (
+              img: ({ src, alt }) => (
                 <img
-                  src={optimizeBlogImage(src)}
+                  src={optimizeCloudinaryUrl(src, { width: 800, quality: 'auto:eco' })}
                   alt={alt || ''}
                   loading="lazy"
-                  className="rounded-xl max-w-full h-auto my-6"
-                  {...props}
+                  className="rounded-xl shadow-md my-8 mx-auto block max-w-full h-auto"
                 />
               ),
             }}
