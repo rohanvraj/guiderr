@@ -69,11 +69,15 @@ export function optimizeCloudinaryUrl(
     return url.replace('/upload/', `/upload/${transforms}/`);
   }
 
-  // Case 2 — Bare Public ID (no http prefix): construct full optimized URL
-  if (!url.startsWith('http')) {
+  // Case 2 — Bare Public ID (no http prefix, no leading slash):
+  // construct full optimized Cloudinary URL.
+  // Paths starting with '/' are local static files (e.g. /images/blog/photo.jpg
+  // written by Decap CMS media library) — those must NOT be routed to Cloudinary.
+  if (!url.startsWith('http') && !url.startsWith('/')) {
     return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${transforms}/${url}`;
   }
 
-  // Case 3 — Non-Cloudinary external URL: return unchanged
+  // Case 3 — Local relative path (/foo/bar) or non-Cloudinary external URL:
+  // return unchanged so the browser fetches it directly.
   return url;
 }
