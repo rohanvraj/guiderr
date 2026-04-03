@@ -76,7 +76,19 @@ const PrivacyPolicy: React.FC = () => {
         <li>Request details on what data we hold.</li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">9. Contact Us</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">9. Limitation of Liability</h2>
+      <p className="mb-4">
+        Guiderr.in and its authors provide content for informational and educational purposes only.
+        While we strive for accuracy, we make no representations or warranties of any kind regarding
+        the completeness, accuracy, or reliability of the information provided.
+      </p>
+      <p className="mb-4">
+        Under no circumstances shall Guiderr.in be held liable for any loss or damage, including
+        without limitation, indirect or consequential loss or damage, arising from the use of this
+        website.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-2">10. Contact Us</h2>
       <p className="mb-4">
         For any privacy-related questions, please email us at{" "}
         <a href="mailto:rohanrworld@gmail.com" className="text-blue-600 font-medium">

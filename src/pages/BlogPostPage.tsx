@@ -88,6 +88,26 @@ export default function BlogPostPage() {
             {post.body}
           </ReactMarkdown>
         </article>
+
+        {/* ── Compliance Footer ── */}
+        <div className="mt-10 p-4 bg-gray-50 border border-gray-200 rounded-lg space-y-2">
+          <p className="text-xs text-gray-500">
+            <span className="font-semibold text-gray-600">ADVISORY:</span>{" "}
+            Guiderr.in is an educational platform and is NOT a SEBI-registered investment adviser.
+            Riding and financial planning involve risks; always consult a certified professional
+            before making decisions.
+          </p>
+          <p className="text-xs text-gray-500">
+            <span className="font-semibold text-gray-600">LIABILITY:</span>{" "}
+            The use of any information on this site is solely at your own risk. Guiderr.in and its
+            authors are not liable for any financial losses, accidents, or damages resulting from
+            the use of our guides.
+          </p>
+          <p className="text-xs text-gray-500">
+            <span className="font-semibold text-gray-600">AFFILIATE:</span>{" "}
+            As an Amazon Associate, Guiderr earns from qualifying purchases at no extra cost to you.
+          </p>
+        </div>
       </main>
 
       <Footer />
