@@ -1,4 +1,4 @@
-import { Bike, TrendingUp, Plane, Baby, Heart, ArrowRight, BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb } from 'lucide-react';
+import { Bike, TrendingUp, Plane, Heart, ArrowRight, BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb, PawPrint, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
 import { getAllProducts, Product } from '../utils/supabase';
@@ -11,16 +11,18 @@ const iconMap: Record<string, any> = {
   motorcycles: Bike,
   finance: TrendingUp,
   travel: Plane,
-  children: Baby,
+  pets: PawPrint,
   parenting: Heart,
+  business: Briefcase,
 };
 
 const gradientMap: Record<string, string> = {
   motorcycles: 'from-slate-600 to-slate-800',
   finance: 'from-blue-600 to-blue-800',
   travel: 'from-emerald-600 to-emerald-800',
-  children: 'from-pink-600 to-pink-800',
+  pets: 'from-amber-500 to-amber-700',
   parenting: 'from-purple-600 to-purple-800',
+  business: 'from-indigo-600 to-indigo-800',
 };
 
 export default function Hero() {

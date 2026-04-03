@@ -137,8 +137,9 @@ export default function ProductManager({}: ProductManagerProps) {
           { value: 'Motorcycles', label: 'Motorcycles' },
           { value: 'Finance', label: 'Finance' },
           { value: 'Travel', label: 'Travel' },
-          { value: 'Children', label: 'Children' },
+          { value: 'Pets', label: 'Pets' },
           { value: 'Parenting', label: 'Parenting' },
+          { value: 'Business', label: 'Business' },
         ];
       case 'zoom_call':
       case 'audit':

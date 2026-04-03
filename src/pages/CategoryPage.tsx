@@ -104,9 +104,10 @@ export default function CategoryPage() {
     'motorcycles': 'Motorcycles',
     'finance': 'Finance',
     'travel': 'Travel',
-    'children': 'Children',
+    'pets': 'Pets',
     'parenting': 'Parenting',
     'art': 'Art',
+    'business': 'Business',
   };
 
   // React Query caches by ['products', category] — navigating back won't re-fetch within staleTime.

@@ -1,4 +1,4 @@
-import { BookOpen, Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CartIcon from './CartIcon';
@@ -37,8 +37,13 @@ export default function Header() {
       <nav className="bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 px-4 sm:px-6 backdrop-saturate-150">
         <div className="flex justify-between items-center h-16 sm:h-20">
           <Link to="/" className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-            <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-slate-800" strokeWidth={2.5} />
-            <span className="text-xl sm:text-2xl font-bold text-slate-900">Guiderr</span>
+            <img
+              src="/images/guiderr-logo.png"
+              alt="Guiderr Logo"
+              width="120"
+              height="40"
+              className="h-8 sm:h-10 w-auto"
+            />
           </Link>
 
           {/* ── Desktop Nav ── */}
