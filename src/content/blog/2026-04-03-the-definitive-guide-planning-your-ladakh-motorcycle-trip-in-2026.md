@@ -53,5 +53,4 @@ Before you load your luggage, make sure you have everything you need. Download o
 \
 \*Master the Road with Our Expert Guide\* 
 
-**Get the Road Trip Checklist Ebook Here (Limited Offer) :** \
-https://www.guiderr.in/motorcycles?ebook=bike-trip-checklist-a-quick-reference-guide-for-riders-before-every-trip
+### **[👉 Get the Road Trip Checklist Ebook Here (Limited Offer)](https://www.guiderr.in/motorcycles?ebook=bike-trip-checklist-a-quick-reference-guide-for-riders-before-every-trip)**
