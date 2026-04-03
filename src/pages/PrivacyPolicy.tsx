@@ -38,25 +38,45 @@ const PrivacyPolicy: React.FC = () => {
         providers like Razorpay that assist in payment processing.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">5. Cookies</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">5. Cookies &amp; Analytics</h2>
       <p className="mb-4">
-        We may use basic cookies to enhance your browsing experience. You can choose to disable cookies in
-        your browser settings.
+        We use <strong>Google Analytics</strong> to monitor site traffic and improve user experience.
+        Google Analytics uses cookies to collect standard log information and visitor behaviour in an
+        anonymous form. No personally identifiable information is sent to Google Analytics. You can
+        opt out at any time via{" "}
+        <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-medium">
+          Google's opt-out browser add-on
+        </a>.
+      </p>
+      <p className="mb-4">
+        We may use basic session cookies to enhance your browsing experience. You can choose to
+        disable cookies in your browser settings.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">6. Email Communications</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">6. Advertisements</h2>
+      <p className="mb-4">
+        We may display third-party advertisements (such as <strong>Google AdSense</strong>) in the
+        future. These advertising providers may use cookies and similar tracking technologies to serve
+        ads based on a user's prior visits to our website or other websites. You may opt out of
+        personalised advertising by visiting{" "}
+        <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-medium">
+          Google Ads Settings
+        </a>.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-6 mb-2">7. Email Communications</h2>
       <p className="mb-4">
         We may contact you for order updates or support. We do not send promotional spam.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">7. Your Rights</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">8. Your Rights</h2>
       <ul className="list-disc ml-6 mb-4">
         <li>Request deletion of your data.</li>
         <li>Request correction of information.</li>
         <li>Request details on what data we hold.</li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">8. Contact Us</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">9. Contact Us</h2>
       <p className="mb-4">
         For any privacy-related questions, please email us at{" "}
         <a href="mailto:rohanrworld@gmail.com" className="text-blue-600 font-medium">
