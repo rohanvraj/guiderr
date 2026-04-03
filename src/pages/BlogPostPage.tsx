@@ -34,20 +34,31 @@ export default function BlogPostPage() {
         </Link>
 
         {post.category && (
-          <span className="block text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-2">
+          <span className="block text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-3">
             {post.category}
           </span>
         )}
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">{post.title}</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+          {post.title}
+        </h1>
 
-        <p className="text-slate-500 mb-5">
-          {new Date(post.date).toLocaleDateString('en-IN', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </p>
+        {/* Magazine-style meta line: date • author */}
+        <div className="flex items-center gap-2 text-sm text-slate-500 mb-6">
+          <time dateTime={post.date}>
+            {new Date(post.date).toLocaleDateString('en-IN', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          {post.author && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>By {post.author}</span>
+            </>
+          )}
+        </div>
 
         {post.featuredImage && (
           <img

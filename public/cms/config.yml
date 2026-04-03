@@ -33,6 +33,7 @@ collections:
           - "Children"
           - "Parenting"
           - "Art"
+      - { label: "Author Name", name: "author", widget: "string", required: false }
       - label: "Featured Image"
         name: "featured_image"
         widget: "string"

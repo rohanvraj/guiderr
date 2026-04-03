@@ -5,6 +5,7 @@ export interface BlogPost {
   title: string;
   date: string;
   category: string;
+  author: string;
   featuredImage: string;
   body: string;
 }
@@ -48,6 +49,7 @@ export function getAllPosts(): BlogPost[] {
         title: metadata.title || 'Untitled',
         date: metadata.date || '',
         category: metadata.category || '',
+        author: metadata.author || '',
         featuredImage: metadata.featured_image || '',
         body,
       };
