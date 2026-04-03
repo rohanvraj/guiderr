@@ -3,6 +3,7 @@ title: "Mastering Credit Cards in 2026: A Frugal Guide to Rewards, Risks, and
   Financial Freedom"
 date: 2026-04-02T22:55:00.000Z
 category: Finance
+author: "Rohan "
 featured_image: creditcard_image_afopap
 ---
 Credit cards are perhaps the most misunderstood financial tool in India today. Some see them as "free money" and fall into a cycle of high-interest debt, while others avoid them entirely out of fear, missing out on massive savings and credit-building opportunities.
