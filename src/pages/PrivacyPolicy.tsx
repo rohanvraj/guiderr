@@ -78,14 +78,11 @@ const PrivacyPolicy: React.FC = () => {
 
       <h2 className="text-2xl font-semibold mt-6 mb-2">9. Limitation of Liability</h2>
       <p className="mb-4">
-        Guiderr.in and its authors provide content for informational and educational purposes only.
-        While we strive for accuracy, we make no representations or warranties of any kind regarding
-        the completeness, accuracy, or reliability of the information provided.
-      </p>
-      <p className="mb-4">
-        Under no circumstances shall Guiderr.in be held liable for any loss or damage, including
-        without limitation, indirect or consequential loss or damage, arising from the use of this
-        website.
+        Guiderr is an educational platform. All content is provided for informational purposes only
+        and does not constitute professional advice (financial, legal, medical, or otherwise). Any
+        action you take based on the information on this website is strictly at your own risk.
+        Guiderr and its authors will not be liable for any losses or damages in connection with the
+        use of our website.
       </p>
 
       <h2 className="text-2xl font-semibold mt-6 mb-2">10. Contact Us</h2>
