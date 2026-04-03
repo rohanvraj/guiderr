@@ -9,7 +9,7 @@ Credit cards are perhaps the most misunderstood financial tool in India today. S
 
 The truth? A credit card is like a surgical knife: in the hands of a professional, it’s a powerful tool; in the hands of the careless, it’s dangerous.
 
-!\[Secure Credit Cards for 2026](/nathana-reboucas-3YSDTzqnVtQ-unsplash_c8qzcy)
+!\[Secure Credit Cards for 2026](nathana-reboucas-3YSDTzqnVtQ-unsplash_c8qzcy)
 
 Here is everything you need to know about using credit cards to your advantage in 2026.
 
