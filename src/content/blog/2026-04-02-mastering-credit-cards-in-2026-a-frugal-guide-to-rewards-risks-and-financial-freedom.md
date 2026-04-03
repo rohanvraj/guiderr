@@ -13,7 +13,7 @@ The truth? A credit card is like a surgical knife: in the hands of a professiona
 
 Here is everything you need to know about using credit cards to your advantage in 2026.
 
-**The Pros:** Why You Should Use a Credit Card
+**The Pros:** Why You Should Use a Credit Card.
 
 When used correctly, credit cards actually pay you to shop.
 
@@ -41,18 +41,18 @@ How to Use Credit Cards Smartly: The Golden Rules
 
 To ensure your credit card remains a tool for financial freedom rather than a burden, follow these three rules:
 
-Rule 1: The Full Payment Rule
+**Rule 1: The Full Payment Rule**
 
 Never, under any circumstances, pay only the minimum amount. Set up an Auto-Debit for the Full Statement Balance every month. If you can't afford to pay for it in cash today, don't put it on the card.
 
-Rule 2: Respect the 30% Utilization Limit
+**Rule 2: Respect the 30% Utilization Limit**
 
 Just because your limit is ₹1,00,000 doesn't mean you should spend it all. Try to keep your total spending below 30% of your limit (₹30,000). This shows banks you are a responsible borrower and keeps your CIBIL score high.
 
-Rule 3: Treat it Like a Debit Card
+**Rule 3: Treat it Like a Debit Card**
 
 Only spend what is already in your bank account. Use the card for the points and security, not for the "credit."
 
-Conclusion
+**Conclusion**
 
 In 2026, the best way to manage your personal finance is to make your money work for you. By choosing the right credit card and paying it off religiously, you can travel for free, get discounts on your daily shopping, & build a world-class credit profile.
