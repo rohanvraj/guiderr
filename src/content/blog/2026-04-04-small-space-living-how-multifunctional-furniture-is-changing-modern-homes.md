@@ -38,7 +38,8 @@ If you are looking to optimize your home for better flow and utility, the 2-seat
 **Editor's Choice: The Uberlyfe 2-Seater**
 
 For those looking for a benchmark in this category, we recommend looking at the Uberlyfe Foldable Sofa Cum Bed. It features a stylish zigzag pattern, includes two cushions, and offers a 1-year warranty, making it a reliable choice for Indian homes.
+👉[Check Current Price of Uberlyfe Sofa on Amazon](https://amzn.to/41imAsP)
 
- [👉 Check Current Price of Uberlyfe Sofa on Amazon](https://amzn.to/41imAsP)
+
 
 [![Watch the Review](BUY_OR_SKIP_eyj7bg)](https://youtu.be/dnFa9U17_wg)
