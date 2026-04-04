@@ -30,9 +30,12 @@ collections:
           - "Motorcycles"
           - "Finance"
           - "Travel"
-          - "Children"
+          - "Pets"
           - "Parenting"
           - "Art"
+          - "Business"
+          - "Gadget & Tech"
+          - "Home & Living"
       - { label: "Author Name", name: "author", widget: "string", required: false }
       - label: "Featured Image"
         name: "featured_image"
