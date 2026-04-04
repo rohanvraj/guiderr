@@ -56,6 +56,6 @@ If you have a skill that the world needs, 2026 is the year to stop thinking and 
 
 Are you ready to take your workshops to the next level? Don't let manual admin work slow down your growth.
 
-We recommend using this [workshop booking platform for Indian creators](https://www.ziphly.in).
+We recommend using this [Ziphly workshop booking platform for Indian creators](https://www.ziphly.in).
 
 The modern platform for modern Indian creators.
