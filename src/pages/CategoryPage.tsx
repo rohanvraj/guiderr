@@ -108,6 +108,8 @@ export default function CategoryPage() {
     'parenting': 'Parenting',
     'art': 'Art',
     'business': 'Business',
+    'gadget-tech': 'Gadget & Tech',
+    'home-living': 'Home & Living',
   };
 
   // React Query caches by ['products', category] — navigating back won't re-fetch within staleTime.

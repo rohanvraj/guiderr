@@ -140,6 +140,8 @@ export default function ProductManager({}: ProductManagerProps) {
           { value: 'Pets', label: 'Pets' },
           { value: 'Parenting', label: 'Parenting' },
           { value: 'Business', label: 'Business' },
+          { value: 'Gadget & Tech', label: 'Gadget & Tech' },
+          { value: 'Home & Living', label: 'Home & Living' },
         ];
       case 'zoom_call':
       case 'audit':

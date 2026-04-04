@@ -10,6 +10,8 @@ const categories: Category[] = [
   { id: 'parenting', name: 'Parenting', description: 'Expert advice and strategies for modern parenting' },
   { id: 'art', name: 'Art', description: 'Unleash creativity with guides on painting, drawing, and design' },
   { id: 'business', name: 'Business', description: "Entrepreneur's playbook for building and growing your business" },
+  { id: 'gadget-tech', name: 'Gadget & Tech', description: 'Reviews, guides, and tips on the latest gadgets and technology' },
+  { id: 'home-living', name: 'Home & Living', description: 'Transform your space with guides on furniture, décor, and home accessories' },
 ];
 
 // For admin: load ebooks data from localStorage (Superadmin dashboard uses this)
