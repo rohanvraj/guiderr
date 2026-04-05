@@ -85,6 +85,17 @@ const PrivacyPolicy: React.FC = () => {
         use of our website.
       </p>
 
+      <h2 className="text-2xl font-semibold mt-6 mb-2">11. Copyright and Intellectual Property</h2>
+      <p className="mb-4">
+        Guiderr respects intellectual property rights. If you believe any content here infringes
+        upon your copyright, please notify us immediately at{" "}
+        <a href="mailto:rohanrworld@gmail.com" className="text-blue-600 font-medium">
+          rohanrworld@gmail.com
+        </a>{" "}
+        with the subject line &ldquo;Copyright Issue&rdquo;. We will investigate and remove or edit
+        the material promptly. We aim to be fully cooperative with all content owners.
+      </p>
+
       <h2 className="text-2xl font-semibold mt-6 mb-2">10. Contact Us</h2>
       <p className="mb-4">
         For any privacy-related questions, please email us at{" "}

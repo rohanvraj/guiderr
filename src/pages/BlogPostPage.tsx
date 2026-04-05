@@ -98,6 +98,15 @@ export default function BlogPostPage() {
           Guiderr and its authors will not be liable for any losses or damages in connection with
           the use of our website. As an Amazon Associate, Guiderr earns from qualifying purchases.
         </p>
+        <p className="mt-1 text-[10px] text-gray-400">
+          Have an issue or found an error?{" "}
+          <a
+            href="mailto:rohanrworld@gmail.com"
+            className="underline-offset-2 hover:underline"
+          >
+            Get in touch with us.
+          </a>
+        </p>
       </main>
 
       <Footer />
