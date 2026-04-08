@@ -62,6 +62,7 @@ If you're an owner looking to eliminate the chaos and start building a customer 
 
 [**👉 Visit QueueSlip.in to explore the platform**](https://www.queueslip.in)
 *Refining the hospitality experience, one guest at a time.*
+[📸 **Follow @queueslip on Instagram for latest updates**](https://www.instagram.com/queueslip)
 
 ***
 
