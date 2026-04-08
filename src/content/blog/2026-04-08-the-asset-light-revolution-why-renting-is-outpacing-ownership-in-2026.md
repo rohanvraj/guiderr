@@ -1,5 +1,6 @@
 ---
-title: "The Asset-Light Revolution: Why Renting is Outpacing Ownership in 2026"
+title: "The Asset-Light Revolution: Why Renting Products is Outpacing Ownership
+  in 2026"
 date: 2026-04-10T09:00:00.000Z
 category: Business
 author: Guiderr
