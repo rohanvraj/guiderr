@@ -33,7 +33,7 @@ Whether you are moving into a new apartment or just re-organizing your rental se
 
 ## **3. Leveling Up Your Adventures**
 
-For the weekend warrior, the "Renting vs. Buying" debate is even more lopsided. A high-quality GoPro or professional Riding Gear setup can cost upwards of ₹30,000. 
+For the weekend warrior, the "Renting vs. Buying" debate is even more lopsided. A high-quality professional Riding Gear can cost upwards of ₹10,000. 
 
 ![Accessing premium adventure motorcycle riding gear for travel in India](riding-jacket101)
 
