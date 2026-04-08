@@ -55,6 +55,8 @@ A refined customer experience starts with a clean kitchen. For high-volume envir
 ## **Conclusion: Refining the Future of Dining**
 The goal of **QueueSlip** isn't to over-promise a "magic wand" for business growth. It is built with a singular, grounded purpose: to refine the customer experience. In an industry where a single bad experience can go viral, having a system that manages expectations, collects data, and optimizes quiet hours is the "frugal-luxe" way to build a brand that lasts.
 
+[**Follow @queueslip on Instagram for latest updates**](https://www.instagram.com/queueslip)
+
 ***
 
 ### **🚀 Ready to Organize Your Restaurant?**
@@ -62,7 +64,7 @@ If you're an owner looking to eliminate the chaos and start building a customer 
 
 [**👉 Visit QueueSlip.in to explore the platform**](https://www.queueslip.in)
 *Refining the hospitality experience, one guest at a time.*
-[📸 **Follow @queueslip on Instagram for latest updates**](https://www.instagram.com/queueslip)
+
 
 ***
 
