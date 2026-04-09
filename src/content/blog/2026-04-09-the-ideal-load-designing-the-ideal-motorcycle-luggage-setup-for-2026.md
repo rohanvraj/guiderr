@@ -61,8 +61,8 @@ Don't leave your safety to chance. Download our **[Master Road Trip Checklist](/
 
 ### 📸 **Follow the Journey**
 For daily updates from the road and quick gear tips, stay connected with me here:
-*   **YouTube:** [@YourHandle](https://www.youtube.com/@YourHandle)
-*   **Instagram:** [@YourHandle](https://www.instagram.com/YourHandle)
+*   **YouTube:** [@YourHandle](https://www.youtube.com/@rrohannr)
+*   **Instagram:** [@YourHandle](https://www.instagram.com/rrohannr)
 
 ***
 
