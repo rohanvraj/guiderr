@@ -105,7 +105,7 @@ export default function CategoryPage() {
     'finance': 'Finance',
     'travel': 'Travel',
     'pets': 'Pets',
-    'parenting': 'Parenting',
+    'beauty-wellness': 'Beauty & Wellness',
     'art': 'Art',
     'business': 'Business',
     'gadget-tech': 'Gadget & Tech',

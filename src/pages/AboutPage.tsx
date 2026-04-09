@@ -24,9 +24,9 @@ const pillars = [
   },
   {
     icon: Heart,
-    label: 'Parenting',
+    label: 'Beauty & Wellness',
     description:
-      `Evidence-based, judgment-free guides for India's new-age parents—from screen time to school readiness.`,
+      `Curated, evidence-based guides on skincare, fitness, nutrition, and holistic wellness—look and feel your best on any budget.`,
   },
   {
     icon: Palette,
@@ -85,7 +85,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Editorial Standard</h2>
           <p className="text-sm text-gray-500 leading-relaxed mb-3">
             Every guide on Guiderr is researched with primary sources—RBI circulars, government
-            notifications, on-ground riding reports, and peer-reviewed parenting literature. We do
+            notifications, on-ground riding reports, and peer-reviewed beauty & wellness research. We do
             not publish sponsored opinion. If we recommend a product, it is because we use or have
             rigorously evaluated it.
           </p>

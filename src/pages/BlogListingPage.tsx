@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import { getAllPosts } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
-const CATEGORIES = ['All', 'Motorcycles', 'Finance', 'Travel', 'Pets', 'Parenting', 'Art', 'Business', 'Gadget & Tech', 'Home & Living', 'Automotive'] as const;
+const CATEGORIES = ['All', 'Motorcycles', 'Finance', 'Travel', 'Pets', 'Beauty & Wellness', 'Art', 'Business', 'Gadget & Tech', 'Home & Living', 'Automotive'] as const;
 type Category = typeof CATEGORIES[number];
 
 export default function BlogListingPage() {

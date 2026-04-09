@@ -31,7 +31,7 @@ collections:
           - "Finance"
           - "Travel"
           - "Pets"
-          - "Parenting"
+          - "Beauty & Wellness"
           - "Art"
           - "Business"
           - "Gadget & Tech"
@@ -60,9 +60,9 @@ collections:
       - label: "Pets"
         field: category
         pattern: "Pets"
-      - label: "Parenting"
+      - label: "Beauty & Wellness"
         field: category
-        pattern: "Parenting"
+        pattern: "Beauty & Wellness"
       - label: "Art"
         field: category
         pattern: "Art"

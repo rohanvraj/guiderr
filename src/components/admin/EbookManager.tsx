@@ -138,7 +138,7 @@ export default function ProductManager({}: ProductManagerProps) {
           { value: 'Finance', label: 'Finance' },
           { value: 'Travel', label: 'Travel' },
           { value: 'Pets', label: 'Pets' },
-          { value: 'Parenting', label: 'Parenting' },
+          { value: 'Beauty & Wellness', label: 'Beauty & Wellness' },
           { value: 'Business', label: 'Business' },
           { value: 'Gadget & Tech', label: 'Gadget & Tech' },
           { value: 'Home & Living', label: 'Home & Living' },

@@ -7,7 +7,7 @@ const categories: Category[] = [
   { id: 'finance', name: 'Finance', description: 'Build wealth, invest smartly, and achieve financial freedom' },
   { id: 'travel', name: 'Travel', description: 'Explore the world with confidence and insider knowledge' },
   { id: 'pets', name: 'Pets', description: 'Everything you need to care for, train, and bond with your pets' },
-  { id: 'parenting', name: 'Parenting', description: 'Expert advice and strategies for modern parenting' },
+  { id: 'beauty-wellness', name: 'Beauty & Wellness', description: 'Curated guides on skincare, fitness, nutrition, and holistic wellness' },
   { id: 'art', name: 'Art', description: 'Unleash creativity with guides on painting, drawing, and design' },
   { id: 'business', name: 'Business', description: "Entrepreneur's playbook for building and growing your business" },
   { id: 'gadget-tech', name: 'Gadget & Tech', description: 'Reviews, guides, and tips on the latest gadgets and technology' },
