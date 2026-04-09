@@ -36,6 +36,7 @@ collections:
           - "Business"
           - "Gadget & Tech"
           - "Home & Living"
+          - "Automotive"
       - { label: "Author Name", name: "author", widget: "string", required: false }
       - label: "Featured Image"
         name: "featured_image"
@@ -46,3 +47,34 @@ collections:
           In Cloudinary Dashboard -> Media Library -> click image -> copy the
           Public ID from the right panel. Do NOT paste the full URL.
       - { label: "Body", name: "body", widget: "markdown" }
+    view_filters:
+      - label: "Motorcycles"
+        field: category
+        pattern: "Motorcycles"
+      - label: "Finance"
+        field: category
+        pattern: "Finance"
+      - label: "Travel"
+        field: category
+        pattern: "Travel"
+      - label: "Pets"
+        field: category
+        pattern: "Pets"
+      - label: "Parenting"
+        field: category
+        pattern: "Parenting"
+      - label: "Art"
+        field: category
+        pattern: "Art"
+      - label: "Business"
+        field: category
+        pattern: "Business"
+      - label: "Gadget & Tech"
+        field: category
+        pattern: "Gadget & Tech"
+      - label: "Home & Living"
+        field: category
+        pattern: "Home & Living"
+      - label: "Automotive"
+        field: category
+        pattern: "Automotive"
