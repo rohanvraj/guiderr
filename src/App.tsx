@@ -17,6 +17,7 @@ import CancellationsRefunds from './pages/CancellationsRefunds';
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import BlogListingPage from './pages/BlogListingPage';
 import BlogPostPage from './pages/BlogPostPage';
+import AboutPage from './pages/AboutPage';
 
 // Component to handle referral tracking
 function ReferralTracker() {
@@ -68,6 +69,7 @@ function App() {
           <Route path="/shipping" element={<ShippingPolicy />} />
           <Route path="/refunds" element={<CancellationsRefunds />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/about" element={<AboutPage />} />
 
         </Routes>
       </BrowserRouter>

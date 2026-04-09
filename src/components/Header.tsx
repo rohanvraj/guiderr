@@ -86,6 +86,14 @@ export default function Header() {
             >
               Guides
             </Link>
+
+            {/* About Link */}
+            <Link
+              to="/about"
+              className="text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-white/30"
+            >
+              About
+            </Link>
           </div>
 
           <div className="flex items-center gap-2">
@@ -133,6 +141,15 @@ export default function Header() {
                 className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
               >
                 Guides
+              </Link>
+
+              {/* About Link */}
+              <Link
+                to="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
+              >
+                About
               </Link>
             </nav>
           </div>

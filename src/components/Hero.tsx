@@ -83,14 +83,8 @@ export default function Hero() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="space-y-2 sm:space-y-4"
               >
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[1.1] drop-shadow-lg">
-                  Learn.
-                </h1>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[1.1] drop-shadow-lg">
-                  Explore.
-                </h1>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[1.1] drop-shadow-lg">
-                  Achieve.
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.15] drop-shadow-lg">
+                  Premium Digital Guides &amp; Ebooks for India's Modern Lifestyle
                 </h1>
               </motion.div>
 
@@ -101,7 +95,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-xl leading-relaxed"
               >
-                Transform your knowledge and skills with expert digital guides. Personalized learning, real results, and full support — wherever you are.
+                Master your personal finance, plan your next motorcycle adventure, and explore expert parenting tips with Guiderr.
               </motion.p>
             </div>
 
