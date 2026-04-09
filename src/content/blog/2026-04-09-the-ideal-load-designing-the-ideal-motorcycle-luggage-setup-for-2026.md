@@ -15,7 +15,7 @@ A tank bag is non-negotiable for any serious tourer. I recommend a capacity of *
 *   **What goes here:** Wallet, power bank, documentation, and cameras like a GoPro or DSLR.
 *   **Pro Tip:** Look for one with external **bottle holders** to stay hydrated on the move.
 
-![Mounted motorcycle tank bag for quick access](tank_bag_image_id)
+![Mounted motorcycle tank bag for quick access](rynox-magnapod-tankbag)
 
 ## **2. Saddle Bags: The Secret to Balance**
 I always prefer saddle bags over high-mounted top boxes. By keeping the weight **low and equal** on both sides of the bike, you maintain a low center of gravity, which is essential for handling corners and gravel. 
