@@ -49,8 +49,8 @@ Before you take your machine on a long-distance tour, make sure you have the fun
 
 ### 📸 **Stay Connected**
 For daily automotive updates, superbikes in India, and frugal travel tips, follow my journey here:
-*   **YouTube:** [@YourChannelHandle](https://www.youtube.com/@rrohannr)
-*   **Instagram:** [@YourInstagramHandle](https://www.instagram.com/rrohannr)
+*   **YouTube:** (https://www.youtube.com/@rrohannr)
+*   **Instagram:** (https://www.instagram.com/rrohannr)
 
 ***
 
