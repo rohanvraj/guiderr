@@ -1,4 +1,4 @@
-import { Bike, TrendingUp, Plane, Heart, ArrowRight, BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb, PawPrint, Briefcase } from 'lucide-react';
+import { Bike, TrendingUp, Plane, Heart, Sparkles, Palette, Cpu, Home, ArrowRight, BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb, PawPrint, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
 import { getAllProducts, Product } from '../utils/supabase';
@@ -12,8 +12,11 @@ const iconMap: Record<string, any> = {
   finance: TrendingUp,
   travel: Plane,
   pets: PawPrint,
-  parenting: Heart,
+  'beauty-wellness': Sparkles,
+  art: Palette,
   business: Briefcase,
+  'gadget-tech': Cpu,
+  'home-living': Home,
 };
 
 const gradientMap: Record<string, string> = {
@@ -21,8 +24,11 @@ const gradientMap: Record<string, string> = {
   finance: 'from-blue-600 to-blue-800',
   travel: 'from-emerald-600 to-emerald-800',
   pets: 'from-amber-500 to-amber-700',
-  parenting: 'from-purple-600 to-purple-800',
+  'beauty-wellness': 'from-pink-500 to-pink-700',
+  art: 'from-purple-600 to-purple-800',
   business: 'from-indigo-600 to-indigo-800',
+  'gadget-tech': 'from-cyan-600 to-cyan-800',
+  'home-living': 'from-green-600 to-green-800',
 };
 
 export default function Hero() {
@@ -95,7 +101,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-xl leading-relaxed"
               >
-                Master your personal finance, plan your next motorcycle adventure, and explore expert parenting tips with Guiderr.
+                Master your personal finance, optimize your home &amp; living, and discover beauty &amp; wellness tips with Guiderr. Expert-led digital guides for India's modern lifestyle.
               </motion.p>
             </div>
 
@@ -337,7 +343,7 @@ export default function Hero() {
             return (
               <Link
                 key={category.id}
-                to={`/${category.id}`}
+                to={`/guides?category=${encodeURIComponent(category.name)}`}
                 className="group animate-fade-in-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >

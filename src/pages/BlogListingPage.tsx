@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getAllPosts } from '../utils/blog';
@@ -10,7 +10,12 @@ type Category = typeof CATEGORIES[number];
 
 export default function BlogListingPage() {
   const posts = getAllPosts();
-  const [activeCategory, setActiveCategory] = useState<Category>('All');
+  const [searchParams] = useSearchParams();
+  const paramCategory = searchParams.get('category');
+  const initialCategory: Category = CATEGORIES.includes(paramCategory as Category)
+    ? (paramCategory as Category)
+    : 'All';
+  const [activeCategory, setActiveCategory] = useState<Category>(initialCategory);
 
   // Pure client-side filter — zero API calls, uses statically bundled post data.
   const filtered = activeCategory === 'All'
