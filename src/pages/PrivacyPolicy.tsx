@@ -85,6 +85,14 @@ const PrivacyPolicy: React.FC = () => {
         use of our website.
       </p>
 
+      <h3 className="text-lg font-semibold mt-4 mb-2">9a. Featured &amp; Third-Party Content</h3>
+      <p className="mb-4">
+        Articles featuring third-party businesses or individuals are provided for informational
+        purposes only. Guiderr does not endorse and is not responsible for the accuracy of claims
+        made by these entities. Users should perform their own due diligence before acting on any
+        information provided by featured third parties.
+      </p>
+
       <h2 className="text-2xl font-semibold mt-6 mb-2">11. Copyright and Intellectual Property</h2>
       <p className="mb-4">
         Guiderr respects intellectual property rights. If you believe any content here infringes

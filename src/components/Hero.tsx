@@ -103,6 +103,7 @@ export default function Hero() {
               >
                 Master your personal finance, optimize your home &amp; living, and discover beauty &amp; wellness tips with Guiderr. Expert-led digital guides for India's modern lifestyle.
               </motion.p>
+
             </div>
 
             {/* Right Side - Floating Icons */}
@@ -332,6 +333,51 @@ export default function Hero() {
           </div>
         </section>
       )}
+
+      {/* ── Get Featured Bento Card ── */}
+      <section className="bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4 sm:px-6 lg:px-8 pt-14 pb-2">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="max-w-2xl mx-auto"
+        >
+          <div className="relative bg-white/40 backdrop-blur-md border border-gray-100 rounded-2xl p-6 sm:p-8 shadow-sm overflow-hidden">
+            {/* Subtle decorative gradient blob */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br from-pink-200/40 via-purple-200/30 to-transparent blur-2xl"
+            />
+
+            <div className="relative flex flex-col sm:flex-row sm:items-center gap-6">
+              {/* Icon */}
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center shadow-md">
+                <Sparkles className="w-6 h-6 text-white" strokeWidth={1.8} />
+              </div>
+
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <p className="text-base sm:text-lg font-bold text-gray-900 mb-1 tracking-tight">
+                  Share Your Story with Guiderr
+                </p>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  We feature independent businesses, innovative creators, and niche experts.
+                </p>
+              </div>
+
+              {/* CTA */}
+              <a
+                href="mailto:rohanrworld@gmail.com?subject=Collaboration%20Request%3A%20%5BYour%20Name%2FBusiness%5D&body=Hi%20Guiderr%2C%0D%0A%0D%0AI'm%20interested%20in%20getting%20featured%20on%20Guiderr.%20Here%20are%20some%20brief%20details%3A%0D%0A%0D%0A-%20Business%2FTopic%20Name%3A%0D%0A-%20Category%20(Finance%2FAutomotive%2Fetc)%3A%0D%0A-%20Social%2FWebsite%20Link%3A%0D%0A-%20Brief%20description%20of%20the%20story%20or%20expertise%3A%0D%0A%0D%0ALooking%20forward%20to%20hearing%20from%20you!"
+                className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 bg-gray-900 hover:bg-gray-700 active:scale-95 text-white text-sm font-semibold px-5 py-3 rounded-xl transition-all duration-200 whitespace-nowrap min-h-[44px] w-full sm:w-auto shadow-sm"
+              >
+                Get Featured
+                <span aria-hidden="true" className="translate-x-0 group-hover:translate-x-0.5 transition-transform">→</span>
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      </section>
 
       {/* Category Tiles Section */}
       <section className="py-16 sm:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100">

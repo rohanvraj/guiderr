@@ -95,6 +95,24 @@ export default function AboutPage() {
           </p>
         </section>
 
+        {/* ── Collaborations & Community ── */}
+        <hr className="border-gray-100 mb-14" />
+
+        <section className="mb-14">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Collaborations &amp; Community</h2>
+          <p className="text-sm text-gray-500 leading-relaxed mb-6">
+            Guiderr is a platform built on shared expertise. We partner with independent creators
+            and businesses to provide our audience with authentic, actionable guides. If your
+            mission aligns with ours, we want to hear from you.
+          </p>
+          <a
+            href="mailto:rohanrworld@gmail.com?subject=Feature%20Request%3A%20%5BYour%20Name%2FBusiness%5D"
+            className="inline-flex items-center gap-2 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white text-sm font-semibold px-6 py-3 rounded-xl transition-colors"
+          >
+            Get Featured →
+          </a>
+        </section>
+
         {/* ── CTA ── */}
         <div>
           <Link
