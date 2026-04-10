@@ -59,8 +59,12 @@ Weather in India is unpredictable. If your bags aren't already 100% waterproof, 
 
 ***
 
+***
+
 ### 🛠️ **Recommended Gear for 2026**
-If you are looking for a reliable, frugal way to handle flats on the road, this is the portable inflator I personally carry.
+If you are looking for a reliable, frugal way to handle flats on the road, this is the portable inflator I personally carry. 
+
+[![Qubo Smart Portable Tyre Inflator for Motorcycles](qubo-inflator)](https://amzn.to/4srOzBw)
 [**👉 Check Price on Amazon: Portable Electric Tyre Inflator for Motorcycles**](https://amzn.to/4srOzBw)
 
 ***
