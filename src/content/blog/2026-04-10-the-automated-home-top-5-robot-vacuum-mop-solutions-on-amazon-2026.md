@@ -1,5 +1,6 @@
 ---
-title: "The Automated Home: Top 5 Robot Vacuum & Mop Solutions on Amazon (2026)"
+title: "The Automated Indian Home: Top 5 Robot Vacuum & Mop Solutions on Amazon
+  (2026)"
 date: 2026-04-10T12:46:00.000Z
 category: Home & Living
 author: Guiderr
