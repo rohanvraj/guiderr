@@ -1,4 +1,8 @@
-import { Bike, TrendingUp, Plane, Heart, Sparkles, Palette, Cpu, Home, ArrowRight, BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb, PawPrint, Briefcase } from 'lucide-react';
+import { BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb } from 'lucide-react';
+import {
+  Moped, ChartLineUp, GlobeHemisphereWest, PawPrint,
+  Sparkle, Palette, Briefcase, Cpu, HouseLine,
+} from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
 import { getAllProducts, Product } from '../utils/supabase';
@@ -7,29 +11,20 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-const iconMap: Record<string, any> = {
-  motorcycles: Bike,
-  finance: TrendingUp,
-  travel: Plane,
-  pets: PawPrint,
-  'beauty-wellness': Sparkles,
-  art: Palette,
-  business: Briefcase,
-  'gadget-tech': Cpu,
-  'home-living': Home,
-};
+type CategoryConfig = { Icon: any; bg: string; border: string; color: string };
 
-const gradientMap: Record<string, string> = {
-  motorcycles: 'from-slate-600 to-slate-800',
-  finance: 'from-blue-600 to-blue-800',
-  travel: 'from-emerald-600 to-emerald-800',
-  pets: 'from-amber-500 to-amber-700',
-  'beauty-wellness': 'from-pink-500 to-pink-700',
-  art: 'from-purple-600 to-purple-800',
-  business: 'from-indigo-600 to-indigo-800',
-  'gadget-tech': 'from-cyan-600 to-cyan-800',
-  'home-living': 'from-green-600 to-green-800',
+const categoryConfig: Record<string, CategoryConfig> = {
+  motorcycles:       { Icon: Moped,               bg: 'bg-slate-50',  border: 'border-slate-200',  color: '#475569' },
+  finance:           { Icon: ChartLineUp,         bg: 'bg-teal-50',   border: 'border-teal-200',   color: '#0d9488' },
+  travel:            { Icon: GlobeHemisphereWest, bg: 'bg-blue-50',   border: 'border-blue-200',   color: '#2563eb' },
+  pets:              { Icon: PawPrint,            bg: 'bg-amber-50',  border: 'border-amber-200',  color: '#d97706' },
+  'beauty-wellness': { Icon: Sparkle,            bg: 'bg-rose-50',   border: 'border-rose-200',   color: '#e11d48' },
+  art:               { Icon: Palette,            bg: 'bg-violet-50', border: 'border-violet-200', color: '#7c3aed' },
+  business:          { Icon: Briefcase,          bg: 'bg-indigo-50', border: 'border-indigo-200', color: '#4f46e5' },
+  'gadget-tech':     { Icon: Cpu,               bg: 'bg-sky-50',    border: 'border-sky-200',    color: '#0284c7' },
+  'home-living':     { Icon: HouseLine,          bg: 'bg-green-50',  border: 'border-green-200',  color: '#16a34a' },
 };
+const defaultConfig: CategoryConfig = { Icon: Briefcase, bg: 'bg-gray-50', border: 'border-gray-200', color: '#374151' };
 
 export default function Hero() {
   const categories = getCategories();
@@ -351,9 +346,9 @@ export default function Hero() {
             />
 
             <div className="relative flex flex-col sm:flex-row sm:items-center gap-6">
-              {/* Icon */}
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center shadow-md">
-                <Sparkles className="w-6 h-6 text-white" strokeWidth={1.8} />
+              {/* Guiderr Logo */}
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center p-1.5">
+                <img src="/images/guiderr-logo.png" alt="Guiderr" className="w-full h-full object-contain" loading="eager" />
               </div>
 
               {/* Text */}
@@ -384,8 +379,7 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 mb-16 sm:mb-20">
           {categories.map((category, index) => {
-            const Icon = iconMap[category.id] || Bike;
-            const gradient = gradientMap[category.id] || 'from-slate-600 to-slate-800';
+            const { Icon, bg, border, color } = categoryConfig[category.id] || defaultConfig;
             return (
               <Link
                 key={category.id}
@@ -394,8 +388,8 @@ export default function Hero() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="relative h-full bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100">
-                  <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" strokeWidth={2} />
+                  <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-5 border shadow-sm group-hover:scale-110 transition-transform duration-200 ${bg} ${border}`}>
+                    <Icon weight="duotone" className="w-7 h-7 sm:w-8 sm:h-8" color={color} />
                   </div>
 
                   <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-slate-800 transition-colors">
