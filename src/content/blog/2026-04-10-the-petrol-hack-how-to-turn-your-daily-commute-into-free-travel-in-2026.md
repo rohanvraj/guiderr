@@ -1,6 +1,6 @@
 ---
 title: "The Petrol Hack: How to Turn Your Daily Commute into Free Travel in 2026"
-date: 2026-04-10T18:25:00.000Z
+date: 2026-04-10T18:34:00.000Z
 category: Finance
 author: Guiderr
 featured_image: Axis-Indian-Oil-Rupay-Credit-Card-2_vdw66f
