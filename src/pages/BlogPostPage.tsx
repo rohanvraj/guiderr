@@ -90,23 +90,62 @@ export default function BlogPostPage() {
         </article>
 
         {/* ── Fine Print ── */}
-        <hr className="mt-10 border-gray-200" />
-        <p className="mt-3 text-[10px] text-gray-400 leading-relaxed">
-          Guiderr is an educational platform. All content is provided for informational purposes
-          only and does not constitute professional advice (financial, legal, medical, or otherwise).
-          Any action you take based on the information on this website is strictly at your own risk.
-          Guiderr and its authors will not be liable for any losses or damages in connection with
-          the use of our website. As an Amazon Associate, Guiderr earns from qualifying purchases.
-        </p>
-        <p className="mt-1 text-[10px] text-gray-400">
-          Have an issue or found an error?{" "}
-          <a
-            href="mailto:rohanrworld@gmail.com"
-            className="underline-offset-2 hover:underline"
-          >
-            Get in touch with us.
-          </a>
-        </p>
+        {(() => {
+          const isFinanceOrAuto = ['Finance', 'Automotive'].includes(post.category ?? '');
+          return (
+            <>
+              <hr className="mt-10 border-gray-200" />
+              <div className="mt-3 space-y-1 text-[10px] text-gray-400 leading-relaxed">
+                {isFinanceOrAuto ? (
+                  <>
+                    <p>
+                      <span className="font-semibold">ADVISORY:</span> Information regarding
+                      financial products or vehicles (features, rewards, and pricing) is for
+                      informational purposes and is subject to change by the issuing bank or
+                      manufacturer without notice. Guiderr does not guarantee the availability of
+                      any features mentioned.
+                    </p>
+                    <p>
+                      <span className="font-semibold">VERIFICATION:</span> Users must consult an
+                      official bank representative or product expert for any doubts, clarifications,
+                      or the latest terms before making an application or purchase.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      <span className="font-semibold">ADVISORY:</span> Guiderr is an educational
+                      platform. All content is provided for informational purposes only. Action
+                      taken is at your own risk.
+                    </p>
+                    <p>
+                      <span className="font-semibold">VERIFICATION:</span> We recommend consulting
+                      a professional in the relevant field for specific advice.
+                    </p>
+                  </>
+                )}
+                <p>
+                  <span className="font-semibold">LIABILITY:</span> Guiderr and its authors are
+                  not liable for any losses, accidents, or damages in connection with the use of
+                  our website.
+                </p>
+                <p>
+                  <span className="font-semibold">AFFILIATE:</span> As an Amazon Associate,
+                  Guiderr earns from qualifying purchases at no extra cost to you.
+                </p>
+              </div>
+              <p className="mt-2 text-[10px] text-gray-400">
+                Have an issue or found an error?{" "}
+                <a
+                  href="mailto:rohanrworld@gmail.com"
+                  className="underline-offset-2 hover:underline"
+                >
+                  Get in touch with us.
+                </a>
+              </p>
+            </>
+          );
+        })()}
       </main>
 
       <Footer />
