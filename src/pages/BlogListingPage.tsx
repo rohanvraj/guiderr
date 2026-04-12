@@ -11,6 +11,10 @@ type Category = typeof CATEGORIES[number];
 const LIFESTYLE_CATEGORIES = ['Beauty & Wellness', 'Home & Living', 'Art', 'Pets', 'Business'] as const;
 
 function getDisplayCategory(category: string): Exclude<Category, 'All'> | null {
+  if (category === 'Lifestyle') {
+    return 'Lifestyle';
+  }
+
   if (LIFESTYLE_CATEGORIES.includes(category as typeof LIFESTYLE_CATEGORIES[number])) {
     return 'Lifestyle';
   }
@@ -22,6 +26,8 @@ function getDisplayCategory(category: string): Exclude<Category, 'All'> | null {
       return 'Finance';
     case 'Travel':
       return 'Travel';
+    case 'Tech':
+      return 'Tech';
     case 'Gadget & Tech':
       return 'Tech';
     case 'Automotive':

@@ -33,7 +33,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/featured" className="text-slate-400 hover:text-white transition-colors">
+                <Link to="/get-featured" className="text-slate-400 hover:text-white transition-colors">
                   Get Featured
                 </Link>
               </li>

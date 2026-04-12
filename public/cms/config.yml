@@ -27,16 +27,11 @@ collections:
         name: "category"
         widget: "select"
         options:
-          - "Motorcycles"
+          - "Automotive"
           - "Finance"
           - "Travel"
-          - "Pets"
-          - "Beauty & Wellness"
-          - "Art"
-          - "Business"
-          - "Gadget & Tech"
-          - "Home & Living"
-          - "Automotive"
+          - "Tech"
+          - "Lifestyle"
       - { label: "Author Name", name: "author", widget: "string", required: false }
       - label: "Featured Image"
         name: "featured_image"
@@ -51,30 +46,47 @@ collections:
       - label: "Motorcycles"
         field: category
         pattern: "Motorcycles"
+      - label: "Automotive"
+        field: category
+        pattern: "Automotive"
       - label: "Finance"
         field: category
         pattern: "Finance"
       - label: "Travel"
         field: category
         pattern: "Travel"
-      - label: "Pets"
+      - label: "Tech"
         field: category
-        pattern: "Pets"
-      - label: "Beauty & Wellness"
+        pattern: "Tech|Gadget & Tech"
+      - label: "Lifestyle"
         field: category
-        pattern: "Beauty & Wellness"
-      - label: "Art"
-        field: category
-        pattern: "Art"
-      - label: "Business"
-        field: category
-        pattern: "Business"
-      - label: "Gadget & Tech"
-        field: category
-        pattern: "Gadget & Tech"
-      - label: "Home & Living"
-        field: category
-        pattern: "Home & Living"
-      - label: "Automotive"
-        field: category
-        pattern: "Automotive"
+        pattern: "Lifestyle|Beauty & Wellness|Home & Living|Art|Pets|Business"
+
+  - name: "featured"
+    label: "Featured Stories"
+    folder: "src/content/featured"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        required: false
+        options:
+          - "Automotive"
+          - "Finance"
+          - "Travel"
+          - "Tech"
+          - "Lifestyle"
+      - { label: "Author Name", name: "author", widget: "string", required: false }
+      - label: "Featured Image"
+        name: "featured_image"
+        widget: "string"
+        required: false
+        hint: >-
+          Enter the Cloudinary Public ID only (e.g. featured/story-cover).
+          In Cloudinary Dashboard -> Media Library -> click image -> copy the
+          Public ID from the right panel. Do NOT paste the full URL.
+      - { label: "Body", name: "body", widget: "markdown" }

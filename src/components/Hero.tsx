@@ -5,11 +5,13 @@ import {
 } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
-import { getAllProducts, Product } from '../utils/supabase';
+import { getAllProducts } from '../utils/supabase';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+
+const FEATURED_BUTTON_CLASSES = 'inline-flex items-center justify-center gap-2 rounded-xl bg-purple-900 hover:bg-purple-950 text-white text-sm font-semibold px-5 py-3 transition-colors shadow-sm';
 
 type CategoryConfig = { Icon: any; bg: string; border: string; color: string };
 
@@ -362,13 +364,13 @@ export default function Hero() {
               </div>
 
               {/* CTA */}
-              <a
-                href="mailto:rohanrworld@gmail.com?subject=Collaboration%20Request%3A%20%5BYour%20Name%2FBusiness%5D&body=Hi%20Guiderr%2C%0D%0A%0D%0AI'm%20interested%20in%20getting%20featured%20on%20Guiderr.%20Here%20are%20some%20brief%20details%3A%0D%0A%0D%0A-%20Business%2FTopic%20Name%3A%0D%0A-%20Category%20(Finance%2FAutomotive%2Fetc)%3A%0D%0A-%20Social%2FWebsite%20Link%3A%0D%0A-%20Brief%20description%20of%20the%20story%20or%20expertise%3A%0D%0A%0D%0ALooking%20forward%20to%20hearing%20from%20you!"
-                className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 bg-gray-900 hover:bg-gray-700 active:scale-95 text-white text-sm font-semibold px-5 py-3 rounded-xl transition-all duration-200 whitespace-nowrap min-h-[44px] w-full sm:w-auto shadow-sm"
+              <Link
+                to="/get-featured"
+                className={`${FEATURED_BUTTON_CLASSES} flex-shrink-0 whitespace-nowrap min-h-[44px] w-full sm:w-auto`}
               >
                 Get Featured
-                <span aria-hidden="true" className="translate-x-0 group-hover:translate-x-0.5 transition-transform">→</span>
-              </a>
+                <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
         </motion.div>
@@ -428,6 +430,29 @@ export default function Hero() {
           </div>
           )}
         </div>
+      </section>
+
+      <section className="bg-white px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="max-w-4xl mx-auto rounded-[2rem] border border-slate-200 bg-white px-6 py-10 sm:px-10 sm:py-12 text-center"
+        >
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
+            Ready to spotlight your business?
+          </h2>
+          <p className="mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-7 text-slate-600">
+            Start with our premium placement page, then connect with us directly when the fit feels right.
+          </p>
+          <Link
+            to="/get-featured"
+            className={`${FEATURED_BUTTON_CLASSES} mt-6`}
+          >
+            Connect with us to get featured
+          </Link>
+        </motion.div>
       </section>
     </>
   );

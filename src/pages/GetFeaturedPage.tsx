@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+const FEATURED_MAILTO_URL = 'mailto:rohanrworld@gmail.com?subject=Collaboration%20Request%3A%20%5BYour%20Name%2FBusiness%5D&body=Hi%20Guiderr%2C%0D%0A%0D%0AI%27m%20interested%20in%20getting%20featured%20on%20Guiderr.%20Here%20are%20some%20brief%20details%3A%0D%0A%0D%0A-%20Business%2FTopic%20Name%3A%0D%0A-%20Category%20(Finance%2FAutomotive%2Fetc)%3A%0D%0A-%20Social%2FWebsite%20Link%3A%0D%0A-%20Brief%20description%20of%20the%20story%20or%20expertise%3A%0D%0A%0D%0ALooking%20forward%20to%20hearing%20from%20you!';
+
 const audienceCards = [
   {
     title: 'Innovative Startups',
@@ -65,35 +67,35 @@ function FadeSection({
   );
 }
 
-export default function FeaturedPage() {
+export default function GetFeaturedPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-gradient-to-b from-violet-100 via-fuchsia-50 to-white text-slate-900">
       <Header />
 
       <main className="pt-32 sm:pt-36 lg:pt-40">
-        <section className="bg-white px-4 sm:px-6 lg:px-8 pt-14 pb-24 sm:pb-32 lg:pb-40">
-          <div className="max-w-4xl mx-auto text-center">
+        <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pb-32 lg:pb-40">
+          <div className="max-w-5xl mx-auto text-center">
             <FadeSection>
-              <div className="inline-flex items-center rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600">
+              <div className="inline-flex items-center rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
                 Premium Editorial Placement
               </div>
             </FadeSection>
 
             <FadeSection delay={0.06} className="mt-8">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.06] text-slate-900">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.98] text-slate-900">
                 Elevate Your Brand on Guiderr
               </h1>
             </FadeSection>
 
             <FadeSection delay={0.12} className="mt-6">
-              <p className="max-w-3xl mx-auto text-lg sm:text-xl leading-9 text-slate-600">
+              <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-slate-600">
                 A high-intent platform for creators and businesses to share their story with India's modern decision-makers.
               </p>
             </FadeSection>
           </div>
         </section>
 
-        <section className="bg-white px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-36">
+        <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-36">
           <div className="max-w-6xl mx-auto">
             <FadeSection className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Who Is This For?</p>
@@ -105,8 +107,8 @@ export default function FeaturedPage() {
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
               {audienceCards.map((card, index) => (
                 <FadeSection key={card.title} delay={index * 0.06}>
-                  <article className="rounded-3xl border border-gray-100 bg-white p-8 sm:p-10 min-h-[240px] flex flex-col justify-between">
-                    <div className="w-11 h-11 rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-center text-sm font-semibold text-slate-900">
+                  <article className="rounded-3xl border border-violet-100 bg-white/80 p-8 sm:p-10 min-h-[240px] flex flex-col justify-between shadow-[0_16px_50px_rgba(124,58,237,0.06)]">
+                    <div className="w-11 h-11 rounded-2xl border border-violet-100 bg-violet-50 flex items-center justify-center text-sm font-semibold text-slate-900">
                       0{index + 1}
                     </div>
                     <div className="mt-10">
@@ -120,7 +122,7 @@ export default function FeaturedPage() {
           </div>
         </section>
 
-        <section className="bg-white px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-40">
+        <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-40">
           <div className="max-w-5xl mx-auto">
             <FadeSection className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">The Editorial Process</p>
@@ -135,9 +137,9 @@ export default function FeaturedPage() {
 
                 return (
                   <FadeSection key={item.title} delay={index * 0.06}>
-                    <div className="rounded-3xl border border-gray-100 bg-white px-6 py-7 sm:px-8 sm:py-8">
+                    <div className="rounded-3xl border border-violet-100 bg-white/80 px-6 py-7 sm:px-8 sm:py-8 shadow-[0_10px_30px_rgba(124,58,237,0.05)]">
                       <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-                        <div className="w-12 h-12 rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 rounded-2xl border border-violet-100 bg-violet-50 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-5 h-5 text-slate-900" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -154,9 +156,9 @@ export default function FeaturedPage() {
           </div>
         </section>
 
-        <section className="bg-white px-4 sm:px-6 lg:px-8 pb-28 sm:pb-36 lg:pb-44">
+        <section className="px-4 sm:px-6 lg:px-8 pb-28 sm:pb-36 lg:pb-44">
           <FadeSection>
-            <div className="max-w-4xl mx-auto rounded-[2rem] border border-gray-100 bg-white px-8 py-12 sm:px-12 sm:py-16 text-center">
+            <div className="max-w-4xl mx-auto rounded-[2rem] border border-violet-100 bg-white/85 px-8 py-12 sm:px-12 sm:py-16 text-center shadow-[0_18px_60px_rgba(124,58,237,0.08)]">
               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-slate-900">
                 Put your story in front of people already researching what to trust next.
               </h2>
@@ -164,12 +166,12 @@ export default function FeaturedPage() {
                 If your brand, product, or expertise helps modern Indian consumers decide better, start the conversation.
               </p>
               <a
-                href="https://wa.me/919890505945?text=Hi%20Guiderr,%20I'm%20interested%20in%20getting%20featured."
+                href={FEATURED_MAILTO_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-10 inline-flex items-center justify-center gap-3 rounded-full border border-slate-900 bg-slate-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-black hover:border-black"
+                className="mt-10 inline-flex items-center justify-center gap-3 rounded-full border border-purple-900 bg-purple-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-purple-950 hover:border-purple-950"
               >
-                Apply to get Featured
+                Connect with us to get featured
                 <ArrowRight className="w-5 h-5" />
               </a>
             </div>
