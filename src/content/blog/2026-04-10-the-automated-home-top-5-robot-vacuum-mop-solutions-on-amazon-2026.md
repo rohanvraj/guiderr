@@ -2,7 +2,7 @@
 title: "The Automated Indian Home: Top 5 Robot Vacuum & Mop Solutions on Amazon
   (2026)"
 date: 2026-04-10T12:46:00.000Z
-category: Home & Living
+category: Tech
 author: Guiderr
 featured_image: robot-vacuum-cleaner-with-mopping_zvgynk
 ---
