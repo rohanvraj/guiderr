@@ -1,7 +1,7 @@
 ---
 title: "The Definitive Guide: Planning Your Ladakh Motorcycle Trip in 2026"
 date: 2026-04-03T19:02:00.000Z
-category: Motorcycles
+category: Travel
 featured_image: ladakh-biketrip2_yjj8bn
 ---
 For an Indian motorcycle rider, there are two types of motorcyclists: those who have ridden to Ladakh, and those who dream of it. As we move into **2026**, the journey to the **"Land of High Passes"** remains as challenging and breathtaking as ever.
