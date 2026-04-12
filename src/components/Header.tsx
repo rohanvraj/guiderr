@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 import CartIcon from './CartIcon';
 import { getCategories } from '../utils/ebooks';
 
+const NAV_CATEGORY_LINKS = [
+  { label: 'Motorcycles', to: '/motorcycles' },
+  { label: 'Finance', to: '/finance' },
+  { label: 'Travel', to: '/travel' },
+  { label: 'Tech', to: '/gadget-tech' },
+  { label: 'Automotive', to: '/guides?category=Automotive' },
+  { label: 'Lifestyle', to: '/guides?category=Lifestyle' },
+] as const;
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [ebooksOpen, setEbooksOpen] = useState(false);
@@ -11,6 +20,13 @@ export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number>();
   const categories = getCategories();
+  const visibleCategories = NAV_CATEGORY_LINKS.filter((link) => {
+    if (link.label === 'Automotive' || link.label === 'Lifestyle') {
+      return true;
+    }
+
+    return categories.some((category) => category.name === link.label || (link.label === 'Tech' && category.id === 'gadget-tech'));
+  });
 
   // Close desktop dropdown on outside click
   useEffect(() => {
@@ -65,14 +81,14 @@ export default function Header() {
               </button>
               {ebooksOpen && (
                 <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 py-2 animate-fade-in">
-                  {categories.map((category) => (
+                  {visibleCategories.map((category) => (
                     <Link
-                      key={category.id}
-                      to={`/${category.id}`}
+                      key={category.label}
+                      to={category.to}
                       onClick={() => setEbooksOpen(false)}
                       className="block px-4 py-2 text-slate-700 hover:text-slate-900 hover:bg-white/50 transition-colors font-medium"
                     >
-                      {category.name}
+                      {category.label}
                     </Link>
                   ))}
                 </div>
@@ -121,14 +137,14 @@ export default function Header() {
               </button>
               {mobileEbooksOpen && (
                 <div className="ml-4 flex flex-col gap-1">
-                  {categories.map((category) => (
+                  {visibleCategories.map((category) => (
                     <Link
-                      key={category.id}
-                      to={`/${category.id}`}
+                      key={category.label}
+                      to={category.to}
                       onClick={() => setMobileMenuOpen(false)}
                       className="py-2 px-4 text-slate-600 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
                     >
-                      {category.name}
+                      {category.label}
                     </Link>
                   ))}
                 </div>

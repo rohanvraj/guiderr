@@ -5,13 +5,37 @@ import Footer from '../components/Footer';
 import { getAllPosts } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
-const CATEGORIES = ['All', 'Motorcycles', 'Finance', 'Travel', 'Pets', 'Beauty & Wellness', 'Art', 'Business', 'Gadget & Tech', 'Home & Living', 'Automotive'] as const;
+const CATEGORIES = ['All', 'Motorcycles', 'Finance', 'Travel', 'Tech', 'Automotive', 'Lifestyle'] as const;
 type Category = typeof CATEGORIES[number];
+
+const LIFESTYLE_CATEGORIES = ['Beauty & Wellness', 'Home & Living', 'Art', 'Pets', 'Business'] as const;
+
+function getDisplayCategory(category: string): Exclude<Category, 'All'> | null {
+  if (LIFESTYLE_CATEGORIES.includes(category as typeof LIFESTYLE_CATEGORIES[number])) {
+    return 'Lifestyle';
+  }
+
+  switch (category) {
+    case 'Motorcycles':
+      return 'Motorcycles';
+    case 'Finance':
+      return 'Finance';
+    case 'Travel':
+      return 'Travel';
+    case 'Gadget & Tech':
+      return 'Tech';
+    case 'Automotive':
+      return 'Automotive';
+    default:
+      return null;
+  }
+}
 
 export default function BlogListingPage() {
   const posts = getAllPosts();
   const [searchParams] = useSearchParams();
-  const paramCategory = searchParams.get('category');
+  const rawParamCategory = searchParams.get('category');
+  const paramCategory = rawParamCategory ? getDisplayCategory(rawParamCategory) ?? rawParamCategory : null;
   const initialCategory: Category = CATEGORIES.includes(paramCategory as Category)
     ? (paramCategory as Category)
     : 'All';
@@ -20,7 +44,7 @@ export default function BlogListingPage() {
   // Pure client-side filter — zero API calls, uses statically bundled post data.
   const filtered = activeCategory === 'All'
     ? posts
-    : posts.filter((p) => p.category === activeCategory);
+    : posts.filter((post) => getDisplayCategory(post.category) === activeCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -74,7 +98,7 @@ export default function BlogListingPage() {
                 <div className="p-5">
                   {post.category && (
                     <span className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-                      {post.category}
+                      {getDisplayCategory(post.category) ?? post.category}
                     </span>
                   )}
                   <h2 className="mt-1 text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
