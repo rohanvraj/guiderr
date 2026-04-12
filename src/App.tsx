@@ -18,10 +18,15 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import BlogListingPage from './pages/BlogListingPage';
 import BlogPostPage from './pages/BlogPostPage';
 import AboutPage from './pages/AboutPage';
+import FeaturedPage from './pages/FeaturedPage';
 
 // Component to handle referral tracking
 function ReferralTracker() {
   useEffect(() => {
+    if (window.location.pathname.startsWith('/featured')) {
+      return;
+    }
+
     // Check for ?ref=[code] in the URL
     const params = new URLSearchParams(window.location.search);
     const refCode = params.get('ref');
@@ -56,6 +61,7 @@ function App() {
         <CartPanel />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/featured" element={<FeaturedPage />} />
           <Route path="/guides" element={<BlogListingPage />} />
           <Route path="/guides/:slug" element={<BlogPostPage />} />
           <Route path="/:category" element={<CategoryPage />} />

@@ -103,6 +103,13 @@ export default function Header() {
               Guides
             </Link>
 
+            <Link
+              to="/featured"
+              className="text-slate-900 font-semibold transition-colors px-4 py-2 rounded-full border border-slate-200 bg-white/60 hover:bg-white hover:border-slate-300"
+            >
+              Featured
+            </Link>
+
             {/* About Link */}
             <Link
               to="/about"
@@ -157,6 +164,14 @@ export default function Header() {
                 className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
               >
                 Guides
+              </Link>
+
+              <Link
+                to="/featured"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 px-4 text-slate-900 hover:text-slate-900 hover:bg-white/40 rounded-xl font-semibold transition-all border border-slate-200 bg-white/60"
+              >
+                Featured
               </Link>
 
               {/* About Link */}
