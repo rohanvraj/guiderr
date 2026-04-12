@@ -1,7 +1,7 @@
 ---
 title: "Switching to Electric: Modern Induction Cooking Options for 2026"
 date: 2026-04-09T19:15:00.000Z
-category: Home & Living
+category: Tech
 author: Guiderr
 featured_image: cooking-induction_rptvxq
 ---
