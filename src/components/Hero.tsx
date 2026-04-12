@@ -12,6 +12,7 @@ import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 const FEATURED_BUTTON_CLASSES = 'inline-flex items-center justify-center gap-2 rounded-xl bg-purple-900 hover:bg-purple-950 text-white text-sm font-semibold px-5 py-3 transition-colors shadow-sm';
+const FEATURED_WHATSAPP_URL = 'https://wa.me/919890505945?text=Hi%20Guiderr,%20I%27m%20interested%20in%20getting%20featured.';
 
 type CategoryConfig = { Icon: any; bg: string; border: string; color: string };
 
@@ -452,6 +453,17 @@ export default function Hero() {
           >
             Connect with us to get featured
           </Link>
+          <div className="mt-4">
+            <a
+              href={FEATURED_WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-purple-900 hover:text-purple-950 transition-colors"
+            >
+              Prefer WhatsApp? Start a quick conversation
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </motion.div>
       </section>
     </>

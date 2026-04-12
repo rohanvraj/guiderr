@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const FEATURED_MAILTO_URL = 'mailto:rohanrworld@gmail.com?subject=Collaboration%20Request%3A%20%5BYour%20Name%2FBusiness%5D&body=Hi%20Guiderr%2C%0D%0A%0D%0AI%27m%20interested%20in%20getting%20featured%20on%20Guiderr.%20Here%20are%20some%20brief%20details%3A%0D%0A%0D%0A-%20Business%2FTopic%20Name%3A%0D%0A-%20Category%20(Finance%2FAutomotive%2Fetc)%3A%0D%0A-%20Social%2FWebsite%20Link%3A%0D%0A-%20Brief%20description%20of%20the%20story%20or%20expertise%3A%0D%0A%0D%0ALooking%20forward%20to%20hearing%20from%20you!';
+const FEATURED_WHATSAPP_URL = 'https://wa.me/919890505945?text=Hi%20Guiderr,%20I%27m%20interested%20in%20getting%20featured.';
 
 const audienceCards = [
   {
@@ -69,26 +70,26 @@ function FadeSection({
 
 export default function GetFeaturedPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-100 via-fuchsia-50 to-white text-slate-900">
+    <div className="min-h-screen bg-purple-900 text-slate-900">
       <Header />
 
       <main className="pt-32 sm:pt-36 lg:pt-40">
         <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pb-32 lg:pb-40">
           <div className="max-w-5xl mx-auto text-center">
             <FadeSection>
-              <div className="inline-flex items-center rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
+              <div className="inline-flex items-center rounded-full border border-purple-700 bg-white/10 px-4 py-2 text-sm font-medium text-purple-50 shadow-sm backdrop-blur-sm">
                 Premium Editorial Placement
               </div>
             </FadeSection>
 
             <FadeSection delay={0.06} className="mt-8">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.98] text-slate-900">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.98] text-white">
                 Elevate Your Brand on Guiderr
               </h1>
             </FadeSection>
 
             <FadeSection delay={0.12} className="mt-6">
-              <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-slate-600">
+              <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-purple-100">
                 A high-intent platform for creators and businesses to share their story with India's modern decision-makers.
               </p>
             </FadeSection>
@@ -98,8 +99,8 @@ export default function GetFeaturedPage() {
         <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-36">
           <div className="max-w-6xl mx-auto">
             <FadeSection className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Who Is This For?</p>
-              <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-slate-900">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-purple-200">Who Is This For?</p>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-white">
                 Designed for brands and voices that deserve a more premium introduction.
               </h2>
             </FadeSection>
@@ -125,8 +126,8 @@ export default function GetFeaturedPage() {
         <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-40">
           <div className="max-w-5xl mx-auto">
             <FadeSection className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">The Editorial Process</p>
-              <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-slate-900">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-purple-200">The Editorial Process</p>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-white">
                 A simple, selective path from first message to published feature.
               </h2>
             </FadeSection>
@@ -165,15 +166,26 @@ export default function GetFeaturedPage() {
               <p className="mt-5 max-w-2xl mx-auto text-lg leading-8 text-slate-600">
                 If your brand, product, or expertise helps modern Indian consumers decide better, start the conversation.
               </p>
-              <a
-                href={FEATURED_MAILTO_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-10 inline-flex items-center justify-center gap-3 rounded-full border border-purple-900 bg-purple-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-purple-950 hover:border-purple-950"
-              >
-                Connect with us to get featured
-                <ArrowRight className="w-5 h-5" />
-              </a>
+              <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <a
+                  href={FEATURED_MAILTO_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-purple-900 bg-purple-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-purple-950 hover:border-purple-950"
+                >
+                  Connect with us to get featured
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+                <a
+                  href={FEATURED_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-200 bg-white/90 px-6 py-4 text-sm font-semibold text-purple-900 transition-all hover:bg-white"
+                >
+                  Prefer WhatsApp?
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
           </FadeSection>
         </section>
