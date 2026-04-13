@@ -26,6 +26,16 @@ Traditionally, the Hayabusa was known for loud, vibrant colors. The new **Mat St
 Suzuki hasn't just focused on paint. The 2025 model features the **Suzuki Intelligent Ride System (S.I.R.S.)**, a collection of advanced electronic aids that make the 1,340cc beast more controllable than ever.
 *   **Smooth Delivery:** The power is abundant but predictable, allowing you to carry the bike's weight with surprising nimbleness through Pune's city traffic or the open highway.
 *   **Agility:** Despite its majestic presence, the chassis is perfectly poised, offering stability at high speeds that few other machines can replicate.
+***
+
+### 🏔️ **Join the Expedition: Pune to Sikkim (June 2026)**
+Ready to take your passion for the open road to the vertical world of the Himalayas? I am leading a niche pack of exactly **10 riders** on a safe, disciplined, and epic journey from Pune to the heart of Sikkim this June. Whether you ride a "Busa" or a dedicated Adventure tourer, this is the ultimate test of man and machine.
+
+![Riders approaching the mist-covered mountains of Sikkim](sikkim-bike-trip-june-2026_l6naom)
+
+[**👉 View Expedition Details & Enquire Now via WhatsApp**](https://www.guiderr.in/guides/2026-04-12-the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026)
+
+***
 
 ## **3. The Price of Legend**
 With an ex-showroom price starting around **₹18 Lakhs**, the Hayabusa remains the most iconic "big bike" investment in India. While the price has climbed over the years, the reliability and the sheer "head-turning" factor of the Mat Steel Green finish make it a compelling choice for the modern enthusiast.
