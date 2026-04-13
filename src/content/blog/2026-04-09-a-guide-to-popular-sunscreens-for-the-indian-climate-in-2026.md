@@ -1,7 +1,7 @@
 ---
 title: A Guide to Popular Sunscreens for the Indian Climate in 2026
 date: 2026-04-09T19:56:00.000Z
-category: Beauty & Wellness
+category: Lifestyle
 author: Guiderr
 featured_image: woman-with-sunscreen-summer-2026_2_a7f3nx
 ---
