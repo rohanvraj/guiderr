@@ -32,15 +32,35 @@ The Axis Flipkart card is a "Co-branded" powerhouse. It is designed for those wh
 ***
 
 
-Here is the data breakdown between the two cards:
+## **Side-by-Side Comparison (2026)**
 
-| Feature | SBI Cashback Card | Axis Flipkart Card |
-| :--- | :--- | :--- |
-| **Online Cashback** | 5% (Almost Everywhere) | 5% (Flipkart & Cleartrip only) |
-| **Preferred Spends** | 1% (Offline) | 4% (Swiggy, Uber, PVR) |
-| **Joining Fee** | ₹999 + GST | ₹500 + GST |
-| **Annual Fee Waiver** | Spend ₹2 Lakh/year | Spend ₹3.5 Lakh/year |
-| **Lounge Access** | Not Included | 4 Visits / Year |
+**Feature:** Online Cashback  
+**SBI Cashback Card:** 5% (Almost Everywhere)  
+**Axis Flipkart Card:** 5% (Flipkart/Cleartrip Only)  
+
+***
+
+**Feature:** Preferred Spends  
+**SBI Cashback Card:** 1% (Offline)  
+**Axis Flipkart Card:** 4% (Swiggy, Uber, PVR)  
+
+***
+
+**Feature:** Joining Fee  
+**SBI Cashback Card:** ₹999 + GST  
+**Axis Flipkart Card:** ₹500 + GST  
+
+***
+
+**Feature:** Annual Fee Waiver  
+**SBI Cashback Card:** Spend ₹2 Lakh/year  
+**Axis Flipkart Card:** Spend ₹3.5 Lakh/year  
+
+***
+
+**Feature:** Lounge Access  
+**SBI Cashback Card:** Not Included  
+**Axis Flipkart Card:** 4 Visits / Year  
 
 ***
 ## **The Decision Matrix: Which One to Choose?**
