@@ -2,7 +2,7 @@
 title: " Beyond the Plate: How Smart Queue Management is Redefining the Indian
   Dining Experience in 2026"
 date: 2026-04-09T00:42:00.000Z
-category: Tech
+category: Business
 author: Guiderr
 featured_image: customers-queue_dzeals
 ---
