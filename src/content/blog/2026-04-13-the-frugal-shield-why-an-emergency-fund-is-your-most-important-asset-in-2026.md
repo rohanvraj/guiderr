@@ -22,7 +22,7 @@ Many Indians keep this in a standard savings account earning 3% interest, which 
 ***
 
 ### 📈 **Earn While You Save**
-Stop letting your idle cash lose its purchasing power. A high-yield digital account is the smartest place for a safety net in 2026—it helps your money fight inflation with better interest rates, while giving you the peace of mind of instant, 24/7 access.
+Stop letting your idle cash lose its purchasing power. A high-yield digital account is the smartest place for a safety net in 2026-it helps your money fight inflation with better interest rates, while giving you the peace of mind of instant, 24/7 access.
 
 [![High-Yield Digital Kotak Savings Account](kotak-811-zero-balance-savings-account_dypv3h)](https://bitli.in/qio3jbz)
 
@@ -45,7 +45,7 @@ Before the cash, come the papers. In an emergency (fire, flood, or sudden travel
 ***
 
 ## **4. Master the "Pay Yourself First" Mindset**
-The biggest hurdle to building a fund isn't income—it's psychology. Most people wait until the end of the month to "save what's left." Frugal experts do the opposite: they "tax" themselves the moment their salary hits, moving the emergency contribution before any other spending happens.
+The biggest hurdle to building a fund isn't income-it's psychology. Most people wait until the end of the month to "save what's left." Frugal experts do the opposite: they "tax" themselves the moment their salary hits, moving the emergency contribution before any other spending happens.
 
 ***
 
