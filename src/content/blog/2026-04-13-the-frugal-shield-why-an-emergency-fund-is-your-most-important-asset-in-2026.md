@@ -54,7 +54,7 @@ The best book ever written on the philosophy of building a safety net and basic 
 
 [![The Richest Man in Babylon Book Cover](richest-man-in-babylon-tinypng_youvsn)](https://amzn.to/4c9fCg5)
 
-[**👉 Check Price on Amazon: The Richest Man in Babylon (Classic Edition)**](https://amzn.to/4c9fCg5)
+[**👉 Check Price on Amazon: The Richest Man in Babylon**](https://amzn.to/4c9fCg5)
 
 ***
 
