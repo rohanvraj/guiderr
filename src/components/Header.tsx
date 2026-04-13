@@ -2,7 +2,6 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CartIcon from './CartIcon';
-import { getCategories } from '../utils/ebooks';
 
 const NAV_CATEGORY_LINKS = [
   { label: 'Motorcycles', to: '/motorcycles' },
@@ -19,14 +18,7 @@ export default function Header() {
   const [mobileEbooksOpen, setMobileEbooksOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number>();
-  const categories = getCategories();
-  const visibleCategories = NAV_CATEGORY_LINKS.filter((link) => {
-    if (link.label === 'Automotive' || link.label === 'Lifestyle') {
-      return true;
-    }
-
-    return categories.some((category) => category.name === link.label || (link.label === 'Tech' && category.id === 'gadget-tech'));
-  });
+  const visibleCategories = NAV_CATEGORY_LINKS;
 
   // Close desktop dropdown on outside click
   useEffect(() => {
