@@ -27,6 +27,7 @@ collections:
         name: "category"
         widget: "select"
         options:
+          - "Business"
           - "Automotive"
           - "Finance"
           - "Travel"
@@ -60,7 +61,10 @@ collections:
         pattern: "Tech|Gadget & Tech"
       - label: "Lifestyle"
         field: category
-        pattern: "Lifestyle|Beauty & Wellness|Home & Living|Art|Pets|Business"
+        pattern: "Lifestyle|Beauty & Wellness|Home & Living|Art|Pets"
+      - label: "Business"
+        field: category
+        pattern: "Business"
 
   - name: "featured"
     label: "Featured Stories"

@@ -10,6 +10,7 @@ const NAV_CATEGORY_LINKS = [
   { label: 'Tech', to: '/gadget-tech' },
   { label: 'Automotive', to: '/guides?category=Automotive' },
   { label: 'Lifestyle', to: '/guides?category=Lifestyle' },
+  { label: 'Business', to: '/guides?category=Business' },
 ] as const;
 
 export default function Header() {
