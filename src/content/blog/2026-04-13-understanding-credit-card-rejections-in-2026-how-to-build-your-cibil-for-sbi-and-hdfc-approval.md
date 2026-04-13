@@ -1,6 +1,6 @@
 ---
-title: "Understanding Credit Card Rejections in 2026: How to Build Your CIBIL
-  for SBI and HDFC Approval"
+title: "Solving the CIBIL Struggle: How to Build Your Credit History with the
+  IDFC FIRST WOW Card (2026)"
 date: 2026-04-13T23:42:00.000Z
 category: Finance
 author: Guiderr
