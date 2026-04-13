@@ -1,59 +1,9 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
+import { getAllFeaturedStories } from '../utils/blog';
 
 const FEATURED_MAILTO_URL = 'mailto:rohanrworld@gmail.com?subject=Collaboration%20Request%3A%20%5BYour%20Name%2FBusiness%5D&body=Hi%20Guiderr%2C%0D%0A%0D%0AI%27m%20interested%20in%20getting%20featured%20on%20Guiderr.%20Here%20are%20some%20brief%20details%3A%0D%0A%0D%0A-%20Business%2FTopic%20Name%3A%0D%0A-%20Category%20(Finance%2FAutomotive%2Fetc)%3A%0D%0A-%20Social%2FWebsite%20Link%3A%0D%0A-%20Brief%20description%20of%20the%20story%20or%20expertise%3A%0D%0A%0D%0ALooking%20forward%20to%20hearing%20from%20you!';
-
-interface FeaturedStory {
-  slug: string;
-  title: string;
-  date: string;
-  category: string;
-  author: string;
-  featuredImage: string;
-  body: string;
-}
-
-function parseFrontmatter(raw: string): { metadata: Record<string, string>; body: string } {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  if (!match) return { metadata: {}, body: raw };
-
-  const metadata: Record<string, string> = {};
-  for (const line of match[1].split('\n')) {
-    const idx = line.indexOf(':');
-    if (idx === -1) continue;
-    const key = line.slice(0, idx).trim();
-    const value = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) metadata[key] = value;
-  }
-
-  return { metadata, body: match[2] };
-}
-
-const featuredModules = import.meta.glob('/src/content/featured/*.md', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>;
-
-function getAllFeaturedStories(): FeaturedStory[] {
-  return Object.entries(featuredModules)
-    .map(([filepath, raw]) => {
-      const { metadata, body } = parseFrontmatter(raw);
-      const slug = filepath.split('/').pop()?.replace('.md', '') ?? '';
-
-      return {
-        slug,
-        title: metadata.title || 'Untitled',
-        date: metadata.date || '',
-        category: metadata.category || 'Featured Story',
-        author: metadata.author || '',
-        featuredImage: metadata.featured_image || '',
-        body,
-      };
-    })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-}
 
 function getStoryExcerpt(body: string): string {
   const cleaned = body
