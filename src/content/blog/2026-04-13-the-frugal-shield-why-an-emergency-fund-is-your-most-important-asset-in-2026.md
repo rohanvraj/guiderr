@@ -21,7 +21,7 @@ Many Indians keep this in a standard savings account earning 3% interest, which 
 
 ***
 
-### 📈 **Step 1: Earn While You Save**
+### 📈 **Earn While You Save**
 Stop letting your idle cash lose its purchasing power. A high-yield digital account is the smartest place for a safety net in 2026—it helps your money fight inflation with better interest rates, while giving you the peace of mind of instant, 24/7 access.
 
 [![High-Yield Digital Kotak Savings Account](kotak-811-zero-balance-savings-account_dypv3h)](https://bitli.in/qio3jbz)
