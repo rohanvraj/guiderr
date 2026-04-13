@@ -49,7 +49,7 @@ The biggest hurdle to building a fund isn't income-it's psychology. Most people 
 
 ***
 
-### 📚 **Step 3: Recommended Reading**
+### 📚 **Recommended Reading**
 The best book ever written on the philosophy of building a safety net and basic wealth management is **"The Richest Man in Babylon"**. It is a short, powerful read that explains why "a part of all you earn is yours to keep."
 
 [![The Richest Man in Babylon Book Cover](richest-man-in-babylon-tinypng_youvsn)](https://amzn.to/3PPnef2)
