@@ -102,7 +102,7 @@ The homepage is not aesthetic-first. It is a **routing system** that pushes user
 
 > Key insight: Affiliate is the entry layer, not the ceiling. Email is the hidden engine.
 
-### 2.10 Email Marketing = Hidden Revenue Engine
+### 2.10 Email Marketing = Hidden Revenue Engine — [ON HOLD - FOR LATER: Focus on Traffic & UX First]
 - Traffic growth was flat for months; revenue still grew
 - Email list allows monetization independent of Google algorithm changes
 - Converts one-time visitors into long-term assets
@@ -135,7 +135,7 @@ Based on the architecture above, here is the direct mapping to Guiderr's current
 | **Trust Layer** | Founder story, why we exist | No About page story | Rewrite About page with narrative structure |
 | **Authority Layer** | Income proof, transparency reports | Not present | Consider a "How Guiderr Works" or earnings transparency post |
 | **Conversion Layer** | ₹299 entry + ₹2999 bundle, loss framing | Ebooks with flat pricing | Reframe ebook descriptions with ROI / loss framing copy |
-| **Retention Layer** | Email list capture | Not present | Add email capture widget (Mailchimp free tier) |
+| **Retention Layer** | Email list capture | Not present | [ON HOLD - FOR LATER: Focus on Traffic & UX First] — Add email capture widget (Mailchimp free tier) |
 | **Distribution Layer** | Start Here page, internal links | Not present | Build "Start Here" page as site entry point |
 | **Affiliate Layer** | Deep affiliate embeds in every article | Affiliate links exist | Ensure every blog article has 2–3 contextual affiliate links |
 
@@ -158,7 +158,7 @@ Based on the architecture above, here is the direct mapping to Guiderr's current
 6. **Internal linking audit** — Every new article must link to at least 2 existing articles + our ebook store.
 
 ### Phase 3 — Monetization Layer (Month 3–4)
-7. **Email capture** — Add lightweight email opt-in to homepage and high-traffic blog posts ("Get our Free Credit Card Picks" lead magnet).
+7. **Email capture** — [ON HOLD - FOR LATER: Focus on Traffic & UX First] Add lightweight email opt-in to homepage and high-traffic blog posts ("Get our Free Credit Card Picks" lead magnet).
 8. **Ebook reframing** — Rewrite all ebook product descriptions using loss/ROI framing.
 9. **Entry-level product** — Consider a ₹99–₹299 product that converts blog readers who aren't ready for a full ebook. A checklist or PDF worksheet works.
 
@@ -602,21 +602,15 @@ Also add a 3-line "What you unlock" block above the CTA button, listing the spec
 
 ---
 
-#### Day 9 — The Retention Hook (Lead Magnet / Email Capture)
-**Goal:** Stop leaking traffic. Convert one-time readers into a list.
+#### Day 9 — [ON HOLD - FOR LATER: Focus on Traffic & UX First] ~~The Retention Hook (Lead Magnet / Email Capture)~~
+**Status: ON HOLD** — Deprioritized in favour of SEO Hub Readiness (CategoryPage audit). Email capture requires traffic before it has meaningful ROI. Revisit at 5,000+ organic monthly sessions.
 
-**Status: ❌ NOT BUILT**
+**Original Goal:** Stop leaking traffic. Convert one-time readers into a list.
 
-**Action:** Build a simple static `src/components/EmailCapture.tsx`. A tailwind-styled box:
-```
-"Get the 2026 Credit Card Devaluation PDF (Free)"
-[Email address input] [Subscribe →]
-```
-Connect to **Brevo (formerly Sendinblue) free tier** — 300 emails/day, no credit card. Use their public API endpoint via a `fetch()` POST from the browser (no server needed, no Edge Function needed).
+**Original Action (archived):** Build `src/components/EmailCapture.tsx`. Connect to Brevo free tier (300 emails/day, no credit card) via browser `fetch()` POST. Honeypot bot protection. Inline in BlogPostPage.tsx after 3rd paragraph.
 
-**Placement:** Inline block inside `BlogPostPage.tsx` after the 3rd paragraph. Also on the HomePage below the featured ebooks section.
-
-**Bot protection:** Add a honeypot input field (hidden via CSS, not `display:none`). If it has a value on submit, silently drop the request. This follows the existing virality safeguard philosophy.
+**Day 9 (Reprioritised) — SEO Hub Readiness:**
+Audit `CategoryPage.tsx` to confirm `/finance` and `/mobility` routes correctly render filtered blog posts. Style a professional "Coming Soon" state for empty categories to prevent dead-end pages.
 
 ---
 
@@ -716,7 +710,7 @@ Then add 5 custom event fires in the relevant components (not in new files — i
 | Affiliate Disclosure (`/affiliate-disclosure`) | ✅ BUILT | `AffiliateDisclosure.tsx` created. Route in `App.tsx`. Link in `Footer.tsx` Quick Links. |
 | Affiliate links utility (`affiliates.ts`) | ❌ NOT BUILT | `src/utils/affiliates.ts` does not exist. |
 | Sticky Table of Contents | ❌ NOT BUILT | `TableOfContents.tsx` does not exist. |
-| Email capture component | ❌ NOT BUILT | No Brevo/Mailchimp integration anywhere. |
+| Email capture component | ⏸️ ON HOLD | [ON HOLD - FOR LATER: Focus on Traffic & UX First] — Revisit at 5,000+ organic sessions/month. |
 | GA4 / Custom Events | ❌ NOT BUILT | No analytics code anywhere in the codebase. |
 | Sitemap.xml | ✅ BUILT | `public/sitemap.xml` — all 20 articles + 11 core pages. Submit in Search Console. |
 | JSON-LD Article schema | ✅ BUILT | `BlogPostPage.tsx` — `useEffect` injects Article schema + auto meta description per post. No library. |

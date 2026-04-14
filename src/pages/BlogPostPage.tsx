@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import TableOfContents from '../components/TableOfContents';
 import { getPostBySlug } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
@@ -90,7 +91,11 @@ export default function BlogPostPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <Header />
 
-      <main className="pt-28 sm:pt-32 pb-10 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+      {/* ToC: fixed desktop sidebar + mobile floating pill — rendered at page level so position:fixed works correctly */}
+      <TableOfContents content={post.body} />
+
+      {/* pb-24 on mobile ensures the last CTA/affiliate link is never hidden behind the fixed ToC pill */}
+      <main className="pt-28 sm:pt-32 pb-24 sm:pb-10 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
         <Link to="/guides" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
           &larr; Back to Guides
         </Link>
@@ -134,7 +139,7 @@ export default function BlogPostPage() {
         {/* Feather-Weight: every inline img is a bare Cloudinary Public ID.
             optimizeCloudinaryUrl builds the full CDN URL with f_auto,q_auto:eco,w_800
             so browsers get WebP/AVIF automatically. loading=lazy protects bandwidth. */}
-        <article className="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-xl">
+        <article className="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-xl prose-p:leading-[1.75]">
           <ReactMarkdown
             components={{
               img: ({ src, alt }) => (
@@ -145,6 +150,43 @@ export default function BlogPostPage() {
                   className="rounded-xl shadow-md my-8 mx-auto block max-w-full h-auto"
                 />
               ),
+              // ── Tap-target hardening (Day 7) ────────────────────────────────────
+              // External text-link CTAs ("👉 Check Price on Amazon" etc.) get
+              // py-2 inline-block so the touch target is ≥44px tall on mobile.
+              // Image-wrapped affiliate links are already tall enough — skip.
+              a: ({ href, children }) => {
+                const isExternal = !!href?.startsWith('http') && !href.includes('guiderr.in');
+                if (!isExternal) return <a href={href}>{children}</a>;
+
+                // Detect image-only links (e.g. [![alt](src)](href))
+                const childArr = React.Children.toArray(children);
+                const isSingleImage =
+                  childArr.length === 1 &&
+                  React.isValidElement(childArr[0]) &&
+                  childArr[0].type === 'img';
+
+                return (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className={isSingleImage ? undefined : 'py-2 inline-block'}
+                  >
+                    {children}
+                  </a>
+                );
+              },
+              // Inject id attributes on H2/H3 so IntersectionObserver can find them
+              h2: ({ children }) => {
+                const text = String(children).replace(/[^\w\s-]/g, '').trim();
+                const id = text.toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
+                return <h2 id={id}>{children}</h2>;
+              },
+              h3: ({ children }) => {
+                const text = String(children).replace(/[^\w\s-]/g, '').trim();
+                const id = text.toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
+                return <h3 id={id}>{children}</h3>;
+              },
             }}
           >
             {post.body}
