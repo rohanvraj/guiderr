@@ -109,7 +109,7 @@ export default function Hero() {
 
             {/* Right Side - Knowledge Cloud + Founder Image */}
             <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] lg:flex items-end justify-center">
-              <div className="relative w-full h-full flex items-end justify-center">
+              <div className="relative w-full h-full min-h-screen flex items-end justify-center">
                 {/* Layer 1 (z-0): Floating Book/Reading Icons — The Knowledge Cloud */}
                 <div className="absolute inset-0 w-full h-full z-0">
                   {/* BookOpen Icon */}
@@ -268,8 +268,10 @@ export default function Hero() {
                 <img
                   src="/images/founder-image.png"
                   alt="Rohan — Founder of Guiderr"
-                  loading="lazy"
-                  className="relative z-10 w-auto h-[92vh] xl:h-[98vh] max-w-none object-contain object-bottom drop-shadow-2xl"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
+                  className="hidden relative z-10 w-auto h-[86vh] xl:h-[92vh] max-w-none object-contain object-bottom drop-shadow-2xl"
                 />
               </div>
             </div>
