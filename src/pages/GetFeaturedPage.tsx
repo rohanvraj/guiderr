@@ -108,11 +108,12 @@ export default function GetFeaturedPage() {
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
               {audienceCards.map((card, index) => (
                 <FadeSection key={card.title} delay={index * 0.06}>
-                  <article className="rounded-3xl border border-violet-100 bg-white/80 p-8 sm:p-10 min-h-[240px] flex flex-col justify-between shadow-[0_16px_50px_rgba(124,58,237,0.06)]">
-                    <div className="w-11 h-11 rounded-2xl border border-violet-100 bg-violet-50 flex items-center justify-center text-sm font-semibold text-slate-900">
-                      0{index + 1}
-                    </div>
-                    <div className="mt-10">
+                  <article className="relative overflow-hidden rounded-3xl border border-violet-100 bg-white/80 p-8 sm:p-10 min-h-[240px] flex flex-col justify-end shadow-[0_16px_50px_rgba(124,58,237,0.06)] group">
+                    {/* Ghost Number */}
+                    <span className="absolute -top-6 -left-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:translate-x-5 group-hover:text-purple-600/10 transition-all duration-700 ease-out">
+                      {['01','02','03','04'][index]}
+                    </span>
+                    <div>
                       <h3 className="text-2xl font-semibold tracking-tight text-slate-900">{card.title}</h3>
                       <p className="mt-4 text-base leading-8 text-slate-600">{card.description}</p>
                     </div>
@@ -138,8 +139,12 @@ export default function GetFeaturedPage() {
 
                 return (
                   <FadeSection key={item.title} delay={index * 0.06}>
-                    <div className="rounded-3xl border border-violet-100 bg-white/80 px-6 py-7 sm:px-8 sm:py-8 shadow-[0_10px_30px_rgba(124,58,237,0.05)]">
-                      <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+                    <div className="relative overflow-hidden rounded-3xl border border-violet-100 bg-white/80 px-6 py-7 sm:px-8 sm:py-8 shadow-[0_10px_30px_rgba(124,58,237,0.05)] group">
+                      {/* Ghost Number */}
+                      <span className="absolute -top-8 -right-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:-translate-x-5 group-hover:text-purple-600/10 transition-all duration-700 ease-out">
+                        {item.step}
+                      </span>
+                      <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-start">
                         <div className="w-12 h-12 rounded-2xl border border-violet-100 bg-violet-50 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-5 h-5 text-slate-900" />
                         </div>

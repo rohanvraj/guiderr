@@ -1,6 +1,7 @@
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import CartIcon from './CartIcon';
 
 const NAV_CATEGORY_LINKS = [
@@ -17,6 +18,8 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [ebooksOpen, setEbooksOpen] = useState(false);
   const [mobileEbooksOpen, setMobileEbooksOpen] = useState(false);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  const [hoveredDropdownItem, setHoveredDropdownItem] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number>();
   const visibleCategories = NAV_CATEGORY_LINKS;
@@ -35,10 +38,14 @@ export default function Header() {
   const handleMouseEnter = () => {
     clearTimeout(timeoutRef.current);
     setEbooksOpen(true);
+    setHoveredNav('ebooks');
   };
 
   const handleMouseLeave = () => {
-    timeoutRef.current = window.setTimeout(() => setEbooksOpen(false), 150);
+    timeoutRef.current = window.setTimeout(() => {
+      setEbooksOpen(false);
+      setHoveredNav(null);
+    }, 150);
   };
 
   return (
@@ -57,7 +64,7 @@ export default function Header() {
           </Link>
 
           {/* ── Desktop Nav ── */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-1">
             {/* Ebooks Dropdown */}
             <div
               ref={dropdownRef}
@@ -65,51 +72,136 @@ export default function Header() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
+              <AnimatePresence>
+                {hoveredNav === 'ebooks' && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 rounded-lg bg-slate-700/10 border border-slate-500/50"
+                    transition={{ type: 'spring', stiffness: 350, damping: 45 }}
+                  />
+                )}
+              </AnimatePresence>
               <button
                 onClick={() => setEbooksOpen(!ebooksOpen)}
-                className="flex items-center gap-1 text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-white/30"
+                className="relative z-10 flex items-center gap-1 text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
               >
                 Ebooks
                 <ChevronDown className={`w-4 h-4 transition-transform ${ebooksOpen ? 'rotate-180' : ''}`} />
               </button>
               {ebooksOpen && (
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 py-2 animate-fade-in">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-slate-200/80 py-2 animate-fade-in">
                   {visibleCategories.map((category) => (
-                    <Link
+                    <div
                       key={category.label}
-                      to={category.to}
-                      onClick={() => setEbooksOpen(false)}
-                      className="block px-4 py-2 text-slate-700 hover:text-slate-900 hover:bg-white/50 transition-colors font-medium"
+                      className="relative mx-1"
+                      onMouseEnter={() => setHoveredDropdownItem(category.label)}
+                      onMouseLeave={() => setHoveredDropdownItem(null)}
                     >
-                      {category.label}
-                    </Link>
+                      <AnimatePresence>
+                        {hoveredDropdownItem === category.label && (
+                          <motion.div
+                            layoutId="dropdown-pill"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 rounded-md bg-slate-700/10 border border-slate-500/40"
+                            transition={{ type: 'spring', stiffness: 350, damping: 45 }}
+                          />
+                        )}
+                      </AnimatePresence>
+                      <Link
+                        to={category.to}
+                        onClick={() => setEbooksOpen(false)}
+                        className="relative z-10 block px-3 py-2 text-slate-700 hover:text-slate-900 transition-colors font-medium"
+                      >
+                        {category.label}
+                      </Link>
+                    </div>
                   ))}
                 </div>
               )}
             </div>
 
             {/* Guides (Blog) Link */}
-            <Link
-              to="/guides"
-              className="text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-white/30"
+            <div
+              className="relative"
+              onMouseEnter={() => setHoveredNav('guides')}
+              onMouseLeave={() => setHoveredNav(null)}
             >
-              Guides
-            </Link>
+              <AnimatePresence>
+                {hoveredNav === 'guides' && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 rounded-lg bg-slate-700/10 border border-slate-500/50"
+                    transition={{ type: 'spring', stiffness: 350, damping: 45 }}
+                  />
+                )}
+              </AnimatePresence>
+              <Link
+                to="/guides"
+                className="relative z-10 block text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
+              >
+                Guides
+              </Link>
+            </div>
 
-            <Link
-              to="/featured"
-              className="text-slate-900 font-semibold transition-colors px-4 py-2 rounded-full border border-slate-200 bg-white/60 hover:bg-white hover:border-slate-300"
+            {/* Featured — keeps its pill so capsule never disappears mid-nav */}
+            <div
+              className="relative mx-2"
+              onMouseEnter={() => setHoveredNav('featured')}
+              onMouseLeave={() => setHoveredNav(null)}
             >
-              Featured
-            </Link>
+              <AnimatePresence>
+                {hoveredNav === 'featured' && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 rounded-full bg-slate-700/10 border border-slate-500/50"
+                    transition={{ type: 'spring', stiffness: 350, damping: 45 }}
+                  />
+                )}
+              </AnimatePresence>
+              <Link
+                to="/featured"
+                className="relative z-10 block text-slate-900 font-semibold transition-colors px-4 py-2 rounded-full border border-slate-200 bg-white/60"
+              >
+                Featured
+              </Link>
+            </div>
 
             {/* About Link */}
-            <Link
-              to="/about"
-              className="text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-white/30"
+            <div
+              className="relative"
+              onMouseEnter={() => setHoveredNav('about')}
+              onMouseLeave={() => setHoveredNav(null)}
             >
-              About
-            </Link>
+              <AnimatePresence>
+                {hoveredNav === 'about' && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 rounded-lg bg-slate-700/10 border border-slate-500/50"
+                    transition={{ type: 'spring', stiffness: 350, damping: 45 }}
+                  />
+                )}
+              </AnimatePresence>
+              <Link
+                to="/about"
+                className="relative z-10 block text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
+              >
+                About
+              </Link>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">

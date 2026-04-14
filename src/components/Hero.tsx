@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
 import { getAllProducts } from '../utils/supabase';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -59,6 +59,19 @@ export default function Hero() {
   const itemWidth = featuredEbooks.length > 0 ? 100 / featuredEbooks.length : 100;
   
   // Track image loading for carousel
+  const prefersReducedMotion = useReducedMotion();
+
+  // Stagger variants — slide suppressed when user prefers reduced motion
+  const gridContainer = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  };
+  const gridItem = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+  };
+
+  // Track image loading for carousel
   const handleImageLoad = (ebookId: string) => {
     loadedImagesRef.current.add(ebookId);
     if (loadedImagesRef.current.size >= featuredEbooks.length) {
@@ -82,7 +95,7 @@ export default function Hero() {
             <div className="relative z-10 space-y-6 lg:space-y-8">
               {/* Large Text - Learn. Explore. Achieve. */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="space-y-2 sm:space-y-4"
@@ -94,7 +107,7 @@ export default function Hero() {
 
               {/* Body Text */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-xl leading-relaxed"
@@ -380,38 +393,44 @@ export default function Hero() {
       {/* Category Tiles Section */}
       <section className="py-16 sm:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 mb-16 sm:mb-20">
-          {categories.map((category, index) => {
+          <motion.div
+            variants={gridContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 mb-16 sm:mb-20"
+          >
+          {categories.map((category) => {
             const { Icon, bg, border, color } = categoryConfig[category.id] || defaultConfig;
             return (
-              <Link
-                key={category.id}
-                to={`/guides?category=${encodeURIComponent(category.name)}`}
-                className="group animate-fade-in-up"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="relative h-full bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100">
-                  <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-5 border shadow-sm group-hover:scale-110 transition-transform duration-200 ${bg} ${border}`}>
-                    <Icon weight="duotone" className="w-7 h-7 sm:w-8 sm:h-8" color={color} />
+              <motion.div key={category.id} variants={gridItem}>
+                <Link
+                  to={`/guides?category=${encodeURIComponent(category.name)}`}
+                  className="group block h-full"
+                >
+                  <div className="relative h-full bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100">
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-5 border shadow-sm group-hover:scale-110 transition-transform duration-200 ${bg} ${border}`}>
+                      <Icon weight="duotone" className="w-7 h-7 sm:w-8 sm:h-8" color={color} />
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-slate-800 transition-colors">
+                      {category.name}
+                    </h3>
+
+                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-4">
+                      {category.description}
+                    </p>
+
+                    <div className="text-slate-700 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                      Explore
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
                   </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-slate-800 transition-colors">
-                    {category.name}
-                  </h3>
-
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-4">
-                    {category.description}
-                  </p>
-
-                  <div className="text-slate-700 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
-                    Explore
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             );
           })}
-          </div>
+          </motion.div>
 
           {/* Stats Section - Temporarily hidden */}
           {false && (
