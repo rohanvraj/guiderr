@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Header from '../components/Header';
@@ -8,6 +9,67 @@ import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getPostBySlug(slug) : undefined;
+
+  // ── JSON-LD Article Schema + meta description (Day 4 SEO Hardening) ──────
+  // Fires only when a valid post is found. No library needed.
+  useEffect(() => {
+    if (!post) return;
+
+    // Meta description
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const prevDesc = meta?.content ?? '';
+    const descContent = post.body
+      .replace(/[#*`[\]]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 155);
+    if (meta) meta.content = descContent;
+
+    // Page title (keyword-first pattern)
+    const prevTitle = document.title;
+    document.title = `${post.title} | Guiderr`;
+
+    // JSON-LD Article schema
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'article-schema';
+    const imageUrl = post.featuredImage
+      ? optimizeCloudinaryUrl(post.featuredImage, { width: 1200, quality: 'auto:eco' })
+      : 'https://guiderr.in/images/guiderr-logo.png';
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: post.title,
+      datePublished: post.date,
+      dateModified: post.date,
+      author: {
+        '@type': 'Person',
+        name: post.author || 'Rohan',
+        url: 'https://guiderr.in/about',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Guiderr',
+        url: 'https://guiderr.in',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://guiderr.in/images/guiderr-logo.png',
+        },
+      },
+      image: imageUrl,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `https://guiderr.in/guides/${slug}`,
+      },
+    });
+    document.head.appendChild(script);
+
+    return () => {
+      document.title = prevTitle;
+      if (meta) meta.content = prevDesc;
+      document.getElementById('article-schema')?.remove();
+    };
+  }, [post, slug]);
 
   if (!post) {
     return (

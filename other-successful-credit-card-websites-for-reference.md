@@ -478,3 +478,420 @@ Total: ~₹8L+/month at scale
 This is the compounding flywheel. Every article published today is an asset that earns in perpetuity. Every article not published is a missed compounding cycle.
 
 **The single most important thing Guiderr can do right now is publish its next article.**
+
+---
+
+---
+
+## PART 9 — THE 14-DAY GUIDERR MASTER PIPELINE
+
+**Mission:** Transform Guiderr from a polished product showcase into a Structured Conversion Machine — without touching what works, without violating the Lean Fortress golden rules, and without spending a rupee.
+
+**Golden Rules (non-negotiable across all 14 days):**
+- DecapCMS sync must not be disturbed
+- Razorpay auto-capture Edge Function code is untouchable
+- Supabase RLS policies and SQL schema — do not alter unless absolutely forced
+- No new Edge Functions unless there is zero alternative
+- All features must stay within Supabase, Cloudinary, Netlify free tiers
+- No paid dependencies or heavy libraries (no new npm packages unless they are zero-KB utility types)
+- Every new component must be mobile-first, Tailwind-only
+- Bot prevention and virality safeguards (24h debounce, throttle keys) must remain active
+- Conserve backend hits — prefer static/computed data over Supabase calls wherever possible
+
+---
+
+### PHASE 1 — TRUST & DISTRIBUTION FOUNDATION (Days 1–5)
+
+---
+
+#### ✅ Day 1 — The "Start Here" Page (`/start-here`) — COMPLETE
+**Goal:** Build the single most important routing page for new visitors.
+
+**Built:** `src/pages/StartHerePage.tsx` created. Route `/start-here` added to `App.tsx`. "Start Here" link added to `Header.tsx` desktop nav and mobile menu. 3-path Decision Map (Money / Wheels / Life) with static article links. Philosophy + transparency block. Zero Supabase calls. Zero new npm packages.
+
+---
+
+#### ✅ Day 2 — The Hero's Journey About Page (`/about`) — COMPLETE
+**Goal:** Humanize the brand. Convert trust into willingness to buy.
+
+**Built:** Existing 5-phase bento story untouched. Bottom CTA block replaced with two-button "Next Steps" block: "New here? Start Here →" (`/start-here`) + "Explore the Store →" (`/#featured`). No phases modified.
+
+---
+
+#### ✅ Day 3 — Legal & Trust Layer (`/affiliate-disclosure`) — COMPLETE
+**Goal:** Google E-E-A-T compliance. Required for high-intent ranking and AdSense eligibility later.
+
+**Built:** `src/pages/AffiliateDisclosure.tsx` created — covers EarnKaro, Amazon Associates, sponsored content policy, editorial independence statement. Route added to `App.tsx`. "Affiliate Disclosure" link added to `Footer.tsx` Quick Links section above Privacy Policy. Zero Supabase calls.
+
+---
+
+#### ✅ Day 4 — Technical SEO Hardening — COMPLETE
+**Goal:** Ensure Google can index and interpret the Fortress correctly.
+
+**Built:**
+1. **Article JSON-LD schema** — Injected into `BlogPostPage.tsx` via `useEffect`. Fires `<script type="application/ld+json">` with Article schema (headline, datePublished, author, publisher, image, mainEntityOfPage). Cleans up on unmount. No library used.
+2. **Meta description** — Auto-generated from first 155 chars of article body text. Injected per-post via `useEffect` in `BlogPostPage.tsx`. Reverts on unmount.
+3. **Page title** — Set to `[Article Title] | Guiderr` pattern per-article.
+4. **Meta description on new pages** — `StartHerePage.tsx` and `AffiliateDisclosure.tsx` both inject their own `meta[name="description"]` via `useEffect`.
+5. **Robots.txt** — Created at `public/robots.txt`. Allows all content directories. Blocks `/admin`, `/superadmin`, `/stats/`, `/thank-you`. References sitemap URL.
+
+**Note:** BreadcrumbList JSON-LD for CategoryPage deferred — audit CategoryPage first (Day 10) to confirm it serves editorial content before adding schema.
+
+---
+
+#### ✅ Day 5 — Sitemap & Robots.txt — COMPLETE
+**Goal:** Centralize affiliate links + ensure Google can crawl all content.
+
+**Built:**
+- `public/sitemap.xml` — Created from scratch. Includes all core pages (`/`, `/start-here`, `/about`, `/guides`, `/affiliate-disclosure`, `/privacy-policy`, `/terms`, `/featured`), all 3 category hubs, and all 20 current blog posts with correct `lastmod`, `changefreq`, and `priority` values.
+- `public/robots.txt` — Created. Allows all content routes. Blocks `/admin`, `/superadmin`, `/stats/`, `/thank-you`. References `https://guiderr.in/sitemap.xml`.
+
+**Next action required:** Submit `https://guiderr.in/sitemap.xml` in Google Search Console → Sitemaps section. This cannot be done via code.
+
+**Note:** `src/utils/affiliates.ts` (originally Day 5) deferred to when active EarnKaro links are available to populate it. Shell of the file can be created empty, but hardcoding placeholder URLs adds noise. Create it when registering your first EarnKaro product links.
+
+---
+
+### PHASE 2 — CONVERSION & UX HARDENING (Days 6–9)
+
+---
+
+#### Day 6 — Sticky Table of Contents (`TableOfContents.tsx`)
+**Goal:** Increase scroll depth and affiliate click probability on long-form guides.
+
+**Status: ❌ NOT BUILT**
+
+**Action:** Create `src/components/TableOfContents.tsx`. Implementation rules:
+- Parse H2/H3 headings from the post markdown content (already available as a string in `BlogPostPage.tsx`)
+- Render a sticky sidebar on desktop (`lg:fixed lg:left-8 lg:top-32 lg:w-48`)
+- Collapsible accordion on mobile (Tailwind `details`/`summary` or a single `useState` toggle)
+- Scroll-spy: use `IntersectionObserver` to highlight the currently visible heading. Zero libraries.
+- Smooth scroll on click: `element.scrollIntoView({ behavior: 'smooth' })`
+
+**Do not install any ToC library or scroll-spy npm package.**
+
+**Wire into `BlogPostPage.tsx`:** Render `<TableOfContents content={post.content} />` alongside the article body.
+
+---
+
+#### Day 7 — Mobile-First UX Audit
+**Goal:** Maximize readability and tap-target compliance on mobile.
+
+**Action (targeted, do not refactor):**
+- Verify affiliate link `<a>` tags have min tap height of 44px (add `py-2 inline-block` class where missing)
+- Verify ToC collapses cleanly at 375px (test in DevTools)
+- Verify `BlogPostPage.tsx` line length stays under ~70ch on mobile (`max-w-prose`)
+- Check font size on body text in `index.css` — should be `text-base` (16px) minimum
+
+**Do not change any routing, Supabase logic, or Razorpay flows.**
+
+---
+
+#### Day 8 — Ebook Loss-Framing Copy Update
+**Goal:** Apply psychological reframing to increase purchase conversion.
+
+**Status: ⚠️ EbookModal.tsx BUILT but copy is neutral.** `src/components/EbookModal.tsx` exists.
+
+**Action:** Update the modal copy in `EbookModal.tsx`. Replace information-framing with ROI/loss-framing:
+- Before: `"Buy the Credit Card Playbook — ₹299"`
+- After: `"Stop losing ₹3,250/mo. Unlock the 4-Card System — ₹299."`
+lets remove the 299 3250 part, it sounds very similar to the other website.. this is better : Stop Guessing. Start Optimizing. Master the Decision Frameworks used by India's Top 1%."
+The Product: Instead of just a "Credit Card Playbook," let's frame it as "The 2026 Wealth & Mobility Vault." (This bridges your Finance + Automotive silos).
+
+Also add a 3-line "What you unlock" block above the CTA button, listing the specific outcome (not the content). No new components, no Supabase changes.
+
+---
+
+#### Day 9 — The Retention Hook (Lead Magnet / Email Capture)
+**Goal:** Stop leaking traffic. Convert one-time readers into a list.
+
+**Status: ❌ NOT BUILT**
+
+**Action:** Build a simple static `src/components/EmailCapture.tsx`. A tailwind-styled box:
+```
+"Get the 2026 Credit Card Devaluation PDF (Free)"
+[Email address input] [Subscribe →]
+```
+Connect to **Brevo (formerly Sendinblue) free tier** — 300 emails/day, no credit card. Use their public API endpoint via a `fetch()` POST from the browser (no server needed, no Edge Function needed).
+
+**Placement:** Inline block inside `BlogPostPage.tsx` after the 3rd paragraph. Also on the HomePage below the featured ebooks section.
+
+**Bot protection:** Add a honeypot input field (hidden via CSS, not `display:none`). If it has a value on submit, silently drop the request. This follows the existing virality safeguard philosophy.
+
+---
+
+### PHASE 3 — CONTENT AUTHORITY ENGINE (Days 10–14)
+
+---
+
+#### Day 10 — Strategy: Map the First Finance Hub
+**Goal:** Design the `/finance` hub page layout — a category-level aggregation page for all credit card and money articles.
+
+**Status: ⚠️ CategoryPage.tsx EXISTS** (`src/pages/CategoryPage.tsx`) but is likely a product/ebook category page, not an editorial hub.
+
+**Action:** Audit `CategoryPage.tsx` to see if it can serve as an article hub for the `finance` category. If yes, ensure `/finance` route renders the blog posts tagged `finance` using the existing blog utility (`src/utils/blog.ts`) — zero new Supabase calls, pure static content.
+
+If CategoryPage is already handling this correctly, no new work is needed. **Do not build a new hub page if CategoryPage already does the job.**
+
+---
+
+#### Days 11–12 — Article #11: "Best Fuel Credit Cards in India 2026"
+**Goal:** High-intent transactional article targeting 8,000–15,000 monthly searches. Primary affiliate revenue driver via EarnKaro.
+
+**Format:**
+- 2,000 words minimum
+- H2/H3 structure compatible with the new ToC component
+- "Decision guide" format: not a blog post, a buying framework
+- Include fuel savings math: "With 5% cashback on ₹5,000/month fuel spend, you save ₹3,000/year."
+- 3 contextual EarnKaro affiliate links (use `AFFILIATE_LINKS` from Day 5 utility)
+- Internal links: → `/start-here`, → `/about`, → existing personal finance article
+- Add as a `.md` file in `src/content/blog/`
+
+**DecapCMS sync note:** If using DecapCMS to manage content, create the file through the CMS interface to preserve sync integrity. If creating manually in `src/content/blog/`, ensure frontmatter matches the existing schema exactly (title, date, category, author, image, excerpt). Do not alter the CMS config.
+
+---
+
+#### Day 13 — Internal Linking Sprint
+**Goal:** Distribute link equity across the site. Increase session depth signals for Google.
+
+**Action:** Open each of the 10 existing blog posts in `src/content/blog/` and add:
+- 1 link to `/start-here` (in the opening or closing paragraph)
+- 1 link to `/about` (where contextually appropriate)
+- 1 link to the new Fuel Card article (where relevant)
+- 1 link to the ebook store (`/#featured`) or a specific ebook
+
+**Rule:** Only add a link where it reads naturally. Do not force a link into a sentence that doesn't warrant it. Quality of link placement > quantity.
+
+**This is a content edit, not a code change. No components touched.**
+
+---
+
+#### Day 14 — GA4 Analytics Deployment
+**Goal:** Intelligence gathering. Know which articles bring buyers, not just readers.
+
+**Status: ❌ NOT BUILT** — No GA4 or gtag code found anywhere in the codebase.
+
+**Action:** Add GA4 via a single `<script>` tag in `index.html` (the Vite entry point). No npm package. No react-ga4. Just the standard gtag snippet:
+
+```html
+<!-- index.html <head> -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+```
+
+Then add 5 custom event fires in the relevant components (not in new files — inline where the action already happens):
+
+| Event Name | Fire Location | Trigger |
+|---|---|---|
+| `affiliate_link_click` | BlogPostPage.tsx (on external `<a>` click) | Any affiliate link click |
+| `ebook_paywall_open` | EbookModal.tsx (on modal open) | Modal display |
+| `ebook_purchase_complete` | ThankYouPage.tsx (on confirmed load) | Order confirmed state |
+| `whatsapp_tap` | Footer.tsx or ContactUs.tsx | WhatsApp CTA click |
+| `email_signup` | EmailCapture.tsx (on successful POST) | Brevo subscribe confirmed |
+
+**Privacy note:** GA4 is cookieless by default in basic config. Add `anonymize_ip: true` to the gtag config call. No consent banner is legally required for India-only traffic at this stage, but add one before targeting EU traffic.
+
+---
+
+### STACK AUDIT: WHAT IS ALREADY BUILT vs. WHAT NEEDS BUILDING
+
+| Pipeline Item | Status | Notes |
+|---|---|---|
+| About Page (`/about`) | ✅ BUILT | `AboutPage.tsx` has 5-phase Hero's Journey narrative. Needs CTA block only. |
+| Privacy Policy (`/privacy-policy`) | ✅ BUILT | `PrivacyPolicy.tsx` exists and is routed. |
+| Terms & Conditions (`/terms`) | ✅ BUILT | `TermsAndConditions.tsx` exists. |
+| Blog engine (`/guides`, `/guides/:slug`) | ✅ BUILT | `BlogListingPage.tsx` + `BlogPostPage.tsx` + ReactMarkdown + `src/utils/blog.ts`. |
+| Cart + Checkout | ✅ BUILT | `CartContext`, `CartPanel`, `CheckoutFlow.tsx`. Do not touch. |
+| Razorpay auto-capture | ✅ BUILT | Edge function deployed. Hardened. Do not touch. |
+| Supabase RLS | ✅ ESTABLISHED | Hardened per audit. Do not alter. |
+| Cloudinary image CDN | ✅ BUILT | `src/utils/cloudinary.ts` with `optimizeCloudinaryUrl`. |
+| Referral/affiliate tracking | ✅ BUILT | `ReferralTracker` in `App.tsx` with 24h debounce — bot-safe. |
+| EbookModal | ✅ BUILT | `EbookModal.tsx` exists. Needs copy update only (Day 8). |
+| Start Here page (`/start-here`) | ✅ BUILT | `StartHerePage.tsx` created. Route in `App.tsx`. Nav in `Header.tsx` (desktop + mobile). 3-path Decision Map. |
+| Affiliate Disclosure (`/affiliate-disclosure`) | ✅ BUILT | `AffiliateDisclosure.tsx` created. Route in `App.tsx`. Link in `Footer.tsx` Quick Links. |
+| Affiliate links utility (`affiliates.ts`) | ❌ NOT BUILT | `src/utils/affiliates.ts` does not exist. |
+| Sticky Table of Contents | ❌ NOT BUILT | `TableOfContents.tsx` does not exist. |
+| Email capture component | ❌ NOT BUILT | No Brevo/Mailchimp integration anywhere. |
+| GA4 / Custom Events | ❌ NOT BUILT | No analytics code anywhere in the codebase. |
+| Sitemap.xml | ✅ BUILT | `public/sitemap.xml` — all 20 articles + 11 core pages. Submit in Search Console. |
+| JSON-LD Article schema | ✅ BUILT | `BlogPostPage.tsx` — `useEffect` injects Article schema + auto meta description per post. No library. |
+| Article #11 (Fuel Cards) | ❌ NOT BUILT | Content file to be authored and added to `src/content/blog/`. |
+
+---
+
+### HIGH-LEVEL RECOMMENDATIONS FROM CODEBASE AUDIT
+
+**1. The About Page is already your best asset — don't rebuild it.**
+`AboutPage.tsx` already has the 5-phase narrative structure the pipeline calls for. It does not need a rewrite. It needs one addition: a bottom CTA block linking to `/start-here` and `/#featured`. This is a 10-minute task, not a day's work.
+
+**2. The Referral Tracker is already bot-safe — preserve it.**
+The 24-hour localStorage debounce in `ReferralTracker` (`App.tsx`) is exactly the right pattern. The Day 9 email capture honeypot should follow the same pattern. Do not add server-side rate limiting for email capture — Brevo's free tier handles abuse at their end.
+
+**3. Do not install any new npm packages for Days 1–9.**
+Everything from ToC (IntersectionObserver) to JSON-LD (inline `<script>` tag) to email capture (`fetch()` POST) can be built with zero new dependencies. `framer-motion` is already in the bundle — if any animation is needed, use it sparingly via `motion.div`. The bundle is already paying for it.
+
+**4. GA4 via `index.html` is the right pattern — not react-ga4.**
+Adding a library for analytics adds ~15KB to the bundle and introduces a render-blocking dependency. A raw `<script>` tag in `index.html` is faster, simpler, and the standard Netlify/Vite pattern.
+
+**5. The CategoryPage route (`/:category`) already exists — audit it before building a hub.**
+Before building a new Finance Hub page on Day 10, check if `CategoryPage.tsx` already renders blog posts filtered by category. If it does, the "hub" already exists at `/finance` and just needs content and SEO metadata. This could save an entire day's build time.
+
+**6. Keep framer-motion usage minimal in new components.**
+`framer-motion` is in the bundle (^12.23.25) and is a large dependency. New components (ToC, EmailCapture, StartHerePage) should use CSS transitions or Tailwind's `transition-*` utilities — not Framer Motion — unless the animation is a genuine UX necessity.
+
+**7. The single biggest revenue lever in 14 days is Article #11, not the ToC.**
+All the UX and trust work is infrastructure. The only thing that generates affiliate revenue is a published article on a transactional keyword. Days 11–12 should be treated as the highest-priority deliverable of the pipeline. The ToC (Day 6) exists to serve Article #11 — not the other way around.
+
+**8. DecapCMS integrity is non-negotiable.**
+All new blog content must either be created through the DecapCMS interface or must precisely match the existing frontmatter schema. A single malformed frontmatter field will break the `getPostBySlug` utility and silently 404 the article. Always validate against an existing working post before publishing.
+
+**9. Supabase call budget for all 14 days: zero new calls.**
+Every new page and component in this pipeline should be statically rendered from `src/content/` or from props passed down from existing data fetches. The existing codebase already has a double-fetch problem on the homepage (Heroes + Products both call `getAllProducts()`). Do not introduce any new `useEffect` → Supabase pattern without first confirming the data is not already cached.
+
+**10. The pipeline will work — but content is the multiplier.**
+The 14 days build the machine. The articles are the fuel. A perfectly optimised site with 10 articles earns ₹0. A slightly rough site with 50 targeted articles earns ₹50,000+/month. Once the pipeline is complete, the only metric that matters is: how many high-intent articles were published this month?
+
+---
+
+### ADDENDUM — EBOOK DELIVERY ARCHITECTURE (CONFIRMED LEAN FORTRESS COMPLIANT)
+
+The existing ebook delivery flow is confirmed working and must not change:
+
+```
+User pays via Razorpay
+    ↓
+Edge Function creates order → Supabase stores order with public_token
+    ↓
+ThankYouPage.tsx loads via ?token=[public_token]
+    ↓
+Supabase lookup by public_token → returns order.notes (Google Drive URL)
+    ↓
+User sees Download button → clicks → Google Drive PDF opens
+```
+
+This is the correct "Lean Fortress" delivery mechanism. It requires zero S3, zero file hosting, zero additional infra. The Google Drive link is stored in `order.notes` at the time of order creation. `ThankYouPage.tsx` already handles all three states: loading, error, and success with download link. **Do not modify this flow.**
+
+---
+
+### ADDENDUM — THE "NO-DESIGN EBOOK" PRODUCTION PIPELINE
+
+You do not need Canva, Figma, or any design tool to produce a paid product. The pipeline for creating ebooks is:
+
+1. Write the content as a Markdown file (in your code editor or via DecapCMS)
+2. Preview it in the browser (the blog renderer already renders it beautifully)
+3. Open Chrome DevTools → Print → Save as PDF (or use the browser's native print dialog)
+4. A clean, minimalist PDF is produced — no images required, no branding complexity
+5. Upload that PDF to the Google Drive folder already linked to that ebook's `order.notes`
+
+**Why this works for Guiderr's audience:** The target reader is an urban professional who values clarity and actionability over visual polish. A "Professional Briefing" style PDF (clean typography, no banner images, dense useful content) reads as *more* authoritative than a heavily designed ebook. It signals expertise, not marketing.
+
+**The framing matters:** Do not call it a "PDF." Call it an "Intelligence Brief," a "Decision Framework," or a "Playbook." Same file, completely different perceived value.
+
+---
+
+### ADDENDUM — THE FREE ARTICLE → PAID EBOOK CTA BRIDGE
+
+This is the correct monetization loop that keeps SEO intact while converting readers:
+
+```
+Google indexes: "Best Fuel Credit Cards India 2026" (full article, 2,000 words, free)
+    ↓
+Inside article, after the comparison table:
+┌─────────────────────────────────────────────────────┐
+│  Want the exact 4-card stack we use ourselves?      │
+│  The 2026 Credit Card Playbook breaks down the      │
+│  optimal combination for fuel + dining + forex.     │
+│  ₹299 · Instant PDF · No fluff.                    │
+│  [Get the Playbook →]                               │
+└─────────────────────────────────────────────────────┘
+    ↓
+EbookModal opens → Razorpay → ThankYouPage → Google Drive PDF
+```
+
+**Rules for the CTA box:**
+- Place it after the first major comparison table or list (not at the top, not at the very bottom)
+- One CTA per article maximum — do not repeat it three times
+- The CTA copy must reference something specific the article just discussed — not a generic "buy our ebook"
+- Use loss framing: what the reader won't have without the paid framework, not just what they'll gain
+
+**What does NOT change:** The Razorpay modal, the Edge Function, the Supabase order creation, the ThankYouPage, the Google Drive link. The CTA box is a static Tailwind component inside the article — it triggers the existing `EbookModal` with the correct ebook slug pre-selected.
+
+---
+
+### ADDENDUM — ABOUT PAGE DAY 2 TASK (EXACT SCOPE)
+
+`AboutPage.tsx` already has the complete 5-phase Hero's Journey narrative. The Day 2 task is **not a rewrite**. It is a single addition: replace the existing bottom CTA block (currently only "Explore the Library →" pointing to `/guides`) with a "Next Steps" block:
+
+```tsx
+{/* ── Next Steps CTA ── */}
+<div className="pt-12 space-y-4 text-center">
+  <p className="text-sm font-semibold uppercase tracking-widest text-slate-400">
+    Where to go next
+  </p>
+  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+    <Link
+      to="/start-here"
+      className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-8 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+    >
+      New here? Start Here →
+    </Link>
+    <Link
+      to="/#featured"
+      className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 text-sm font-semibold px-8 py-3 rounded-full border border-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+    >
+      Browse the Store →
+    </Link>
+  </div>
+</div>
+```
+
+The existing `phases` array and all 5 story cards remain completely untouched. This is a targeted 10-minute edit, not a rebuild.
+
+---
+
+### ADDENDUM — START HERE PAGE (DAY 1) COPY FRAMEWORK
+
+The copy framework for `StartHerePage.tsx` (confirmed by Google AI Studio analysis):
+
+```
+H1: "New to Guiderr? Start Here."
+Sub: "We help India's modern buyer make better decisions in Money, Wheels, and Life."
+
+[Path 1 — Money]
+  Best articles: Best Fuel Credit Cards, Best Forex Cards, SBI vs HDFC
+  Top ebook: Credit Card Playbook (₹299)
+
+[Path 2 — Wheels]  
+  Best articles: Ladakh Motorcycle Trip, Zero-Dep Insurance Guide
+  Top ebook: Himalayan Blueprint (₹399)
+
+[Path 3 — Life]
+  Best articles: Emergency Fund, Long-Term Investing 2026
+  (ebook coming soon)
+
+[Philosophy statement]
+"Guiderr is reader-supported. We use affiliate links and sell intelligence reports.
+We don't take brand bribes. We don't recommend what we wouldn't buy ourselves."
+
+[CTA]
+"About the founder → | Browse all guides →"
+```
+
+**Build rules:**
+- Zero Supabase calls — all links are static `<Link>` components
+- Zero new npm packages
+- Mobile-first: paths stack vertically on mobile, 3-column grid on desktop (`sm:grid-cols-3`)
+- Each path card: category icon (already in `Hero.tsx` icon map — reuse it), 3–4 article links, 1 ebook link
+- No animations (Framer Motion is in the bundle but don't use it here — this page must load instantly)
+- Add route to `App.tsx`: `<Route path="/start-here" element={<StartHerePage />} />`
+- Add "Start Here" to `Header.tsx` nav (after "Guides", before any account links)
+
+
+Reminder of Golden rules till revenues handsome : 
+decap cms sync should not be disturbed unless being improved upon, razorpay auto capture logic code must be safeguarded, our website should remain compressed for free tier, virality safeguard and bot prevention,cloudinary, light weight, optimised for mobile, fortress hardening should not be disturbed in context of supabase rls and sql, edge functions unless absolutely necessary, conserve on backend hits and free tier limits of cloudianry, netlify hosting, supabase. no paid dependencies and heavy libraries ..lets make revenues handsome first. 
+Do not touch what is already working properly 

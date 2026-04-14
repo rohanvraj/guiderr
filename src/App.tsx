@@ -18,6 +18,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import BlogListingPage from './pages/BlogListingPage';
 import BlogPostPage from './pages/BlogPostPage';
 import AboutPage from './pages/AboutPage';
+import StartHerePage from './pages/StartHerePage';
+import AffiliateDisclosure from './pages/AffiliateDisclosure';
 import GetFeaturedPage from './pages/GetFeaturedPage';
 import FeaturedStoriesPage from './pages/FeaturedStoriesPage';
 
@@ -81,6 +83,8 @@ function App() {
           <Route path="/refunds" element={<CancellationsRefunds />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/start-here" element={<StartHerePage />} />
+          <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
 
         </Routes>
       </BrowserRouter>

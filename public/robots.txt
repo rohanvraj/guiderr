@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Allow all content directories
+Allow: /guides/
+Allow: /start-here
+Allow: /about
+Allow: /affiliate-disclosure
+Allow: /privacy-policy
+Allow: /terms
+Allow: /featured
+Allow: /finance
+Allow: /motorcycles
+Allow: /travel
+
+# Block admin and internal routes
+Disallow: /admin
+Disallow: /superadmin
+Disallow: /stats/
+Disallow: /thank-you
+
+Sitemap: https://guiderr.in/sitemap.xml

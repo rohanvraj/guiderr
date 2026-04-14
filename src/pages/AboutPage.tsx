@@ -109,14 +109,25 @@ export default function AboutPage() {
           ))}
         </div>
 
-        {/* ── CTA Section ── */}
-        <div className="pt-12 text-center">
-          <Link
-            to="/guides"
-            className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-8 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            Explore the Library →
-          </Link>
+        {/* ── Next Steps CTA ── */}
+        <div className="pt-12 space-y-4 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">
+            Where to go next
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              to="/start-here"
+              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-8 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              New here? Start Here →
+            </Link>
+            <Link
+              to="/#featured"
+              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 text-sm font-semibold px-8 py-3 rounded-full border border-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+            >
+              Explore the Store →
+            </Link>
+          </div>
         </div>
 
       </main>

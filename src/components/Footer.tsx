@@ -38,6 +38,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/affiliate-disclosure" className="text-slate-400 hover:text-white transition-colors">
+                  Affiliate Disclosure
+                </Link>
+              </li>
+              <li>
                 <Link to="/privacy-policy" className="text-slate-400 hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
