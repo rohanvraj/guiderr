@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, Children, isValidElement } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Header from '../components/Header';
@@ -94,7 +94,7 @@ export default function BlogPostPage() {
       {/* ToC: fixed desktop sidebar + mobile floating pill — rendered at page level so position:fixed works correctly */}
       <TableOfContents content={post.body} />
 
-      {/* pb-24 on mobile ensures the last CTA/affiliate link is never hidden behind the fixed ToC pill */}
+      {/* pb-24 on mobile ensures the last affiliate link is never hidden behind the fixed ToC pill */}
       <main className="pt-28 sm:pt-32 pb-24 sm:pb-10 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
         <Link to="/guides" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
           &larr; Back to Guides
@@ -151,19 +151,18 @@ export default function BlogPostPage() {
                 />
               ),
               // ── Tap-target hardening (Day 7) ────────────────────────────────────
-              // External text-link CTAs ("👉 Check Price on Amazon" etc.) get
-              // py-2 inline-block so the touch target is ≥44px tall on mobile.
-              // Image-wrapped affiliate links are already tall enough — skip.
+              // Text-link affiliate CTAs ("👉 Check Price on Amazon" etc.) get
+              // py-2 inline-block so touch targets are ≥44px on mobile.
+              // Image-wrapped links are already large enough — skip the padding.
               a: ({ href, children }) => {
                 const isExternal = !!href?.startsWith('http') && !href.includes('guiderr.in');
                 if (!isExternal) return <a href={href}>{children}</a>;
 
-                // Detect image-only links (e.g. [![alt](src)](href))
-                const childArr = React.Children.toArray(children);
+                const childArr = Children.toArray(children);
                 const isSingleImage =
                   childArr.length === 1 &&
-                  React.isValidElement(childArr[0]) &&
-                  childArr[0].type === 'img';
+                  isValidElement(childArr[0]) &&
+                  (childArr[0] as React.ReactElement).type === 'img';
 
                 return (
                   <a

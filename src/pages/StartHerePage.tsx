@@ -9,8 +9,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 // ── Article clusters — static, zero Supabase calls ──────────────────────────
-// TRUTH PASS (Day 8A): every slug below is verified against src/content/blog/*.md
-// Last verified: 14 April 2026
+// TRUTH PASS: slugs = full filename (without .md) as returned by getPostBySlug.
+// The date prefix (2026-04-XX-) is REQUIRED — blog.ts uses the raw filename as slug.
+// Last verified: 14 April 2026 against src/content/blog/*.md
 const PATHS = [
   {
     key: 'money',
@@ -21,14 +22,10 @@ const PATHS = [
     label: 'Money',
     tagline: 'Smarter cards. Bigger returns. Zero guesswork.',
     articles: [
-      // Tax + compliance — highest-intent Finance articles
-      { title: 'ITR 2026: New Tax Rules & The ₹75,000 Deduction', slug: 'itr-2026-new-tax-rules-₹75-000-deduction-why-april-is-the-smartest-month-to-invest' },
-      // Credit access — CIBIL building guide
-      { title: 'Why Your Credit Card Was Rejected — And How to Fix It', slug: 'understanding-credit-card-rejections-in-2026-how-to-build-your-cibil-for-sbi-and-hdfc-approval' },
-      // Credit cards fundamentals
-      { title: 'Mastering Credit Cards in 2026 — The Frugal Guide', slug: 'mastering-credit-cards-in-2026-a-frugal-guide-to-rewards-risks-and-financial-freedom' },
-      // Fuel rewards — high affiliate intent
-      { title: 'The Petrol Hack — Turn Your Commute into Free Travel', slug: 'the-petrol-hack-how-to-turn-your-daily-commute-into-free-travel-in-2026' },
+      { title: 'ITR 2026: New Tax Rules & the ₹75,000 Deduction', slug: '2026-04-13-itr-2026-new-tax-rules-₹75-000-deduction-why-april-is-the-smartest-month-to-invest' },
+      { title: 'Why Your Credit Card Was Rejected — And How to Fix It', slug: '2026-04-13-understanding-credit-card-rejections-in-2026-how-to-build-your-cibil-for-sbi-and-hdfc-approval' },
+      { title: 'Mastering Credit Cards in 2026 — The Frugal Guide', slug: '2026-04-02-mastering-credit-cards-in-2026-a-frugal-guide-to-rewards-risks-and-financial-freedom' },
+      { title: 'The Petrol Hack — Turn Your Commute into Free Travel', slug: '2026-04-10-the-petrol-hack-how-to-turn-your-daily-commute-into-free-travel-in-2026' },
     ],
     ebookLabel: 'The Credit Card Playbook →',
     ebookHref: '/#featured',
@@ -42,11 +39,10 @@ const PATHS = [
     label: 'Wheels',
     tagline: 'Ride further. Pack smarter. Know your machine.',
     articles: [
-      // All 4 verified present in src/content/blog/
-      { title: 'Planning Your Ladakh Motorcycle Trip in 2026', slug: 'the-definitive-guide-planning-your-ladakh-motorcycle-trip-in-2026' },
-      { title: 'The Ideal Motorcycle Luggage Setup for 2026', slug: 'the-ideal-load-designing-the-ideal-motorcycle-luggage-setup-for-2026' },
-      { title: 'The Great East Expedition — Pune to Sikkim', slug: 'the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026' },
-      { title: 'Hayabusa 2026 — A Modern Masterpiece Review', slug: 'the-2026-review-why-the-metallic-mat-steel-green-suzuki-hayabusa-is-a-modern-masterpiece' },
+      { title: 'Planning Your Ladakh Motorcycle Trip in 2026', slug: '2026-04-03-the-definitive-guide-planning-your-ladakh-motorcycle-trip-in-2026' },
+      { title: 'The Ideal Motorcycle Luggage Setup for 2026', slug: '2026-04-09-the-ideal-load-designing-the-ideal-motorcycle-luggage-setup-for-2026' },
+      { title: 'The Great East Expedition — Pune to Sikkim', slug: '2026-04-12-the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026' },
+      { title: 'Hayabusa 2026 — A Modern Masterpiece Review', slug: '2026-04-09-the-2026-review-why-the-metallic-mat-steel-green-suzuki-hayabusa-is-a-modern-masterpiece' },
     ],
     ebookLabel: 'The Himalayan Blueprint →',
     ebookHref: '/#featured',
@@ -60,14 +56,16 @@ const PATHS = [
     label: 'Life',
     tagline: 'Travel cheaper. Live smarter. Buy once, buy right.',
     articles: [
-      // Emergency fund — moved from Money per Day 8A remapping
-      { title: 'The Frugal Shield — Why an Emergency Fund Is Non-Negotiable', slug: 'the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
-      // Long-term wealth
-      { title: 'Investing in 2026 — Long-Term Wealth for Every Indian', slug: 'investing-in-2026-why-every-indian-needs-a-long-term-wealth-strategy' },
       // Travel
-      { title: 'Visa-Free Horizons and UPI Abroad — Travel in 2026', slug: 'the-new-era-of-indian-travel-in-2026-visa-free-horizons-and-upi-abroad' },
-      // Renting vs ownership mindset
-      { title: 'The Asset-Light Revolution — Renting vs Ownership in 2026', slug: 'the-asset-light-revolution-why-renting-is-outpacing-ownership-in-2026' },
+      { title: 'Visa-Free Horizons and UPI Abroad — Travel in 2026', slug: '2026-04-04-the-new-era-of-indian-travel-in-2026-visa-free-horizons-and-upi-abroad' },
+      // Finance / life planning
+      { title: 'The Frugal Shield — Why an Emergency Fund Is Non-Negotiable', slug: '2026-04-13-the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
+      // Tech
+      { title: 'The Automated Home — Top Robot Vacuums on Amazon 2026', slug: '2026-04-10-the-automated-home-top-5-robot-vacuum-mop-solutions-on-amazon-2026' },
+      // Business
+      { title: 'Smart Queue Management & the Indian Dining Revolution', slug: '2026-04-08-beyond-the-plate-how-smart-queue-management-is-redefining-the-indian-dining-experience-in-2026' },
+      // Lifestyle
+      { title: 'Best Sunscreens for the Indian Climate in 2026', slug: '2026-04-09-a-guide-to-popular-sunscreens-for-the-indian-climate-in-2026' },
     ],
     ebookLabel: 'Browse All Guides →',
     ebookHref: '/guides',
