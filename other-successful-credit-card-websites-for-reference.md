@@ -556,61 +556,48 @@ This is the compounding flywheel. Every article published today is an asset that
 
 ---
 
-#### Day 6 — Sticky Table of Contents (`TableOfContents.tsx`)
+#### ✅ Day 6 — Sticky Table of Contents (`TableOfContents.tsx`) — COMPLETE
 **Goal:** Increase scroll depth and affiliate click probability on long-form guides.
 
-**Status: ❌ NOT BUILT**
-
-**Action:** Create `src/components/TableOfContents.tsx`. Implementation rules:
-- Parse H2/H3 headings from the post markdown content (already available as a string in `BlogPostPage.tsx`)
-- Render a sticky sidebar on desktop (`lg:fixed lg:left-8 lg:top-32 lg:w-48`)
-- Collapsible accordion on mobile (Tailwind `details`/`summary` or a single `useState` toggle)
-- Scroll-spy: use `IntersectionObserver` to highlight the currently visible heading. Zero libraries.
-- Smooth scroll on click: `element.scrollIntoView({ behavior: 'smooth' })`
-
-**Do not install any ToC library or scroll-spy npm package.**
-
-**Wire into `BlogPostPage.tsx`:** Render `<TableOfContents content={post.content} />` alongside the article body.
+**Built:** `src/components/TableOfContents.tsx` created. Parses H2/H3 headings from raw `post.body` markdown string. Strips bold/italic/emoji/link syntax for clean labels. Slugifies to match ReactMarkdown's output ids. Desktop: `fixed left-4 xl:left-8 top-32` sticky sidebar (hidden below `lg`). Mobile: floating "Quick Nav" pill (`fixed bottom-6 right-4`) with expandable card drawer above it. Scroll-spy via `IntersectionObserver` with `-80px` top root margin (clears sticky header). Smooth scroll on click. Renders nothing if article has no H2/H3. Integrated into `BlogPostPage.tsx` at page level (outside `max-w-3xl` constraint so `position:fixed` works). Custom `h2`/`h3` renderers added to `ReactMarkdown` to inject matching `id` attributes. Zero new npm packages. Zero Supabase calls.
 
 ---
 
-#### Day 7 — Mobile-First UX Audit
+#### ✅ Day 7 — Mobile-First UX Audit — COMPLETE
 **Goal:** Maximize readability and tap-target compliance on mobile.
 
-**Action (targeted, do not refactor):**
-- Verify affiliate link `<a>` tags have min tap height of 44px (add `py-2 inline-block` class where missing)
-- Verify ToC collapses cleanly at 375px (test in DevTools)
-- Verify `BlogPostPage.tsx` line length stays under ~70ch on mobile (`max-w-prose`)
-- Check font size on body text in `index.css` — should be `text-base` (16px) minimum
+**Built:**
+1. **Tap targets** — Custom `a` renderer added to `ReactMarkdown` in `BlogPostPage.tsx`. External text-link CTAs (e.g. "👉 Check Price on Amazon") get `py-2 inline-block` → ≥44px vertical touch zone. Image-wrapped affiliate links detected via `React.Children.toArray` + `React.isValidElement` — exempt from padding (already large enough). All external links also receive `target="_blank" rel="noopener noreferrer nofollow"`.
+2. **Pill occlusion fix** — `<main>` bottom padding changed from `pb-10` to `pb-24 sm:pb-10`. On mobile, 96px bottom clearance ensures no CTA is hidden behind the fixed "Quick Nav" pill.
+3. **Line height** — `lineHeight: '1.75'` added to `p` in `tailwind.config.js` typography override. Applies globally across all articles. No per-component class changes needed.
 
-**Do not change any routing, Supabase logic, or Razorpay flows.**
-
----
-
-#### Day 8 — Ebook Loss-Framing Copy Update
-**Goal:** Apply psychological reframing to increase purchase conversion.
-
-**Status: ⚠️ EbookModal.tsx BUILT but copy is neutral.** `src/components/EbookModal.tsx` exists.
-
-**Action:** Update the modal copy in `EbookModal.tsx`. Replace information-framing with ROI/loss-framing:
-- Before: `"Buy the Credit Card Playbook — ₹299"`
-- After: `"Stop losing ₹3,250/mo. Unlock the 4-Card System — ₹299."`
-lets remove the 299 3250 part, it sounds very similar to the other website.. this is better : Stop Guessing. Start Optimizing. Master the Decision Frameworks used by India's Top 1%."
-The Product: Instead of just a "Credit Card Playbook," let's frame it as "The 2026 Wealth & Mobility Vault." (This bridges your Finance + Automotive silos).
-
-Also add a 3-line "What you unlock" block above the CTA button, listing the specific outcome (not the content). No new components, no Supabase changes.
+**Zero new libraries. No Supabase changes. No routing changes.**
 
 ---
 
-#### Day 9 — [ON HOLD - FOR LATER: Focus on Traffic & UX First] ~~The Retention Hook (Lead Magnet / Email Capture)~~
-**Status: ON HOLD** — Deprioritized in favour of SEO Hub Readiness (CategoryPage audit). Email capture requires traffic before it has meaningful ROI. Revisit at 5,000+ organic monthly sessions.
+#### ✅ Day 8 — Ebook Reframing + Start Here Truth Pass — COMPLETE
+**Goal:** Eliminate dummy/placeholder content. Apply psychological reframing to increase purchase conversion.
 
-**Original Goal:** Stop leaking traffic. Convert one-time readers into a list.
+**Built — Day 8A (Start Here Sync):** `StartHerePage.tsx` PATHS array fully audited against `src/content/blog/*.md`. All 12 links verified real. Article remapping:
+- **Money:** ITR 2026 Tax Rules + CIBIL Rejection guide added (high-intent). Emergency Fund moved to Life. 4 Finance articles, all confirmed.
+- **Wheels:** Unchanged — all 4 articles verified present (Ladakh, Luggage, Sikkim, Hayabusa).
+- **Life:** Emergency Fund added (moved from Money). Investing, Travel, Asset-Light retained. 4 articles confirmed.
+Zero placeholder titles remain.
 
-**Original Action (archived):** Build `src/components/EmailCapture.tsx`. Connect to Brevo free tier (300 emails/day, no credit card) via browser `fetch()` POST. Honeypot bot protection. Inline in BlogPostPage.tsx after 3rd paragraph.
+**Built — Day 8B (EbookModal Reframing):** `src/components/EbookModal.tsx` updated:
+- Sticky header: "Stop Guessing. Start Optimizing." / subtitle "The 2026 Wealth & Mobility Vault"
+- "What you unlock" 3-line block (with ✓ icons) added above Add to Cart button: decision framework / criteria India's optimized buyers use / immediate clarity on next move
+- No Supabase changes. No new components.
 
-**Day 9 (Reprioritised) — SEO Hub Readiness:**
-Audit `CategoryPage.tsx` to confirm `/finance` and `/mobility` routes correctly render filtered blog posts. Style a professional "Coming Soon" state for empty categories to prevent dead-end pages.
+---
+
+#### ✅ Day 9 (Reprioritised) — SEO Hub Readiness / CategoryPage Audit — COMPLETE
+**Status: ON HOLD for email capture** — [ON HOLD - FOR LATER: Focus on Traffic & UX First]
+
+**Built — CategoryPage audit:** `src/pages/CategoryPage.tsx` audited. Existing empty-state ("Coming Soon") enhanced with two navigation CTAs so users are never stranded on a dead-end page:
+- "Browse Free Guides →" (`/guides`) — dark CTA
+- "New here? Start Here →" (`/start-here`) — secondary CTA
+No crash possible: both `!categoryData` (unknown slug) and `ebooks.length === 0` (known-but-empty category) states are handled. `Link` from React Router added for the new CTAs. Zero new Supabase calls.
 
 ---
 
@@ -709,7 +696,7 @@ Then add 5 custom event fires in the relevant components (not in new files — i
 | Start Here page (`/start-here`) | ✅ BUILT | `StartHerePage.tsx` created. Route in `App.tsx`. Nav in `Header.tsx` (desktop + mobile). 3-path Decision Map. |
 | Affiliate Disclosure (`/affiliate-disclosure`) | ✅ BUILT | `AffiliateDisclosure.tsx` created. Route in `App.tsx`. Link in `Footer.tsx` Quick Links. |
 | Affiliate links utility (`affiliates.ts`) | ❌ NOT BUILT | `src/utils/affiliates.ts` does not exist. |
-| Sticky Table of Contents | ❌ NOT BUILT | `TableOfContents.tsx` does not exist. |
+| Sticky Table of Contents | ✅ BUILT | `TableOfContents.tsx` — IntersectionObserver scroll-spy, desktop sidebar, mobile floating pill. Zero libraries. |
 | Email capture component | ⏸️ ON HOLD | [ON HOLD - FOR LATER: Focus on Traffic & UX First] — Revisit at 5,000+ organic sessions/month. |
 | GA4 / Custom Events | ❌ NOT BUILT | No analytics code anywhere in the codebase. |
 | Sitemap.xml | ✅ BUILT | `public/sitemap.xml` — all 20 articles + 11 core pages. Submit in Search Console. |

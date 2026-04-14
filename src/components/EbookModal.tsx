@@ -23,10 +23,18 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 bg-white border-b border-slate-200 flex justify-between items-center p-6">
-          <h2 className="text-2xl font-bold text-slate-900">Ebook Details</h2>
+          <div>
+            <h2 className="text-base font-extrabold text-slate-900 leading-tight">
+              Stop Guessing. Start Optimizing.
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5 font-medium tracking-wide">
+              The 2026 Wealth &amp; Mobility Vault
+            </p>
+          </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-slate-100 rounded-lg transition-colors flex-shrink-0"
+            aria-label="Close"
           >
             <X className="w-6 h-6" />
           </button>
@@ -55,6 +63,27 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
               <div className="mb-6">
                 <h4 className="text-lg font-semibold text-slate-900 mb-2">Synopsis</h4>
                 <p className="text-slate-700 leading-relaxed">{ebook.synopsis}</p>
+              </div>
+
+              {/* ── What you unlock (Day 8B) ─────────────────────────────────────── */}
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
+                  What you unlock
+                </p>
+                <ul className="space-y-1.5 text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-teal-500 mt-0.5 flex-shrink-0">✓</span>
+                    A proven decision framework — not opinions, not aggregated tips
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-teal-500 mt-0.5 flex-shrink-0">✓</span>
+                    The exact criteria India's most optimized buyers use to choose
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-teal-500 mt-0.5 flex-shrink-0">✓</span>
+                    Immediate clarity on your next financial or lifestyle move
+                  </li>
+                </ul>
               </div>
 
               <button

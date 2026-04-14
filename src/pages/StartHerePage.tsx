@@ -9,6 +9,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 // ── Article clusters — static, zero Supabase calls ──────────────────────────
+// TRUTH PASS (Day 8A): every slug below is verified against src/content/blog/*.md
+// Last verified: 14 April 2026
 const PATHS = [
   {
     key: 'money',
@@ -19,10 +21,14 @@ const PATHS = [
     label: 'Money',
     tagline: 'Smarter cards. Bigger returns. Zero guesswork.',
     articles: [
+      // Tax + compliance — highest-intent Finance articles
+      { title: 'ITR 2026: New Tax Rules & The ₹75,000 Deduction', slug: 'itr-2026-new-tax-rules-₹75-000-deduction-why-april-is-the-smartest-month-to-invest' },
+      // Credit access — CIBIL building guide
+      { title: 'Why Your Credit Card Was Rejected — And How to Fix It', slug: 'understanding-credit-card-rejections-in-2026-how-to-build-your-cibil-for-sbi-and-hdfc-approval' },
+      // Credit cards fundamentals
       { title: 'Mastering Credit Cards in 2026 — The Frugal Guide', slug: 'mastering-credit-cards-in-2026-a-frugal-guide-to-rewards-risks-and-financial-freedom' },
+      // Fuel rewards — high affiliate intent
       { title: 'The Petrol Hack — Turn Your Commute into Free Travel', slug: 'the-petrol-hack-how-to-turn-your-daily-commute-into-free-travel-in-2026' },
-      { title: 'Maximizing Rewards — India\'s Top Two Cashback Cards', slug: 'maximizing-rewards-in-2026-the-practical-guide-to-indias-top-two-cashback-cards' },
-      { title: 'The Frugal Shield — Why You Need an Emergency Fund', slug: 'the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
     ],
     ebookLabel: 'The Credit Card Playbook →',
     ebookHref: '/#featured',
@@ -36,6 +42,7 @@ const PATHS = [
     label: 'Wheels',
     tagline: 'Ride further. Pack smarter. Know your machine.',
     articles: [
+      // All 4 verified present in src/content/blog/
       { title: 'Planning Your Ladakh Motorcycle Trip in 2026', slug: 'the-definitive-guide-planning-your-ladakh-motorcycle-trip-in-2026' },
       { title: 'The Ideal Motorcycle Luggage Setup for 2026', slug: 'the-ideal-load-designing-the-ideal-motorcycle-luggage-setup-for-2026' },
       { title: 'The Great East Expedition — Pune to Sikkim', slug: 'the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026' },
@@ -53,10 +60,14 @@ const PATHS = [
     label: 'Life',
     tagline: 'Travel cheaper. Live smarter. Buy once, buy right.',
     articles: [
-      { title: 'Visa-Free Horizons and UPI Abroad — Travel in 2026', slug: 'the-new-era-of-indian-travel-in-2026-visa-free-horizons-and-upi-abroad' },
+      // Emergency fund — moved from Money per Day 8A remapping
+      { title: 'The Frugal Shield — Why an Emergency Fund Is Non-Negotiable', slug: 'the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
+      // Long-term wealth
       { title: 'Investing in 2026 — Long-Term Wealth for Every Indian', slug: 'investing-in-2026-why-every-indian-needs-a-long-term-wealth-strategy' },
-      { title: 'The Asset-Light Revolution — Renting vs Ownership', slug: 'the-asset-light-revolution-why-renting-is-outpacing-ownership-in-2026' },
-      { title: 'Small-Space Living — Multifunctional Furniture in 2026', slug: 'small-space-living-how-multifunctional-furniture-is-changing-modern-homes' },
+      // Travel
+      { title: 'Visa-Free Horizons and UPI Abroad — Travel in 2026', slug: 'the-new-era-of-indian-travel-in-2026-visa-free-horizons-and-upi-abroad' },
+      // Renting vs ownership mindset
+      { title: 'The Asset-Light Revolution — Renting vs Ownership in 2026', slug: 'the-asset-light-revolution-why-renting-is-outpacing-ownership-in-2026' },
     ],
     ebookLabel: 'Browse All Guides →',
     ebookHref: '/guides',

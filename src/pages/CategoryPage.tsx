@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -216,10 +216,29 @@ export default function CategoryPage() {
               <div className="animate-pulse text-slate-400 text-lg">Loading ebooks...</div>
             </div>
           ) : ebooks.length === 0 ? (
-            <div className="text-center py-16">
+            // ── Empty category state (Day 9 audit) ────────────────────────────────────
+            // Shows a professional "Coming Soon" with guide navigation so users never
+            // hit a dead-end page. Zero new Supabase calls — static links only.
+            <div className="text-center py-16 max-w-md mx-auto">
               <BookOpen className="w-14 h-14 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">Coming Soon</h3>
-              <p className="text-slate-600 text-lg">New ebooks in this category are on the way. Check back soon!</p>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Ebooks Coming Soon</h3>
+              <p className="text-slate-600 text-lg mb-8">
+                We're putting the finishing touches on titles in this category. Check back soon.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  to="/guides"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded-full hover:bg-slate-800 transition-all"
+                >
+                  Browse Free Guides →
+                </Link>
+                <Link
+                  to="/start-here"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-full hover:bg-slate-50 transition-all"
+                >
+                  New here? Start Here →
+                </Link>
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
