@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
 import { getAllProducts } from '../utils/supabase';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -31,7 +31,6 @@ const defaultConfig: CategoryConfig = { Icon: Briefcase, bg: 'bg-gray-50', borde
 
 export default function Hero() {
   const categories = getCategories();
-  const heroRef = useRef<HTMLDivElement>(null);
   const [carouselReady, setCarouselReady] = useState(false);
   const loadedImagesRef = useRef(new Set<string>());
 
@@ -43,15 +42,6 @@ export default function Hero() {
   });
   const featuredEbooks = allProducts.slice(0, 6);
   
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-  
-  // Sticky animation for hero image
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   // Duplicate ebooks for seamless infinite scroll
   const duplicatedEbooks = [...featuredEbooks, ...featuredEbooks];
   
@@ -66,9 +56,9 @@ export default function Hero() {
     hidden: {},
     visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
   };
-  const gridItem = {
+  const gridItem: Variants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
   };
 
   // Track image loading for carousel
@@ -83,48 +73,45 @@ export default function Hero() {
     <>
       {/* Hero Section with Split Design */}
       <section 
-        ref={heroRef}
         className="relative min-h-screen flex items-center overflow-hidden"
       >
         {/* Gradient Background - Split Design */}
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-teal-500"></div>
         
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
-            {/* Left Side - Text Content */}
-            <div className="relative z-10 space-y-6 lg:space-y-8">
-              {/* Large Text - Learn. Explore. Achieve. */}
-              <motion.div
-                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="space-y-2 sm:space-y-4"
-              >
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.15] drop-shadow-lg">
-                  Premium Digital Guides &amp; Ebooks for India's Modern Lifestyle
-                </h1>
-              </motion.div>
-
-              {/* Body Text */}
-              <motion.p
-                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-xl leading-relaxed"
-              >
-                Master your personal finance, optimize your home &amp; living, and discover beauty &amp; wellness tips with Guiderr. Expert-led digital guides for India's modern lifestyle.
-              </motion.p>
-
-            </div>
-
-            {/* Right Side - Floating Icons */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end min-h-[80vh]">
+            {/* Left Side - The Pitch */}
             <motion.div
-              style={{ y, opacity }}
-              className="relative hidden lg:block"
+              initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 space-y-6 lg:space-y-8"
             >
-              <div className="relative w-full h-[600px] lg:h-[700px] flex items-center justify-center">
-                {/* Floating Book/Reading Icons */}
-                <div className="relative w-full h-full">
+                <h1 className="space-y-2">
+                  <span className="block text-5xl lg:text-7xl font-extrabold tracking-tighter text-white leading-[1.1] drop-shadow-lg">
+                  Finance, Adventure &amp; Entrepreneurship.
+                </span>
+              </h1>
+
+                <p className="text-xl font-medium text-white/70">
+                  Hi, I'm Rohan.
+                </p>
+
+              <motion.p
+                initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="text-lg sm:text-xl text-white/80 mt-6 leading-relaxed max-w-xl font-light"
+              >
+                I build systems on <strong className="font-semibold text-white">Guiderr</strong> to help modern Indians move faster, save smarter, and live bigger.
+              </motion.p>
+            </motion.div>
+
+            {/* Right Side - Knowledge Cloud + Founder Image */}
+            <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] lg:flex items-end justify-center">
+              <div className="relative w-full h-full flex items-end justify-center">
+                {/* Layer 1 (z-0): Floating Book/Reading Icons — The Knowledge Cloud */}
+                <div className="absolute inset-0 w-full h-full z-0">
                   {/* BookOpen Icon */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -276,8 +263,16 @@ export default function Hero() {
                     <Book className="w-10 h-10 text-white/25" />
                   </motion.div>
                 </div>
+
+                {/* Layer 2 (z-10): Founder Image — anchored to the bottom of the hero */}
+                <img
+                  src="/images/founder-image.png"
+                  alt="Rohan — Founder of Guiderr"
+                  loading="lazy"
+                  className="relative z-10 w-auto h-[92vh] xl:h-[98vh] max-w-none object-contain object-bottom drop-shadow-2xl"
+                />
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
