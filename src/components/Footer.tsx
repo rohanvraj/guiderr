@@ -14,7 +14,7 @@ export default function Footer() {
               <span className="text-2xl font-bold">Guiderr</span>
             </div>
             <p className="text-slate-400 leading-relaxed">
-              Premium digital guides and ebooks to help you learn, explore, and achieve your goals.
+              Premium guides, blueprints, and digital resources to help modern Indians move faster, save smarter, and live bigger.
             </p>
           </div>
 

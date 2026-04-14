@@ -88,7 +88,7 @@ export default function Header() {
                 onClick={() => setEbooksOpen(!ebooksOpen)}
                 className="relative z-10 flex items-center gap-1 text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
               >
-                Ebooks
+                Library
                 <ChevronDown className={`w-4 h-4 transition-transform ${ebooksOpen ? 'rotate-180' : ''}`} />
               </button>
               {ebooksOpen && (
@@ -224,7 +224,7 @@ export default function Header() {
                 onClick={() => setMobileEbooksOpen(!mobileEbooksOpen)}
                 className="flex items-center justify-between py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
               >
-                Ebooks
+                Library
                 <ChevronDown className={`w-4 h-4 transition-transform ${mobileEbooksOpen ? 'rotate-180' : ''}`} />
               </button>
               {mobileEbooksOpen && (
