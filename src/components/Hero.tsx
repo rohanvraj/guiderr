@@ -1,28 +1,73 @@
 import { BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb } from 'lucide-react';
 import {
   Moped, ChartLineUp, GlobeHemisphereWest,
-  Sparkle, Briefcase, Cpu, CarSimple, SunHorizon,
+  Sparkle, Briefcase, Cpu, CarSimple, SunHorizon, TrendUp,
 } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
-import { getCategories } from '../utils/ebooks';
 
 const FEATURED_BUTTON_CLASSES = 'inline-flex items-center justify-center gap-2 rounded-xl bg-purple-900 hover:bg-purple-950 text-white text-sm font-semibold px-5 py-3 transition-colors shadow-sm';
 const FEATURED_WHATSAPP_URL = 'https://wa.me/919890505945?text=Hi%20Guiderr,%20I%27m%20interested%20in%20getting%20featured.';
 
-type CategoryConfig = { Icon: any; bg: string; border: string; color: string; ghost: string };
-
-const categoryConfig: Record<string, CategoryConfig> = {
-  finance:       { Icon: ChartLineUp,         bg: 'bg-teal-50',   border: 'border-teal-200',   color: '#0d9488', ghost: 'FINANCE' },
-  travel:        { Icon: GlobeHemisphereWest, bg: 'bg-blue-50',   border: 'border-blue-200',   color: '#2563eb', ghost: 'TRAVEL' },
-  'gadget-tech': { Icon: Cpu,                 bg: 'bg-sky-50',    border: 'border-sky-200',    color: '#0284c7', ghost: 'TECH' },
-  automotive:    { Icon: CarSimple,          bg: 'bg-slate-50',  border: 'border-slate-200',  color: '#475569', ghost: 'WHEELS' },
-  lifestyle:     { Icon: SunHorizon,         bg: 'bg-amber-50',  border: 'border-amber-200',  color: '#d97706', ghost: 'LIFESTYLE' },
-  business:      { Icon: Briefcase,          bg: 'bg-indigo-50', border: 'border-indigo-200', color: '#4f46e5', ghost: 'BUSINESS' },
-};
-const defaultConfig: CategoryConfig = { Icon: Briefcase, bg: 'bg-gray-50', border: 'border-gray-200', color: '#374151', ghost: 'GUIDES' };
+const HERO_TILES = [
+  {
+    id: 'personal-finance',
+    label: 'Personal Finance',
+    description: 'Build wealth, optimise credit, and achieve financial freedom',
+    ghost: 'FINANCE',
+    link: '/guides?category=Finance',
+    Icon: ChartLineUp, bg: 'bg-teal-50', border: 'border-teal-200', color: '#0d9488',
+  },
+  {
+    id: 'investing',
+    label: 'Investing',
+    description: 'Equity research, intrinsic value, and long-term wealth strategy',
+    ghost: 'INVESTING',
+    link: '/investing',
+    Icon: TrendUp, bg: 'bg-emerald-50', border: 'border-emerald-200', color: '#059669',
+  },
+  {
+    id: 'travel',
+    label: 'Travel',
+    description: 'Explore the world with confidence and insider knowledge',
+    ghost: 'TRAVEL',
+    link: '/guides?category=Travel',
+    Icon: GlobeHemisphereWest, bg: 'bg-blue-50', border: 'border-blue-200', color: '#2563eb',
+  },
+  {
+    id: 'tech',
+    label: 'Tech',
+    description: 'Reviews and guides on the latest gadgets and technology',
+    ghost: 'TECH',
+    link: '/guides?category=Tech',
+    Icon: Cpu, bg: 'bg-sky-50', border: 'border-sky-200', color: '#0284c7',
+  },
+  {
+    id: 'automotive',
+    label: 'Automotive',
+    description: 'Motorcycles, cars, and everything that moves — buying and riding guides',
+    ghost: 'WHEELS',
+    link: '/guides?category=Automotive',
+    Icon: CarSimple, bg: 'bg-slate-50', border: 'border-slate-200', color: '#475569',
+  },
+  {
+    id: 'lifestyle',
+    label: 'Lifestyle',
+    description: 'Smarter choices for how you live, eat, dress, and spend your time',
+    ghost: 'LIFESTYLE',
+    link: '/guides?category=Lifestyle',
+    Icon: SunHorizon, bg: 'bg-amber-50', border: 'border-amber-200', color: '#d97706',
+  },
+  {
+    id: 'business',
+    label: 'Business',
+    description: "Entrepreneur's playbook for building and growing your business",
+    ghost: 'BUSINESS',
+    link: '/guides?category=Business',
+    Icon: Briefcase, bg: 'bg-indigo-50', border: 'border-indigo-200', color: '#4f46e5',
+  },
+];
 
 export default function Hero() {
-  const categories = getCategories();
 
   return (
     <>
@@ -99,13 +144,14 @@ export default function Hero() {
                 </div>
 
                 {/* Layer 2 (z-10): Founder Image — anchored to the bottom of the hero */}
-                <img
+                {/* DISABLED — uncomment to re-enable founder image */}
+                {/* <img
                   src="/images/founder-image.webp"
                   alt="Rohan — Founder of Guiderr"
                   loading="eager"
                   decoding="async"
                   className="relative z-10 w-auto h-[86vh] xl:h-[92vh] max-w-none object-contain object-bottom drop-shadow-2xl"
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -158,40 +204,37 @@ export default function Hero() {
       <section className="py-16 sm:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="sr-only">Explore by Topic</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 mb-16 sm:mb-20">
-          {categories.map((category) => {
-            const { Icon, bg, border, color, ghost } = categoryConfig[category.id] || defaultConfig;
-            return (
-              <div key={category.id} className="animate-fade-in-up" style={{ animationFillMode: 'both' }}>
-                <Link
-                  to={`/guides?category=${encodeURIComponent(category.name)}`}
-                  className="group block h-full"
-                >
-                  <div className="relative h-full overflow-hidden rounded-2xl border border-slate-100 bg-white p-6 shadow-lg transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:rounded-3xl sm:p-8">
-                    <span className="pointer-events-none absolute -right-2 top-3 select-none text-[3.6rem] font-black uppercase tracking-[-0.1em] text-slate-900/5 transition-transform duration-500 group-hover:translate-x-4 sm:text-[4.6rem] lg:text-[4rem] xl:text-[4.5rem]">
-                      {ghost}
-                    </span>
-                    <div className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-5 border shadow-sm group-hover:scale-105 transition-transform duration-300 ${bg} ${border}`}>
-                      <Icon weight="duotone" className="w-7 h-7 sm:w-8 sm:h-8" color={color} />
-                    </div>
-
-                    <h3 className="relative z-10 text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-slate-800 transition-colors">
-                      {category.name}
-                    </h3>
-
-                    <p className="relative z-10 text-sm sm:text-base text-slate-600 leading-relaxed mb-4 max-w-[18rem]">
-                      {category.description}
-                    </p>
-
-                    <div className="relative z-10 text-slate-700 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
-                      Explore
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 mb-16 sm:mb-20">
+          {HERO_TILES.map(({ id, label, description, ghost, link, Icon, bg, border, color }) => (
+            <div key={id} className="animate-fade-in-up" style={{ animationFillMode: 'both' }}>
+              <Link
+                to={link}
+                className="group block h-full"
+              >
+                <div className="relative h-full overflow-hidden rounded-2xl border border-slate-100 bg-white p-6 shadow-lg transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:rounded-3xl sm:p-8">
+                  <span className="pointer-events-none absolute -right-2 top-3 select-none text-[3.6rem] font-black uppercase tracking-[-0.1em] text-slate-900/5 transition-transform duration-500 group-hover:translate-x-4 sm:text-[4.6rem] lg:text-[4rem] xl:text-[4.5rem]">
+                    {ghost}
+                  </span>
+                  <div className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-5 border shadow-sm group-hover:scale-105 transition-transform duration-300 ${bg} ${border}`}>
+                    <Icon weight="duotone" className="w-7 h-7 sm:w-8 sm:h-8" color={color} />
                   </div>
-                </Link>
-              </div>
-            );
-          })}
+
+                  <h3 className="relative z-10 text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-slate-800 transition-colors">
+                    {label}
+                  </h3>
+
+                  <p className="relative z-10 text-sm sm:text-base text-slate-600 leading-relaxed mb-4 max-w-[18rem]">
+                    {description}
+                  </p>
+
+                  <div className="relative z-10 text-slate-700 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                    Explore
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))}
           </div>
 
           {/* Stats Section - Temporarily hidden */}

@@ -1,20 +1,28 @@
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getAllPosts } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
-const CATEGORIES = ['All', 'Finance', 'Travel', 'Tech', 'Automotive', 'Lifestyle', 'Business'] as const;
+const CATEGORIES = ['All', 'Personal Finance', 'Investing', 'Travel', 'Tech', 'Automotive', 'Lifestyle', 'Business'] as const;
 type Category = typeof CATEGORIES[number];
 
+// Maps display category names to the `category` field in blog post frontmatter.
+const CATEGORY_FILTER: Record<string, string> = {
+  'Personal Finance': 'Finance',
+};
+
 function getPrimaryCategory(category: string): Category | null {
+  // Backward-compat: ?category=Finance in URL maps to 'Personal Finance'
+  if (category === 'Finance') return 'Personal Finance';
   return CATEGORIES.includes(category as Category) ? (category as Category) : null;
 }
 
 export default function BlogListingPage() {
   const posts = getAllPosts();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const rawParamCategory = searchParams.get('category');
   const paramCategory = rawParamCategory ? getPrimaryCategory(rawParamCategory) : null;
   const initialCategory: Category = CATEGORIES.includes(paramCategory as Category)
@@ -22,10 +30,15 @@ export default function BlogListingPage() {
     : 'All';
   const [activeCategory, setActiveCategory] = useState<Category>(initialCategory);
 
+  // Redirect ?category=Investing to its dedicated page
+  if (rawParamCategory === 'Investing') {
+    return <Navigate to="/investing" replace />;
+  }
+
   // Pure client-side filter — zero API calls, uses statically bundled post data.
   const filtered = activeCategory === 'All'
     ? posts
-    : posts.filter((post) => post.category === activeCategory);
+    : posts.filter((post) => post.category === (CATEGORY_FILTER[activeCategory] ?? activeCategory));
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -40,7 +53,13 @@ export default function BlogListingPage() {
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => {
+                if (cat === 'Investing') {
+                  navigate('/investing');
+                  return;
+                }
+                setActiveCategory(cat);
+              }}
               className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                 activeCategory === cat
                   ? 'bg-slate-900 text-white'

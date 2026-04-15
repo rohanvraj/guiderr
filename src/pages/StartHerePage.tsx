@@ -4,6 +4,7 @@ import {
   ChartLineUp,
   Moped,
   GlobeHemisphereWest,
+  TrendUp,
 } from '@phosphor-icons/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -36,19 +37,32 @@ function FadeSection({
 // Last verified: 14 April 2026 against src/content/blog/*.md
 const PATHS = [
   {
-    key: 'money',
+    key: 'personal-finance',
     icon: ChartLineUp,
     color: '#0d9488',
     label: 'Personal Finance',
     ghost: 'FINANCE',
-    tagline: 'Smarter cards. Bigger returns. Zero guesswork.',
+    tagline: 'Smarter cards. Better credit. Zero guesswork.',
     articles: [
-      { title: 'ITR 2026: New Tax Rules & the ₹75,000 Deduction', slug: '2026-04-13-itr-2026-new-tax-rules-₹75-000-deduction-why-april-is-the-smartest-month-to-invest' },
       { title: 'Why Your Credit Card Was Rejected — And How to Fix It', slug: '2026-04-13-understanding-credit-card-rejections-in-2026-how-to-build-your-cibil-for-sbi-and-hdfc-approval' },
       { title: 'Mastering Credit Cards in 2026 — The Frugal Guide', slug: '2026-04-02-mastering-credit-cards-in-2026-a-frugal-guide-to-rewards-risks-and-financial-freedom' },
       { title: 'The Petrol Hack — Turn Your Commute into Free Travel', slug: '2026-04-10-the-petrol-hack-how-to-turn-your-daily-commute-into-free-travel-in-2026' },
+      { title: 'The Frugal Shield — Why an Emergency Fund Is Non-Negotiable', slug: '2026-04-13-the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
     ],
     guideLink: '/guides?category=Finance',
+  },
+  {
+    key: 'investing',
+    icon: TrendUp,
+    color: '#059669',
+    label: 'Investing',
+    ghost: 'INVESTING',
+    tagline: 'Equity research. Intrinsic value. Long-term wealth.',
+    articles: [
+      { title: 'Investing in 2026: Every Indian Needs a Long-Term Wealth Strategy', slug: '2026-04-05-investing-in-2026-why-every-indian-needs-a-long-term-wealth-strategy' },
+      { title: 'ITR 2026: New Tax Rules & the ₹75,000 ELSS Window', slug: '2026-04-13-itr-2026-new-tax-rules-₹75-000-deduction-why-april-is-the-smartest-month-to-invest' },
+    ],
+    guideLink: '/investing',
   },
   {
     key: 'wheels',
@@ -79,7 +93,7 @@ const PATHS = [
       { title: 'Smart Queue Management & the Indian Dining Revolution', slug: '2026-04-08-beyond-the-plate-how-smart-queue-management-is-redefining-the-indian-dining-experience-in-2026' },
       { title: 'Best Sunscreens for the Indian Climate in 2026', slug: '2026-04-09-a-guide-to-popular-sunscreens-for-the-indian-climate-in-2026' },
     ],
-    guideLink: '/guides',
+    guideLink: '/guides?category=Lifestyle',
   },
 ];
 
@@ -130,7 +144,7 @@ export default function StartHerePage() {
         <section aria-labelledby="paths-heading" className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32">
           <h2 id="paths-heading" className="sr-only">Browse by Topic</h2>
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
               {PATHS.map(({ key, icon: Icon, color, label, ghost, tagline, articles, guideLink }, index) => (
                 <FadeSection key={key} delay={index * 0.06}>
                   <article className="group relative flex min-h-[380px] flex-col overflow-hidden rounded-3xl border border-violet-100 bg-white/80 p-8 shadow-[0_16px_50px_rgba(124,58,237,0.06)] transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(124,58,237,0.12)] sm:p-10">
