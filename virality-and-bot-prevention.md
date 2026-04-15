@@ -1379,3 +1379,49 @@ There are **two honest limitations** that do not represent immediate danger but 
 ---
 
 *Audit completed: 2026-04-01 | Previous baseline: March 2026 (see document above) | Next recommended review: After first 100K monthly uniques are sustained for 3 consecutive months*
+
+---
+
+## Section 6 — April 15, 2026 Update: Phase 3.3 UI Sprint Regression
+
+**Audit timestamp:** 2026-04-15 | Triggered by: PageSpeed drop to 57 after Phase 3.3 changes
+
+### 6.1 New Risks Introduced in Phase 3.3
+
+#### 6.1.1 Framer Motion Added to Hero.tsx — LCP Hidden Until JS Runs 🔴
+
+**Phase 3.3 introduced `framer-motion` imports into:**
+- `src/components/Hero.tsx` (carousel category cards + hero h1 wrapper)
+- `src/pages/StartHerePage.tsx`
+- `src/pages/GetFeaturedPage.tsx`
+
+The Hero h1 heading ("Finance, Adventure & Entrepreneurship.") — which is the LCP element — is now wrapped in `<motion.div initial={{ opacity: 0, x: -30 }}>`. This means the LCP text is invisible until Framer Motion (~50 KB gzipped) downloads, parses, and executes as part of the critical JS bundle. This caused the LCP metric to rise from an estimated ~4 s to **7.0 s** and the overall PageSpeed score to **drop to 57**.
+
+**Framer Motion is safe for page-level transitions and below-fold animations** but must never be used to control the initial visibility of above-the-fold content (LCP elements). This is a golden rule addition.
+
+#### 6.1.2 `guiderr-logo.png` — Local PNG, Not Cloudinary 🟡
+
+The site logo (`/images/guiderr-logo.png`) and founder photo (`/images/founder-image.png`) are served as raw PNGs from Netlify's static hosting. They do NOT pass through Cloudinary's `f_auto,q_auto:eco` pipeline. These represent:
+
+| File | Size | Display Size | Savings if WebP |
+|---|---|---|---|
+| guiderr-logo.png | 59 KB (320×320 px) | 60×60 px | ~57 KB |
+| founder-image.png | 612 KB | ~300×400 px | ~500 KB |
+
+The `guiderr-logo.png` is referenced in `Header.tsx`, `Hero.tsx`, `index.html` (favicon + preload), and `BlogPostPage.tsx`. All should be updated to `.webp` after conversion.
+
+The `founder-image.png` is preloaded with `fetchpriority="high"` in `index.html` — a 612 KB PNG stealing bandwidth from critical CSS and JS on slow connections.
+
+**Golden rule added:** Static images in `public/images/` must be converted to WebP before deployment. Only images served via Cloudinary URLs benefit from `optimizeCloudinaryUrl()`. Local files do not.
+
+### 6.2 Updated Golden Rules (April 2026)
+
+> **NEW RULE — Frontend Animation:** Never apply `initial={{ opacity: 0 }}` to the LCP element or any above-the-fold text that should be visible on first paint. The LCP element must be rendered at full opacity in the browser's initial HTML/CSS pass. Framer Motion and CSS animations are permitted only for below-fold elements or for positional transforms (x/y) that do not affect visibility.
+
+> **NEW RULE — Static Images:** Any image placed in `public/images/` must be converted to WebP format using Squoosh.app (quality 75–85) before committing. The Cloudinary optimization helper (`optimizeCloudinaryUrl`) only applies to URLs containing `res.cloudinary.com`. Local files are served as-is.
+
+> **EXISTING RULE REAFFIRMED:** Cloudinary `f_auto,q_auto:eco` confirmed active across all Cloudinary-sourced images. This does not cover local static files.
+
+### 6.3 Full PageSpeed Audit
+
+See [PAGE_SPEED_AUDIT.md](./PAGE_SPEED_AUDIT.md) for the complete April 15 2026 Lighthouse audit with root cause analysis, action plan, and projected score improvements.

@@ -61,7 +61,7 @@ export default function BlogPostPage() {
     script.id = 'article-schema';
     const imageUrl = post.featuredImage
       ? optimizeCloudinaryUrl(post.featuredImage, { width: 1200, quality: 'auto:eco' })
-      : 'https://guiderr.in/images/guiderr-logo.png';
+      : 'https://guiderr.in/images/guiderr-logo.webp';
     script.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -79,7 +79,7 @@ export default function BlogPostPage() {
         url: 'https://guiderr.in',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://guiderr.in/images/guiderr-logo.png',
+          url: 'https://guiderr.in/images/guiderr-logo.webp',
         },
       },
       image: imageUrl,

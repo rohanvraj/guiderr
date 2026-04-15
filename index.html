@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="google-site-verification" content="4jNSj-kjFk471DYXMieS4NhQvIOhUqkNrLWqu5-_ZPs" />
-    <link rel="icon" type="image/png" href="/images/guiderr-logo.png" />
-    <link rel="apple-touch-icon" href="/images/guiderr-logo.png" />
+    <link rel="icon" type="image/webp" href="/images/guiderr-logo.webp" />
+    <link rel="apple-touch-icon" href="/images/guiderr-logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Guiderr - Premium Ebooks</title>
     <meta name="description" content="Transform your knowledge with expert digital guides. Personalized learning, real results, and full support — wherever you are." />
-    <link rel="preload" as="image" href="/images/founder-image.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/founder-image.webp" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -22,13 +22,18 @@
     <meta name="twitter:title" content="Guiderr - Premium Ebooks" />
     <meta name="twitter:description" content="Transform your knowledge with expert digital guides. Personalized learning, real results, and full support — wherever you are." />
     <meta name="twitter:image" content="https://www.guiderr.in/og-image.png" />
-    <!-- Google Analytics 4 (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLLR4NPTYC"></script>
+    <!-- Google Analytics 4 (GA4) — deferred to after window.load to clear critical path -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-CLLR4NPTYC');
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-CLLR4NPTYC';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CLLR4NPTYC');
+      });
     </script>
     <!-- Netlify Identity Widget: loaded ONLY for admin/CMS sessions.
          Regular readers (100% of traffic) never download this 53KB script.

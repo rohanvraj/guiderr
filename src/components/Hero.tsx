@@ -79,7 +79,7 @@ export default function Hero() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end min-h-[80vh]">
             {/* Left Side - The Pitch */}
             <motion.div
-              initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -30 }}
+              initial={{ opacity: 1, x: prefersReducedMotion ? 0 : -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-10 space-y-6 lg:space-y-8"
@@ -263,12 +263,11 @@ export default function Hero() {
 
                 {/* Layer 2 (z-10): Founder Image — anchored to the bottom of the hero */}
                 <img
-                  src="/images/founder-image.png"
+                  src="/images/founder-image.webp"
                   alt="Rohan — Founder of Guiderr"
                   loading="eager"
-                  fetchPriority="high"
-                  decoding="sync"
-                  className="hidden relative z-10 w-auto h-[86vh] xl:h-[92vh] max-w-none object-contain object-bottom drop-shadow-2xl"
+                  decoding="async"
+                  className="relative z-10 w-auto h-[86vh] xl:h-[92vh] max-w-none object-contain object-bottom drop-shadow-2xl"
                 />
               </div>
             </div>
@@ -358,7 +357,7 @@ export default function Hero() {
             <div className="relative flex flex-col sm:flex-row sm:items-center gap-6">
               {/* Guiderr Logo */}
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center p-1.5">
-                <img src="/images/guiderr-logo.png" alt="Guiderr" className="w-full h-full object-contain" loading="eager" />
+                <img src="/images/guiderr-logo.webp" alt="Guiderr" className="w-full h-full object-contain" loading="eager" />
               </div>
 
               {/* Text */}
@@ -387,6 +386,7 @@ export default function Hero() {
       {/* Category Tiles Section */}
       <section className="py-16 sm:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Explore by Topic</h2>
           <motion.div
             variants={gridContainer}
             initial="hidden"

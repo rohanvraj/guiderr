@@ -45,7 +45,5 @@ export default defineConfig(({ command }) => ({
       drop: ['console', 'debugger'],
     },
   } : {}),
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
+  optimizeDeps: {},
 }));

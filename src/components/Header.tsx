@@ -54,7 +54,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16 sm:h-20">
           <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
             <img
-              src="/images/guiderr-logo.png"
+              src="/images/guiderr-logo.webp"
               alt="Guiderr Logo"
               width="120"
               height="40"
