@@ -1,7 +1,7 @@
 ---
 title: "The Ideal Load: Designing the Ideal Motorcycle Luggage Setup for 2026"
 date: 2026-04-09T18:04:00.000Z
-category: Motorcycles
+category: Automotive
 author: Rohan
 featured_image: ideal-motorcycle-luggage
 ---
