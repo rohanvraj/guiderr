@@ -4,53 +4,50 @@ import Footer from '../components/Footer';
 
 const phases = [
   {
-    ghost: 'CHAOS',
-    tag: 'THE STRUGGLE',
-    headline: 'Information Chaos.',
+    ghost: 'HUSTLE',
+    tag: 'THE 11-YEAR GRIND',
+    headline: 'Beyond the Restaurant Floor.',
     body: [
-      `I used to spend hours — sometimes days — trying to find honest, clear answers to simple questions. Which credit card actually gives you real value on fuel? Which forex card won't quietly drain your savings in Frankfurt? Which motorcycle insurance isn't a trap? Which Himalayan route doesn't destroy your bike in the first 40km?`,
-      `The internet had answers, but they were buried under affiliate-spam listicles, outdated forum posts, and "sponsored" comparisons that had clearly never been tested. Every piece of advice came with a conflict of interest attached.`,
-      `I got tired of the noise. So I started building my own systems.`,
+      `For over a decade, I ran my family restaurant. It taught me everything about the value of a rupee, the exhaustion of the grind, and the reality of Indian business. But after 11 years, I was bored. My calling wasn't in the kitchen - it was in the numbers, the spreadsheets, and the high-speed logic of the markets. I knew if I wanted the life I imagined, I had to pivot.`,
     ],
   },
   {
-    ghost: 'LEAP',
-    tag: 'THE LEAP',
-    headline: 'Frugality as a Superpower.',
+    ghost: 'FINANCE',
+    tag: 'THE ACADEMIC PIVOT',
+    headline: 'Mastering the Language of Money.',
     body: [
-      `I didn't quit my job. I didn't have a windfall. I made a decision: every rupee I spend should work harder than the last one.`,
-      `I started treating frugality not as deprivation — but as a design principle. The goal was never "spend less." The goal was "get more out of everything." A zero-fee forex card isn't a compromise. It's the smarter move. A credit card with 5% fuel cashback isn't a gimmick. Over a year, it's ₹15,000 back in your pocket.`,
-      `When you start thinking in systems, small decisions compound. That's where the power is.`,
+      `I left the restaurant floor and moved to the UK to complete my Masters in Accounting and Finance at Aston University. It was here that I truly understood that money isn't just currency - it's fuel. Whether you want to invest in a mid-cap gem or ride across a continent, you need a financial system that works while you sleep. I realized most people fail not because they don't work hard, but because they lack a blueprint.`,
     ],
   },
   {
-    ghost: 'SYSTEMS',
-    tag: 'THE DISCOVERY',
-    headline: 'Systems > Luck.',
+    ghost: 'MOTORCYCLES',
+    tag: "THE ADVENTURER'S MATH",
+    headline: 'Passion is Expensive.',
     body: [
-      `The people I admired — the ones who road-tripped through Ladakh on a budget, who traveled to Southeast Asia for less than their monthly grocery bill, who actually understood what was happening in their own credit card statements — weren't luckier than everyone else.`,
-      `They had frameworks. Repeatable, teachable systems that removed guesswork from big decisions. The right card for the right spend category. The right insurance before the right trip. The right guide before the right purchase.`,
-      `That realization changed how I approached everything. Lifestyle freedom isn't a stroke of luck. It's an output of good information, applied consistently.`,
+      <>
+        I am obsessed with motorcycles and adventure. I share my journeys on my YouTube channel{' '}
+        <a href="https://www.youtube.com/@rrohannr" target="_blank" rel="noreferrer" className="underline underline-offset-2">
+          @rrohannr
+        </a>
+        .
+      </>,
+      `But the truth is, the things I am passionate about - traveling, riding high-end machines, exploring the Himalayas - require significant capital. I built Guiderr to bridge that gap: using accounting-grade precision to help you save smarter and invest better, so you can spend more time doing what you love.`,
     ],
   },
   {
-    ghost: 'PURPOSE',
-    tag: 'THE PURPOSE',
-    headline: 'Building Guiderr.',
+    ghost: 'GUIDES',
+    tag: 'THE CULMINATION',
+    headline: 'Articles, Blogs & Blueprints.',
     body: [
-      `Guiderr exists because I couldn't find the resource I needed — so I decided to build it.`,
-      `Not a blog. Not a content farm. A library of blueprints for the modern Indian decision-maker: the urban professional who wants their money to work smarter, the traveller who wants to move more for less, the rider who wants their machine to last, the buyer who wants to make one good decision instead of ten mediocre ones.`,
-      `Every guide in our Library is written to answer the question I personally had — and couldn't find a clean answer to. That's the filter. That's the editorial standard.`,
+      `Guiderr is where my passion for finance meets my love for the open road. I’ve dedicated countless hours to researching investing frameworks and the real-world costs of travel and mobility, distilling it all in one place. My goal is to provide the exact articles and blogs I wish I could have found years ago-honest, practical, and built for modern India.`,
     ],
   },
   {
-    ghost: 'PROMISE',
-    tag: 'THE PROMISE',
-    headline: 'Lived Expertise.',
+    ghost: 'MISSION',
+    tag: 'THE MISSION',
+    headline: 'Independence as a Default.',
     body: [
-      `If it's in our Library, it's because I've tested it, I've lived it, or I'd buy it myself with my own money.`,
-      `We don't publish because a brand paid us. We don't recommend because it converts. We publish because the information is genuinely useful for someone who is trying to make a real decision, right now, without a financial advisor or an experienced friend on speed-dial.`,
-      `Guiderr is that friend. Independent, honest, and obsessed with getting it right.`,
+      `Guiderr exists to help India's modern buyer make one good decision instead of ten mediocre ones. Whether it's choosing the right card to fund your next trip or picking the right machine for your garage, we provide the honest math and practical guides to get you there. My goal is simple: to help you achieve the financial independence required to see the world with your own eyes.`,
     ],
   },
 ];
@@ -68,10 +65,10 @@ export default function AboutPage() {
             The Story
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6">
-            Why Guiderr Exists.
+            Why I Built Guiderr.
           </h1>
           <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
-            Five phases. One mission. A blueprint library built out of personal frustration with everything that wasn't good enough.
+            I didn't build Guiderr to run a blog. I built it because I realized that to see the world with your own eyes, you first have to master the math behind it.
           </p>
         </div>
 
