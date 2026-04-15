@@ -32,6 +32,11 @@ export default defineConfig(({ command }) => ({
       exclude: ['/cms', '/cms/**'],
     }),
   ],
+  build: {
+    // ESBuild minification is Vite's default — declared explicitly for CI clarity.
+    // Shrinks JS/CSS with near-zero build-time overhead (no terser install needed).
+    minify: 'esbuild',
+  },
   // Strip console.* and debugger from production bundles.
   // Uses esbuild (built into Vite) — no extra dependencies needed.
   // Only active during `vite build`; console.log works normally in `vite dev`.

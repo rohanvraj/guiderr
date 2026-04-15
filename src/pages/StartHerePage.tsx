@@ -94,7 +94,7 @@ export default function StartHerePage() {
 
         {/* ── Hero Block ── */}
         <div className="mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-4">
             Welcome
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6">
@@ -107,7 +107,9 @@ export default function StartHerePage() {
         </div>
 
         {/* ── 3-Path Decision Map ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-20">
+        <section aria-labelledby="paths-heading" className="mb-20">
+        <h2 id="paths-heading" className="sr-only">Browse by Topic</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {PATHS.map(({ key, icon: Icon, color, bg, border, label, tagline, articles, ebookLabel, ebookHref }) => (
             <div
               key={key}
@@ -152,6 +154,7 @@ export default function StartHerePage() {
             </div>
           ))}
         </div>
+        </section>
 
         {/* ── Philosophy ── */}
         <div className="bg-slate-900 rounded-[2rem] p-8 sm:p-12 text-white mb-16">

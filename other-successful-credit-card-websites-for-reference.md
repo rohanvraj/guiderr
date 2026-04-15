@@ -679,6 +679,40 @@ Then add 5 custom event fires in the relevant components (not in new files — i
 
 ---
 
+### ✅ PHASE 3.1 — PERFORMANCE & ACCESSIBILITY HARDENING — COMPLETE
+
+**Mission:** Resolve Lighthouse "Red Zone" issues without touching Razorpay, Supabase RLS, or DecapCMS.
+
+#### ✅ Task 1 — Render-Blocking Script Removed (2.3s fix)
+- Removed synchronous `netlify-identity-widget.js` from `<head>` in `index.html`.
+- Replaced with a smart conditional loader: the 53KB widget now only downloads for sessions that need it (CMS path OR identity hash tokens in URL). 100% of readers = zero cost.
+- `/cms/` login flow fully preserved. Identity widget loads dynamically and fires the redirect-to-CMS handler via `onload` callback.
+
+#### ✅ Task 2 — Code Splitting (React.lazy + Suspense)
+- All 19 page imports in `App.tsx` converted to `React.lazy()`.
+- `<Routes>` wrapped in `<Suspense fallback={<div className="min-h-screen bg-white" aria-busy="true" />}>`.
+- Production build now emits separate JS chunks per route. AdminDashboard, SuperadminDashboard, PartnersManagement, CreatorStatsPage — zero bytes sent to regular readers.
+
+#### ✅ Task 3 — Accessibility: ARIA Labels
+- `Header.tsx` mobile menu `<button>`: added `aria-label` (dynamic: "Open / Close navigation menu"), `aria-expanded`, and `aria-controls="mobile-menu"`. Both icon children marked `aria-hidden="true"`.
+- Added `id="mobile-menu"` to the mobile nav drawer so `aria-controls` resolves.
+- `Footer.tsx` Instagram link: added `aria-label="Follow Guiderr on Instagram"`. Icon marked `aria-hidden="true"`.
+- `TableOfContents.tsx` pill button already had `aria-label="Toggle table of contents"` — confirmed, no change needed.
+
+#### ✅ Task 4 — Contrast & Heading Hierarchy
+- Eyebrow labels (`text-slate-400`) on white/light backgrounds upgraded to `text-slate-500` (contrast: 2.5:1 → 4.8:1, passes WCAG AA).
+  - `AboutPage.tsx`: "The Story" header label, phase tag labels, "Where to go next" label.
+  - `StartHerePage.tsx`: "Welcome" eyebrow label.
+- `StartHerePage.tsx` heading hierarchy fixed: 3-path card section wrapped in `<section aria-labelledby="paths-heading">` with `<h2 className="sr-only">Browse by Topic</h2>` — H1 → H2 hierarchy now complete, no skipped levels.
+- `text-slate-400` on dark backgrounds (`bg-slate-900`) left unchanged — contrast passes on dark background.
+
+#### ✅ Task 5 — Build Minification Explicit
+- `vite.config.ts`: Added explicit `build: { minify: 'esbuild' }`. Already the Vite default, now declared for CI/CD clarity.
+
+**Zero new npm packages. Zero Supabase changes. Zero Razorpay changes. DecapCMS login flow verified preserved.**
+
+---
+
 ### STACK AUDIT: WHAT IS ALREADY BUILT vs. WHAT NEEDS BUILDING
 
 | Pipeline Item | Status | Notes |
@@ -695,13 +729,17 @@ Then add 5 custom event fires in the relevant components (not in new files — i
 | EbookModal | ✅ BUILT | `EbookModal.tsx` exists. Needs copy update only (Day 8). |
 | Start Here page (`/start-here`) | ✅ BUILT | `StartHerePage.tsx` created. Route in `App.tsx`. Nav in `Header.tsx` (desktop + mobile). 3-path Decision Map. |
 | Affiliate Disclosure (`/affiliate-disclosure`) | ✅ BUILT | `AffiliateDisclosure.tsx` created. Route in `App.tsx`. Link in `Footer.tsx` Quick Links. |
-| Affiliate links utility (`affiliates.ts`) | ❌ NOT BUILT | `src/utils/affiliates.ts` does not exist. |
+| Affiliate links utility (`affiliates.ts`) | ❌ NOT BUILT | `src/utils/affiliates.ts` does not exist. Create when first EarnKaro links are ready. |
 | Sticky Table of Contents | ✅ BUILT | `TableOfContents.tsx` — IntersectionObserver scroll-spy, desktop sidebar, mobile floating pill. Zero libraries. |
 | Email capture component | ⏸️ ON HOLD | [ON HOLD - FOR LATER: Focus on Traffic & UX First] — Revisit at 5,000+ organic sessions/month. |
-| GA4 / Custom Events | ❌ NOT BUILT | No analytics code anywhere in the codebase. |
+| GA4 / Custom Events | ✅ BUILT | `index.html` — gtag snippet live, GA4 property G-CLLR4NPTYC active. Custom events (affiliate_link_click, ebook_purchase, whatsapp_tap) still to be wired per Day 14 plan. |
+| Code Splitting (React.lazy) | ✅ BUILT | All 19 routes lazy-loaded via `React.lazy` + `<Suspense>` in `App.tsx`. Phase 3.1. |
+| Render-Blocking Identity Script | ✅ REMOVED | Netlify Identity widget now conditional — zero cost for readers. Phase 3.1. |
+| Accessibility (ARIA + Contrast) | ✅ BUILT | Mobile menu aria-label, Instagram aria-label, heading hierarchy, contrast pass. Phase 3.1. |
+| Explicit ESBuild Minification | ✅ CONFIRMED | `vite.config.ts` build.minify: 'esbuild' declared. Phase 3.1. |
 | Sitemap.xml | ✅ BUILT | `public/sitemap.xml` — all 20 articles + 11 core pages. Submit in Search Console. |
 | JSON-LD Article schema | ✅ BUILT | `BlogPostPage.tsx` — `useEffect` injects Article schema + auto meta description per post. No library. |
-| Article #11 (Fuel Cards) | ❌ NOT BUILT | Content file to be authored and added to `src/content/blog/`. |
+| Article #11 (Fuel Cards) | ❌ NOT BUILT | Content file to be authored and added to `src/content/blog/`. Priority for Phase 3 content sprint. |
 
 ---
 

@@ -95,8 +95,8 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Connect With Us</h3>
             <div className="flex gap-4 mb-6">
-              <a href="https://www.instagram.com/guiderr_" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-full flex items-center justify-center transition-all hover:scale-110">
-                <Instagram className="w-5 h-5" />
+              <a href="https://www.instagram.com/guiderr_" target="_blank" rel="noopener noreferrer" aria-label="Follow Guiderr on Instagram" className="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                <Instagram className="w-5 h-5" aria-hidden="true" />
               </a>
             </div>
 

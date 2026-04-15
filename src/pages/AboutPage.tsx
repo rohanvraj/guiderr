@@ -64,7 +64,7 @@ export default function AboutPage() {
 
         {/* ── Page Header ── */}
         <div className="mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-4">
             The Story
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6">
@@ -91,7 +91,7 @@ export default function AboutPage() {
 
               {/* Content — Positioned Above Ghost Numeral */}
               <div className="relative z-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">
                   {phase.tag}
                 </p>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mb-6">
@@ -111,7 +111,7 @@ export default function AboutPage() {
 
         {/* ── Next Steps CTA ── */}
         <div className="pt-12 space-y-4 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">
             Where to go next
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

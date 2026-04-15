@@ -235,15 +235,18 @@ export default function Header() {
             <button
               className="md:hidden p-2 text-slate-700 hover:text-slate-900 transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
 
         {/* ── Mobile Menu ── */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 animate-fade-in border-t border-white/20 mt-2 pt-4">
+          <div id="mobile-menu" className="md:hidden pb-4 animate-fade-in border-t border-white/20 mt-2 pt-4">
             <nav className="flex flex-col gap-2">
               {/* Ebooks Accordion */}
               <button

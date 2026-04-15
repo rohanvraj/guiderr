@@ -1,27 +1,30 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { supabase } from './utils/supabase';
 import { CartProvider } from './context/CartContext';
 import CartPanel from './components/CartPanel';
-import HomePage from './pages/HomePage';
-import CategoryPage from './pages/CategoryPage';
-import ThankYouPage from './pages/ThankYouPage';
-import AdminDashboard from './pages/AdminDashboard';
-import SuperadminDashboard from './pages/SuperadminDashboard';
-import PartnersManagement from './pages/PartnersManagement';
-import CreatorStatsPage from './pages/CreatorStatsPage';
-import ContactUs from './pages/ContactUs';
-import TermsAndConditions from './pages/TermsAndConditions';
-import ShippingPolicy from './pages/ShippingPolicy';
-import CancellationsRefunds from './pages/CancellationsRefunds';
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import BlogListingPage from './pages/BlogListingPage';
-import BlogPostPage from './pages/BlogPostPage';
-import AboutPage from './pages/AboutPage';
-import StartHerePage from './pages/StartHerePage';
-import AffiliateDisclosure from './pages/AffiliateDisclosure';
-import GetFeaturedPage from './pages/GetFeaturedPage';
-import FeaturedStoriesPage from './pages/FeaturedStoriesPage';
+
+// Code-split every page into its own JS chunk.
+// The browser only downloads the chunk for the current route.
+const HomePage           = lazy(() => import('./pages/HomePage'));
+const CategoryPage       = lazy(() => import('./pages/CategoryPage'));
+const ThankYouPage       = lazy(() => import('./pages/ThankYouPage'));
+const AdminDashboard     = lazy(() => import('./pages/AdminDashboard'));
+const SuperadminDashboard = lazy(() => import('./pages/SuperadminDashboard'));
+const PartnersManagement = lazy(() => import('./pages/PartnersManagement'));
+const CreatorStatsPage   = lazy(() => import('./pages/CreatorStatsPage'));
+const ContactUs          = lazy(() => import('./pages/ContactUs'));
+const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'));
+const ShippingPolicy     = lazy(() => import('./pages/ShippingPolicy'));
+const CancellationsRefunds = lazy(() => import('./pages/CancellationsRefunds'));
+const PrivacyPolicy      = lazy(() => import('./pages/PrivacyPolicy'));
+const BlogListingPage    = lazy(() => import('./pages/BlogListingPage'));
+const BlogPostPage       = lazy(() => import('./pages/BlogPostPage'));
+const AboutPage          = lazy(() => import('./pages/AboutPage'));
+const StartHerePage      = lazy(() => import('./pages/StartHerePage'));
+const AffiliateDisclosure = lazy(() => import('./pages/AffiliateDisclosure'));
+const GetFeaturedPage    = lazy(() => import('./pages/GetFeaturedPage'));
+const FeaturedStoriesPage = lazy(() => import('./pages/FeaturedStoriesPage'));
 
 // Component to handle referral tracking
 function ReferralTracker() {
@@ -65,28 +68,30 @@ function App() {
       <BrowserRouter>
         <ReferralTracker />
         <CartPanel />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/featured" element={<FeaturedStoriesPage />} />
-          <Route path="/get-featured" element={<GetFeaturedPage />} />
-          <Route path="/guides" element={<BlogListingPage />} />
-          <Route path="/guides/:slug" element={<BlogPostPage />} />
-          <Route path="/:category" element={<CategoryPage />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
-          <Route path="/stats/:secretKey" element={<CreatorStatsPage />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/partners" element={<PartnersManagement />} />
-          <Route path="/superadmin" element={<SuperadminDashboard />} />
-          <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/terms" element={<TermsAndConditions />} />
-          <Route path="/shipping" element={<ShippingPolicy />} />
-          <Route path="/refunds" element={<CancellationsRefunds />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/start-here" element={<StartHerePage />} />
-          <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
-
-        </Routes>
+        {/* Suspense fallback: instant white screen — no layout shift, no spinner */}
+        <Suspense fallback={<div className="min-h-screen bg-white" aria-busy="true" />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/featured" element={<FeaturedStoriesPage />} />
+            <Route path="/get-featured" element={<GetFeaturedPage />} />
+            <Route path="/guides" element={<BlogListingPage />} />
+            <Route path="/guides/:slug" element={<BlogPostPage />} />
+            <Route path="/:category" element={<CategoryPage />} />
+            <Route path="/thank-you" element={<ThankYouPage />} />
+            <Route path="/stats/:secretKey" element={<CreatorStatsPage />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/partners" element={<PartnersManagement />} />
+            <Route path="/superadmin" element={<SuperadminDashboard />} />
+            <Route path="/contactus" element={<ContactUs />} />
+            <Route path="/terms" element={<TermsAndConditions />} />
+            <Route path="/shipping" element={<ShippingPolicy />} />
+            <Route path="/refunds" element={<CancellationsRefunds />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/start-here" element={<StartHerePage />} />
+            <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </CartProvider>
   );
