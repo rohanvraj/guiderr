@@ -3,12 +3,13 @@ import { Ebook, Category, EbooksData } from '../types/ebook';
 // Canonical category definitions used across the app (Header nav, Hero tiles, routing).
 // These are NOT mock ebooks — they define the storefront structure.
 const categories: Category[] = [
-  { id: 'finance',     name: 'Personal Finance', description: 'Build wealth, optimise credit, and achieve financial freedom' },
-  { id: 'travel',      name: 'Travel',      description: 'Explore the world with confidence and insider knowledge' },
-  { id: 'gadget-tech', name: 'Tech',        description: 'Reviews and guides on the latest gadgets and technology' },
-  { id: 'automotive',  name: 'Automotive',  description: 'Motorcycles, cars, and everything that moves — buying, riding, and maintenance guides' },
-  { id: 'lifestyle',   name: 'Lifestyle',   description: 'Smarter choices for how you live, eat, dress, and spend your time' },
-  { id: 'business',    name: 'Business',    description: "Entrepreneur's playbook for building and growing your business" },
+  { id: 'finance',      name: 'Personal Finance', description: 'Build wealth, optimise credit, and achieve financial freedom' },
+  { id: 'travel',       name: 'Travel',       description: 'Explore the world with confidence and insider knowledge' },
+  { id: 'gadget-tech',  name: 'Tech',         description: 'Reviews and guides on the latest gadgets and technology' },
+  { id: 'automotive',   name: 'Automotive',   description: 'Motorcycles, cars, and everything that moves — buying, riding, and maintenance guides' },
+  { id: 'motorcycles',  name: 'Motorcycles',  description: 'Master the art of riding, maintenance, and safety' },
+  { id: 'lifestyle',    name: 'Lifestyle',    description: 'Smarter choices for how you live, eat, dress, and spend your time' },
+  { id: 'business',     name: 'Business',     description: "Entrepreneur's playbook for building and growing your business" },
 ];
 
 // For admin: load ebooks data from localStorage (Superadmin dashboard uses this)
