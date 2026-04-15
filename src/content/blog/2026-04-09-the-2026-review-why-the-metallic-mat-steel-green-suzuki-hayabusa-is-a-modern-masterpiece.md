@@ -2,7 +2,7 @@
 title: Why the Metallic Mat Steel Green Suzuki Hayabusa is a Modern Masterpiece
   of 2026
 date: 2026-04-09T18:37:00.000Z
-category: Motorcycles
+category: Automotive
 author: Rohan
 featured_image: matt-green-hayabusa_lms5jw
 description: Suzuki establishes a new level of ultimate sport performance with
