@@ -135,7 +135,7 @@ export default function ProductManager({}: ProductManagerProps) {
       case 'ebook':
         return [
           { value: 'Motorcycles', label: 'Motorcycles' },
-          { value: 'Finance', label: 'Finance' },
+          { value: 'Finance', label: 'Personal Finance' },
           { value: 'Travel', label: 'Travel' },
           { value: 'Pets', label: 'Pets' },
           { value: 'Beauty & Wellness', label: 'Beauty & Wellness' },

@@ -3,7 +3,7 @@ import { Ebook, Category, EbooksData } from '../types/ebook';
 // Canonical category definitions used across the app (Header nav, Hero tiles, routing).
 // These are NOT mock ebooks — they define the storefront structure.
 const categories: Category[] = [
-  { id: 'finance',     name: 'Finance',     description: 'Build wealth, invest smartly, and achieve financial freedom' },
+  { id: 'finance',     name: 'Personal Finance', description: 'Build wealth, optimise credit, and achieve financial freedom' },
   { id: 'travel',      name: 'Travel',      description: 'Explore the world with confidence and insider knowledge' },
   { id: 'gadget-tech', name: 'Tech',        description: 'Reviews and guides on the latest gadgets and technology' },
   { id: 'automotive',  name: 'Automotive',  description: 'Motorcycles, cars, and everything that moves — buying, riding, and maintenance guides' },

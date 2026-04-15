@@ -25,7 +25,7 @@ const StartHerePage      = lazy(() => import('./pages/StartHerePage'));
 const AffiliateDisclosure = lazy(() => import('./pages/AffiliateDisclosure'));
 const GetFeaturedPage    = lazy(() => import('./pages/GetFeaturedPage'));
 const FeaturedStoriesPage = lazy(() => import('./pages/FeaturedStoriesPage'));
-const InvestingPage      = lazy(() => import('./pages/InvestingPage'));
+const InvestingPage      = lazy(() => import('./pages/Investing'));
 
 // Component to handle referral tracking
 function ReferralTracker() {

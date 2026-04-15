@@ -6,7 +6,7 @@ import CartIcon from './CartIcon';
 
 const NAV_CATEGORY_LINKS = [
   { label: 'Motorcycles', to: '/motorcycles' },
-  { label: 'Finance', to: '/finance' },
+  { label: 'Personal Finance', to: '/finance' },
   { label: 'Travel', to: '/travel' },
   { label: 'Tech', to: '/gadget-tech' },
   { label: 'Automotive', to: '/guides?category=Automotive' },

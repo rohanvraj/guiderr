@@ -2,20 +2,21 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getAllPosts } from '../utils/blog';
+import { getPostsByCategory } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
 export default function InvestingPage() {
-  const posts = getAllPosts().filter((p) => p.category === 'Investing');
+  const posts = getPostsByCategory('Investing');
 
   useEffect(() => {
     const prev = document.title;
     document.title = 'Investing | Guiderr — Equity Research & Intrinsic Value';
     const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     const prevDesc = meta?.content ?? '';
-    if (meta)
+    if (meta) {
       meta.content =
         "Deep-dive equity research, intrinsic value analysis, and long-term wealth strategy guides for India's modern investor.";
+    }
     return () => {
       document.title = prev;
       if (meta) meta.content = prevDesc;
@@ -27,10 +28,7 @@ export default function InvestingPage() {
       <Header />
 
       <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
-
-        {/* ── Hero ── */}
         <div className="group relative mb-20">
-          {/* Ghost text — drifts right on hover */}
           <span
             aria-hidden="true"
             className="pointer-events-none absolute -left-2 top-0 select-none text-[5rem] sm:text-[8rem] font-black uppercase leading-none tracking-[-0.08em] text-white/[0.04] transition-transform duration-700 group-hover:translate-x-8 group-hover:text-white/[0.07]"
@@ -45,37 +43,23 @@ export default function InvestingPage() {
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.06] mb-6">
               Equity Research &amp;<br className="hidden sm:block" /> Intrinsic Value.
             </h1>
-            <p className="text-lg text-slate-400 leading-relaxed max-w-xl">
-              No noise. No hype. Pure frameworks for evaluating businesses, understanding markets,
-              and building durable long-term wealth.
-            </p>
           </div>
         </div>
 
-        {/* ── Article Feed ── */}
         {posts.length === 0 ? (
           <div className="rounded-[2rem] border border-slate-800 bg-white/[0.04] backdrop-blur-sm p-14 text-center">
             <p className="text-slate-300 text-lg leading-relaxed font-medium">
               Deep-dive equity research and intrinsic value guides launching this week.
             </p>
-            <p className="text-slate-500 text-sm mt-3">
-              Check back shortly — or explore all guides in the meantime.
-            </p>
-            <Link
-              to="/guides"
-              className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-teal-400 hover:text-teal-300 transition-colors"
-            >
-              Browse all guides →
-            </Link>
           </div>
         ) : (
           <div className="space-y-4">
-            {posts.map((post, i) => (
+            {posts.map((post, index) => (
               <Link
                 key={post.slug}
                 to={`/guides/${post.slug}`}
-                className="group flex flex-col sm:flex-row gap-5 rounded-2xl border border-slate-800 bg-white/[0.04] backdrop-blur-sm p-6 transition-all duration-300 hover:border-slate-700 hover:bg-white/[0.07] hover:-translate-y-0.5"
-                style={{ animationDelay: `${i * 60}ms` }}
+                className="group flex flex-col sm:flex-row gap-5 rounded-2xl border border-slate-800 bg-white/[0.04] backdrop-blur-sm p-6 transition-all duration-300 hover:border-slate-700 hover:bg-white/[0.07] hover:-translate-y-0.5 animate-fade-in-up"
+                style={{ animationDelay: `${index * 60}ms`, animationFillMode: 'both' }}
               >
                 {post.featuredImage && (
                   <img
@@ -105,7 +89,6 @@ export default function InvestingPage() {
           </div>
         )}
 
-        {/* ── Back to Guides ── */}
         <div className="pt-14 text-center">
           <Link
             to="/guides"
@@ -114,7 +97,6 @@ export default function InvestingPage() {
             ← All Guides
           </Link>
         </div>
-
       </main>
 
       <Footer />

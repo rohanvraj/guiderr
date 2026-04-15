@@ -228,7 +228,7 @@ export default function BlogPostPage() {
 
         {/* ── Fine Print ── */}
         {(() => {
-          const isFinanceOrAuto = ['Finance', 'Automotive'].includes(post.category ?? '');
+          const isFinanceOrAuto = ['Finance', 'Investing', 'Automotive'].includes(post.category ?? '');
           return (
             <>
               <hr className="mt-10 border-gray-200" />

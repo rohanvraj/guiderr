@@ -29,7 +29,8 @@ collections:
         options:
           - "Business"
           - "Automotive"
-          - "Finance"
+          - { label: "Personal Finance", value: "Finance" }
+          - "Investing"
           - "Travel"
           - "Tech"
           - "Lifestyle"
@@ -50,9 +51,12 @@ collections:
       - label: "Automotive"
         field: category
         pattern: "Automotive"
-      - label: "Finance"
+      - label: "Personal Finance"
         field: category
         pattern: "Finance"
+      - label: "Investing"
+        field: category
+        pattern: "Investing"
       - label: "Travel"
         field: category
         pattern: "Travel"
@@ -80,7 +84,8 @@ collections:
         required: false
         options:
           - "Automotive"
-          - "Finance"
+          - { label: "Personal Finance", value: "Finance" }
+          - "Investing"
           - "Travel"
           - "Tech"
           - "Lifestyle"

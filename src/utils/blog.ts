@@ -73,6 +73,11 @@ export function getAllPosts(): BlogPost[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
+/** Category lookup using statically bundled markdown content only. */
+export function getPostsByCategory(category: string): BlogPost[] {
+  return getAllPosts().filter((post) => post.category === category);
+}
+
 /** Single post lookup by slug. */
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return getAllPosts().find((p) => p.slug === slug);

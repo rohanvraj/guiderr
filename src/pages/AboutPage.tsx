@@ -54,20 +54,20 @@ const phases = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-slate-50/50 flex flex-col">
+    <div className="min-h-screen bg-[linear-gradient(180deg,rgba(191,219,255,0.45),rgba(255,255,255,1))] flex flex-col">
       <Header />
 
       <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
 
         {/* ── Page Header ── */}
         <div className="mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2187FF] mb-4">
             The Story
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6">
             Why I Built Guiderr.
           </h1>
-          <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
+          <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
             I didn't build Guiderr to run a blog. I built it because I realized that to see the world with your own eyes, you first have to master the math behind it.
           </p>
         </div>
@@ -77,18 +77,18 @@ export default function AboutPage() {
           {phases.map((phase) => (
             <div
               key={phase.tag}
-              className="group relative overflow-hidden rounded-[2rem] border border-slate-100 bg-white p-8 shadow-sm transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:shadow-[0_20px_55px_rgba(15,23,42,0.08)] sm:p-12"
+              className="group relative overflow-hidden rounded-[2rem] border border-[#BFDBFF] bg-white/90 p-8 shadow-sm transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:shadow-[0_20px_55px_rgba(33,135,255,0.12)] sm:p-12"
             >
               {/* Ghost Label — Inside Card */}
               <span
-                className="pointer-events-none absolute right-3 bottom-0 select-none text-[4.5rem] font-black uppercase leading-none tracking-[-0.08em] text-slate-900/[0.04] transition-transform duration-500 group-hover:translate-x-4 group-hover:text-purple-600/[0.08] sm:text-[7rem]"
+                className="pointer-events-none absolute right-3 bottom-0 select-none text-[4.5rem] font-black uppercase leading-none tracking-[-0.08em] text-[rgba(33,135,255,0.09)] transition-transform duration-500 group-hover:translate-x-4 group-hover:text-[rgba(33,135,255,0.1)] sm:text-[7rem]"
               >
                 {phase.ghost}
               </span>
 
               {/* Content — Positioned Above Ghost Label */}
               <div className="relative z-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2187FF] mb-3">
                   {phase.tag}
                 </p>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mb-6">
@@ -108,19 +108,19 @@ export default function AboutPage() {
 
         {/* ── Next Steps CTA ── */}
         <div className="pt-12 space-y-4 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#2187FF]">
             Where to go next
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/start-here"
-              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-8 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+              className="inline-flex items-center gap-2 bg-[#2187FF] hover:bg-[#116fdd] text-white text-sm font-semibold px-8 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
             >
               New here? Start Here →
             </Link>
             <Link
               to="/#featured"
-              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 text-sm font-semibold px-8 py-3 rounded-full border border-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 text-sm font-semibold px-8 py-3 rounded-full border border-[#BFDBFF] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
             >
               Explore the Store →
             </Link>

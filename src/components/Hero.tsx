@@ -84,7 +84,7 @@ export default function Hero() {
             <div className="relative z-10 space-y-6 lg:space-y-8 animate-fade-in-up">
                 <h1 className="space-y-2">
                   <span className="block text-5xl lg:text-7xl font-extrabold tracking-tighter text-white leading-[1.1] drop-shadow-lg">
-                  Finance, Adventure &amp; Entrepreneurship.
+                  Personal Finance, Adventure &amp; Entrepreneurship.
                 </span>
               </h1>
 

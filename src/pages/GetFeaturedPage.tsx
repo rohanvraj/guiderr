@@ -70,14 +70,14 @@ function FadeSection({
 
 export default function GetFeaturedPage() {
   return (
-    <div className="min-h-screen bg-purple-900 text-slate-900">
+    <div className="min-h-screen bg-[#FF7D5C] text-slate-900">
       <Header />
 
       <main className="pt-32 sm:pt-36 lg:pt-40">
         <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pb-32 lg:pb-40">
           <div className="max-w-5xl mx-auto text-center">
             <FadeSection>
-              <div className="inline-flex items-center rounded-full border border-purple-700 bg-white/10 px-4 py-2 text-sm font-medium text-purple-50 shadow-sm backdrop-blur-sm">
+              <div className="inline-flex items-center rounded-full border border-[#FF6B47] bg-white/10 px-4 py-2 text-sm font-medium text-[#5C2415] shadow-sm backdrop-blur-sm">
                 Premium Editorial Placement
               </div>
             </FadeSection>
@@ -89,7 +89,7 @@ export default function GetFeaturedPage() {
             </FadeSection>
 
             <FadeSection delay={0.12} className="mt-6">
-              <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-purple-100">
+              <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-[#2D1510]">
                 A high-intent platform for creators and businesses to share their story with India's modern decision-makers.
               </p>
             </FadeSection>
@@ -99,7 +99,7 @@ export default function GetFeaturedPage() {
         <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-36">
           <div className="max-w-6xl mx-auto">
             <FadeSection className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-purple-200">Who Is This For?</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#C94520]">Who Is This For?</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-white">
                 Designed for brands and voices that deserve a more premium introduction.
               </h2>
@@ -110,7 +110,7 @@ export default function GetFeaturedPage() {
                 <FadeSection key={card.title} delay={index * 0.06}>
                   <article className="relative overflow-hidden rounded-3xl border border-violet-100 bg-white/80 p-8 sm:p-10 min-h-[240px] flex flex-col justify-end shadow-[0_16px_50px_rgba(124,58,237,0.06)] group">
                     {/* Ghost Number */}
-                    <span className="absolute -top-6 -left-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:translate-x-5 group-hover:text-purple-600/10 transition-all duration-700 ease-out">
+                    <span className="absolute -top-6 -left-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:translate-x-5 group-hover:text-[#C94520]/10 transition-all duration-700 ease-out">
                       {['01','02','03','04'][index]}
                     </span>
                     <div>
@@ -127,7 +127,7 @@ export default function GetFeaturedPage() {
         <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-40">
           <div className="max-w-5xl mx-auto">
             <FadeSection className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-purple-200">The Editorial Process</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#C94520]">The Editorial Process</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-white">
                 A simple, selective path from first message to published feature.
               </h2>
@@ -141,7 +141,7 @@ export default function GetFeaturedPage() {
                   <FadeSection key={item.title} delay={index * 0.06}>
                     <div className="relative overflow-hidden rounded-3xl border border-violet-100 bg-white/80 px-6 py-7 sm:px-8 sm:py-8 shadow-[0_10px_30px_rgba(124,58,237,0.05)] group">
                       {/* Ghost Number */}
-                      <span className="absolute -top-8 -right-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:-translate-x-5 group-hover:text-purple-600/10 transition-all duration-700 ease-out">
+                      <span className="absolute -top-8 -right-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:-translate-x-5 group-hover:text-[#C94520]/10 transition-all duration-700 ease-out">
                         {item.step}
                       </span>
                       <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-start">
@@ -176,7 +176,7 @@ export default function GetFeaturedPage() {
                   href={FEATURED_MAILTO_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-purple-900 bg-purple-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-purple-950 hover:border-purple-950"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-[#FF7D5C] bg-[#FF7D5C] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-[#FF6B47] hover:border-[#FF6B47]"
                 >
                   Connect with us to get featured
                   <ArrowRight className="w-5 h-5" />
@@ -185,7 +185,7 @@ export default function GetFeaturedPage() {
                   href={FEATURED_WHATSAPP_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-200 bg-white/90 px-6 py-4 text-sm font-semibold text-purple-900 transition-all hover:bg-white"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#FF6B47] bg-white/90 px-6 py-4 text-sm font-semibold text-[#C94520] transition-all hover:bg-white"
                 >
                   Prefer WhatsApp?
                   <span aria-hidden="true">→</span>

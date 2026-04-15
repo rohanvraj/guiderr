@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 // so they link to the filtered /guides listing instead.
 const CATEGORY_TO_SLUG: Record<string, string> = {
   Finance:       '/finance',
+  Investing:     '/investing',
   Motorcycles:   '/motorcycles',
   Travel:        '/travel',
   Tech:          '/gadget-tech',
@@ -20,6 +21,7 @@ interface ArticleFooterProps {
 
 export default function ArticleFooter({ category }: ArticleFooterProps) {
   const categorySlug = category ? CATEGORY_TO_SLUG[category] : undefined;
+  const categoryLabel = category === 'Finance' ? 'Personal Finance' : category;
 
   return (
     <section aria-label="Article next steps" className="mt-12 pt-10 border-t border-slate-200">
@@ -66,7 +68,7 @@ export default function ArticleFooter({ category }: ArticleFooterProps) {
               Go deeper
             </span>
             <span className="text-base font-bold text-slate-900">
-              Master {category} →
+              Master {categoryLabel} →
             </span>
             <span className="text-sm text-slate-500 leading-snug">
               All ebooks and guides in this category.

@@ -77,7 +77,7 @@ export default function Footer() {
                   onClick={() => document.getElementById('finance')?.scrollIntoView({ behavior: 'smooth' })}
                   className="text-slate-400 hover:text-white transition-colors"
                 >
-                  Finance
+                  Personal Finance
                 </button>
               </li>
               <li>
