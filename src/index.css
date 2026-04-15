@@ -38,6 +38,18 @@
     }
   }
 
+  @keyframes float-soft {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(0, -16px, 0) rotate(3deg);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+  }
+
   .animate-fade-in {
     animation: fade-in 0.6s ease-out;
   }
@@ -48,6 +60,11 @@
 
   .animate-blob {
     animation: blob 7s infinite;
+  }
+
+  .animate-float-soft {
+    animation: float-soft 4.8s ease-in-out infinite;
+    will-change: transform;
   }
 
   .animation-delay-200 {

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
   ChartLineUp,
   Moped,
@@ -19,15 +18,15 @@ function FadeSection({
   className?: string;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+    <div
       className={className}
+      style={{
+        animationDelay: `${delay}s`,
+        animationFillMode: 'both',
+      }}
     >
-      {children}
-    </motion.div>
+      <div className="animate-fade-in-up">{children}</div>
+    </div>
   );
 }
 
@@ -40,7 +39,8 @@ const PATHS = [
     key: 'money',
     icon: ChartLineUp,
     color: '#0d9488',
-    label: 'Money',
+    label: 'Personal Finance',
+    ghost: 'FINANCE',
     tagline: 'Smarter cards. Bigger returns. Zero guesswork.',
     articles: [
       { title: 'ITR 2026: New Tax Rules & the ₹75,000 Deduction', slug: '2026-04-13-itr-2026-new-tax-rules-₹75-000-deduction-why-april-is-the-smartest-month-to-invest' },
@@ -54,7 +54,8 @@ const PATHS = [
     key: 'wheels',
     icon: Moped,
     color: '#475569',
-    label: 'Wheels',
+    label: 'Automotive',
+    ghost: 'AUTOMOTIVE',
     tagline: 'Ride further. Pack smarter. Know your machine.',
     articles: [
       { title: 'Planning Your Ladakh Motorcycle Trip in 2026', slug: '2026-04-03-the-definitive-guide-planning-your-ladakh-motorcycle-trip-in-2026' },
@@ -62,13 +63,14 @@ const PATHS = [
       { title: 'The Great East Expedition — Pune to Sikkim', slug: '2026-04-12-the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026' },
       { title: 'Hayabusa 2026 — A Modern Masterpiece Review', slug: '2026-04-09-the-2026-review-why-the-metallic-mat-steel-green-suzuki-hayabusa-is-a-modern-masterpiece' },
     ],
-    guideLink: '/guides?category=Motorcycles',
+    guideLink: '/guides?category=Automotive',
   },
   {
     key: 'life',
     icon: GlobeHemisphereWest,
     color: '#2563eb',
-    label: 'Life',
+    label: 'Lifestyle',
+    ghost: 'LIFESTYLE',
     tagline: 'Travel cheaper. Live smarter. Buy once, buy right.',
     articles: [
       { title: 'Visa-Free Horizons and UPI Abroad — Travel in 2026', slug: '2026-04-04-the-new-era-of-indian-travel-in-2026-visa-free-horizons-and-upi-abroad' },
@@ -118,7 +120,7 @@ export default function StartHerePage() {
 
             <FadeSection delay={0.12} className="mt-6">
               <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-purple-100">
-                We help India's modern buyer make better decisions in Money, Wheels, and Life — with honest guides, real math, and zero brand bribes.
+                We publish honest articles and blogs to help India's modern buyer make better decisions in Personal Finance, Automobiles, and Lifestyle.
               </p>
             </FadeSection>
           </div>
@@ -129,18 +131,17 @@ export default function StartHerePage() {
           <h2 id="paths-heading" className="sr-only">Browse by Topic</h2>
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-              {PATHS.map(({ key, icon: Icon, color, label, tagline, articles, guideLink }, index) => (
+              {PATHS.map(({ key, icon: Icon, color, label, ghost, tagline, articles, guideLink }, index) => (
                 <FadeSection key={key} delay={index * 0.06}>
-                  <article className="relative overflow-hidden rounded-3xl border border-violet-100 bg-white/80 p-8 sm:p-10 min-h-[380px] flex flex-col shadow-[0_16px_50px_rgba(124,58,237,0.06)] group">
-                    {/* Ghost Number */}
-                    <span className="absolute -top-6 -left-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:translate-x-5 group-hover:text-purple-600/10 transition-all duration-700 ease-out">
-                      {['01', '02', '03'][index]}
+                  <article className="group relative flex min-h-[380px] flex-col overflow-hidden rounded-3xl border border-violet-100 bg-white/80 p-8 shadow-[0_16px_50px_rgba(124,58,237,0.06)] transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(124,58,237,0.12)] sm:p-10">
+                    <span className="pointer-events-none absolute -right-1 top-4 select-none text-[3.8rem] font-black uppercase tracking-[-0.1em] text-slate-900/[0.04] transition-transform duration-500 group-hover:translate-x-4 group-hover:text-purple-600/10 sm:text-[4.75rem]">
+                      {ghost}
                     </span>
 
                     {/* Icon + Label */}
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="relative z-10 flex items-center gap-3 mb-3">
                       <span
-                        className="inline-flex items-center justify-center w-11 h-11 rounded-2xl border border-violet-100 bg-violet-50 shadow-sm flex-shrink-0"
+                        className="inline-flex items-center justify-center w-11 h-11 rounded-2xl border border-violet-100 bg-violet-50 shadow-sm flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
                         style={{ color }}
                       >
                         <Icon size={22} weight="duotone" />
@@ -149,10 +150,10 @@ export default function StartHerePage() {
                     </div>
 
                     {/* Tagline */}
-                    <p className="text-sm text-slate-500 leading-relaxed mb-6">{tagline}</p>
+                    <p className="relative z-10 text-sm text-slate-500 leading-relaxed mb-6 max-w-[16rem]">{tagline}</p>
 
                     {/* Article list */}
-                    <ul className="flex flex-col gap-3 flex-1">
+                    <ul className="relative z-10 flex flex-col gap-3 flex-1">
                       {articles.map((a) => (
                         <li key={a.slug}>
                           <Link
@@ -169,7 +170,7 @@ export default function StartHerePage() {
                     {/* Browse all guide link */}
                     <Link
                       to={guideLink}
-                      className="mt-6 text-xs font-semibold uppercase tracking-widest transition-opacity hover:opacity-70"
+                      className="relative z-10 mt-6 text-xs font-semibold uppercase tracking-widest transition-opacity hover:opacity-70"
                       style={{ color }}
                     >
                       All {label} Guides →

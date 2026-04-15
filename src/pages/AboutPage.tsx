@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 
 const phases = [
   {
-    numeral: '01',
+    ghost: 'CHAOS',
     tag: 'THE STRUGGLE',
     headline: 'Information Chaos.',
     body: [
@@ -14,7 +14,7 @@ const phases = [
     ],
   },
   {
-    numeral: '02',
+    ghost: 'LEAP',
     tag: 'THE LEAP',
     headline: 'Frugality as a Superpower.',
     body: [
@@ -24,7 +24,7 @@ const phases = [
     ],
   },
   {
-    numeral: '03',
+    ghost: 'SYSTEMS',
     tag: 'THE DISCOVERY',
     headline: 'Systems > Luck.',
     body: [
@@ -34,7 +34,7 @@ const phases = [
     ],
   },
   {
-    numeral: '04',
+    ghost: 'PURPOSE',
     tag: 'THE PURPOSE',
     headline: 'Building Guiderr.',
     body: [
@@ -44,7 +44,7 @@ const phases = [
     ],
   },
   {
-    numeral: '05',
+    ghost: 'PROMISE',
     tag: 'THE PROMISE',
     headline: 'Lived Expertise.',
     body: [
@@ -79,17 +79,17 @@ export default function AboutPage() {
         <div className="space-y-6">
           {phases.map((phase) => (
             <div
-              key={phase.numeral}
-              className="relative bg-white rounded-[2rem] border border-slate-100 p-8 sm:p-12 shadow-sm overflow-hidden group hover:shadow-md transition-shadow duration-300"
+              key={phase.tag}
+              className="group relative overflow-hidden rounded-[2rem] border border-slate-100 bg-white p-8 shadow-sm transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:shadow-[0_20px_55px_rgba(15,23,42,0.08)] sm:p-12"
             >
-              {/* Ghost Numeral — Inside Card, Bottom Right */}
+              {/* Ghost Label — Inside Card */}
               <span
-                className="absolute bottom-0 right-4 font-black text-[12rem] leading-none text-slate-900/[0.03] select-none pointer-events-none transition-all duration-700 ease-out group-hover:-translate-y-4 group-hover:text-purple-600/[0.08]"
+                className="pointer-events-none absolute right-3 bottom-0 select-none text-[4.5rem] font-black uppercase leading-none tracking-[-0.08em] text-slate-900/[0.04] transition-transform duration-500 group-hover:translate-x-4 group-hover:text-purple-600/[0.08] sm:text-[7rem]"
               >
-                {phase.numeral}
+                {phase.ghost}
               </span>
 
-              {/* Content — Positioned Above Ghost Numeral */}
+              {/* Content — Positioned Above Ghost Label */}
               <div className="relative z-10">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-3">
                   {phase.tag}
