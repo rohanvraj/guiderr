@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   ChartLineUp,
   Moped,
@@ -7,6 +8,28 @@ import {
 } from '@phosphor-icons/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
+function FadeSection({
+  children,
+  delay = 0,
+  className = '',
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 // ── Article clusters — static, zero Supabase calls ──────────────────────────
 // TRUTH PASS: slugs = full filename (without .md) as returned by getPostBySlug.
@@ -17,8 +40,6 @@ const PATHS = [
     key: 'money',
     icon: ChartLineUp,
     color: '#0d9488',
-    bg: 'bg-teal-50',
-    border: 'border-teal-200',
     label: 'Money',
     tagline: 'Smarter cards. Bigger returns. Zero guesswork.',
     articles: [
@@ -27,15 +48,12 @@ const PATHS = [
       { title: 'Mastering Credit Cards in 2026 — The Frugal Guide', slug: '2026-04-02-mastering-credit-cards-in-2026-a-frugal-guide-to-rewards-risks-and-financial-freedom' },
       { title: 'The Petrol Hack — Turn Your Commute into Free Travel', slug: '2026-04-10-the-petrol-hack-how-to-turn-your-daily-commute-into-free-travel-in-2026' },
     ],
-    ebookLabel: 'The Credit Card Playbook →',
-    ebookHref: '/#featured',
+    guideLink: '/guides?category=Finance',
   },
   {
     key: 'wheels',
     icon: Moped,
     color: '#475569',
-    bg: 'bg-slate-50',
-    border: 'border-slate-200',
     label: 'Wheels',
     tagline: 'Ride further. Pack smarter. Know your machine.',
     articles: [
@@ -44,33 +62,24 @@ const PATHS = [
       { title: 'The Great East Expedition — Pune to Sikkim', slug: '2026-04-12-the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026' },
       { title: 'Hayabusa 2026 — A Modern Masterpiece Review', slug: '2026-04-09-the-2026-review-why-the-metallic-mat-steel-green-suzuki-hayabusa-is-a-modern-masterpiece' },
     ],
-    ebookLabel: 'The Himalayan Blueprint →',
-    ebookHref: '/#featured',
+    guideLink: '/guides?category=Motorcycles',
   },
   {
     key: 'life',
     icon: GlobeHemisphereWest,
     color: '#2563eb',
-    bg: 'bg-blue-50',
-    border: 'border-blue-200',
     label: 'Life',
     tagline: 'Travel cheaper. Live smarter. Buy once, buy right.',
     articles: [
-      // Travel
       { title: 'Visa-Free Horizons and UPI Abroad — Travel in 2026', slug: '2026-04-04-the-new-era-of-indian-travel-in-2026-visa-free-horizons-and-upi-abroad' },
-      // Finance / life planning
       { title: 'The Frugal Shield — Why an Emergency Fund Is Non-Negotiable', slug: '2026-04-13-the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
-      // Tech
       { title: 'The Automated Home — Top Robot Vacuums on Amazon 2026', slug: '2026-04-10-the-automated-home-top-5-robot-vacuum-mop-solutions-on-amazon-2026' },
-      // Business
       { title: 'Smart Queue Management & the Indian Dining Revolution', slug: '2026-04-08-beyond-the-plate-how-smart-queue-management-is-redefining-the-indian-dining-experience-in-2026' },
-      // Lifestyle
       { title: 'Best Sunscreens for the Indian Climate in 2026', slug: '2026-04-09-a-guide-to-popular-sunscreens-for-the-indian-climate-in-2026' },
     ],
-    ebookLabel: 'Browse All Guides →',
-    ebookHref: '/guides',
+    guideLink: '/guides',
   },
-] as const;
+];
 
 export default function StartHerePage() {
   // Lightweight meta injection — no library needed
@@ -87,109 +96,133 @@ export default function StartHerePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white flex flex-col">
+    <div className="min-h-screen bg-purple-900">
       <Header />
 
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
+      <main className="pt-32 sm:pt-36 lg:pt-40">
 
-        {/* ── Hero Block ── */}
-        <div className="mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 mb-4">
-            Welcome
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6">
-            New to Guiderr?<br className="hidden sm:block" /> Start Here.
-          </h1>
-          <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
-            We help India's modern buyer make better decisions in Money, Wheels, and Life —
-            with honest guides, real math, and zero brand bribes.
-          </p>
-        </div>
-
-        {/* ── 3-Path Decision Map ── */}
-        <section aria-labelledby="paths-heading" className="mb-20">
-        <h2 id="paths-heading" className="sr-only">Browse by Topic</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {PATHS.map(({ key, icon: Icon, color, bg, border, label, tagline, articles, ebookLabel, ebookHref }) => (
-            <div
-              key={key}
-              className={`relative rounded-[2rem] border ${border} ${bg} p-7 flex flex-col gap-5 overflow-hidden`}
-            >
-              {/* Icon + label */}
-              <div className="flex items-center gap-3">
-                <span
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white shadow-sm"
-                  style={{ color }}
-                >
-                  <Icon size={22} weight="duotone" />
-                </span>
-                <span className="font-extrabold text-slate-900 text-lg tracking-tight">{label}</span>
+        {/* ── Hero ── */}
+        <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pb-32">
+          <div className="max-w-5xl mx-auto text-center">
+            <FadeSection>
+              <div className="inline-flex items-center rounded-full border border-purple-700 bg-white/10 px-4 py-2 text-sm font-medium text-purple-50 shadow-sm backdrop-blur-sm">
+                Welcome to Guiderr
               </div>
+            </FadeSection>
 
-              {/* Tagline */}
-              <p className="text-sm text-slate-500 leading-snug -mt-2">{tagline}</p>
+            <FadeSection delay={0.06} className="mt-8">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.98] text-white">
+                New to Guiderr?<br className="hidden sm:block" /> Start Reading Here.
+              </h1>
+            </FadeSection>
 
-              {/* Article list */}
-              <ul className="flex flex-col gap-2">
-                {articles.map((a) => (
-                  <li key={a.slug}>
-                    <Link
-                      to={`/guides/${a.slug}`}
-                      className="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-2 leading-snug transition-colors"
-                    >
-                      {a.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Ebook CTA */}
-              <Link
-                to={ebookHref}
-                className="mt-auto inline-flex items-center text-sm font-semibold transition-colors hover:opacity-80"
-                style={{ color }}
-              >
-                {ebookLabel}
-              </Link>
-            </div>
-          ))}
-        </div>
+            <FadeSection delay={0.12} className="mt-6">
+              <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-purple-100">
+                We help India's modern buyer make better decisions in Money, Wheels, and Life — with honest guides, real math, and zero brand bribes.
+              </p>
+            </FadeSection>
+          </div>
         </section>
 
-        {/* ── Philosophy ── */}
-        <div className="bg-slate-900 rounded-[2rem] p-8 sm:p-12 text-white mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-4">
-            Our stance
-          </p>
-          <blockquote className="text-xl sm:text-2xl font-bold leading-snug mb-6 max-w-2xl">
-            "We are reader-supported. We use affiliate links and sell intelligence reports.
-            We don't take brand bribes. We don't recommend what we wouldn't buy ourselves."
-          </blockquote>
-          <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-            When you click an affiliate link in our articles, we may earn a small commission from
-            the partner — at zero extra cost to you. This is how Guiderr stays free to read.
-            Our editorial judgment is never for sale.{' '}
-            <Link to="/affiliate-disclosure" className="text-slate-300 hover:text-white underline underline-offset-2 transition-colors">
-              Full disclosure →
-            </Link>
-          </p>
-        </div>
+        {/* ── 3-Path Cards ── */}
+        <section aria-labelledby="paths-heading" className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32">
+          <h2 id="paths-heading" className="sr-only">Browse by Topic</h2>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+              {PATHS.map(({ key, icon: Icon, color, label, tagline, articles, guideLink }, index) => (
+                <FadeSection key={key} delay={index * 0.06}>
+                  <article className="relative overflow-hidden rounded-3xl border border-violet-100 bg-white/80 p-8 sm:p-10 min-h-[380px] flex flex-col shadow-[0_16px_50px_rgba(124,58,237,0.06)] group">
+                    {/* Ghost Number */}
+                    <span className="absolute -top-6 -left-4 font-black text-9xl text-slate-900/[0.03] select-none pointer-events-none group-hover:translate-x-5 group-hover:text-purple-600/10 transition-all duration-700 ease-out">
+                      {['01', '02', '03'][index]}
+                    </span>
 
-        {/* ── About + Nav CTA ── */}
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-8 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            About the founder →
-          </Link>
-          <Link
-            to="/guides"
-            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 text-sm font-semibold px-8 py-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
-          >
-            Browse all guides →
-          </Link>
-        </div>
+                    {/* Icon + Label */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <span
+                        className="inline-flex items-center justify-center w-11 h-11 rounded-2xl border border-violet-100 bg-violet-50 shadow-sm flex-shrink-0"
+                        style={{ color }}
+                      >
+                        <Icon size={22} weight="duotone" />
+                      </span>
+                      <span className="font-semibold text-slate-900 text-xl tracking-tight">{label}</span>
+                    </div>
+
+                    {/* Tagline */}
+                    <p className="text-sm text-slate-500 leading-relaxed mb-6">{tagline}</p>
+
+                    {/* Article list */}
+                    <ul className="flex flex-col gap-3 flex-1">
+                      {articles.map((a) => (
+                        <li key={a.slug}>
+                          <Link
+                            to={`/guides/${a.slug}`}
+                            className="text-sm text-slate-700 hover:text-slate-900 leading-snug transition-colors flex items-start gap-2 group/link"
+                          >
+                            <span className="text-slate-300 mt-0.5 flex-shrink-0 group-hover/link:text-slate-500 transition-colors">→</span>
+                            {a.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Browse all guide link */}
+                    <Link
+                      to={guideLink}
+                      className="mt-6 text-xs font-semibold uppercase tracking-widest transition-opacity hover:opacity-70"
+                      style={{ color }}
+                    >
+                      All {label} Guides →
+                    </Link>
+                  </article>
+                </FadeSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Philosophy / Stance ── */}
+        <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32">
+          <FadeSection>
+            <div className="max-w-4xl mx-auto rounded-3xl border border-violet-100 bg-white/80 px-8 py-12 sm:px-12 sm:py-14 shadow-[0_18px_60px_rgba(124,58,237,0.08)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 mb-4">
+                Our Stance
+              </p>
+              <blockquote className="text-xl sm:text-2xl font-semibold tracking-tight leading-snug text-slate-900 mb-6 max-w-2xl">
+                "We are reader-supported. We use affiliate links and sell intelligence reports.
+                We don't take brand bribes. We don't recommend what we wouldn't buy ourselves."
+              </blockquote>
+              <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
+                When you click an affiliate link in our articles, we may earn a small commission from
+                the partner — at zero extra cost to you. This is how Guiderr stays free to read.
+                Our editorial judgment is never for sale.{' '}
+                <Link to="/affiliate-disclosure" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+                  Full disclosure →
+                </Link>
+              </p>
+            </div>
+          </FadeSection>
+        </section>
+
+        {/* ── Footer CTAs ── */}
+        <section className="px-4 sm:px-6 lg:px-8 pb-28 sm:pb-36">
+          <FadeSection>
+            <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 rounded-full border border-purple-700 bg-white/10 px-8 py-4 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
+              >
+                About the founder →
+              </Link>
+              <Link
+                to="/guides"
+                className="inline-flex items-center gap-2 rounded-full border border-violet-100 bg-white/80 px-8 py-4 text-sm font-semibold text-slate-900 transition-all hover:bg-white"
+              >
+                Browse all guides →
+              </Link>
+            </div>
+          </FadeSection>
+        </section>
 
       </main>
 

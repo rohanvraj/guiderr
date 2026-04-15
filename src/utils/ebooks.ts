@@ -3,15 +3,12 @@ import { Ebook, Category, EbooksData } from '../types/ebook';
 // Canonical category definitions used across the app (Header nav, Hero tiles, routing).
 // These are NOT mock ebooks — they define the storefront structure.
 const categories: Category[] = [
-  { id: 'motorcycles', name: 'Motorcycles', description: 'Master the art of riding, maintenance, and safety' },
-  { id: 'finance', name: 'Finance', description: 'Build wealth, invest smartly, and achieve financial freedom' },
-  { id: 'travel', name: 'Travel', description: 'Explore the world with confidence and insider knowledge' },
-  { id: 'pets', name: 'Pets', description: 'Everything you need to care for, train, and bond with your pets' },
-  { id: 'beauty-wellness', name: 'Beauty & Wellness', description: 'Curated guides on skincare, fitness, nutrition, and holistic wellness' },
-  { id: 'art', name: 'Art', description: 'Unleash creativity with guides on painting, drawing, and design' },
-  { id: 'business', name: 'Business', description: "Entrepreneur's playbook for building and growing your business" },
-  { id: 'gadget-tech', name: 'Gadget & Tech', description: 'Reviews, guides, and tips on the latest gadgets and technology' },
-  { id: 'home-living', name: 'Home & Living', description: 'Transform your space with guides on furniture, décor, and home accessories' },
+  { id: 'finance',     name: 'Finance',     description: 'Build wealth, invest smartly, and achieve financial freedom' },
+  { id: 'travel',      name: 'Travel',      description: 'Explore the world with confidence and insider knowledge' },
+  { id: 'gadget-tech', name: 'Tech',        description: 'Reviews and guides on the latest gadgets and technology' },
+  { id: 'automotive',  name: 'Automotive',  description: 'Motorcycles, cars, and everything that moves — buying, riding, and maintenance guides' },
+  { id: 'lifestyle',   name: 'Lifestyle',   description: 'Smarter choices for how you live, eat, dress, and spend your time' },
+  { id: 'business',    name: 'Business',    description: "Entrepreneur's playbook for building and growing your business" },
 ];
 
 // For admin: load ebooks data from localStorage (Superadmin dashboard uses this)

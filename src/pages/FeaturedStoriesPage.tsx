@@ -1,9 +1,8 @@
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { getAllFeaturedStories } from '../utils/blog';
-
-const FEATURED_MAILTO_URL = 'mailto:rohanrworld@gmail.com?subject=Collaboration%20Request%3A%20%5BYour%20Name%2FBusiness%5D&body=Hi%20Guiderr%2C%0D%0A%0D%0AI%27m%20interested%20in%20getting%20featured%20on%20Guiderr.%20Here%20are%20some%20brief%20details%3A%0D%0A%0D%0A-%20Business%2FTopic%20Name%3A%0D%0A-%20Category%20(Finance%2FAutomotive%2Fetc)%3A%0D%0A-%20Social%2FWebsite%20Link%3A%0D%0A-%20Brief%20description%20of%20the%20story%20or%20expertise%3A%0D%0A%0D%0ALooking%20forward%20to%20hearing%20from%20you!';
 
 function getStoryExcerpt(body: string): string {
   const cleaned = body
@@ -77,19 +76,20 @@ export default function FeaturedStoriesPage() {
           </div>
         )}
 
-        <div className="mt-14 sm:mt-16 rounded-[2rem] border border-slate-200 bg-white px-6 py-10 sm:px-10 sm:py-12 text-center">
+        <div className="mt-14 sm:mt-16 rounded-[2rem] border border-violet-100 bg-white px-6 py-10 sm:px-10 sm:py-14 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 mb-4">Want your brand here?</p>
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
-            Want your business to appear here?
+            Put your story in front of people already researching what to trust next.
           </h2>
           <p className="mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-7 text-slate-600">
-            If these stories reflect the kind of visibility you want, send us your context and we will review the fit.
+            Editorial placement for startups, creators, and niche businesses with a story worth telling.
           </p>
-          <a
-            href={FEATURED_MAILTO_URL}
-            className="mt-6 inline-flex items-center justify-center gap-3 rounded-full border border-purple-900 bg-purple-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-purple-950 hover:border-purple-950"
+          <Link
+            to="/get-featured"
+            className="mt-8 inline-flex items-center justify-center gap-3 rounded-full border border-purple-900 bg-purple-900 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-purple-950 hover:border-purple-950"
           >
-            Connect with us to get featured
-          </a>
+            See how to get featured →
+          </Link>
         </div>
       </main>
 

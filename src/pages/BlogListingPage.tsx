@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import { getAllPosts } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
-const CATEGORIES = ['All', 'Motorcycles', 'Finance', 'Travel', 'Tech', 'Automotive', 'Lifestyle', 'Business'] as const;
+const CATEGORIES = ['All', 'Finance', 'Travel', 'Tech', 'Automotive', 'Lifestyle', 'Business'] as const;
 type Category = typeof CATEGORIES[number];
 
 function getPrimaryCategory(category: string): Category | null {

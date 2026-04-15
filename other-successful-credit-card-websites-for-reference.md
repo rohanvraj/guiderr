@@ -752,6 +752,58 @@ Created `src/content/blog/2026-04-15-best-fuel-credit-cards-india-2026.md` — a
 
 ---
 
+### ✅ PHASE 3.3 — UI POLISH, CATEGORY ARCHITECTURE & FEATURED CTA — COMPLETE
+
+#### ✅ Task 1 — Ebook Modal Cleanup (`src/components/EbookModal.tsx`)
+- Removed "What you unlock" block (header + 3 checkmark bullets). Modal is now minimalist.
+- Button text changed: `"Add to Cart"` → **`"Buy now"`** — psychological immediacy trigger.
+- Image, Price, Synopsis: fully intact. Checkout flow: untouched.
+
+#### ✅ Task 2A — Start Here Redesign (`src/pages/StartHerePage.tsx`)
+- Full visual overhaul to match the get-featured page aesthetic:
+  - Background: `bg-gradient-to-b from-slate-50 to-white` → **`bg-purple-900`**
+  - Cards: plain tinted divs → **`bg-white/80 border-violet-100 rounded-3xl`** frosted glass
+  - Animations: none → **`FadeSection` framer-motion** stagger-fade-up (already in bundle)
+  - Ghost numbers `01 / 02 / 03` added to each card
+  - Article links: `→` arrow prefix with hover accent
+  - Philosophy block: dark `bg-slate-900` → **`bg-white/80` glass card** with teal accent
+  - Footer CTAs: purple ghost + white glass pill buttons (matching get-featured)
+- Ebook buttons removed: "The Credit Card Playbook →" and "The Himalayan Blueprint →" gone.
+- "All [Category] Guides →" links added to each card pointing to filtered `/guides?category=X`.
+
+#### ✅ Task 2B — Featured Page CTA (`src/pages/FeaturedStoriesPage.tsx`)
+- Removed: email `mailto:` CTA button from the bottom card.
+- Added: **`Link to="/get-featured"`** — "See how to get featured →" purple pill button.
+- The email + WhatsApp contact flow lives exclusively on `/get-featured` — no duplication.
+- Bottom card's border updated to `border-violet-100` for visual consistency.
+
+#### ✅ Task 3 — Featured Nav Link Decapsulised (`src/components/Header.tsx`)
+- Desktop + mobile nav: removed permanent `border border-slate-200 bg-white/60 rounded-full font-semibold` capsule from the Featured link.
+- Featured link now renders identically to Guides / About — plain text, hover-only pill.
+- No visual indicator that you "are on" Featured when visiting other pages.
+
+#### ✅ Task 4 — Category Architecture Consolidation
+**`src/utils/ebooks.ts`** — categories array rebuilt to 6 active silos only:
+- **Removed:** Motorcycles, Pets, Beauty & Wellness, Art, Home & Living
+- **Added:** Automotive (replaces Motorcycles — all bike articles → Automotive), Lifestyle (new)
+- **Tech:** `gadget-tech` id renamed display to `"Tech"` (shorter, cleaner tile)
+- Final 6: Finance · Travel · Tech · Automotive · Lifestyle · Business
+
+**`src/components/Hero.tsx`** — categoryConfig updated:
+- Removed: motorcycles, pets, beauty-wellness, art, home-living icons
+- Added: `automotive` → `CarSimple` icon (slate), `lifestyle` → `SunHorizon` icon (amber)
+- Unused phosphor imports (`PawPrint, Palette, HouseLine`) removed
+- Homepage now renders exactly 6 tiles, all routing to `/guides?category=X`
+
+**`src/pages/BlogListingPage.tsx`** — CATEGORIES filter tabs updated:
+- Removed: `'Motorcycles'` tab
+- Final tabs: All · Finance · Travel · Tech · Automotive · Lifestyle · Business
+- Note: Existing articles tagged `category: Motorcycles` will show under "All" until re-tagged as `Automotive`.
+
+**Zero new npm packages. Zero Supabase changes. Zero Razorpay changes. DecapCMS sync preserved.**
+
+---
+
 ### STACK AUDIT: WHAT IS ALREADY BUILT vs. WHAT NEEDS BUILDING
 
 | Pipeline Item | Status | Notes |
@@ -921,7 +973,7 @@ The existing `phases` array and all 5 story cards remain completely untouched. T
 The copy framework for `StartHerePage.tsx` (confirmed by Google AI Studio analysis):
 
 ```
-H1: "New to Guiderr? Start Here."
+H1: "New to Guiderr? Start Reading Here."
 Sub: "We help India's modern buyer make better decisions in Money, Wheels, and Life."
 
 [Path 1 — Money]

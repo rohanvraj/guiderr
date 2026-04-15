@@ -65,32 +65,11 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
                 <p className="text-slate-700 leading-relaxed">{ebook.synopsis}</p>
               </div>
 
-              {/* ── What you unlock (Day 8B) ─────────────────────────────────────── */}
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
-                  What you unlock
-                </p>
-                <ul className="space-y-1.5 text-sm text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <span className="text-teal-500 mt-0.5 flex-shrink-0">✓</span>
-                    A proven decision framework — not opinions, not aggregated tips
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-teal-500 mt-0.5 flex-shrink-0">✓</span>
-                    The exact criteria India's most optimized buyers use to choose
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-teal-500 mt-0.5 flex-shrink-0">✓</span>
-                    Immediate clarity on your next financial or lifestyle move
-                  </li>
-                </ul>
-              </div>
-
               <button
                 onClick={handleAddToCart}
                 className="w-full md:w-auto px-8 py-3 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 active:scale-95 transition-all duration-300"
               >
-                Add to Cart
+                Buy now
               </button>
             </div>
           </div>

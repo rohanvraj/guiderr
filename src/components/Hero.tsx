@@ -1,7 +1,7 @@
 import { BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb } from 'lucide-react';
 import {
-  Moped, ChartLineUp, GlobeHemisphereWest, PawPrint,
-  Sparkle, Palette, Briefcase, Cpu, HouseLine,
+  Moped, ChartLineUp, GlobeHemisphereWest,
+  Sparkle, Briefcase, Cpu, CarSimple, SunHorizon,
 } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/ebooks';
@@ -17,15 +17,12 @@ const FEATURED_WHATSAPP_URL = 'https://wa.me/919890505945?text=Hi%20Guiderr,%20I
 type CategoryConfig = { Icon: any; bg: string; border: string; color: string };
 
 const categoryConfig: Record<string, CategoryConfig> = {
-  motorcycles:       { Icon: Moped,               bg: 'bg-slate-50',  border: 'border-slate-200',  color: '#475569' },
-  finance:           { Icon: ChartLineUp,         bg: 'bg-teal-50',   border: 'border-teal-200',   color: '#0d9488' },
-  travel:            { Icon: GlobeHemisphereWest, bg: 'bg-blue-50',   border: 'border-blue-200',   color: '#2563eb' },
-  pets:              { Icon: PawPrint,            bg: 'bg-amber-50',  border: 'border-amber-200',  color: '#d97706' },
-  'beauty-wellness': { Icon: Sparkle,            bg: 'bg-rose-50',   border: 'border-rose-200',   color: '#e11d48' },
-  art:               { Icon: Palette,            bg: 'bg-violet-50', border: 'border-violet-200', color: '#7c3aed' },
-  business:          { Icon: Briefcase,          bg: 'bg-indigo-50', border: 'border-indigo-200', color: '#4f46e5' },
-  'gadget-tech':     { Icon: Cpu,               bg: 'bg-sky-50',    border: 'border-sky-200',    color: '#0284c7' },
-  'home-living':     { Icon: HouseLine,          bg: 'bg-green-50',  border: 'border-green-200',  color: '#16a34a' },
+  finance:       { Icon: ChartLineUp,         bg: 'bg-teal-50',   border: 'border-teal-200',   color: '#0d9488' },
+  travel:        { Icon: GlobeHemisphereWest, bg: 'bg-blue-50',   border: 'border-blue-200',   color: '#2563eb' },
+  'gadget-tech': { Icon: Cpu,               bg: 'bg-sky-50',    border: 'border-sky-200',    color: '#0284c7' },
+  automotive:    { Icon: CarSimple,          bg: 'bg-slate-50',  border: 'border-slate-200',  color: '#475569' },
+  lifestyle:     { Icon: SunHorizon,         bg: 'bg-amber-50',  border: 'border-amber-200',  color: '#d97706' },
+  business:      { Icon: Briefcase,          bg: 'bg-indigo-50', border: 'border-indigo-200', color: '#4f46e5' },
 };
 const defaultConfig: CategoryConfig = { Icon: Briefcase, bg: 'bg-gray-50', border: 'border-gray-200', color: '#374151' };
 
