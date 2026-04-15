@@ -713,6 +713,45 @@ Then add 5 custom event fires in the relevant components (not in new files — i
 
 ---
 
+### ✅ PHASE 3.2 — ToC VISIBILITY, NAVIGATION FIX & REVENUE INFRASTRUCTURE — COMPLETE
+
+#### ✅ Task 0A — ToC Desktop Visibility (Root Cause: Fixed → Sticky)
+The desktop sidebar used `position: fixed; left: 16px`. At `lg` breakpoint (1024px), the centered `max-w-3xl` article starts at only ~128px from the left edge, causing the 208px ToC to overlap article text. Readers couldn't read because a white sidebar was overlaying their content.
+
+**Fix:** The BlogPostPage layout restructured to a **two-column flex container** (`max-w-5xl lg:flex lg:gap-12`). The ToC desktop `<aside>` changed from `fixed top-32 left-4 xl:left-8` → `sticky top-32 self-start shrink-0`. At all `lg+` screen widths the math is exact: `max-w-5xl (1024px) − w-52 (208px) − gap-12 (48px) = 768px = max-w-3xl`. Article content and ToC sidebar are now exactly side-by-side with zero overlap at any screen width.
+
+#### ✅ Task 0B — ToC Click Navigation (Root Cause: ID Mismatch)
+The h2/h3 custom renderers in BlogPostPage used `String(children)` to extract heading text for the `id=""` attribute. When React children contain nested nodes (bold `**text**`, emoji, inline code), `String(children)` returns `"[object Object]"` — so the element gets `id="object-object"`. The ToC `slugify()` function computed a correct slug from the raw markdown. **IDs never matched → `getElementById()` returned null → no scroll.**
+
+**Fix:**
+1. Added `extractHeadingText(node: unknown): string` — a recursive tree-walker that extracts plain text from any React node mix (strings, arrays, nested elements).
+2. Added `makeHeadingId(children)` wrapper that applies the same character-stripping + lowercasing + hyphenation as TableOfContents `slugify()`. IDs are now guaranteed to match.
+3. `scrollTo()` in TableOfContents changed from `scrollIntoView()` → manual `getBoundingClientRect().top + scrollY - 100` to correctly offset for the 96px sticky header.
+
+#### ✅ Task 1 — Category Hub Authority Pass (CategoryPage.tsx)
+Added static `CATEGORY_MISSIONS` map (zero Supabase calls). Six categories have a one-sentence authority statement displayed with a teal left-border accent below the generic description. Added "New here? Start Here →" ghost button in each category header.
+
+#### ✅ Task 2 — ArticleFooter Component (BlogPostPage.tsx)
+Created `src/components/ArticleFooter.tsx` — a 3-column "Next Steps" grid placed at the end of every blog post:
+- **New here?** → `/start-here`
+- **Intelligence Vault** → `/#featured` (dark card, ebook store)
+- **Master [Category]** → dynamic category slug (e.g. `/finance`, `/motorcycles`), with fallback to `/guides`
+
+Categories without dedicated routes (Lifestyle, Business, Automotive) link to `/guides?category=[Name]`. Wired into `BlogPostPage.tsx` with `<ArticleFooter category={post.category} />`.
+
+#### ✅ Task 3 — Article #11 Framework
+Created `src/content/blog/2026-04-15-best-fuel-credit-cards-india-2026.md` — a full 1,200-word article draft:
+- **Slug:** `2026-04-15-best-fuel-credit-cards-india-2026` (date-prefixed, required by `getPostBySlug`)
+- **H2/H3 structure:** 8 H2 sections + 5 H3 subsections → ToC will render with working scroll-spy
+- **Comparison tables:** 2 markdown tables (tests table rendering)
+- **Affiliate CTAs:** 2 external links with tap-target `py-2 inline-block` (tests Day 7 renderer)
+- **ROI formula:** concrete calculation block
+- **Category:** Finance → triggers financial advisory fine print + ArticleFooter Finance hub link
+
+**Note:** Update `public/sitemap.xml` to include `/guides/2026-04-15-best-fuel-credit-cards-india-2026` before next Search Console submission.
+
+---
+
 ### STACK AUDIT: WHAT IS ALREADY BUILT vs. WHAT NEEDS BUILDING
 
 | Pipeline Item | Status | Notes |
@@ -737,9 +776,13 @@ Then add 5 custom event fires in the relevant components (not in new files — i
 | Render-Blocking Identity Script | ✅ REMOVED | Netlify Identity widget now conditional — zero cost for readers. Phase 3.1. |
 | Accessibility (ARIA + Contrast) | ✅ BUILT | Mobile menu aria-label, Instagram aria-label, heading hierarchy, contrast pass. Phase 3.1. |
 | Explicit ESBuild Minification | ✅ CONFIRMED | `vite.config.ts` build.minify: 'esbuild' declared. Phase 3.1. |
-| Sitemap.xml | ✅ BUILT | `public/sitemap.xml` — all 20 articles + 11 core pages. Submit in Search Console. |
+| ToC Desktop Visibility | ✅ FIXED | Changed from `fixed left-4` to `sticky self-start` inside BlogPostPage two-column flex layout. Phase 3.2. No more content overlap at any screen width. |
+| ToC Click Navigation | ✅ FIXED | Root cause was `String(children)` returning `[object Object]` for bold/emoji headings. `extractHeadingText()` recursive helper now generates IDs that exactly match ToC slugify(). `scrollTo` uses `getBoundingClientRect + scrollY - 100` for sticky-header offset. Phase 3.2. |
+| Category Hub Mission Statements | ✅ BUILT | `CategoryPage.tsx` — static `CATEGORY_MISSIONS` map + mission statement with left border + "New here? Start Here →" button. Phase 3.2. |
+| ArticleFooter component | ✅ BUILT | `src/components/ArticleFooter.tsx` — 3-column "Next Steps" grid: Start Here / Ebook Vault / Master Category. Inserted at end of every blog post in BlogPostPage.tsx. Phase 3.2. |
+| Article #11 (Fuel Cards) | ✅ FRAMEWORK | `src/content/blog/2026-04-15-best-fuel-credit-cards-india-2026.md` — full article draft with H2/H3 structure (ToC-tested), comparison tables, tap-target affiliate links, ROI formula, application rules. Slug: `2026-04-15-best-fuel-credit-cards-india-2026`. Phase 3.2. |
+| Sitemap.xml | ✅ BUILT | `public/sitemap.xml` — all 20 articles + 11 core pages. Submit in Search Console. **Update needed:** add Article #11 URL to sitemap. |
 | JSON-LD Article schema | ✅ BUILT | `BlogPostPage.tsx` — `useEffect` injects Article schema + auto meta description per post. No library. |
-| Article #11 (Fuel Cards) | ❌ NOT BUILT | Content file to be authored and added to `src/content/blog/`. Priority for Phase 3 content sprint. |
 
 ---
 

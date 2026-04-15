@@ -133,7 +133,10 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Offset scroll by 100px to clear the sticky header (h-20 = 80px + top-4 = 16px + buffer).
+      // scrollIntoView doesn't support per-element offset, so we use manual scroll.
+      const top = el.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
       setActiveId(id);
       setMobileOpen(false);
     }
@@ -163,10 +166,12 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
 
   return (
     <>
-      {/* ── DESKTOP SIDEBAR ── sticky, left of article, only visible lg+ ───── */}
+      {/* ── DESKTOP SIDEBAR ── sticky inside the BlogPostPage flex layout ──── */}
+      {/* position:sticky (not fixed) so it sits naturally in the two-column   */}
+      {/* flex grid and never overlaps article text at any screen width.        */}
       <aside
         aria-label="Table of contents"
-        className="hidden lg:block fixed top-32 left-4 xl:left-8 w-52 max-h-[calc(100vh-10rem)] overflow-y-auto"
+        className="hidden lg:block sticky top-32 self-start shrink-0 w-52 max-h-[calc(100vh-10rem)] overflow-y-auto"
       >
         <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 px-2">
           On this page

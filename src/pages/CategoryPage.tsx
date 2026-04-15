@@ -10,6 +10,17 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EbookModal from '../components/EbookModal';
 
+// ── Category authority statements ────────────────────────────────────────────
+// Static, zero DB calls. One sentence that signals editorial authority and intent.
+const CATEGORY_MISSIONS: Record<string, string> = {
+  finance:       'Mastering Indian cash flow, credit optimisation, and long-term wealth systems.',
+  motorcycles:   'Decision frameworks for the modern Indian rider — from city commutes to Himalayan expeditions.',
+  travel:        'Travel smarter, spend less, and experience more with India\'s shifting travel landscape.',
+  'gadget-tech': 'Curated intelligence on gear that earns its keep — no filler, no sponsored rankings.',
+  business:      'Frameworks for founders, freelancers, and side-hustlers building in India\'s new economy.',
+  'home-living': 'Smart home decisions that pay for themselves — space, comfort, and long-term value.',
+};
+
 /**
  * Converts an ebook title to a URL-safe slug.
  * "Beginner's Motorcycle Guide!" → "beginners-motorcycle-guide"
@@ -206,9 +217,22 @@ export default function CategoryPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4">
               {categoryData.name}
             </h1>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl">
+            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mb-3">
               {categoryData.description}
             </p>
+            {/* Mission statement — authority signal, always static */}
+            {CATEGORY_MISSIONS[category] && (
+              <p className="text-sm font-medium text-teal-700 border-l-2 border-teal-400 pl-3 max-w-2xl mb-6">
+                {CATEGORY_MISSIONS[category]}
+              </p>
+            )}
+            {/* Start Here CTA — visible guide for new visitors */}
+            <Link
+              to="/start-here"
+              className="inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition-all hover:-translate-y-0.5 hover:shadow-sm"
+            >
+              New here? Start Here →
+            </Link>
           </div>
 
           {loading ? (

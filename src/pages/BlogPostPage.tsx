@@ -4,8 +4,33 @@ import ReactMarkdown from 'react-markdown';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TableOfContents from '../components/TableOfContents';
+import ArticleFooter from '../components/ArticleFooter';
 import { getPostBySlug } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
+
+// ── Heading ID helpers ────────────────────────────────────────────────────────
+// String(children) fails for complex heading nodes (bold, emoji, etc.) — it
+// returns "[object Object]". This recursive extractor walks the React tree and
+// produces the same plain-text output that TableOfContents.slugify() expects.
+function extractHeadingText(node: unknown): string {
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(extractHeadingText).join('');
+  if (isValidElement(node as object)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return extractHeadingText((node as any).props?.children ?? '');
+  }
+  return '';
+}
+
+function makeHeadingId(children: unknown): string {
+  return extractHeadingText(children)
+    .replace(/[^\w\s-]/g, '') // strip emoji and special chars (matches TableOfContents slugify)
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -91,14 +116,23 @@ export default function BlogPostPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <Header />
 
-      {/* ToC: fixed desktop sidebar + mobile floating pill — rendered at page level so position:fixed works correctly */}
-      <TableOfContents content={post.body} />
+      {/*
+        Two-column layout: [ToC sticky sidebar | Article] on desktop.
+        - max-w-5xl wrapper = 1024px. ToC = w-52 (208px) + gap-12 (48px) = 256px.
+        - Article gets the remaining 768px = max-w-3xl. No overlap at any lg+ screen.
+        - On mobile: ToC renders its fixed "Quick Nav" pill only; article takes full width.
+      */}
+      <div className="pt-28 sm:pt-32 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl lg:max-w-5xl lg:flex lg:gap-12 items-start">
 
-      {/* pb-24 on mobile ensures the last affiliate link is never hidden behind the fixed ToC pill */}
-      <main className="pt-28 sm:pt-32 pb-24 sm:pb-10 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-        <Link to="/guides" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
-          &larr; Back to Guides
-        </Link>
+          {/* TableOfContents: desktop = sticky sidebar (inside flex); mobile = fixed pill */}
+          <TableOfContents content={post.body} />
+
+          {/* pb-24 on mobile ensures last CTA clears the fixed Quick Nav pill */}
+          <main className="min-w-0 flex-1 max-w-3xl pb-24 sm:pb-10">
+            <Link to="/guides" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
+              &larr; Back to Guides
+            </Link>
 
         {post.category && (
           <span className="block text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-3">
@@ -175,15 +209,15 @@ export default function BlogPostPage() {
                   </a>
                 );
               },
-              // Inject id attributes on H2/H3 so IntersectionObserver can find them
+              // Inject id attributes on H2/H3 so IntersectionObserver can find them.
+              // makeHeadingId() uses extractHeadingText() to handle bold/emoji nodes
+              // where String(children) would return "[object Object]".
               h2: ({ children }) => {
-                const text = String(children).replace(/[^\w\s-]/g, '').trim();
-                const id = text.toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
+                const id = makeHeadingId(children);
                 return <h2 id={id}>{children}</h2>;
               },
               h3: ({ children }) => {
-                const text = String(children).replace(/[^\w\s-]/g, '').trim();
-                const id = text.toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
+                const id = makeHeadingId(children);
                 return <h3 id={id}>{children}</h3>;
               },
             }}
@@ -249,7 +283,13 @@ export default function BlogPostPage() {
             </>
           );
         })()}
-      </main>
+
+            {/* ── "Next Steps" Footer ── */}
+            <ArticleFooter category={post.category} />
+          </main>
+
+        </div>
+      </div>
 
       <Footer />
     </div>
