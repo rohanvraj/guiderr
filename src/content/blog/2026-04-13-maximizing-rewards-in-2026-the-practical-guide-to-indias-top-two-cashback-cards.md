@@ -1,6 +1,5 @@
 ---
-title: "Maximizing Rewards in 2026: The Practical Guide to India's Top 2
-  Cashback Cards"
+title: The 2026 Practical Guide to India's Top 2 Cashback Cards
 date: 2026-04-13T18:30:00.000Z
 category: Finance
 author: Guiderr
