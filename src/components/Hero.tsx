@@ -1,4 +1,4 @@
-import { BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb } from 'lucide-react';
+import { BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb, Plane, Compass, Bike } from 'lucide-react';
 import {
   Moped, ChartLineUp, GlobeHemisphereWest,
   Sparkle, Briefcase, Cpu, CarSimple, SunHorizon, TrendUp,
@@ -140,6 +140,21 @@ export default function Hero() {
                   {/* Book Icon - Small */}
                   <div className="absolute top-1/4 right-1/3 animate-float-soft transform-gpu" style={{ animationDuration: '4.6s', animationDelay: '0.6s' }}>
                     <Book className="w-10 h-10 text-white/25" />
+                  </div>
+
+                  {/* Plane Icon - Travel */}
+                  <div className="absolute top-20 right-1/4 animate-float-soft transform-gpu" style={{ animationDuration: '5.3s', animationDelay: '1.1s' }}>
+                    <Plane className="w-16 h-16 text-white/28" />
+                  </div>
+
+                  {/* Compass Icon - Travel */}
+                  <div className="absolute bottom-40 right-12 animate-float-soft transform-gpu" style={{ animationDuration: '4.9s', animationDelay: '0.4s' }}>
+                    <Compass className="w-14 h-14 text-white/26" />
+                  </div>
+
+                  {/* Bike Icon - Motorcycle */}
+                  <div className="absolute top-2/3 left-20 animate-float-soft transform-gpu" style={{ animationDuration: '5.1s', animationDelay: '1.3s' }}>
+                    <Bike className="w-18 h-18 text-white/27" />
                   </div>
                 </div>
 
