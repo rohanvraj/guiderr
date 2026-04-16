@@ -29,12 +29,27 @@ function parseFrontmatter(raw: string): { metadata: Record<string, string>; body
   if (!match) return { metadata: {}, body: raw };
 
   const metadata: Record<string, string> = {};
-  for (const line of match[1].split('\n')) {
+  const lines = match[1].split('\n');
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
     const idx = line.indexOf(':');
-    if (idx === -1) continue;
+    if (idx === -1) { i++; continue; }
     const key = line.slice(0, idx).trim();
-    const value = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+    let value = line.slice(idx + 1).trim();
+    // Handle multi-line quoted YAML strings (continuation lines are indented)
+    if ((value.startsWith('"') || value.startsWith("'")) && !value.endsWith(value[0])) {
+      const quote = value[0];
+      while (i + 1 < lines.length) {
+        i++;
+        const continuation = lines[i].trim();
+        value += ' ' + continuation;
+        if (continuation.endsWith(quote)) break;
+      }
+    }
+    value = value.replace(/^["']|["']$/g, '');
     if (key) metadata[key] = value;
+    i++;
   }
 
   return { metadata, body: match[2] };
