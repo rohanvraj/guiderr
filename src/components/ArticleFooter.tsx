@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom';
 
-// Maps blog post category strings (from frontmatter) → URL slugs.
-// Lifestyle, Business, Automotive don't have dedicated CategoryPage routes
-// so they link to the filtered /guides listing instead.
-const CATEGORY_TO_SLUG: Record<string, string> = {
-  Finance:       '/finance',
-  Investing:     '/investing',
-  Motorcycles:   '/motorcycles',
-  Travel:        '/travel',
-  Tech:          '/gadget-tech',
-  'Home & Living': '/home-living',
-  Business:      '/guides?category=Business',
-  Lifestyle:     '/guides?category=Lifestyle',
-  Automotive:    '/guides?category=Automotive',
+// Maps frontmatter category → filtered blog URL.
+const CATEGORY_BLOG_URL: Record<string, string> = {
+  Finance:     '/guides?category=Finance',
+  Investing:   '/investing',
+  Automotive:  '/guides?category=Automotive',
+  Motorcycles: '/guides?category=Automotive',
+  Travel:      '/guides?category=Travel',
+  Tech:        '/guides?category=Tech',
+  Lifestyle:   '/guides?category=Lifestyle',
+  Business:    '/guides?category=Business',
+};
+
+// Human-readable label overrides.
+const CATEGORY_DISPLAY: Record<string, string> = {
+  Finance: 'Personal Finance',
 };
 
 interface ArticleFooterProps {
@@ -20,8 +22,8 @@ interface ArticleFooterProps {
 }
 
 export default function ArticleFooter({ category }: ArticleFooterProps) {
-  const categorySlug = category ? CATEGORY_TO_SLUG[category] : undefined;
-  const categoryLabel = category === 'Finance' ? 'Personal Finance' : category;
+  const blogUrl = category ? (CATEGORY_BLOG_URL[category] ?? '/guides') : '/guides';
+  const displayLabel = category ? (CATEGORY_DISPLAY[category] ?? category) : 'All Topics';
 
   return (
     <section aria-label="Article next steps" className="mt-12 pt-10 border-t border-slate-200">
@@ -30,64 +32,47 @@ export default function ArticleFooter({ category }: ArticleFooterProps) {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
-        {/* Card 1 — Start Here */}
+        {/* Window 1 — Topical Retention */}
         <Link
-          to="/start-here"
+          to={blogUrl}
           className="flex flex-col gap-1.5 rounded-2xl border border-slate-200 bg-white p-5 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group no-underline"
         >
           <span className="text-xs font-semibold uppercase tracking-widest text-slate-500 group-hover:text-slate-600 transition-colors">
-            New here?
+            Continue reading
           </span>
-          <span className="text-base font-bold text-slate-900">Start Here →</span>
+          <span className="text-base font-bold text-slate-900">{displayLabel} Articles →</span>
           <span className="text-sm text-slate-500 leading-snug">
-            Your decision-map for Money, Wheels &amp; Life.
+            More guides from the {displayLabel} desk.
           </span>
         </Link>
 
-        {/* Card 2 — Ebook Vault */}
+        {/* Window 2 — Revenue: Intelligence Vault */}
         <Link
-          to="/#featured"
-          className="flex flex-col gap-1.5 rounded-2xl border border-slate-200 bg-slate-900 p-5 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group no-underline"
+          to="/library"
+          className="flex flex-col gap-1.5 rounded-2xl border border-purple-100 bg-slate-900 p-5 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group no-underline"
         >
-          <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 group-hover:text-slate-300 transition-colors">
+          <span className="text-xs font-semibold uppercase tracking-widest text-purple-300 group-hover:text-purple-200 transition-colors">
             Intelligence Vault
           </span>
           <span className="text-base font-bold text-white">Browse Ebooks →</span>
-          <span className="text-sm text-slate-400 leading-snug">
-            Premium frameworks from ₹299.
+          <span className="text-sm text-purple-200 leading-snug">
+            Download premium blueprints and checklists from ₹299.
           </span>
         </Link>
 
-        {/* Card 3 — Category hub (or All Guides fallback) */}
-        {categorySlug ? (
-          <Link
-            to={categorySlug}
-            className="flex flex-col gap-1.5 rounded-2xl border border-slate-200 bg-white p-5 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group no-underline"
-          >
-            <span className="text-xs font-semibold uppercase tracking-widest text-slate-500 group-hover:text-slate-600 transition-colors">
-              Go deeper
-            </span>
-            <span className="text-base font-bold text-slate-900">
-              Master {categoryLabel} →
-            </span>
-            <span className="text-sm text-slate-500 leading-snug">
-              All ebooks and guides in this category.
-            </span>
-          </Link>
-        ) : (
-          <Link
-            to="/guides"
-            className="flex flex-col gap-1.5 rounded-2xl border border-slate-200 bg-white p-5 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group no-underline"
-          >
-            <span className="text-xs font-semibold uppercase tracking-widest text-slate-500 group-hover:text-slate-600 transition-colors">
-              Explore more
-            </span>
-            <span className="text-base font-bold text-slate-900">All Guides →</span>
-            <span className="text-sm text-slate-500 leading-snug">
-              Browse all free articles.
-            </span>
-          </Link>
-        )}
+        {/* Window 3 — Authority: Featured Stories */}
+        <Link
+          to="/featured"
+          className="flex flex-col gap-1.5 rounded-2xl border border-slate-200 bg-white p-5 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 group no-underline"
+        >
+          <span className="text-xs font-semibold uppercase tracking-widest text-slate-500 group-hover:text-slate-600 transition-colors">
+            Featured Stories
+          </span>
+          <span className="text-base font-bold text-slate-900">Creator Spotlights →</span>
+          <span className="text-sm text-slate-500 leading-snug">
+            Insights from the startups and creators moving India forward.
+          </span>
+        </Link>
       </div>
     </section>
   );

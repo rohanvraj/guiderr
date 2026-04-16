@@ -57,24 +57,12 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Category Hubs -->
+  <!-- Commerce Hub -->
   <url>
-    <loc>https://guiderr.in/finance</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://guiderr.in/library</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://guiderr.in/motorcycles</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://guiderr.in/travel</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
 
   <!-- Blog Posts / Guides -->

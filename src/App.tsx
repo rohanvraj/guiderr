@@ -26,6 +26,7 @@ const AffiliateDisclosure = lazy(() => import('./pages/AffiliateDisclosure'));
 const GetFeaturedPage    = lazy(() => import('./pages/GetFeaturedPage'));
 const FeaturedStoriesPage = lazy(() => import('./pages/FeaturedStoriesPage'));
 const InvestingPage      = lazy(() => import('./pages/Investing'));
+const LibraryPage        = lazy(() => import('./pages/Library'));
 
 // Component to handle referral tracking
 function ReferralTracker() {
@@ -92,6 +93,7 @@ function App() {
             <Route path="/start-here" element={<StartHerePage />} />
             <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
             <Route path="/investing" element={<InvestingPage />} />
+            <Route path="/library" element={<LibraryPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

@@ -62,31 +62,22 @@ export default function Footer() {
 
           {/* Categories */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Categories</h3>
+            <h3 className="text-lg font-bold mb-4">Library</h3>
             <ul className="space-y-2">
               <li>
-                <button 
-                  onClick={() => document.getElementById('motorcycles')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-slate-400 hover:text-white transition-colors"
-                >
+                <Link to="/library" className="text-slate-400 hover:text-white transition-colors">
                   Motorcycles
-                </button>
+                </Link>
               </li>
               <li>
-                <button 
-                  onClick={() => document.getElementById('finance')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-slate-400 hover:text-white transition-colors"
-                >
+                <Link to="/library" className="text-slate-400 hover:text-white transition-colors">
                   Personal Finance
-                </button>
+                </Link>
               </li>
               <li>
-                <button 
-                  onClick={() => document.getElementById('travel')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-slate-400 hover:text-white transition-colors"
-                >
+                <Link to="/library" className="text-slate-400 hover:text-white transition-colors">
                   Travel
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
