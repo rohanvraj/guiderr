@@ -4,34 +4,36 @@ import Footer from '../components/Footer';
 
 const phases = [
   {
+    ghost: 'DESTINY',
+    tag: 'THE ACADEMIC SACRIFICE',
+    headline: 'Duty Over Ambition.',
+    body: [
+      `After completing my Masters in Accounting and Finance at Aston University, UK, I was prepared for a high-flying career in finance. I had the degree, the drive, and the numbers.`,
+      `But destiny intervened. My father fell ill, and the family business needed me. I set aside my personal ambitions in finance to take over our family restaurant. It wasn't the path I planned, but it was the duty I chose to honor.`,
+    ],
+  },
+  {
     ghost: 'HUSTLE',
     tag: 'THE 11-YEAR GRIND',
-    headline: 'Beyond the Restaurant Floor.',
+    headline: 'The Real-World MBA.',
     body: [
-      `For over a decade, I ran my family restaurant. It taught me everything about the value of a rupee, the exhaustion of the grind, and the reality of Indian business. But after 11 years, I was bored. My calling wasn't in the kitchen - it was in the numbers, the spreadsheets, and the high-speed logic of the markets. I knew if I wanted the life I imagined, I had to pivot.`,
+       `I ran that restaurant for 12 years. Living the daily hustle of the Indian hospitality industry taught me more about the value of a rupee, cash flow management, and the grit required to sustain a business than any classroom could.`,
+      `However, after a decade on the floor, my true calling never left me. I had a burning desire to see the world with my own eyes and travel to the places I’d only dreamed of. I realized that my only true gateway to that freedom was investing in the stock market. By leveraging my technical learning skills and a burning drive to master new ideas, I began to unlock new possibilities. I knew that to live the life I imagined, I had to pivot back to my roots.`,
     ],
   },
   {
-    ghost: 'FINANCE',
-    tag: 'THE ACADEMIC PIVOT',
-    headline: 'Mastering the Language of Money.',
-    body: [
-      `I left the restaurant floor and moved to the UK to complete my Masters in Accounting and Finance at Aston University. It was here that I truly understood that money isn't just currency - it's fuel. Whether you want to invest in a mid-cap gem or ride across a continent, you need a financial system that works while you sleep. I realized most people fail not because they don't work hard, but because they lack a blueprint.`,
-    ],
-  },
-  {
-    ghost: 'MOTORCYCLES',
+    ghost: 'WHEELS',
     tag: "THE ADVENTURER'S MATH",
     headline: 'Passion is Expensive.',
     body: [
       <>
         I am obsessed with motorcycles and adventure. I share my journeys on my YouTube channel{' '}
-        <a href="https://www.youtube.com/@rrohannr" target="_blank" rel="noreferrer" className="underline underline-offset-2">
+        <a href="https://www.youtube.com/@rrohannr" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-[#2187FF]">
           @rrohannr
         </a>
         .
       </>,
-      `But the truth is, the things I am passionate about - traveling, riding high-end machines, exploring the Himalayas - require significant capital. I built Guiderr to bridge that gap: using accounting-grade precision to help you save smarter and invest better, so you can spend more time doing what you love.`,
+      `But the truth is, the things I love—traveling, riding high-end machines, exploring the Himalayas—require significant capital. I realized that to fund a life of adventure, you first have to master the math of financial independence.`,
     ],
   },
   {
@@ -39,7 +41,8 @@ const phases = [
     tag: 'THE CULMINATION',
     headline: 'Articles, Blogs & Blueprints.',
     body: [
-      `Guiderr is where my passion for finance meets my love for the open road. I’ve dedicated countless hours to researching investing frameworks and the real-world costs of travel and mobility, distilling it all in one place. My goal is to provide the exact articles and blogs I wish I could have found years ago-honest, practical, and built for modern India.`,
+      `Guiderr is where my Finance background finally meets my 12 years of business experience and my riding spirit. I spend the hours researching investment strategies, travel costs, and motorcycle ownership so you don’t have to.`,
+      `I brought it all together under one roof to publish quality articles and blogs I wish I had found when I was first trying to find my way back to financial freedom.`,
     ],
   },
   {
@@ -47,7 +50,8 @@ const phases = [
     tag: 'THE MISSION',
     headline: 'Independence as a Default.',
     body: [
-      `Guiderr exists to help India's modern buyer make one good decision instead of ten mediocre ones. Whether it's choosing the right card to fund your next trip or picking the right machine for your garage, we provide the honest math and practical guides to get you there. My goal is simple: to help you achieve the financial independence required to see the world with your own eyes.`,
+      `Guiderr exists to help India's modern buyer make one good decision instead of ten mediocre ones. Whether it's choosing the right card to fund your next trip or picking the right machine for your garage, we provide the honest math to get you there.`,
+      `My goal is simple: to help you achieve the financial independence required to see the world with your own eyes.`,
     ],
   },
 ];
