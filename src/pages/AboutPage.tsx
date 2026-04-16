@@ -14,7 +14,7 @@ const phases = [
   },
   {
     ghost: 'HUSTLE',
-    tag: 'THE 11-YEAR GRIND',
+    tag: 'THE 12-YEAR GRIND',
     headline: 'The Real-World MBA.',
     body: [
        `I ran that restaurant for 12 years. Living the daily hustle of the Indian hospitality industry taught me more about the value of a rupee, cash flow management, and the grit required to sustain a business than any classroom could.`,
