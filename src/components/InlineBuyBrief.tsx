@@ -87,12 +87,13 @@ export default function InlineBuyBrief({ productId, label }: InlineBuyBriefProps
         className="not-prose group my-8 flex items-center gap-4 rounded-2xl border border-white/20 bg-[#7178AB]/15 backdrop-blur-md p-4 cursor-pointer hover:bg-[#7178AB]/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg select-none"
         aria-label={`Buy ${product.name}`}
       >
-        {/* Cover thumbnail */}
+        {/* Cover thumbnail — visible on all screen sizes, forced block */}
         {product.cover_image_url && (
           <img
             src={optimizeCloudinaryUrl(product.cover_image_url, { width: 120 })}
             alt={product.name}
-            className="hidden sm:block w-14 h-20 object-cover rounded-lg shadow-md shrink-0 group-hover:scale-105 transition-transform duration-500"
+            style={{ display: 'block' }}
+            className="w-10 h-14 sm:w-14 sm:h-20 object-cover rounded-lg shadow-md shrink-0 group-hover:scale-105 transition-transform duration-500"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
