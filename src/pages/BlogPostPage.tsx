@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TableOfContents from '../components/TableOfContents';
 import ArticleFooter from '../components/ArticleFooter';
+import InlineBuyBrief from '../components/InlineBuyBrief';
 import { getPostBySlug } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
@@ -175,6 +176,7 @@ export default function BlogPostPage() {
             so browsers get WebP/AVIF automatically. loading=lazy protects bandwidth. */}
         <article className="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-xl prose-p:leading-[1.75]">
           <ReactMarkdown
+            urlTransform={(url) => url}
             components={{
               img: ({ src, alt }) => (
                 <img
@@ -189,6 +191,15 @@ export default function BlogPostPage() {
               // py-2 inline-block so touch targets are ≥44px on mobile.
               // Image-wrapped links are already large enough — skip the padding.
               a: ({ href, children }) => {
+                // ── Intelligence Brief shortcode ─────────────────────────────
+                // Usage in Decap CMS: [Buy the Full Report →](buy:UUID-HERE)
+                // Optional custom label from link text; UUID is immutable.
+                if (href?.startsWith('buy:')) {
+                  const productId = href.slice(4).trim();
+                  const label = typeof children === 'string' ? children : undefined;
+                  return <InlineBuyBrief productId={productId} label={label} />;
+                }
+
                 const isExternal = !!href?.startsWith('http') && !href.includes('guiderr.in');
                 if (!isExternal) return <a href={href}>{children}</a>;
 

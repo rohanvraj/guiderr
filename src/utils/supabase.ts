@@ -94,6 +94,21 @@ export interface Product {
 
 // ==================== PRODUCT MANAGEMENT ====================
 
+// Fetch a single product by UUID — delivery_link intentionally excluded (storefront-safe)
+export async function getProductById(productId: string) {
+  const { data, error } = await supabase
+    .from('products')
+    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type')
+    .eq('id', productId)
+    .single();
+
+  if (error) {
+    console.error('Product lookup by ID failed:', error.message);
+    throw error;
+  }
+  return data as Product;
+}
+
 export async function getProductByName(productName: string) {
   const { data, error } = await supabase
     .from('products')

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X, Copy, Check } from 'lucide-react';
 import { supabase, Product } from '../../utils/supabase';
 
 interface EditingProduct extends Product {
@@ -19,6 +19,14 @@ export default function ProductManager({}: ProductManagerProps) {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopyId = (id: string) => {
+    navigator.clipboard.writeText(id).then(() => {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    });
+  };
 
   // Fetch products from Supabase on component mount
   useEffect(() => {
@@ -566,13 +574,30 @@ export default function ProductManager({}: ProductManagerProps) {
                   key={product.id}
                   className="bg-white rounded-lg shadow p-4 flex items-center justify-between hover:shadow-md transition-shadow border border-slate-100"
                 >
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h4 className="font-bold text-slate-900">{product.name}</h4>
-                    <div className="mt-2 flex gap-4 text-xs text-slate-500">
+                    <div className="mt-1.5 flex flex-wrap gap-3 text-xs text-slate-500">
                       <span>Price: ₹{product.price_in_rupees}</span>
                       <span className="text-emerald-600 font-semibold">
-                        {product.product_type || 'ebook'} 
+                        {product.product_type || 'ebook'}
                       </span>
+                    </div>
+                    {/* Product UUID — copy for buy:UUID shortcode */}
+                    <div className="mt-2 flex items-center gap-1.5">
+                      <code className="text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded truncate max-w-[200px]">
+                        {product.id}
+                      </code>
+                      <button
+                        onClick={() => handleCopyId(product.id)}
+                        title="Copy UUID for buy:UUID shortcode"
+                        className="flex items-center gap-1 text-[10px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-100 text-slate-500 hover:text-indigo-700 transition-colors shrink-0"
+                      >
+                        {copiedId === product.id ? (
+                          <><Check className="w-3 h-3 text-green-600" /><span className="text-green-600">Copied!</span></>
+                        ) : (
+                          <><Copy className="w-3 h-3" /><span>Copy ID</span></>
+                        )}
+                      </button>
                     </div>
                   </div>
 

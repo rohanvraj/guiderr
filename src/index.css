@@ -91,3 +91,76 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* ── Print styles: Cmd+P on any article → clean PDF ─────────────────────── */
+/* Hide chrome, preserve article body text and all images.                    */
+@media print {
+  /* Navigation + UI chrome */
+  header,
+  footer,
+  [data-cart],
+  /* Mobile ToC pill (fixed bottom-right) */
+  .lg\:hidden.fixed.bottom-6,
+  /* Desktop ToC sidebar */
+  .lg\:block.sticky {
+    display: none !important;
+  }
+
+  /* Remove fixed/sticky positioning so nothing overlaps printed content */
+  * {
+    position: static !important;
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Full-width article body */
+  body,
+  main,
+  article {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure all images print */
+  img {
+    display: block !important;
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Keep headings together with following content */
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Avoid breaking inside paragraphs / blockquotes */
+  p, blockquote, li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* ArticleFooter "Where to go next" is irrelevant in print */
+  [aria-label="Article next steps"] {
+    display: none !important;
+  }
+
+  /* InlineBuyBrief purchase cards — show as simple bordered boxes in print */
+  [aria-label^="Buy "] {
+    border: 1px solid #ccc !important;
+    background: #f9f9f9 !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Remove Tailwind prose link underline colour — keep black for PDF readability */
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+}
