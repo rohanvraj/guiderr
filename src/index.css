@@ -92,73 +92,66 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ── Print styles: Cmd+P on any article → clean PDF ─────────────────────── */
-/* Hide chrome, preserve article body text and all images.                    */
+/* ── Print styles: Cmd+P on any article → clean "White Paper" PDF ─────────── */
 @media print {
-  /* Navigation + UI chrome */
+  /* ── 1. Surgical chrome removal ─────────────────────────────────────────── */
+  /* Target each offending element explicitly. No nuclear * reset —            */
+  /* that override was pulling fixed/transformed elements into document flow.  */
   header,
   footer,
-  [data-cart],
-  /* Mobile ToC pill (fixed bottom-right) */
-  .lg\:hidden.fixed.bottom-6,
-  /* Desktop ToC sidebar */
-  .lg\:block.sticky {
+  [data-noprint] {
     display: none !important;
   }
 
-  /* Remove fixed/sticky positioning so nothing overlaps printed content */
-  * {
-    position: static !important;
-    animation: none !important;
-    transition: none !important;
-    box-shadow: none !important;
+  /* ── 2. Kill the header-clearance top padding ───────────────────────────── */
+  /* The article wrapper has pt-28/pt-32 to clear the fixed navbar.           */
+  /* In print, the navbar is gone — zero that gap so H1 anchors to page top.  */
+  [data-article-body] {
+    padding-top: 0 !important;
   }
 
-  /* Full-width article body */
-  body,
-  main,
-  article {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
+  /* ── 3. Base print layout ───────────────────────────────────────────────── */
+  body {
     background: white !important;
     color: black !important;
   }
 
-  /* Ensure all images print */
+  main {
+    max-width: 100% !important;
+  }
+
+  /* ── 4. Image integrity ─────────────────────────────────────────────────── */
   img {
     display: block !important;
     max-width: 100% !important;
-    page-break-inside: avoid;
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
-  /* Keep headings together with following content */
+  /* ── 5. Pagination hints ────────────────────────────────────────────────── */
   h1, h2, h3, h4 {
-    page-break-after: avoid;
     break-after: avoid;
+    page-break-after: avoid;
   }
 
-  /* Avoid breaking inside paragraphs / blockquotes */
   p, blockquote, li {
-    page-break-inside: avoid;
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
-  /* ArticleFooter "Where to go next" is irrelevant in print */
+  /* ── 6. Hide non-content UI ─────────────────────────────────────────────── */
   [aria-label="Article next steps"] {
     display: none !important;
   }
 
-  /* InlineBuyBrief purchase cards — show as simple bordered boxes in print */
+  /* InlineBuyBrief cards → minimal bordered box in PDF */
   [aria-label^="Buy "] {
     border: 1px solid #ccc !important;
     background: #f9f9f9 !important;
     backdrop-filter: none !important;
   }
 
-  /* Remove Tailwind prose link underline colour — keep black for PDF readability */
+  /* ── 7. Link readability ────────────────────────────────────────────────── */
   a {
     color: black !important;
     text-decoration: underline;

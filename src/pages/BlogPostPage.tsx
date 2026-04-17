@@ -123,7 +123,7 @@ export default function BlogPostPage() {
         - Article gets the remaining 768px = max-w-3xl. No overlap at any lg+ screen.
         - On mobile: ToC renders its fixed "Quick Nav" pill only; article takes full width.
       */}
-      <div className="pt-28 sm:pt-32 px-4 sm:px-6 lg:px-8">
+      <div data-article-body className="pt-28 sm:pt-32 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl lg:max-w-5xl lg:flex lg:gap-12 items-start">
 
           {/* TableOfContents: desktop = sticky sidebar (inside flex); mobile = fixed pill */}

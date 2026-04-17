@@ -36,6 +36,7 @@ export default function CartPanel() {
       )}
 
       <div
+        data-noprint
         className={`fixed inset-0 bg-black/50 transition-opacity duration-300 z-40 ${
           isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
@@ -43,6 +44,7 @@ export default function CartPanel() {
       ></div>
 
       <div
+        data-noprint
         className={`fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform transition-transform duration-300 z-50 flex flex-col ${
           isCartOpen ? 'translate-x-0' : 'translate-x-full'
         }`}

@@ -144,12 +144,12 @@ export default function Hero() {
 
                   {/* Plane Icon - Travel */}
                   <div className="absolute top-20 right-1/4 animate-float-soft transform-gpu" style={{ animationDuration: '5.3s', animationDelay: '1.1s' }}>
-                    <Plane className="w-16 h-16 text-white/28" />
+                    <Plane className="w-16 h-16 text-white/20" />
                   </div>
 
                   {/* Compass Icon - Travel */}
                   <div className="absolute bottom-40 right-12 animate-float-soft transform-gpu" style={{ animationDuration: '4.9s', animationDelay: '0.4s' }}>
-                    <Compass className="w-14 h-14 text-white/26" />
+                    <Compass className="w-14 h-14 text-white/20" />
                   </div>
 
                   {/* Bike Icon - Motorcycle */}
