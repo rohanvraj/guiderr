@@ -33,6 +33,8 @@ Ready to take your passion for the open road to the vertical world of the Himala
 
 ![Riders approaching the mist-covered mountains of Sikkim](sikkim-bike-trip-june-2026_l6naom)
 
+[Unlock the 2026 Expedition Packing & Spares Checklist →](buy:2228c761-850f-42d2-bd3a-a5377e617997)
+
 [**👉 View Expedition Details & Enquire Now via WhatsApp**](https://www.guiderr.in/guides/2026-04-12-the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026)
 
 ***
