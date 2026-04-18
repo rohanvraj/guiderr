@@ -92,6 +92,50 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Premium Design Modules (Ebook-Look Callout Boxes) ──────────────────────── */
+/* Used by the ReactMarkdown blockquote renderer in BlogPostPage.tsx            */
+
+.dm-pro-tip {
+  margin: 1.5rem 0;
+  border-left: 4px solid #6366f1; /* indigo-500 */
+  background-color: #F0F7FF;
+  padding: 1rem 1.25rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.dm-math {
+  margin: 1.5rem 0;
+  background-color: #f1f5f9; /* slate-100 */
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.dm-risk-audit {
+  margin: 1.5rem 0;
+  border-left: 4px solid #f97316; /* orange-500 */
+  background-color: #fffbeb; /* amber-50 */
+  padding: 1rem 1.25rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Strip prose blockquote default styling inside design modules */
+.dm-pro-tip > blockquote,
+.dm-math > blockquote,
+.dm-risk-audit > blockquote {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+}
+
 /* ── Print styles: Cmd+P on any article → clean "White Paper" PDF ─────────── */
 @media print {
   /* ── 1. Surgical chrome removal ─────────────────────────────────────────── */
@@ -114,6 +158,8 @@ html {
   body {
     background: white !important;
     color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   main {

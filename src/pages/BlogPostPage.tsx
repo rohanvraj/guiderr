@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import TableOfContents from '../components/TableOfContents';
 import ArticleFooter from '../components/ArticleFooter';
 import InlineBuyBrief from '../components/InlineBuyBrief';
-import { getPostBySlug } from '../utils/blog';
+import { getPostBySlug, getFeaturedStoryBySlug } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
 // ── Heading ID helpers ────────────────────────────────────────────────────────
@@ -35,7 +35,10 @@ function makeHeadingId(children: unknown): string {
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
-  const post = slug ? getPostBySlug(slug) : undefined;
+  const blogPost = slug ? getPostBySlug(slug) : undefined;
+  const featuredStory = slug ? getFeaturedStoryBySlug(slug) : undefined;
+  const post = blogPost ?? featuredStory;
+  const isFeatured = !!featuredStory && !blogPost;
 
   // ── JSON-LD Article Schema + meta description (Day 4 SEO Hardening) ──────
   // Fires only when a valid post is found. No library needed.
@@ -114,7 +117,7 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className={`min-h-screen ${isFeatured ? 'bg-[#FAF9F7]' : 'bg-gradient-to-b from-slate-50 to-white'}`}>
       <Header />
 
       {/*
@@ -131,9 +134,18 @@ export default function BlogPostPage() {
 
           {/* pb-24 on mobile ensures last CTA clears the fixed Quick Nav pill */}
           <main className="min-w-0 flex-1 max-w-3xl pb-24 sm:pb-10">
-            <Link to="/guides" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
-              &larr; Back to Guides
+            <Link to={isFeatured ? '/featured' : '/guides'} className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
+              &larr; Back to {isFeatured ? 'Featured Stories' : 'Guides'}
             </Link>
+
+            {/* Gold Spotlight badge for featured articles */}
+            {isFeatured && (
+              <div className="mb-4">
+                <span className="inline-flex items-center px-3 py-[3px] border border-yellow-600/70 text-yellow-700 text-[9px] font-bold uppercase tracking-[0.35em] rounded-full bg-yellow-50">
+                  S P O T L I G H T
+                </span>
+              </div>
+            )}
 
         {post.category && (
           <span className="block text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-3">
@@ -230,6 +242,38 @@ export default function BlogPostPage() {
               h3: ({ children }) => {
                 const id = makeHeadingId(children);
                 return <h3 id={id}>{children}</h3>;
+              },
+              // ── Premium Design Modules ────────────────────────────────────────
+              // Transforms blockquotes (>) into styled callout boxes based on
+              // their opening keyword:  PRO TIP: / THE MATH: / RISK AUDIT:
+              blockquote: ({ children }) => {
+                const text = extractHeadingText(children).trim();
+                if (text.startsWith('PRO TIP:')) {
+                  return (
+                    <div className="dm-pro-tip">
+                      {children}
+                    </div>
+                  );
+                }
+                if (text.startsWith('THE MATH:')) {
+                  return (
+                    <div className="dm-math">
+                      {children}
+                    </div>
+                  );
+                }
+                if (text.startsWith('RISK AUDIT:')) {
+                  return (
+                    <div className="dm-risk-audit">
+                      {children}
+                    </div>
+                  );
+                }
+                return (
+                  <blockquote className="border-l-4 border-slate-300 pl-4 italic text-slate-600 my-4">
+                    {children}
+                  </blockquote>
+                );
               },
             }}
           >

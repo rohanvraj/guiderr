@@ -75,6 +75,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/featured" element={<FeaturedStoriesPage />} />
+            <Route path="/featured/:slug" element={<BlogPostPage />} />
             <Route path="/get-featured" element={<GetFeaturedPage />} />
             <Route path="/guides" element={<BlogListingPage />} />
             <Route path="/guides/:slug" element={<BlogPostPage />} />

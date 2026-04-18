@@ -98,6 +98,11 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
   return getAllPosts().find((p) => p.slug === slug);
 }
 
+/** Single featured story lookup by slug. */
+export function getFeaturedStoryBySlug(slug: string): FeaturedStory | undefined {
+  return getAllFeaturedStories().find((s) => s.slug === slug);
+}
+
 /** All featured stories, newest first. */
 export function getAllFeaturedStories(): FeaturedStory[] {
   return Object.entries(featuredModules)

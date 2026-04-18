@@ -10,72 +10,135 @@ function getStoryExcerpt(body: string): string {
     .replace(/\s+/g, ' ')
     .trim();
 
-  return cleaned.length > 130 ? `${cleaned.slice(0, 130)}...` : cleaned;
+  return cleaned.length > 160 ? `${cleaned.slice(0, 160)}...` : cleaned;
 }
 
 export default function FeaturedStoriesPage() {
   const stories = getAllFeaturedStories();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-[#FAF9F6]">
       <Header />
 
       <main className="pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Featured Stories</h1>
-        <p className="text-slate-600 mb-10">Editorial features, partner stories, and brand spotlights published on Guiderr.</p>
+
+        {/* ── Magazine masthead ── */}
+        <div className="mb-10 border-b border-slate-200 pb-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-yellow-700 mb-2">
+            The Spotlight Series
+          </p>
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-none mb-3">
+            Featured Stories
+          </h1>
+          <p className="text-slate-500 text-base max-w-xl">
+            Editorial features, partner stories, and brand spotlights published on Guiderr.
+          </p>
+        </div>
 
         {stories.length === 0 ? (
-          <div className="text-center py-24 rounded-3xl border border-slate-100 bg-white">
+          <div className="text-center py-24 rounded-3xl border border-slate-200 bg-white">
             <p className="text-slate-500 text-lg">No featured stories are published yet. Check back soon.</p>
           </div>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex flex-col gap-8">
             {stories.map((story) => (
               <article
                 key={story.slug}
-                className="group bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow"
+                className="group relative overflow-hidden bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow"
               >
-                {story.featuredImage && (
-                  <img
-                    src={optimizeCloudinaryUrl(story.featuredImage, { width: 600, quality: 'auto:eco' })}
-                    alt={story.title}
-                    loading="lazy"
-                    className="w-full h-48 object-cover"
-                  />
-                )}
-                <div className="p-5">
-                  {story.category && (
-                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      {story.category}
-                    </span>
-                  )}
-                  <h2 className="mt-1 text-lg font-bold text-slate-900 group-hover:text-slate-700 transition-colors">
-                    {story.title}
-                  </h2>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{getStoryExcerpt(story.body)}</p>
-                  <div className="mt-4 flex items-center gap-2 text-sm text-slate-500">
-                    <time dateTime={story.date}>
-                      {story.date
-                        ? new Date(story.date).toLocaleDateString('en-IN', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })
-                        : 'Coming soon'}
-                    </time>
-                    {story.author && (
-                      <>
-                        <span aria-hidden="true">·</span>
-                        <span>{story.author}</span>
-                      </>
+                <Link
+                  to={`/featured/${story.slug}`}
+                  className="flex flex-col sm:flex-row min-h-[260px]"
+                >
+                  {/* ── Image side (45%) ── */}
+                  <div className="sm:w-[45%] flex-shrink-0 bg-slate-100">
+                    {story.featuredImage ? (
+                      <img
+                        src={optimizeCloudinaryUrl(story.featuredImage, { width: 700, quality: 'auto:eco' })}
+                        alt={story.title}
+                        loading="lazy"
+                        className="w-full h-56 sm:h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-56 sm:h-full bg-gradient-to-br from-slate-200 to-slate-300" />
                     )}
                   </div>
-                </div>
+
+                  {/* ── Content side (55%) — Champagne tint ── */}
+                  <div className="sm:w-[55%] bg-[#FAF9F6] px-6 py-7 sm:px-8 sm:py-8 relative overflow-hidden flex flex-col justify-center">
+
+                    {/* Ghost category typography */}
+                    {story.category && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-0 flex items-center justify-center font-black uppercase text-slate-900 select-none pointer-events-none leading-none"
+                        style={{
+                          fontSize: 'clamp(3rem, 10vw, 7rem)',
+                          letterSpacing: '0.15em',
+                          opacity: 0.045,
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {story.category}
+                      </span>
+                    )}
+
+                    {/* SPOTLIGHT badge */}
+                    <div className="relative z-10 mb-4">
+                      <span className="inline-flex items-center px-3 py-[3px] border border-yellow-600/70 text-yellow-700 text-[9px] font-bold uppercase tracking-[0.35em] rounded-full bg-yellow-50">
+                        S P O T L I G H T
+                      </span>
+                    </div>
+
+                    {/* Category label */}
+                    {story.category && (
+                      <span className="relative z-10 text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-2">
+                        {story.category}
+                      </span>
+                    )}
+
+                    {/* Title */}
+                    <h2 className="relative z-10 text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-slate-700 transition-colors leading-snug mb-3">
+                      {story.title}
+                    </h2>
+
+                    {/* Excerpt */}
+                    <p className="relative z-10 text-sm leading-[1.7] text-slate-600 mb-5 line-clamp-3">
+                      {getStoryExcerpt(story.body)}
+                    </p>
+
+                    {/* Meta + Read arrow */}
+                    <div className="relative z-10 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <time dateTime={story.date}>
+                          {story.date
+                            ? new Date(story.date).toLocaleDateString('en-IN', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                              })
+                            : 'Coming soon'}
+                        </time>
+                        {story.author && (
+                          <>
+                            <span aria-hidden="true">·</span>
+                            <span>{story.author}</span>
+                          </>
+                        )}
+                      </div>
+                      <span className="text-xs font-semibold text-yellow-700 group-hover:translate-x-1 transition-transform inline-block">
+                        Read →
+                      </span>
+                    </div>
+
+                  </div>
+                </Link>
               </article>
             ))}
           </div>
         )}
 
+        {/* ── CTA banner ── */}
         <div className="mt-14 sm:mt-16 rounded-[2rem] border border-violet-100 bg-white px-6 py-10 sm:px-10 sm:py-14 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 mb-4">Want your brand here?</p>
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
