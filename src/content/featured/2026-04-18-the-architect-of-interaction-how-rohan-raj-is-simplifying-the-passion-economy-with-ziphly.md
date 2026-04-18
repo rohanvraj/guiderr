@@ -34,7 +34,7 @@ What makes Ziphly unique is its versatility. It isn't just for "techies." The pl
 ## **3. The Math of Transparency**
 In a market filled with hidden subscription fees and "platform charges," Ziphly has opted for a clinical, accounting-grade approach to pricing. The model is built on a flat **10% commission** on successful sales. 
 
-> THE BOTTOM LINE: **For a consultant charging ₹2,000 for a 30-minute session, Ziphly’s 10% model means the creator keeps ₹1,800 without any upfront monthly overhead. It aligns the platform’s success directly with the creator’s success.**
+> THE BOTTOM LINE: **For a consultant charging ₹2,000 for a 30-minute session, Ziphly’s 10% model means the creator keeps 90% without any upfront monthly overhead. It aligns the platform’s success directly with the creator’s success.**
 
 ***
 
