@@ -92,6 +92,15 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Featured Article Lead-in Paragraph ─────────────────────────────────────── */
+/* First <p> in a Featured Story gets an editorial "drop-in" treatment.         */
+.featured-lead > p:first-of-type {
+  font-size: 1.2rem;
+  font-weight: 450;
+  line-height: 1.8;
+  color: #1e293b; /* slate-800 */
+}
+
 /* ── Premium Design Modules (Ebook-Look Callout Boxes) ──────────────────────── */
 /* Used by the ReactMarkdown blockquote renderer in BlogPostPage.tsx            */
 

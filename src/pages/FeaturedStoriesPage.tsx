@@ -27,7 +27,7 @@ export default function FeaturedStoriesPage() {
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-yellow-700 mb-2">
             The Spotlight Series
           </p>
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-none mb-3">
+          <h1 className="text-6xl sm:text-8xl font-black tracking-tighter text-slate-900 leading-none mb-3">
             Featured Stories
           </h1>
           <p className="text-slate-500 text-base max-w-xl">
@@ -67,15 +67,15 @@ export default function FeaturedStoriesPage() {
                   {/* ── Content side (55%) — Champagne tint ── */}
                   <div className="sm:w-[55%] bg-[#FAF9F6] px-6 py-7 sm:px-8 sm:py-8 relative overflow-hidden flex flex-col justify-center">
 
-                    {/* Ghost category typography */}
+                    {/* Ghost category typography — moves on card hover */}
                     {story.category && (
                       <span
                         aria-hidden="true"
-                        className="absolute inset-0 flex items-center justify-center font-black uppercase text-slate-900 select-none pointer-events-none leading-none"
+                        className="absolute inset-0 flex items-center justify-center font-black uppercase text-slate-900 select-none pointer-events-none leading-none transition-transform duration-500 ease-out group-hover:translate-x-6 will-change-transform"
                         style={{
                           fontSize: 'clamp(3rem, 10vw, 7rem)',
                           letterSpacing: '0.15em',
-                          opacity: 0.045,
+                          opacity: 0.09,
                           whiteSpace: 'nowrap',
                         }}
                       >

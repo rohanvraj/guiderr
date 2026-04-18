@@ -40,6 +40,12 @@ export default function BlogPostPage() {
   const post = blogPost ?? featuredStory;
   const isFeatured = !!featuredStory && !blogPost;
 
+  // Draft gate: only allow draft posts when running on localhost.
+  const isDraft = blogPost?.status === 'draft';
+  const isLocalhost = typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  const blockedDraft = isDraft && !isLocalhost;
+
   // ── JSON-LD Article Schema + meta description (Day 4 SEO Hardening) ──────
   // Fires only when a valid post is found. No library needed.
   useEffect(() => {
@@ -101,7 +107,7 @@ export default function BlogPostPage() {
     };
   }, [post, slug]);
 
-  if (!post) {
+  if (!post || blockedDraft) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
         <Header />
@@ -186,7 +192,7 @@ export default function BlogPostPage() {
         {/* Feather-Weight: every inline img is a bare Cloudinary Public ID.
             optimizeCloudinaryUrl builds the full CDN URL with f_auto,q_auto:eco,w_800
             so browsers get WebP/AVIF automatically. loading=lazy protects bandwidth. */}
-        <article className="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-xl prose-p:leading-[1.75]">
+        <article className={`prose prose-slate max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-xl prose-p:leading-[1.75]${isFeatured ? ' featured-lead' : ''}`}>
           <ReactMarkdown
             urlTransform={(url) => url}
             components={{
@@ -245,27 +251,55 @@ export default function BlogPostPage() {
               },
               // ── Premium Design Modules ────────────────────────────────────────
               // Transforms blockquotes (>) into styled callout boxes based on
-              // their opening keyword:  PRO TIP: / THE MATH: / RISK AUDIT:
+              // their opening keyword:  PRO TIP: / THE BOTTOM LINE: / REALITY CHECK:
+              // The trigger keyword is automatically rendered in bold.
               blockquote: ({ children }) => {
                 const text = extractHeadingText(children).trim();
+
+                // Renders the trigger keyword as a small all-caps label pill
+                // above the body text, giving a magazine-sidebar aesthetic.
+                function withLabeledKeyword(keyword: string): React.ReactNode {
+                  // Strip trailing colon from the displayed label
+                  const label = keyword.replace(/:$/, '');
+                  let firstDone = false;
+                  return Children.map(children, (child) => {
+                    if (!firstDone && isValidElement(child) && (child as React.ReactElement).type === 'p') {
+                      firstDone = true;
+                      const raw = extractHeadingText((child as React.ReactElement<{ children: unknown }>).props.children);
+                      const after = raw.startsWith(keyword) ? raw.slice(keyword.length).trimStart() : raw;
+                      return (
+                        <>
+                          <p className="mb-1">
+                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] opacity-60 mb-2">
+                              {label}
+                            </span>
+                            {after}
+                          </p>
+                        </>
+                      );
+                    }
+                    return child;
+                  });
+                }
+
                 if (text.startsWith('PRO TIP:')) {
                   return (
                     <div className="dm-pro-tip">
-                      {children}
+                      {withLabeledKeyword('PRO TIP:')}
                     </div>
                   );
                 }
-                if (text.startsWith('THE MATH:')) {
+                if (text.startsWith('THE BOTTOM LINE:')) {
                   return (
                     <div className="dm-math">
-                      {children}
+                      {withLabeledKeyword('THE BOTTOM LINE:')}
                     </div>
                   );
                 }
-                if (text.startsWith('RISK AUDIT:')) {
+                if (text.startsWith('REALITY CHECK:')) {
                   return (
                     <div className="dm-risk-audit">
-                      {children}
+                      {withLabeledKeyword('REALITY CHECK:')}
                     </div>
                   );
                 }

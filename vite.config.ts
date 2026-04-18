@@ -1,13 +1,36 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import sitemap from 'vite-plugin-sitemap';
+import fs from 'fs';
+import path from 'path';
 
-// All public-facing routes for sitemap.xml
-// Admin, stats, and thank-you pages are intentionally excluded.
-const sitemapRoutes = [
+// ── Draft-aware sitemap route builder ────────────────────────────────────────
+// Reads every .md file in src/content/blog/ at build time.
+// Articles with `status: draft` (or `status: "draft"`) are excluded so Google
+// never indexes private PDF briefs.
+function getPublishedBlogRoutes(): string[] {
+  const blogDir = path.resolve(__dirname, 'src/content/blog');
+  if (!fs.existsSync(blogDir)) return [];
+
+  return fs
+    .readdirSync(blogDir)
+    .filter((f) => f.endsWith('.md'))
+    .flatMap((file) => {
+      const raw = fs.readFileSync(path.join(blogDir, file), 'utf-8');
+      // Extract status from frontmatter (handles quoted and unquoted values)
+      const statusMatch = raw.match(/^status:\s*["']?(\w+)["']?\s*$/m);
+      const status = statusMatch ? statusMatch[1] : 'published';
+      if (status === 'draft') return [];
+      const slug = file.replace('.md', '');
+      return [`/guides/${slug}`];
+    });
+}
+
+// Static routes that are always public
+const staticRoutes = [
   '/',
   '/guides',
-  '/guides/2026-03-09-welcome-to-guiderr-guides',
+  '/featured',
   '/motorcycles',
   '/finance',
   '/travel',
@@ -27,7 +50,7 @@ export default defineConfig(({ command }) => ({
     react(),
     sitemap({
       hostname: 'https://www.guiderr.in',
-      dynamicRoutes: sitemapRoutes,
+      dynamicRoutes: [...staticRoutes, ...getPublishedBlogRoutes()],
       // Exclude the CMS admin and any auto-discovered non-public paths
       exclude: ['/cms', '/cms/**'],
     }),

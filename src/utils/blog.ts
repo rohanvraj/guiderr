@@ -8,6 +8,7 @@ export interface BlogPost {
   author: string;
   featuredImage: string;
   body: string;
+  status: string;
 }
 
 export interface FeaturedStory {
@@ -68,8 +69,8 @@ const featuredModules = import.meta.glob('/src/content/featured/*.md', {
   eager: true,
 }) as Record<string, string>;
 
-/** All posts, newest first. */
-export function getAllPosts(): BlogPost[] {
+/** All posts including drafts — internal use only. */
+function getAllPostsRaw(): BlogPost[] {
   return Object.entries(blogModules)
     .map(([filepath, raw]) => {
       const { metadata, body } = parseFrontmatter(raw);
@@ -83,9 +84,15 @@ export function getAllPosts(): BlogPost[] {
         author: metadata.author || '',
         featuredImage: metadata.featured_image || '',
         body,
+        status: metadata.status || 'published',
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+/** All published posts (drafts excluded), newest first. */
+export function getAllPosts(): BlogPost[] {
+  return getAllPostsRaw().filter((p) => p.status !== 'draft');
 }
 
 /** Category lookup using statically bundled markdown content only. */
@@ -93,9 +100,13 @@ export function getPostsByCategory(category: string): BlogPost[] {
   return getAllPosts().filter((post) => post.category === category);
 }
 
-/** Single post lookup by slug. */
+/**
+ * Single post lookup by slug — includes drafts so the article renders
+ * when accessed by direct URL. BlogPostPage gates draft visibility to
+ * localhost only.
+ */
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return getAllPosts().find((p) => p.slug === slug);
+  return getAllPostsRaw().find((p) => p.slug === slug);
 }
 
 /** Single featured story lookup by slug. */
