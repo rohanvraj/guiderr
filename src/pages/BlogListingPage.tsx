@@ -13,6 +13,16 @@ const CATEGORY_FILTER: Record<string, string> = {
   'Personal Finance': 'Finance',
 };
 
+// Clicking a non-All, non-Investing pill navigates to the dedicated hub page.
+const CATEGORY_HUB_URL: Record<string, string> = {
+  'Personal Finance': '/personal-finance',
+  Travel:             '/travel',
+  Tech:               '/tech',
+  Automotive:         '/automotive',
+  Lifestyle:          '/lifestyle',
+  Business:           '/business',
+};
+
 function getPrimaryCategory(category: string): Category | null {
   // Backward-compat: ?category=Finance in URL maps to 'Personal Finance'
   if (category === 'Finance') return 'Personal Finance';
@@ -54,10 +64,8 @@ export default function BlogListingPage() {
             <button
               key={cat}
               onClick={() => {
-                if (cat === 'Investing') {
-                  navigate('/investing');
-                  return;
-                }
+                if (cat === 'Investing') { navigate('/investing'); return; }
+                if (cat !== 'All' && CATEGORY_HUB_URL[cat]) { navigate(CATEGORY_HUB_URL[cat]); return; }
                 setActiveCategory(cat);
               }}
               className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${

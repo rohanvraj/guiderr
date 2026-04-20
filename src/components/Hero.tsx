@@ -14,7 +14,7 @@ const HERO_TILES = [
     label: 'Personal Finance',
     description: 'Build wealth, optimise credit, and achieve financial freedom',
     ghost: 'FINANCE',
-    link: '/guides?category=Finance',
+    link: '/personal-finance',
     Icon: ChartLineUp, bg: 'bg-teal-50', border: 'border-teal-200', color: '#0d9488',
   },
   {
@@ -30,7 +30,7 @@ const HERO_TILES = [
     label: 'Travel',
     description: 'Explore the world with confidence and insider knowledge',
     ghost: 'TRAVEL',
-    link: '/guides?category=Travel',
+    link: '/travel',
     Icon: GlobeHemisphereWest, bg: 'bg-blue-50', border: 'border-blue-200', color: '#2563eb',
   },
   {
@@ -38,7 +38,7 @@ const HERO_TILES = [
     label: 'Tech',
     description: 'Reviews and guides on the latest gadgets and technology',
     ghost: 'TECH',
-    link: '/guides?category=Tech',
+    link: '/tech',
     Icon: Cpu, bg: 'bg-sky-50', border: 'border-sky-200', color: '#0284c7',
   },
   {
@@ -46,7 +46,7 @@ const HERO_TILES = [
     label: 'Automotive',
     description: 'Motorcycles, cars, and everything that moves — buying and riding guides',
     ghost: 'WHEELS',
-    link: '/guides?category=Automotive',
+    link: '/automotive',
     Icon: CarSimple, bg: 'bg-slate-50', border: 'border-slate-200', color: '#475569',
   },
   {
@@ -54,7 +54,7 @@ const HERO_TILES = [
     label: 'Lifestyle',
     description: 'Smarter choices for how you live, eat, dress, and spend your time',
     ghost: 'LIFESTYLE',
-    link: '/guides?category=Lifestyle',
+    link: '/lifestyle',
     Icon: SunHorizon, bg: 'bg-amber-50', border: 'border-amber-200', color: '#d97706',
   },
   {
@@ -62,7 +62,7 @@ const HERO_TILES = [
     label: 'Business',
     description: "Entrepreneur's playbook for building and growing your business",
     ghost: 'BUSINESS',
-    link: '/guides?category=Business',
+    link: '/business',
     Icon: Briefcase, bg: 'bg-indigo-50', border: 'border-indigo-200', color: '#4f46e5',
   },
 ];

@@ -1,21 +1,22 @@
 import { Link } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
 
-// Maps frontmatter category → filtered blog URL.
+// Maps frontmatter category → the dedicated Hub URL (clean, SEO-friendly).
 const CATEGORY_BLOG_URL: Record<string, string> = {
-  Finance:     '/guides?category=Finance',
+  Finance:     '/personal-finance',
   Investing:   '/investing',
-  Automotive:  '/guides?category=Automotive',
-  Motorcycles: '/guides?category=Automotive',
-  Travel:      '/guides?category=Travel',
-  Tech:        '/guides?category=Tech',
-  Lifestyle:   '/guides?category=Lifestyle',
-  Business:    '/guides?category=Business',
+  Automotive:  '/automotive',
+  Motorcycles: '/automotive',
+  Travel:      '/travel',
+  Tech:        '/tech',
+  Lifestyle:   '/lifestyle',
+  Business:    '/business',
 };
 
 // Human-readable label overrides (blog display + CTA copy).
 const CATEGORY_DISPLAY: Record<string, string> = {
-  Finance: 'Personal Finance',
+  Finance:     'Personal Finance',
+  Motorcycles: 'Automotive',
 };
 
 // Maps frontmatter category → the Library category pill query param.

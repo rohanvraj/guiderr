@@ -49,7 +49,7 @@ const PATHS = [
       { title: 'The Petrol Hack — Turn Your Commute into Free Travel', slug: '2026-04-10-the-petrol-hack-how-to-turn-your-daily-commute-into-free-travel-in-2026' },
       { title: 'The Frugal Shield — Why an Emergency Fund Is Non-Negotiable', slug: '2026-04-13-the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
     ],
-    guideLink: '/guides?category=Finance',
+    guideLink: '/personal-finance',
   },
   {
     key: 'investing',
@@ -77,7 +77,7 @@ const PATHS = [
       { title: 'The Great East Expedition — Pune to Sikkim', slug: '2026-04-12-the-great-east-expedition-riding-from-pune-to-sikkim-in-june-2026' },
       { title: 'Hayabusa 2026 — A Modern Masterpiece Review', slug: '2026-04-09-the-2026-review-why-the-metallic-mat-steel-green-suzuki-hayabusa-is-a-modern-masterpiece' },
     ],
-    guideLink: '/guides?category=Automotive',
+    guideLink: '/automotive',
   },
   {
     key: 'life',
@@ -93,7 +93,7 @@ const PATHS = [
       { title: 'Smart Queue Management & the Indian Dining Revolution', slug: '2026-04-08-beyond-the-plate-how-smart-queue-management-is-redefining-the-indian-dining-experience-in-2026' },
       { title: 'Best Sunscreens for the Indian Climate in 2026', slug: '2026-04-09-a-guide-to-popular-sunscreens-for-the-indian-climate-in-2026' },
     ],
-    guideLink: '/guides?category=Lifestyle',
+    guideLink: '/lifestyle',
   },
 ];
 

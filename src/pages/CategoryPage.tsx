@@ -1,7 +1,5 @@
-// All old commerce category routes (/:category) now redirect to the unified Library hub.
-// Explicit routes registered before /:category in App.tsx are unaffected.
-import { Navigate } from 'react-router-dom';
+// Thin re-export — App.tsx imports CategoryPage; the real logic lives in CategoryHub.
+// This keeps the lazy-import in App.tsx unchanged while the hub component stays
+// in its own clearly-named file.
+export { default } from './CategoryHub';
 
-export default function CategoryPage() {
-  return <Navigate to="/library" replace />;
-}
