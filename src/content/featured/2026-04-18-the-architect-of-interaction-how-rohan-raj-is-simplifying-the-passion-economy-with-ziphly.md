@@ -2,7 +2,7 @@
 title: "The Architect of Interaction: How Rohan Raj is Simplifying the Passion
   Economy with Ziphly"
 date: 2026-04-18T19:48:00.000Z
-category: Lifestyle
+category: Business
 author: Guiderr Editorial
 featured_image: ziphly-founder-rohan-raj_mb9yiw
 ---
