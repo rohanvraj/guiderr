@@ -154,7 +154,7 @@ export default function Hero() {
 
                   {/* Bike Icon - Motorcycle */}
                   <div className="absolute top-2/3 left-20 animate-float-soft transform-gpu" style={{ animationDuration: '5.1s', animationDelay: '1.3s' }}>
-                    <Bike className="w-18 h-18 text-white/27" />
+                    <Bike className="w-18 h-18 text-white/25" />
                   </div>
                 </div>
 
