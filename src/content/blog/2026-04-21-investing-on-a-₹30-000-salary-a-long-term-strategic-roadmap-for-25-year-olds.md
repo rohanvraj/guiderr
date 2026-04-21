@@ -3,7 +3,7 @@ title: "Investing on a ₹30,000 Salary: A Long-Term Strategic Roadmap for 25-Ye
 date: 2026-04-22T01:15:00.000Z
 category: Investing
 author: Guiderr editorial
-featured_image: stock-market-screen-image_cvy8wj
+featured_image: how_to_invest_on_30k_salary-guiderr_jaqonj
 ---
 
 Starting an investment journey at age 25 with a monthly income of ₹30,000 presents a unique mathematical advantage: a long time horizon. While the amount may seem modest, the primary driver of wealth in the Indian markets has historically been the duration of stay rather than the size of the initial capital.
