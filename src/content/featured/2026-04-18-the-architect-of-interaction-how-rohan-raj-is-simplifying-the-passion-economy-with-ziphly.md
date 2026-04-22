@@ -17,7 +17,7 @@ Enter **Rohan Raj**, an Aston University Finance graduate and a seasoned entrepr
 ## **1. Beyond the Follower Count**
 Ziphly addresses a specific pain point in the Indian market: the transition from "influencer" to "service provider." The platform allows anyone—from musicians to financial consultants—to list and sell 1:1 sessions or group workshops in just a few clicks.
 
-> PRO TIP: **The modern professional doesn't need more likes; they need more 'booked' slots. Ziphly focuses on the transaction of knowledge rather than the vanity of engagement.**
+> INSIGHT: **The modern professional doesn't need more likes; they need more 'booked' slots. Ziphly focuses on the transaction of knowledge rather than the vanity of engagement.**
 
 ***
 
