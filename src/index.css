@@ -105,11 +105,23 @@ html {
 /* ── Premium Design Modules (Ebook-Look Callout Boxes) ──────────────────────── */
 /* Used by the ReactMarkdown blockquote renderer in BlogPostPage.tsx            */
 
+/* ┌─────────────────────────────────────────────────────────────────────────┐
+   │  DESIGN MODULE COLOR DASHBOARD — change only these variables            │
+   │  Labels in BlogPostPage.tsx read the same vars via style={{ color: }}   │
+   └─────────────────────────────────────────────────────────────────────────┘ */
+:root {
+  --dm-bg:          #494949;  /* Dark box background                         */
+  --dm-text:        #f8fafc;  /* Main text color inside boxes                */
+  --dm-accent-pro:  #2187FF;  /* Blue streak  — PRO TIP                      */
+  --dm-accent-math: #ffd000;  /* White streak — THE BOTTOM LINE              */
+  --dm-accent-risk: #FF3131;  /* Red streak   — REALITY CHECK                */
+}
+
 .dm-pro-tip {
   margin: 1.5rem 0;
-  border-left: 2px solid #2187FF;
-  background-color: #020617; /* slate-950 */
-  color: #e2e8f0; /* slate-200 */
+  border-left: 3px solid var(--dm-accent-pro);
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text);
   padding: 2rem;
   border-radius: 1rem;
   -webkit-print-color-adjust: exact;
@@ -118,9 +130,9 @@ html {
 
 .dm-math {
   margin: 1.5rem 0;
-  border-left: 2px solid #FFFFFF;
-  background-color: #020617; /* slate-950 */
-  color: #e2e8f0; /* slate-200 */
+  border-left: 3px solid var(--dm-accent-math);
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text);
   padding: 2rem;
   border-radius: 1rem;
   -webkit-print-color-adjust: exact;
@@ -129,9 +141,9 @@ html {
 
 .dm-risk-audit {
   margin: 1.5rem 0;
-  border-left: 2px solid #FF4D4D;
-  background-color: #020617; /* slate-950 */
-  color: #e2e8f0; /* slate-200 */
+  border-left: 3px solid var(--dm-accent-risk);
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text);
   padding: 2rem;
   border-radius: 1rem;
   -webkit-print-color-adjust: exact;
@@ -146,6 +158,13 @@ html {
   padding: 0;
   margin: 0;
   font-style: normal;
+}
+
+/* Override Tailwind prose specificity so var(--dm-text) wins on <p> children */
+.dm-pro-tip p, .dm-pro-tip strong,
+.dm-math p, .dm-math strong,
+.dm-risk-audit p, .dm-risk-audit strong {
+  color: var(--dm-text) !important;
 }
 
 /* ── Print styles: Cmd+P on any article → clean "White Paper" PDF ─────────── */

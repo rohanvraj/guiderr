@@ -286,21 +286,21 @@ export default function BlogPostPage() {
                 if (text.startsWith('PRO TIP:')) {
                   return (
                     <div className="dm-pro-tip">
-                      {withLabeledKeyword('PRO TIP:', '#2187FF')}
+                      {withLabeledKeyword('PRO TIP:', 'var(--dm-accent-pro)')}
                     </div>
                   );
                 }
                 if (text.startsWith('THE BOTTOM LINE:')) {
                   return (
                     <div className="dm-math">
-                      {withLabeledKeyword('THE BOTTOM LINE:', '#FFFFFF')}
+                      {withLabeledKeyword('THE BOTTOM LINE:', 'var(--dm-accent-math)')}
                     </div>
                   );
                 }
                 if (text.startsWith('REALITY CHECK:')) {
                   return (
                     <div className="dm-risk-audit">
-                      {withLabeledKeyword('REALITY CHECK:', '#FF4D4D')}
+                      {withLabeledKeyword('REALITY CHECK:', 'var(--dm-accent-risk)')}
                     </div>
                   );
                 }
