@@ -228,17 +228,33 @@ export default function BlogPostPage() {
                   (childArr[0] as React.ReactElement).type === 'img';
 
                 if (isSingleImage) {
+                  // ── Badge eligibility gate ────────────────────────────────
+                  // Strict whitelist: badge ONLY on known affiliate domains.
+                  // All other URLs (social, partner sites, internal) are excluded by default.
+                  const AFFILIATE_DOMAINS = ['amazon.', 'amzn.', 'bitli.in', 'ekaro.', 'earnkaro.'];
+                  const isAffiliate = AFFILIATE_DOMAINS.some(
+                    (d) => href?.toLowerCase().includes(d)
+                  );
+                  // Manual override: alt text containing "nobadge" hides badge.
+                  const imgEl = childArr[0] as React.ReactElement<{ alt?: string }>;
+                  const altText = imgEl.props.alt ?? '';
+                  const noBadge = altText.toLowerCase().includes('nobadge');
+
+                  const showBadge = isAffiliate && !noBadge;
+
                   return (
                     <a
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="relative group inline-block w-full"
+                      className={showBadge ? 'relative group inline-block w-full' : undefined}
                     >
                       {children}
-                      <div className="absolute bottom-0 right-0 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-black tracking-[0.2em] uppercase px-3 py-2 rounded-tl-xl border-t border-l border-white/20 transition-all duration-200 group-hover:bg-slate-900/95 group-hover:shadow-[0_0_12px_rgba(255,255,255,0.15)]">
-                        CHECK OFFER →
-                      </div>
+                      {showBadge && (
+                        <div className="absolute bottom-0 right-0 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-black tracking-[0.2em] uppercase px-3 py-2 rounded-tl-xl border-t border-l border-white/20 transition-all duration-200 group-hover:bg-slate-900/95 group-hover:shadow-[0_0_12px_rgba(255,255,255,0.15)]">
+                          CHECK OFFER →
+                        </div>
+                      )}
                     </a>
                   );
                 }
