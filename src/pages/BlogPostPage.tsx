@@ -251,7 +251,7 @@ export default function BlogPostPage() {
               },
               // ── Premium Design Modules ────────────────────────────────────────
               // Transforms blockquotes (>) into styled callout boxes based on
-              // their opening keyword:  PRO TIP: / THE BOTTOM LINE: / REALITY CHECK:
+              // their opening keyword:  INSIGHT: / THE BOTTOM LINE: / REALITY CHECK:
               // The trigger keyword is automatically rendered in bold.
               blockquote: ({ children }) => {
                 const text = extractHeadingText(children).trim();
@@ -270,7 +270,7 @@ export default function BlogPostPage() {
                       return (
                         <>
                           <p className="mb-1">
-                            <span className="block text-[10px] font-black tracking-[0.4em] uppercase mb-1" style={{ color: labelColor }}>
+                            <span className="block text-[10px] font-black tracking-[0.3em] uppercase mb-1" style={{ color: labelColor }}>
                               {label}
                             </span>
                             <span className="block mb-3" style={{ width: '20px', height: '2px', backgroundColor: labelColor }} />
@@ -283,10 +283,10 @@ export default function BlogPostPage() {
                   });
                 }
 
-                if (text.startsWith('PRO TIP:')) {
+                if (text.startsWith('INSIGHT:')) {
                   return (
                     <div className="dm-pro-tip">
-                      {withLabeledKeyword('PRO TIP:', 'var(--dm-accent-pro)')}
+                      {withLabeledKeyword('INSIGHT:', 'var(--dm-accent-pro)')}
                     </div>
                   );
                 }

@@ -112,7 +112,7 @@ html {
 :root {
   --dm-bg:          #494949;  /* Dark box background                         */
   --dm-text:        #f8fafc;  /* Main text color inside boxes                */
-  --dm-accent-pro:  #2187FF;  /* Blue streak  — PRO TIP                      */
+  --dm-accent-pro:  #2187FF;  /* Blue streak  — INSIGHT                       */
   --dm-accent-math: #ffd000;  /* White streak — THE BOTTOM LINE              */
   --dm-accent-risk: #FF3131;  /* Red streak   — REALITY CHECK                */
 }
