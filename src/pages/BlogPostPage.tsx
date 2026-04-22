@@ -147,7 +147,7 @@ export default function BlogPostPage() {
             {/* Gold Spotlight badge for featured articles */}
             {isFeatured && (
               <div className="mb-4">
-                <span className="inline-flex items-center px-3 py-[3px] border border-yellow-600/70 text-yellow-700 text-[9px] font-bold uppercase tracking-[0.35em] rounded-full bg-yellow-50">
+                <span className="inline-flex items-center px-3 py-[3px] border text-yellow-500 text-[9px] font-bold uppercase tracking-[0.35em] rounded-full backdrop-blur-md bg-white/10 shadow-sm" style={{ borderColor: 'rgba(212, 175, 55, 0.5)' }}>
                   S P O T L I G H T
                 </span>
               </div>
@@ -258,7 +258,7 @@ export default function BlogPostPage() {
 
                 // Renders the trigger keyword as a small all-caps label pill
                 // above the body text, giving a magazine-sidebar aesthetic.
-                function withLabeledKeyword(keyword: string): React.ReactNode {
+                function withLabeledKeyword(keyword: string, labelColor: string): React.ReactNode {
                   // Strip trailing colon from the displayed label
                   const label = keyword.replace(/:$/, '');
                   let firstDone = false;
@@ -270,9 +270,10 @@ export default function BlogPostPage() {
                       return (
                         <>
                           <p className="mb-1">
-                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] opacity-60 mb-2">
+                            <span className="block text-[10px] font-black tracking-[0.4em] uppercase mb-1" style={{ color: labelColor }}>
                               {label}
                             </span>
+                            <span className="block mb-3" style={{ width: '20px', height: '2px', backgroundColor: labelColor }} />
                             {after}
                           </p>
                         </>
@@ -285,21 +286,21 @@ export default function BlogPostPage() {
                 if (text.startsWith('PRO TIP:')) {
                   return (
                     <div className="dm-pro-tip">
-                      {withLabeledKeyword('PRO TIP:')}
+                      {withLabeledKeyword('PRO TIP:', '#2187FF')}
                     </div>
                   );
                 }
                 if (text.startsWith('THE BOTTOM LINE:')) {
                   return (
                     <div className="dm-math">
-                      {withLabeledKeyword('THE BOTTOM LINE:')}
+                      {withLabeledKeyword('THE BOTTOM LINE:', '#FFFFFF')}
                     </div>
                   );
                 }
                 if (text.startsWith('REALITY CHECK:')) {
                   return (
                     <div className="dm-risk-audit">
-                      {withLabeledKeyword('REALITY CHECK:')}
+                      {withLabeledKeyword('REALITY CHECK:', '#FF4D4D')}
                     </div>
                   );
                 }

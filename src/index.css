@@ -96,8 +96,9 @@ html {
 /* First <p> in a Featured Story gets an editorial "drop-in" treatment.         */
 .featured-lead > p:first-of-type {
   font-size: 1.2rem;
-  font-weight: 450;
+  font-weight: 500;
   line-height: 1.8;
+  letter-spacing: -0.025em;
   color: #1e293b; /* slate-800 */
 }
 
@@ -106,31 +107,33 @@ html {
 
 .dm-pro-tip {
   margin: 1.5rem 0;
-  border-left: 4px solid #6366f1; /* indigo-500 */
-  background-color: #F0F7FF;
-  padding: 1rem 1.25rem;
-  border-radius: 0 0.75rem 0.75rem 0;
+  border-left: 2px solid #2187FF;
+  background-color: #020617; /* slate-950 */
+  color: #e2e8f0; /* slate-200 */
+  padding: 2rem;
+  border-radius: 1rem;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
 .dm-math {
   margin: 1.5rem 0;
-  background-color: #f1f5f9; /* slate-100 */
-  padding: 1rem 1.25rem;
-  border-radius: 0.75rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.9em;
+  border-left: 2px solid #FFFFFF;
+  background-color: #020617; /* slate-950 */
+  color: #e2e8f0; /* slate-200 */
+  padding: 2rem;
+  border-radius: 1rem;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
 .dm-risk-audit {
   margin: 1.5rem 0;
-  border-left: 4px solid #f97316; /* orange-500 */
-  background-color: #fffbeb; /* amber-50 */
-  padding: 1rem 1.25rem;
-  border-radius: 0 0.75rem 0.75rem 0;
+  border-left: 2px solid #FF4D4D;
+  background-color: #020617; /* slate-950 */
+  color: #e2e8f0; /* slate-200 */
+  padding: 2rem;
+  border-radius: 1rem;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }

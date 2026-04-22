@@ -85,7 +85,7 @@ export default function FeaturedStoriesPage() {
 
                     {/* SPOTLIGHT badge */}
                     <div className="relative z-10 mb-4">
-                      <span className="inline-flex items-center px-3 py-[3px] border border-yellow-600/70 text-yellow-700 text-[9px] font-bold uppercase tracking-[0.35em] rounded-full bg-yellow-50">
+                      <span className="inline-flex items-center px-3 py-[3px] border text-yellow-500 text-[9px] font-bold uppercase tracking-[0.35em] rounded-full backdrop-blur-md bg-white/10 shadow-sm" style={{ borderColor: 'rgba(212, 175, 55, 0.5)' }}>
                         S P O T L I G H T
                       </span>
                     </div>
