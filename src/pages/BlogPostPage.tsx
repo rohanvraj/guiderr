@@ -227,12 +227,28 @@ export default function BlogPostPage() {
                   isValidElement(childArr[0]) &&
                   (childArr[0] as React.ReactElement).type === 'img';
 
+                if (isSingleImage) {
+                  return (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="relative group inline-block w-full"
+                    >
+                      {children}
+                      <div className="absolute bottom-0 right-0 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-black tracking-[0.2em] uppercase px-3 py-2 rounded-tl-xl border-t border-l border-white/20 transition-all duration-200 group-hover:bg-slate-900/95 group-hover:shadow-[0_0_12px_rgba(255,255,255,0.15)]">
+                        CHECK OFFER →
+                      </div>
+                    </a>
+                  );
+                }
+
                 return (
                   <a
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className={isSingleImage ? undefined : 'py-2 inline-block'}
+                    className="py-2 inline-block"
                   >
                     {children}
                   </a>
