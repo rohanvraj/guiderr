@@ -110,17 +110,29 @@ html {
    │  Labels in BlogPostPage.tsx read the same vars via style={{ color: }}   │
    └─────────────────────────────────────────────────────────────────────────┘ */
 :root {
-  --dm-bg:          #494949;  /* Dark box background                         */
-  --dm-text:        #f8fafc;  /* Main text color inside boxes                */
-  --dm-accent-pro:  #2187FF;  /* Blue streak  — INSIGHT                       */
-  --dm-accent-math: #ffd000;  /* White streak — THE BOTTOM LINE              */
-  --dm-accent-risk: #FF3131;  /* Red streak   — REALITY CHECK                */
+  /* INSIGHT (Blue) */
+  --dm-bg-pro:      #4e4e4f;  /* Deep Slate Black                            */
+  --dm-accent-pro:  #58a4fb;
+
+  /* THE BOTTOM LINE (Gold) */
+  --dm-bg-math:     #55504d;  /* Stone Black                                 */
+  --dm-accent-math: #ffd000;
+
+  /* REALITY CHECK (Red) */
+  --dm-bg-risk:     #696969;  /* Deep Maroon Black                           */
+  --dm-accent-risk: #ff8383;
+
+  /* AI COMPANION (Violet) */
+  --dm-bg-ai:       #1e1b4b;  /* Deep Indigo/Violet                          */
+  --dm-accent-ai:   #c898f4;
+
+  --dm-text:        #f8fafc;  /* Universal high-contrast text                */
 }
 
 .dm-pro-tip {
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   border-left: 3px solid var(--dm-accent-pro);
-  background-color: var(--dm-bg) !important;
+  background-color: var(--dm-bg-pro) !important;
   color: var(--dm-text);
   padding: 2rem;
   border-radius: 1rem;
@@ -129,9 +141,9 @@ html {
 }
 
 .dm-math {
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   border-left: 3px solid var(--dm-accent-math);
-  background-color: var(--dm-bg) !important;
+  background-color: var(--dm-bg-math) !important;
   color: var(--dm-text);
   padding: 2rem;
   border-radius: 1rem;
@@ -140,9 +152,20 @@ html {
 }
 
 .dm-risk-audit {
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   border-left: 3px solid var(--dm-accent-risk);
-  background-color: var(--dm-bg) !important;
+  background-color: var(--dm-bg-risk) !important;
+  color: var(--dm-text);
+  padding: 2rem;
+  border-radius: 1rem;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.dm-ai-companion {
+  margin: 2rem 0;
+  border-left: 3px solid var(--dm-accent-ai);
+  background-color: var(--dm-bg-ai) !important;
   color: var(--dm-text);
   padding: 2rem;
   border-radius: 1rem;
@@ -153,7 +176,8 @@ html {
 /* Strip prose blockquote default styling inside design modules */
 .dm-pro-tip > blockquote,
 .dm-math > blockquote,
-.dm-risk-audit > blockquote {
+.dm-risk-audit > blockquote,
+.dm-ai-companion > blockquote {
   border: none;
   padding: 0;
   margin: 0;
@@ -163,8 +187,17 @@ html {
 /* Override Tailwind prose specificity so var(--dm-text) wins on <p> children */
 .dm-pro-tip p, .dm-pro-tip strong,
 .dm-math p, .dm-math strong,
-.dm-risk-audit p, .dm-risk-audit strong {
+.dm-risk-audit p, .dm-risk-audit strong,
+.dm-ai-companion p, .dm-ai-companion strong {
   color: var(--dm-text) !important;
+}
+
+/* Unified multi-paragraph spacing — consecutive <p> tags inside a box */
+.dm-pro-tip p + p,
+.dm-math p + p,
+.dm-risk-audit p + p,
+.dm-ai-companion p + p {
+  margin-top: 1rem !important;
 }
 
 /* ── Print styles: Cmd+P on any article → clean "White Paper" PDF ─────────── */
@@ -221,12 +254,40 @@ html {
     display: none !important;
   }
 
+  /* Table of Contents — desktop sidebar + mobile pill: must occupy zero space */
+  .no-print,
+  [aria-label="Table of contents"],
+  [aria-label="Toggle table of contents"] {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Collapse the flex sidebar layout so article takes 100% page width */
+  [data-article-body] > div {
+    display: block !important;
+    max-width: 100% !important;
+  }
+
   /* InlineBuyBrief cards → minimal bordered box in PDF */
   [aria-label^="Buy "] {
     border: 1px solid #ccc !important;
     background: #f9f9f9 !important;
     backdrop-filter: none !important;
   }
+
+  /* Design modules → force unique bg colours in print */
+  .dm-pro-tip,
+  .dm-math,
+  .dm-risk-audit,
+  .dm-ai-companion {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .dm-pro-tip     { background-color: var(--dm-bg-pro)  !important; border-left-color: var(--dm-accent-pro)  !important; }
+  .dm-math        { background-color: var(--dm-bg-math) !important; border-left-color: var(--dm-accent-math) !important; }
+  .dm-risk-audit  { background-color: var(--dm-bg-risk) !important; border-left-color: var(--dm-accent-risk) !important; }
+  .dm-ai-companion{ background-color: var(--dm-bg-ai)   !important; border-left-color: var(--dm-accent-ai)   !important; }
 
   /* ── 7. Link readability ────────────────────────────────────────────────── */
   a {

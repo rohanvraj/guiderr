@@ -165,7 +165,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   );
 
   return (
-    <>
+    <div className="no-print">
       {/* ── DESKTOP SIDEBAR ── sticky inside the BlogPostPage flex layout ──── */}
       {/* position:sticky (not fixed) so it sits naturally in the two-column   */}
       {/* flex grid and never overlaps article text at any screen width.        */}
@@ -216,6 +216,6 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
           {mobileOpen ? 'Close' : 'Quick Nav'}
         </button>
       </div>
-    </>
+    </div>
   );
 }

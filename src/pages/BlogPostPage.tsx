@@ -304,6 +304,13 @@ export default function BlogPostPage() {
                     </div>
                   );
                 }
+                if (text.startsWith('AI COMPANION:')) {
+                  return (
+                    <div className="dm-ai-companion">
+                      {withLabeledKeyword('AI COMPANION:', 'var(--dm-accent-ai)')}
+                    </div>
+                  );
+                }
                 return (
                   <blockquote className="border-l-4 border-slate-300 pl-4 italic text-slate-600 my-4">
                     {children}
