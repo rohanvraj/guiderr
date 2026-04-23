@@ -58,7 +58,7 @@ While this article introduces the basic logic, the technical mechanics are explo
 *   **Visual Logic:** A step-by-step breakdown of how to identify business quality and avoid common "Growth Traps" without getting lost in technical jargon.
 *   **The Efficiency Checklist:** A minimalist 3-page framework for understanding how businesses are structured over the long term.
 
-[**Unlock Intelligent Brief #01 (PDF) — ₹99**](buy:2228c761-850f-42d2-bd3a-a5377e617997)
+[**Unlock Intelligent Brief #01 (PDF) — ₹99**](buy:175df7d0-645a-4b66-b5fd-e6178e774c99)
 
 ***
 
