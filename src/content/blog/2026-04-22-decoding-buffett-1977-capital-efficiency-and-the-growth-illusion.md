@@ -1,5 +1,5 @@
 ---
-title: "Decoding Buffett (1977): Capital Efficiency and the Growth Illusion"
+title: "Decoding Buffett (1977 Letter): Capital Efficiency and the Growth Illusion"
 date: 2026-04-23T00:47:00.000Z
 category: Investing
 image: investing-logic-thumbnail_vzk05r
