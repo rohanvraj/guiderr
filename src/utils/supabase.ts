@@ -128,7 +128,7 @@ export async function getProductsByCategory(category: string) {
   const { data, error } = await supabase
     .from('products')
     // delivery_link intentionally excluded from storefront queries — only fetched during checkout
-    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type')
+    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type, description')
     .eq('category', category)
     .eq('product_type', 'ebook')
     .order('created_at', { ascending: false })
@@ -145,7 +145,7 @@ export async function getAllProducts() {
   const { data, error } = await supabase
     .from('products')
     // delivery_link intentionally excluded from storefront queries — only fetched during checkout
-    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type')
+    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type, description')
     .eq('product_type', 'ebook')
     .order('created_at', { ascending: false })
     .limit(50);
