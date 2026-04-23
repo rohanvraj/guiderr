@@ -1,6 +1,6 @@
 import { useMemo, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { CheckCircle, Download, ArrowRight, ExternalLink, AlertCircle } from 'lucide-react';
+import { CheckCircle, Download, ArrowRight, ExternalLink, AlertCircle, ShieldCheck } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getOrderByRazorpayId, getOrderItems, getOrderByPublicToken, Order, OrderItem, supabase } from '../utils/supabase';
@@ -375,6 +375,31 @@ export default function ThankYouPage() {
                   </p>
                 </div>
 
+                {/* Digital License Certificate */}
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-5">
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="w-6 h-6 text-indigo-500 flex-shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black tracking-[0.25em] uppercase text-slate-500 mb-2">
+                        Official Digital License
+                      </p>
+                      <p className="text-sm text-slate-700 leading-relaxed mb-2">
+                        This copy is officially licensed to:{' '}
+                        <span className="font-semibold text-slate-900 break-all">
+                          {guestOrderData?.buyer_email || 'Verified Buyer'}
+                        </span>
+                      </p>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        This document is watermarked with a unique transaction ID:{' '}
+                        <span className="font-mono font-semibold break-all">
+                          {publicToken || orderId || 'N/A'}
+                        </span>
+                        . Distribution or unauthorized sharing is a violation of the Guiderr Terms of Service and is electronically tracked.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <a
   href={guestDownloadLink}
   target="_blank"
@@ -384,12 +409,6 @@ export default function ThankYouPage() {
   <Download className="w-5 h-5" />
   Download Your eBook Now
 </a>
-
-                <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <p className="text-sm text-yellow-800">
-                    <span className="font-semibold">📝 Note:</span> This link is for your personal use. Please do not share with others.
-                  </p>
-                </div>
               </div>
             </>
           ) : (
@@ -456,10 +475,32 @@ export default function ThankYouPage() {
                   ))}
                 </div>
 
-                <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <p className="text-sm text-yellow-800">
-                    <span className="font-semibold">📝 Note:</span> These links are for your personal use. Please do not share with others.
-                  </p>
+                {/* Digital License Certificate */}
+                <div className="mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="w-6 h-6 text-indigo-500 flex-shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black tracking-[0.25em] uppercase text-slate-500 mb-2">
+                        Official Digital License
+                      </p>
+                      <p className="text-sm text-slate-700 leading-relaxed mb-2">
+                        {purchasedProducts.length === 1
+                          ? `This copy of "${purchasedProducts[0]?.title}" is`
+                          : 'These products are'}{' '}
+                        officially licensed to:{' '}
+                        <span className="font-semibold text-slate-900 break-all">
+                          {guestOrderData?.buyer_email || 'Verified Buyer'}
+                        </span>
+                      </p>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        This document is watermarked with a unique transaction ID:{' '}
+                        <span className="font-mono font-semibold break-all">
+                          {publicToken || orderId || 'N/A'}
+                        </span>
+                        . Distribution or unauthorized sharing is a violation of the Guiderr Terms of Service and is electronically tracked.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </>
@@ -491,10 +532,10 @@ export default function ThankYouPage() {
               If you experience any issues downloading or accessing your content, our support team is here to help.
             </p>
             <a
-              href="mailto:support@guiderr.com"
+              href="mailto:rohanrworld@gmail.com"
               className="inline-flex items-center gap-2 text-slate-900 font-semibold hover:text-slate-700 transition-colors"
             >
-              support@guiderr.com →
+              rohanrworld@gmail.com →
             </a>
           </div>
 
