@@ -550,6 +550,8 @@ export default function ProductManager({}: ProductManagerProps) {
               </p>
             </div>
 
+          </div>
+
           <div className="flex gap-4 mt-6">
             <button
               onClick={handleSave}
