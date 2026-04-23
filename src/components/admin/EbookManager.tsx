@@ -142,14 +142,14 @@ export default function ProductManager({}: ProductManagerProps) {
     switch (type) {
       case 'ebook':
         return [
+          { value: 'Finance',    label: 'Personal Finance' },
+          { value: 'Investing',  label: 'Investing' },
+          { value: 'Automotive', label: 'Automotive' },
           { value: 'Motorcycles', label: 'Motorcycles' },
-          { value: 'Finance', label: 'Personal Finance' },
-          { value: 'Travel', label: 'Travel' },
-          { value: 'Pets', label: 'Pets' },
-          { value: 'Beauty & Wellness', label: 'Beauty & Wellness' },
-          { value: 'Business', label: 'Business' },
-          { value: 'Gadget & Tech', label: 'Gadget & Tech' },
-          { value: 'Home & Living', label: 'Home & Living' },
+          { value: 'Travel',     label: 'Travel' },
+          { value: 'Tech',       label: 'Tech' },
+          { value: 'Lifestyle',  label: 'Lifestyle' },
+          { value: 'Business',   label: 'Business' },
         ];
       case 'zoom_call':
       case 'audit':

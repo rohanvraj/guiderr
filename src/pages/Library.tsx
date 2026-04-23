@@ -8,6 +8,12 @@ import { getAllProducts, Product } from '../utils/supabase';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { Ebook } from '../types/ebook';
 
+// Maps raw DB category values → user-facing display labels.
+// The raw value is always used for filtering; only the rendered text changes.
+const CATEGORY_DISPLAY_MAP: Record<string, string> = {
+  Finance: 'Personal Finance',
+};
+
 function toEbook(p: Product): Ebook {
   return {
     id: p.id,
@@ -139,7 +145,7 @@ export default function Library() {
                     : 'bg-white/15 border border-white/25 text-white hover:bg-white/25'
                 }`}
               >
-                {cat}
+                {CATEGORY_DISPLAY_MAP[cat] ?? cat}
               </button>
             ))}
           </div>
@@ -155,7 +161,7 @@ export default function Library() {
             <p className="text-white/70 text-lg leading-relaxed">
               {activeCategory === 'All'
                 ? 'New titles launching this week. Check back soon.'
-                : `No ${activeCategory} titles yet. More coming soon!`}
+                : `No ${CATEGORY_DISPLAY_MAP[activeCategory] ?? activeCategory} titles yet. More coming soon!`}
             </p>
           </div>
         ) : (
