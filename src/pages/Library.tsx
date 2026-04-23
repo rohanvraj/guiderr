@@ -24,7 +24,7 @@ function toEbook(p: Product): Ebook {
     coverImage: p.cover_image_url,
     pdf: '',
     category: p.category || '',
-    synopsis: p.name,
+    synopsis: p.description || p.name,
   };
 }
 

@@ -88,6 +88,7 @@ export interface Product {
   product_type?: string;
   author?: string;
   cover_image_url?: string;
+  description?: string;
   created_at?: string;
   updated_at?: string;
 }

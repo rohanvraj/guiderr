@@ -217,6 +217,7 @@ export default function ProductManager({}: ProductManagerProps) {
               category: category,
               author: editingProduct.author || null,
               cover_image_url: editingProduct.cover_image_url || null,
+              description: editingProduct.description || null,
             },
           ])
           .select();
@@ -265,6 +266,7 @@ export default function ProductManager({}: ProductManagerProps) {
             category: category,
             author: editingProduct.author || null,
             cover_image_url: editingProduct.cover_image_url || null,
+            description: editingProduct.description || null,
             updated_at: new Date().toISOString(),
           })
           .eq('id', editingProduct.id);
@@ -531,7 +533,22 @@ export default function ProductManager({}: ProductManagerProps) {
                 Paste the meeting link (Zoom, Google Meet, Calendly) or file download link here.
               </p>
             </div>
-          </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm font-semibold mb-2">Synopsis / Description</label>
+              <textarea
+                value={editingProduct.description || ''}
+                onChange={(e) =>
+                  setEditingProduct({ ...editingProduct, description: e.target.value })
+                }
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 resize-none"
+                rows={4}
+                placeholder="A short description of what the buyer will learn or receive..."
+              />
+              <p className="text-xs text-slate-500 mt-1">
+                Shown in the product modal on the Library page.
+              </p>
+            </div>
 
           <div className="flex gap-4 mt-6">
             <button
