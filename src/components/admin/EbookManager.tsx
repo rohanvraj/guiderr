@@ -178,8 +178,8 @@ export default function ProductManager({}: ProductManagerProps) {
     if (!editingProduct) return;
 
     // Validate required fields
-    if (!editingProduct.name || !editingProduct.price_in_rupees || !editingProduct.delivery_link) {
-      alert('Please fill in all required fields: name, price, and delivery link');
+    if (!editingProduct.name || isNaN(editingProduct.price_in_rupees) || editingProduct.price_in_rupees <= 0 || !editingProduct.delivery_link) {
+      alert('Please fill in all required fields: name, price (must be greater than 0), and delivery link');
       return;
     }
 
@@ -472,7 +472,7 @@ export default function ProductManager({}: ProductManagerProps) {
                 type="number"
                 value={editingProduct.price_in_rupees}
                 onChange={(e) =>
-                  setEditingProduct({ ...editingProduct, price_in_rupees: parseInt(e.target.value) })
+                  setEditingProduct({ ...editingProduct, price_in_rupees: parseInt(e.target.value, 10) || 0 })
                 }
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
                 placeholder="0"
