@@ -99,7 +99,7 @@ export interface Product {
 export async function getProductById(productId: string) {
   const { data, error } = await supabase
     .from('products')
-    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type')
+    .select('id, name, price_in_rupees, cover_image_url, category, author, product_type, description')
     .eq('id', productId)
     .single();
 
