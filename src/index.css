@@ -254,6 +254,11 @@ html {
     display: none !important;
   }
 
+  /* Back-to-Guides navigation link */
+  a.no-print {
+    display: none !important;
+  }
+
   /* Table of Contents — desktop sidebar + mobile pill: must occupy zero space */
   .no-print,
   [aria-label="Table of contents"],

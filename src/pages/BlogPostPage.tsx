@@ -140,7 +140,7 @@ export default function BlogPostPage() {
 
           {/* pb-24 on mobile ensures last CTA clears the fixed Quick Nav pill */}
           <main className="min-w-0 flex-1 max-w-3xl pb-24 sm:pb-10">
-            <Link to={isFeatured ? '/featured' : '/guides'} className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
+            <Link to={isFeatured ? '/featured' : '/guides'} className="no-print text-sm text-indigo-600 hover:underline mb-6 inline-block">
               &larr; Back to {isFeatured ? 'Featured Stories' : 'Guides'}
             </Link>
 
