@@ -1,32 +1,34 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, Suspense } from 'react';
 import { supabase } from './utils/supabase';
 import { CartProvider } from './context/CartContext';
 import CartPanel from './components/CartPanel';
+import { lazyRetry } from './utils/lazyRetry';
 
 // Code-split every page into its own JS chunk.
-// The browser only downloads the chunk for the current route.
-const HomePage           = lazy(() => import('./pages/HomePage'));
-const CategoryPage       = lazy(() => import('./pages/CategoryPage'));
-const ThankYouPage       = lazy(() => import('./pages/ThankYouPage'));
-const AdminDashboard     = lazy(() => import('./pages/AdminDashboard'));
-const SuperadminDashboard = lazy(() => import('./pages/SuperadminDashboard'));
-const PartnersManagement = lazy(() => import('./pages/PartnersManagement'));
-const CreatorStatsPage   = lazy(() => import('./pages/CreatorStatsPage'));
-const ContactUs          = lazy(() => import('./pages/ContactUs'));
-const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'));
-const ShippingPolicy     = lazy(() => import('./pages/ShippingPolicy'));
-const CancellationsRefunds = lazy(() => import('./pages/CancellationsRefunds'));
-const PrivacyPolicy      = lazy(() => import('./pages/PrivacyPolicy'));
-const BlogListingPage    = lazy(() => import('./pages/BlogListingPage'));
-const BlogPostPage       = lazy(() => import('./pages/BlogPostPage'));
-const AboutPage          = lazy(() => import('./pages/AboutPage'));
-const StartHerePage      = lazy(() => import('./pages/StartHerePage'));
-const AffiliateDisclosure = lazy(() => import('./pages/AffiliateDisclosure'));
-const GetFeaturedPage    = lazy(() => import('./pages/GetFeaturedPage'));
-const FeaturedStoriesPage = lazy(() => import('./pages/FeaturedStoriesPage'));
-const InvestingPage      = lazy(() => import('./pages/Investing'));
-const LibraryPage        = lazy(() => import('./pages/Library'));
+// lazyRetry wraps each import: if a chunk is missing after a deploy it auto-
+// reloads once so users never see a blank page due to stale chunk names.
+const HomePage           = lazyRetry(() => import('./pages/HomePage'));
+const CategoryPage       = lazyRetry(() => import('./pages/CategoryPage'));
+const ThankYouPage       = lazyRetry(() => import('./pages/ThankYouPage'));
+const AdminDashboard     = lazyRetry(() => import('./pages/AdminDashboard'));
+const SuperadminDashboard = lazyRetry(() => import('./pages/SuperadminDashboard'));
+const PartnersManagement = lazyRetry(() => import('./pages/PartnersManagement'));
+const CreatorStatsPage   = lazyRetry(() => import('./pages/CreatorStatsPage'));
+const ContactUs          = lazyRetry(() => import('./pages/ContactUs'));
+const TermsAndConditions = lazyRetry(() => import('./pages/TermsAndConditions'));
+const ShippingPolicy     = lazyRetry(() => import('./pages/ShippingPolicy'));
+const CancellationsRefunds = lazyRetry(() => import('./pages/CancellationsRefunds'));
+const PrivacyPolicy      = lazyRetry(() => import('./pages/PrivacyPolicy'));
+const BlogListingPage    = lazyRetry(() => import('./pages/BlogListingPage'));
+const BlogPostPage       = lazyRetry(() => import('./pages/BlogPostPage'));
+const AboutPage          = lazyRetry(() => import('./pages/AboutPage'));
+const StartHerePage      = lazyRetry(() => import('./pages/StartHerePage'));
+const AffiliateDisclosure = lazyRetry(() => import('./pages/AffiliateDisclosure'));
+const GetFeaturedPage    = lazyRetry(() => import('./pages/GetFeaturedPage'));
+const FeaturedStoriesPage = lazyRetry(() => import('./pages/FeaturedStoriesPage'));
+const InvestingPage      = lazyRetry(() => import('./pages/Investing'));
+const LibraryPage        = lazyRetry(() => import('./pages/Library'));
 
 // Component to handle referral tracking
 function ReferralTracker() {

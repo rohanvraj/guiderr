@@ -19,6 +19,7 @@ export default function Header() {
               alt="Guiderr Logo"
               width="120"
               height="40"
+              loading="eager"
               fetchPriority="high"
               className="h-8 sm:h-9 w-auto"
             />
