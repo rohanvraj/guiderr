@@ -26,16 +26,13 @@ function toEbook(p: Product): Ebook {
   };
 }
 
-// Map route slug → DB category string
+// Map route slug → DB category string.
+// Only add a pairing here when ebooks for that category actually exist in the DB.
+// Unmapped slugs (e.g. credit-cards, tech, lifestyle) will show zero ebooks — intentional.
 const SLUG_TO_DB_CATEGORY: Record<string, string> = {
   investing: 'Investing',
   'personal-finance': 'Finance',
-  finance: 'Finance',
-  motorcycles: 'Motorcycles',
   'riding-gear': 'Motorcycles',
-  travel: 'Travel',
-  tech: 'Tech',
-  lifestyle: 'Lifestyle',
 };
 
 // Category slug → human-readable display label (Title Case)
@@ -200,8 +197,10 @@ export default function RohanSelection() {
     ).map((item) => ({ kind: 'affiliate', item }));
 
     const dbCat = category ? SLUG_TO_DB_CATEGORY[category] : null;
+    // If a category is active but has no DB mapping, return [] — never fall back
+    // to the full product list (that caused briefs bleeding into unrelated categories).
     const ebooks: GridItem[] = (
-      dbCat ? products.filter((p) => p.category === dbCat) : products
+      dbCat ? products.filter((p) => p.category === dbCat) : category ? [] : products
     ).map((product) => ({ kind: 'ebook', product }));
 
     // Ebooks first, then affiliates within each category view
