@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ShoppingBag, Loader2, AlertCircle } from 'lucide-react';
 import { getProductById, Product } from '../utils/supabase';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
@@ -127,12 +128,13 @@ export default function InlineBuyBrief({ productId, label }: InlineBuyBriefProps
         </span>
       </span>
 
-      {/* EbookModal — uses the existing checkout flow unchanged */}
-      {modalOpen && (
+      {/* EbookModal — portalled to <body> so it escapes any parent CSS scope */}
+      {modalOpen && createPortal(
         <EbookModal
           ebook={ebook}
           onClose={() => setModalOpen(false)}
-        />
+        />,
+        document.body
       )}
     </>
   );

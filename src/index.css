@@ -111,26 +111,26 @@ html {
    └─────────────────────────────────────────────────────────────────────────┘ */
 :root {
   /* INSIGHT (Blue) */
-  --dm-bg-pro:      #4e4e4f;  /* Deep Slate Black                            */
-  --dm-accent-pro:  #58a4fb;
+  --dm-bg-pro:      #6c6c6c;
+  --dm-accent-pro:  #f9e405;
 
   /* THE BOTTOM LINE (Gold) */
-  --dm-bg-math:     #55504d;  /* Stone Black                                 */
+  --dm-bg-math:     #855c5c;
   --dm-accent-math: #ffd000;
 
   /* REALITY CHECK (Red) */
-  --dm-bg-risk:     #696969;  /* Deep Maroon Black                           */
-  --dm-accent-risk: #ff8383;
+  --dm-bg-risk:     #0a0a0a;
+  --dm-accent-risk: #FF3131;
 
   /* AI COMPANION (Violet) */
-  --dm-bg-ai:       #1e1b4b;  /* Deep Indigo/Violet                          */
-  --dm-accent-ai:   #c898f4;
+  --dm-bg-ai:       #d9bcbc;
+  --dm-accent-ai:   #A855F7;
 
-  /* BLUEPRINT (Deep Teal-Black) */
-  --dm-bg-blueprint:     #042f2e;  /* Deep Teal-Black                         */
-  --dm-accent-blueprint: #2DD4BF;  /* Vibrant Cyan/Teal                       */
+  /* BLUEPRINT (Cyan) */
+  --dm-bg-blueprint: #4e88ac;
+  --dm-accent-blueprint: #000000;
 
-  --dm-text:        #f8fafc;  /* Universal high-contrast text                */
+  --dm-text:        #f1f5f9;  /* Crisp off-white for all text in boxes       */
 }
 
 .dm-pro-tip {
@@ -178,14 +178,73 @@ html {
 }
 
 .dm-blueprint {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box;
   margin: 2rem 0;
   border-left: 3px solid var(--dm-accent-blueprint);
   background-color: var(--dm-bg-blueprint) !important;
   color: var(--dm-text);
   padding: 2rem;
   border-radius: 1rem;
+  overflow: hidden;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
+}
+
+/* Beat Tailwind prose specificity on the wrapper and all its children */
+.prose .dm-blueprint {
+  background-color: var(--dm-bg-blueprint) !important;
+  color: var(--dm-text) !important;
+  border-left-color: var(--dm-accent-blueprint) !important;
+  padding: 2rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  border-radius: 1rem !important;
+  font-style: normal !important;
+  quotes: none !important;
+}
+
+/* ── InlineBuyBrief card: "one shade darker" inside all DM boxes ─────────────
+   Background: pure black (#000000) contrasts with the charcoal (#0a0a0a) box.
+   Scoped tightly — does not affect standard white-background article cards.   */
+.dm-blueprint .not-prose,
+.dm-pro-tip .not-prose,
+.dm-math .not-prose,
+.dm-risk-audit .not-prose,
+.dm-ai-companion .not-prose {
+  background-color: #000000 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.50) !important;
+  margin-top: 1.25rem !important;
+}
+
+/* Title + price: off-white so they read against pure black */
+.dm-blueprint .not-prose .text-slate-900,
+.dm-pro-tip .not-prose .text-slate-900,
+.dm-math .not-prose .text-slate-900,
+.dm-risk-audit .not-prose .text-slate-900,
+.dm-ai-companion .not-prose .text-slate-900 {
+  color: #f1f5f9 !important;
+}
+
+/* Author byline: readable without competing with the title */
+.dm-blueprint .not-prose .text-slate-500,
+.dm-pro-tip .not-prose .text-slate-500,
+.dm-math .not-prose .text-slate-500,
+.dm-risk-audit .not-prose .text-slate-500,
+.dm-ai-companion .not-prose .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* "Buy Report" pill: semi-transparent white makes it pop on pure black */
+.dm-blueprint .not-prose .bg-slate-900,
+.dm-pro-tip .not-prose .bg-slate-900,
+.dm-math .not-prose .bg-slate-900,
+.dm-risk-audit .not-prose .bg-slate-900,
+.dm-ai-companion .not-prose .bg-slate-900 {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f8fafc !important;
 }
 
 /* Strip prose blockquote default styling inside design modules */

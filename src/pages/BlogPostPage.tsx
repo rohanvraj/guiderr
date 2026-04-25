@@ -263,12 +263,16 @@ export default function BlogPostPage() {
                   const label = keyword.replace(/:$/, '');
                   let firstDone = false;
                   return Children.map(children, (child) => {
+                    // Drop ALL bare string nodes at the blockquote level.
+                    // ReactMarkdown wraps real content in <p>/<li>/etc. so
+                    // raw strings here are only whitespace or the keyword
+                    // fragment itself — either way they must not render.
+                    if (typeof child === 'string') return null;
                     if (!firstDone && isValidElement(child) && (child as React.ReactElement).type === 'p') {
                       firstDone = true;
                       const raw = extractHeadingText((child as React.ReactElement<{ children: unknown }>).props.children);
                       const after = raw.startsWith(keyword) ? raw.slice(keyword.length).trimStart() : raw;
                       return (
-                        <>
                           <p className="mb-1">
                             <span className="block text-[10px] font-black tracking-[0.3em] uppercase mb-1" style={{ color: labelColor }}>
                               {label}
@@ -276,7 +280,6 @@ export default function BlogPostPage() {
                             <span className="block mb-3" style={{ width: '20px', height: '2px', backgroundColor: labelColor }} />
                             {after}
                           </p>
-                        </>
                       );
                     }
                     return child;
