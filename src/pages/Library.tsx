@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EbookModal from '../components/EbookModal';
@@ -67,6 +67,18 @@ function ProductCard({
 export default function Library() {
   const [selectedEbook, setSelectedEbook] = useState<Ebook | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Open: write ?ebook=<id> into the URL so the link is shareable.
+  const handleOpen = (ebook: Ebook) => {
+    setSelectedEbook(ebook);
+    setSearchParams({ ebook: ebook.id }, { replace: true });
+  };
+  // Close: strip the ebook param so the URL returns to clean /library.
+  const handleClose = () => {
+    setSelectedEbook(null);
+    setSearchParams({}, { replace: true });
+  };
 
   useEffect(() => {
     const prev = document.title;
@@ -89,6 +101,17 @@ export default function Library() {
     staleTime: 5 * 60 * 1000,
   });
 
+  // Deep-link: ?ebook=<product-id-slug> auto-opens the modal.
+  // Runs once after products are loaded.
+  useEffect(() => {
+    const ebookSlug = searchParams.get('ebook');
+    if (!ebookSlug || products.length === 0 || selectedEbook) return;
+    const match = products.find(
+      (p) => p.id === ebookSlug || p.name.toLowerCase().replace(/\s+/g, '-') === ebookSlug
+    );
+    if (match) setSelectedEbook(toEbook(match));
+  }, [products, searchParams, selectedEbook]);
+
   // Derive unique categories from live data — alphabetical, no hardcoding.
   const categories = useMemo(() => {
     const seen = new Set<string>();
@@ -99,9 +122,6 @@ export default function Library() {
   const filtered = activeCategory === 'All'
     ? products
     : products.filter((p) => p.category === activeCategory);
-
-  const handleOpen = (ebook: Ebook) => setSelectedEbook(ebook);
-  const handleClose = () => setSelectedEbook(null);
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#2f2f2f' }}>

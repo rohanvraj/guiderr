@@ -54,6 +54,32 @@ export default function Header() {
               </Link>
             </div>
 
+            {/* Selection Link */}
+            <div
+              className="relative"
+              onMouseEnter={() => setHoveredNav('selection')}
+              onMouseLeave={() => setHoveredNav(null)}
+            >
+              <AnimatePresence>
+                {hoveredNav === 'selection' && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 rounded-lg bg-slate-700/10 border border-slate-500/50"
+                    transition={{ type: 'spring', stiffness: 350, damping: 45 }}
+                  />
+                )}
+              </AnimatePresence>
+              <Link
+                to="/rohan-selection"
+                className="relative z-10 block text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
+              >
+                Selection
+              </Link>
+            </div>
+
             {/* Start Here Link */}
             <div
               className="relative"
@@ -184,6 +210,15 @@ export default function Header() {
                 className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
               >
                 Library
+              </Link>
+
+              {/* Selection Link */}
+              <Link
+                to="/rohan-selection"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
+              >
+                Selection
               </Link>
 
               {/* Start Here Link */}

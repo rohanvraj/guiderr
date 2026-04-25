@@ -29,6 +29,7 @@ const GetFeaturedPage    = lazyRetry(() => import('./pages/GetFeaturedPage'));
 const FeaturedStoriesPage = lazyRetry(() => import('./pages/FeaturedStoriesPage'));
 const InvestingPage      = lazyRetry(() => import('./pages/Investing'));
 const LibraryPage        = lazyRetry(() => import('./pages/Library'));
+const RohanSelectionPage = lazyRetry(() => import('./pages/RohanSelection'));
 
 // Component to handle referral tracking
 function ReferralTracker() {
@@ -97,6 +98,8 @@ function App() {
             <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
             <Route path="/investing" element={<InvestingPage />} />
             <Route path="/library" element={<LibraryPage />} />
+            <Route path="/rohan-selection" element={<RohanSelectionPage />} />
+            <Route path="/rohan-selection/:category" element={<RohanSelectionPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
