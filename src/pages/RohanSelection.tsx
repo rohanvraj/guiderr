@@ -72,7 +72,7 @@ function AffiliateCard({ item }: { item: InventoryItem }) {
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <img
-          src={item.imageUrl}
+          src={optimizeCloudinaryUrl(item.imageID, { width: 400, quality: 'auto:eco' })}
           alt={item.name}
           loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
