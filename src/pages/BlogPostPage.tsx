@@ -311,6 +311,13 @@ export default function BlogPostPage() {
                     </div>
                   );
                 }
+                if (text.startsWith('BLUEPRINT:')) {
+                  return (
+                    <div className="dm-blueprint">
+                      {withLabeledKeyword('BLUEPRINT:', 'var(--dm-accent-blueprint)')}
+                    </div>
+                  );
+                }
                 return (
                   <blockquote className="border-l-4 border-slate-300 pl-4 italic text-slate-600 my-4">
                     {children}

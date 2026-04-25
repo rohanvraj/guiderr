@@ -126,6 +126,10 @@ html {
   --dm-bg-ai:       #1e1b4b;  /* Deep Indigo/Violet                          */
   --dm-accent-ai:   #c898f4;
 
+  /* BLUEPRINT (Deep Teal-Black) */
+  --dm-bg-blueprint:     #042f2e;  /* Deep Teal-Black                         */
+  --dm-accent-blueprint: #2DD4BF;  /* Vibrant Cyan/Teal                       */
+
   --dm-text:        #f8fafc;  /* Universal high-contrast text                */
 }
 
@@ -173,11 +177,23 @@ html {
   print-color-adjust: exact;
 }
 
+.dm-blueprint {
+  margin: 2rem 0;
+  border-left: 3px solid var(--dm-accent-blueprint);
+  background-color: var(--dm-bg-blueprint) !important;
+  color: var(--dm-text);
+  padding: 2rem;
+  border-radius: 1rem;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
 /* Strip prose blockquote default styling inside design modules */
 .dm-pro-tip > blockquote,
 .dm-math > blockquote,
 .dm-risk-audit > blockquote,
-.dm-ai-companion > blockquote {
+.dm-ai-companion > blockquote,
+.dm-blueprint > blockquote {
   border: none;
   padding: 0;
   margin: 0;
@@ -188,7 +204,8 @@ html {
 .dm-pro-tip p, .dm-pro-tip strong,
 .dm-math p, .dm-math strong,
 .dm-risk-audit p, .dm-risk-audit strong,
-.dm-ai-companion p, .dm-ai-companion strong {
+.dm-ai-companion p, .dm-ai-companion strong,
+.dm-blueprint p, .dm-blueprint strong {
   color: var(--dm-text) !important;
 }
 
@@ -196,7 +213,8 @@ html {
 .dm-pro-tip p + p,
 .dm-math p + p,
 .dm-risk-audit p + p,
-.dm-ai-companion p + p {
+.dm-ai-companion p + p,
+.dm-blueprint p + p {
   margin-top: 1rem !important;
 }
 
