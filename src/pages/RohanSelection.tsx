@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { createPortal } from 'react-dom';
@@ -10,7 +10,7 @@ import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import { INVENTORY, InventoryItem } from '../data/inventory';
 import { Ebook } from '../types/ebook';
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
 function toEbook(p: Product): Ebook {
   return {
@@ -26,21 +26,41 @@ function toEbook(p: Product): Ebook {
   };
 }
 
-// Category slug → human-readable label
+// Map route slug → DB category string
+const SLUG_TO_DB_CATEGORY: Record<string, string> = {
+  investing: 'Investing',
+  'personal-finance': 'Finance',
+  finance: 'Finance',
+  motorcycles: 'Motorcycles',
+  'riding-gear': 'Motorcycles',
+  travel: 'Travel',
+  tech: 'Tech',
+  lifestyle: 'Lifestyle',
+};
+
+// Category slug → human-readable display label (Title Case)
 const CATEGORY_LABELS: Record<string, string> = {
-  laptops: 'LAPTOPS',
-  'vlogging-cameras': 'CAMERAS',
-  investing: 'INVESTING',
-  finance: 'FINANCE',
-  motorcycles: 'MOTORCYCLES',
-  travel: 'TRAVEL',
+  tech: 'Tech',
+  investing: 'Investing',
+  'personal-finance': 'Personal Finance',
+  'riding-gear': 'Riding Gear',
+  lifestyle: 'Lifestyle',
+  'credit-cards': 'Credit Cards',
+  motorcycles: 'Motorcycles',
+  finance: 'Finance',
+  travel: 'Travel',
 };
 
 function categoryLabel(slug: string): string {
-  return CATEGORY_LABELS[slug] ?? slug.replace(/-/g, ' ').toUpperCase();
+  return CATEGORY_LABELS[slug] ?? slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-// ── Affiliate card ───────────────────────────────────────────────────────────
+// Unified grid item: either an ebook or an affiliate product
+type GridItem =
+  | { kind: 'ebook'; product: Product }
+  | { kind: 'affiliate'; item: InventoryItem };
+
+// ── Affiliate card (white-background aesthetic) ───────────────────────────────
 
 function AffiliateCard({ item }: { item: InventoryItem }) {
   return (
@@ -48,9 +68,9 @@ function AffiliateCard({ item }: { item: InventoryItem }) {
       href={item.link}
       target="_blank"
       rel="noopener noreferrer nofollow"
-      className="group flex flex-col bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+      className="group flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-black/20">
+      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <img
           src={item.imageUrl}
           alt={item.name}
@@ -60,25 +80,23 @@ function AffiliateCard({ item }: { item: InventoryItem }) {
             (e.target as HTMLImageElement).style.display = 'none';
           }}
         />
-        {/* Affiliate badge */}
-        <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-widest bg-black/50 text-white/70 rounded-full px-2 py-0.5">
+        <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-widest bg-black/40 text-white rounded-full px-2 py-0.5">
           Ad
         </span>
       </div>
-      <div className="p-3 flex flex-col flex-1 gap-2">
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">
+      <div className="p-3 flex flex-col flex-1 gap-1.5">
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
           {item.displayCategory}
         </p>
-        <h3 className="text-sm font-bold text-white leading-snug line-clamp-2 flex-1">
+        <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2 flex-1">
           {item.name}
         </h3>
-        <p className="text-xs text-white/60 leading-snug line-clamp-2">
+        <p className="text-xs text-slate-500 leading-snug line-clamp-2">
           {item.description}
         </p>
-        <div className="flex items-center justify-between mt-1 pt-2 border-t border-white/10">
-          <span className="text-base font-extrabold text-white">{item.price}</span>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#7178AB] group-hover:text-white transition-colors">
-            CHECK OFFER →
+        <div className="mt-1 pt-2 border-t border-slate-100">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#7178AB] group-hover:text-slate-900 transition-colors">
+            CHECK PRICE →
           </span>
         </div>
       </div>
@@ -86,7 +104,7 @@ function AffiliateCard({ item }: { item: InventoryItem }) {
   );
 }
 
-// ── Ebook card ───────────────────────────────────────────────────────────────
+// ── Ebook card (white-background aesthetic) ────────────────────────────────────
 
 function EbookCard({
   product,
@@ -98,9 +116,9 @@ function EbookCard({
   return (
     <button
       onClick={() => onOpen(toEbook(product))}
-      className="group text-left flex flex-col bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+      className="group text-left flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-black/20">
+      <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
         <img
           src={optimizeCloudinaryUrl(product.cover_image_url || '', { width: 400 })}
           alt={product.name}
@@ -110,20 +128,20 @@ function EbookCard({
             (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
           }}
         />
-        <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-widest bg-[#7178AB]/80 text-white rounded-full px-2 py-0.5">
+        <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-widest bg-[#7178AB] text-white rounded-full px-2 py-0.5">
           Brief
         </span>
       </div>
       <div className="p-3 flex flex-col flex-1 gap-1">
-        <h3 className="text-sm font-bold text-white leading-snug line-clamp-2 flex-1">
+        <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2 flex-1">
           {product.name}
         </h3>
-        <p className="text-xs text-white/60">by {product.author || 'Guiderr'}</p>
-        <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/10">
-          <span className="text-base font-extrabold text-white">
+        <p className="text-xs text-slate-500">by {product.author || 'Guiderr'}</p>
+        <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-100">
+          <span className="text-base font-extrabold text-slate-900">
             ₹{product.price_in_rupees.toLocaleString('en-IN')}
           </span>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#7178AB] group-hover:text-white transition-colors">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#7178AB] group-hover:text-slate-900 transition-colors">
             BUY →
           </span>
         </div>
@@ -138,47 +156,73 @@ export default function RohanSelection() {
   const { category } = useParams<{ category?: string }>();
   const [selectedEbook, setSelectedEbook] = useState<Ebook | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const isClosingRef = useRef(false);
 
   const handleOpenEbook = (ebook: Ebook) => {
+    isClosingRef.current = false;
     setSelectedEbook(ebook);
     setSearchParams({ ebook: ebook.id }, { replace: true });
   };
   const handleCloseEbook = () => {
+    isClosingRef.current = true;
     setSelectedEbook(null);
     setSearchParams({}, { replace: true });
   };
 
-  // Ebooks from Supabase (zero extra DB hits — reuses Library query cache key)
+  // Ebooks — reuses existing React Query cache (zero extra DB hits)
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['library-all-products'],
     queryFn: getAllProducts,
     staleTime: 5 * 60 * 1000,
   });
 
-  // Ghost word: category name or "SELECTION"
-  const ghostWord = category ? categoryLabel(category) : 'SELECTION';
+  // Deep-link: auto-open modal when ?ebook=<id> is in the URL (e.g. shared links).
+  // isClosingRef prevents re-opening during a close when the two state updates
+  // (selectedEbook → null, searchParams → {}) haven't both flushed yet.
+  useEffect(() => {
+    if (isClosingRef.current) {
+      isClosingRef.current = false;
+      return;
+    }
+    const ebookSlug = searchParams.get('ebook');
+    if (!ebookSlug || products.length === 0 || selectedEbook) return;
+    const match = products.find((p) => p.id === ebookSlug);
+    if (match) setSelectedEbook(toEbook(match));
+  }, [products, searchParams, selectedEbook]);
 
-  // Filtered affiliate items
-  const filteredInventory = useMemo<InventoryItem[]>(() => {
-    if (!category) return INVENTORY;
-    return INVENTORY.filter((item) => item.category === category);
-  }, [category]);
+  // Ghost word
+  const ghostWord = category ? categoryLabel(category).toUpperCase() : 'SELECTION';
 
-  // Filtered ebooks — map category slug to DB category string
-  const SLUG_TO_DB_CATEGORY: Record<string, string> = {
-    investing: 'Investing',
-    finance: 'Finance',
-    motorcycles: 'Motorcycles',
-    travel: 'Travel',
-    tech: 'Tech',
-    lifestyle: 'Lifestyle',
-  };
-  const filteredEbooks = useMemo<Product[]>(() => {
-    if (!category) return products;
-    const dbCat = SLUG_TO_DB_CATEGORY[category];
-    if (!dbCat) return [];
-    return products.filter((p) => p.category === dbCat);
+  // Unified hybrid grid — blend ebooks + affiliates in one array
+  const gridItems = useMemo<GridItem[]>(() => {
+    const affiliates: GridItem[] = (
+      category ? INVENTORY.filter((i) => i.category === category) : INVENTORY
+    ).map((item) => ({ kind: 'affiliate', item }));
+
+    const dbCat = category ? SLUG_TO_DB_CATEGORY[category] : null;
+    const ebooks: GridItem[] = (
+      dbCat ? products.filter((p) => p.category === dbCat) : products
+    ).map((product) => ({ kind: 'ebook', product }));
+
+    // Ebooks first, then affiliates within each category view
+    return [...ebooks, ...affiliates];
   }, [category, products]);
+
+  // Category pills — union of inventory slugs + ebook slugs
+  const allCategorySlugs = useMemo<string[]>(() => {
+    const fromInventory = [...new Set(INVENTORY.map((i) => i.category))];
+    const fromEbooks = [
+      ...new Set(
+        products
+          .map(
+            (p) =>
+              Object.entries(SLUG_TO_DB_CATEGORY).find(([, v]) => v === p.category)?.[0]
+          )
+          .filter((s): s is string => Boolean(s))
+      ),
+    ];
+    return [...new Set([...fromInventory, ...fromEbooks])];
+  }, [products]);
 
   // SEO
   useEffect(() => {
@@ -186,25 +230,13 @@ export default function RohanSelection() {
     document.title = category
       ? `${categoryLabel(category)} — Rohan Selection | Guiderr`
       : 'Rohan Selection | Guiderr — Curated Picks';
-    return () => { document.title = prev; };
+    return () => {
+      document.title = prev;
+    };
   }, [category]);
 
-  // Category tabs — unique slugs from inventory + known ebook slugs
-  const allCategorySlugs = useMemo(() => {
-    const fromInventory = [...new Set(INVENTORY.map((i) => i.category))];
-    const fromEbooks = [...new Set(
-      products
-        .map((p) => Object.entries(SLUG_TO_DB_CATEGORY).find(([, v]) => v === p.category)?.[0])
-        .filter(Boolean) as string[]
-    )];
-    return [...new Set([...fromInventory, ...fromEbooks])];
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products]);
-
-  const hasContent = filteredInventory.length > 0 || filteredEbooks.length > 0;
-
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#7178AB' }}>
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
@@ -214,22 +246,22 @@ export default function RohanSelection() {
           <span
             aria-hidden="true"
             className="pointer-events-none absolute -left-2 top-0 select-none font-black uppercase leading-none tracking-[-0.08em] transition-transform duration-700 group-hover:translate-x-8"
-            style={{ fontSize: 'clamp(3.5rem, 11vw, 7.5rem)', color: '#ffffff', opacity: 0.08 }}
+            style={{ fontSize: 'clamp(3.5rem, 11vw, 7.5rem)', color: '#475569', opacity: 0.05 }}
           >
             {ghostWord}
           </span>
 
           <div className="relative z-10 pt-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60 mb-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-5">
               Curated by Rohan
             </p>
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.06] mb-4">
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.06] mb-4">
               {category ? categoryLabel(category) : 'The Selection.'}
             </h1>
-            <p className="text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">
+            <p className="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed">
               {category
-                ? `Hand-picked ${categoryLabel(category).toLowerCase()} — gear I personally use or recommend.`
-                : 'Every product I recommend. Gear, briefs, and books — across all channels.'}
+                ? `Hand-picked ${categoryLabel(category).toLowerCase()} — resources I personally use or recommend.`
+                : 'Every resource I recommend — across investing, tech, gear, and modern life.'}
             </p>
           </div>
         </div>
@@ -240,8 +272,8 @@ export default function RohanSelection() {
             to="/rohan-selection"
             className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
               !category
-                ? 'bg-white text-slate-900'
-                : 'bg-white/15 border border-white/25 text-white hover:bg-white/25'
+                ? 'bg-slate-900 text-white'
+                : 'bg-slate-100 border border-slate-200 text-slate-600 hover:bg-slate-200'
             }`}
           >
             All
@@ -252,73 +284,60 @@ export default function RohanSelection() {
               to={`/rohan-selection/${slug}`}
               className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                 category === slug
-                  ? 'bg-white text-slate-900'
-                  : 'bg-white/15 border border-white/25 text-white hover:bg-white/25'
+                  ? 'bg-slate-900 text-white'
+                  : 'bg-slate-100 border border-slate-200 text-slate-600 hover:bg-slate-200'
               }`}
             >
-              {categoryLabel(slug).charAt(0) + categoryLabel(slug).slice(1).toLowerCase()}
+              {categoryLabel(slug)}
             </Link>
           ))}
         </div>
 
-        {/* ── Loading state ── */}
+        {/* ── Loading ── */}
         {isLoading && (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-slate-200 border-t-slate-600 rounded-full animate-spin" />
           </div>
         )}
 
-        {/* ── Empty state ── */}
-        {!isLoading && !hasContent && (
-          <div className="rounded-[2rem] border border-white/20 bg-white/10 backdrop-blur-sm p-14 text-center">
-            <p className="text-white/70 text-lg">
-              Nothing here yet — check back soon!
-            </p>
+        {/* ── Empty ── */}
+        {!isLoading && gridItems.length === 0 && (
+          <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-14 text-center">
+            <p className="text-slate-500 text-lg">Nothing here yet — check back soon!</p>
           </div>
         )}
 
-        {/* ── Intelligence Briefs (Ebooks) section ── */}
-        {!isLoading && filteredEbooks.length > 0 && (
-          <section className="mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50 mb-5">
-              Intelligence Briefs
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {filteredEbooks.map((p) => (
-                <EbookCard key={p.id} product={p} onOpen={handleOpenEbook} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Affiliate gear section ── */}
-        {!isLoading && filteredInventory.length > 0 && (
-          <section className="mb-14">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50 mb-5">
-              Recommended Gear
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {filteredInventory.map((item) => (
-                <AffiliateCard key={item.id} item={item} />
-              ))}
-            </div>
-          </section>
+        {/* ── Unified Hybrid Grid ── */}
+        {!isLoading && gridItems.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+            {gridItems.map((gi) =>
+              gi.kind === 'ebook' ? (
+                <EbookCard key={gi.product.id} product={gi.product} onOpen={handleOpenEbook} />
+              ) : (
+                <AffiliateCard key={gi.item.id} item={gi.item} />
+              )
+            )}
+          </div>
         )}
 
         {/* ── Affiliate disclosure ── */}
-        <p className="text-xs text-white/40 text-center mt-8">
+        <p className="text-xs text-slate-400 text-center mt-12">
           Some links are affiliate links. We earn a small commission at no extra cost to you.{' '}
-          <Link to="/affiliate-disclosure" className="underline underline-offset-2 hover:text-white/70 transition-colors">
+          <Link
+            to="/affiliate-disclosure"
+            className="underline underline-offset-2 hover:text-slate-600 transition-colors"
+          >
             Full disclosure →
           </Link>
         </p>
       </main>
 
-      {/* EbookModal portalled to body to escape background-color inheritance */}
-      {selectedEbook && createPortal(
-        <EbookModal ebook={selectedEbook} onClose={handleCloseEbook} />,
-        document.body
-      )}
+      {/* EbookModal portalled to body — escapes any parent CSS scope */}
+      {selectedEbook &&
+        createPortal(
+          <EbookModal ebook={selectedEbook} onClose={handleCloseEbook} />,
+          document.body
+        )}
 
       <Footer />
     </div>

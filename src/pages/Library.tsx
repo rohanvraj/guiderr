@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
@@ -68,14 +68,18 @@ export default function Library() {
   const [selectedEbook, setSelectedEbook] = useState<Ebook | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchParams, setSearchParams] = useSearchParams();
+  // Prevents the deep-link effect from re-opening the modal during a close.
+  const isClosingRef = useRef(false);
 
   // Open: write ?ebook=<id> into the URL so the link is shareable.
   const handleOpen = (ebook: Ebook) => {
+    isClosingRef.current = false;
     setSelectedEbook(ebook);
     setSearchParams({ ebook: ebook.id }, { replace: true });
   };
-  // Close: strip the ebook param so the URL returns to clean /library.
+  // Close: set the guard first so the effect can't race and re-open.
   const handleClose = () => {
+    isClosingRef.current = true;
     setSelectedEbook(null);
     setSearchParams({}, { replace: true });
   };
@@ -101,9 +105,17 @@ export default function Library() {
     staleTime: 5 * 60 * 1000,
   });
 
-  // Deep-link: ?ebook=<product-id-slug> auto-opens the modal.
-  // Runs once after products are loaded.
+  // Deep-link: ?ebook=<product-id-slug> auto-opens the modal on page load or
+  // when the URL is updated externally (e.g. shared link).
+  // The isClosingRef guard prevents this from re-firing when handleClose()
+  // clears selectedEbook → searchParams hasn't been cleared yet in that render.
   useEffect(() => {
+    if (isClosingRef.current) {
+      // We're in the middle of a close — don't re-open. Reset the flag so
+      // subsequent genuine navigations still work.
+      isClosingRef.current = false;
+      return;
+    }
     const ebookSlug = searchParams.get('ebook');
     if (!ebookSlug || products.length === 0 || selectedEbook) return;
     const match = products.find(
