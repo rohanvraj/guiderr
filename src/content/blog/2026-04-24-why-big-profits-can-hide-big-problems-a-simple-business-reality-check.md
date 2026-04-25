@@ -45,17 +45,17 @@ On paper, the business "grew" from ₹20 to ₹25. In reality, the extra money e
 
 ***
 
-### 📥 THE BLUEPRINT: Intelligent Brief #02
-While this article shows the idea, most people still struggle to understand how money kept inside a company actually turns into higher value. **Intelligent Brief #02** shows you exactly how to measure this using simple math and real-world examples.
-
-**Inside Brief #02:**
-*   **The Multiplier Math:** How ₹1 kept inside a company can mathematically turn into ₹4 of market value (and why it often doesn't).
-*   **The 60-Second Challenge:** A simple self-test to help you master this logic on any Indian stock.
-*   **AI Learning Companion:** 4 specialized prompts to help you explore these concepts further using ChatGPT or Claude.
-
-*Most people understand the idea… but miss the math behind it.*
-
-[**Unlock Intelligent Brief #02 - See How ₹1 Can Become ₹4 (₹99)**](buy:d7b36c45-7da1-4584-8a2e-1c432dc2481e)
+> BLUEPRINT: Intelligent Brief #02
+> While this article shows the idea, most people still struggle to understand how money kept inside a company actually turns into higher value. **Intelligent Brief #02** shows you exactly how to measure this using simple math and real-world examples.
+>
+> **Inside Brief #02:**
+> *   **The Multiplier Math:** How ₹1 kept inside a company can mathematically turn into ₹4 of market value (and why it often doesn't).
+> *   **The 60-Second Challenge:** A simple self-test to help you master this logic on any Indian stock.
+> *   **AI Learning Companion:** 4 specialized prompts to help you explore these concepts further using ChatGPT or Claude.
+>
+> *Most people understand the idea… but miss the math behind it.*
+>
+> [**Unlock Intelligent Brief #02 - See How ₹1 Can Become ₹4 (₹99)**](buy:d7b36c45-7da1-4584-8a2e-1c432dc2481e)
 
 ***
 
