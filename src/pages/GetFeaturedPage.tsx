@@ -84,7 +84,7 @@ export default function GetFeaturedPage() {
 
             <FadeSection delay={0.06} className="mt-8">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.98] text-white">
-                Elevate Your Brand on Guiderr
+                Want to Get Featured ? Elevate Your Brand on Guiderr.
               </h1>
             </FadeSection>
 
