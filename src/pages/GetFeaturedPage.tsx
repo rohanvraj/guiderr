@@ -9,7 +9,7 @@ const FEATURED_WHATSAPP_URL = 'https://wa.me/919890505945?text=Hi%20Guiderr,%20I
 const audienceCards = [
   {
     title: 'Innovative Startups',
-    description: 'Products and services with a clear point of view, looking to reach high-intent readers in discovery mode.',
+    description: 'Products or services with a clear point of view, looking to reach the right audience.',
   },
   {
     title: 'Independent Creators',
@@ -17,11 +17,11 @@ const audienceCards = [
   },
   {
     title: 'Hobbyist Experts',
-    description: 'Niche specialists with practical experience, useful frameworks, and a story worth publishing well.',
+    description: 'People with real experience, practical insights, and a story to share.',
   },
   {
     title: 'Niche Businesses',
-    description: 'Focused brands that benefit more from editorial context and trust than from generic paid reach.',
+    description: 'Entrepreneurs and their brands doing honest work deserve an audience.',
   },
 ];
 
@@ -90,7 +90,8 @@ export default function GetFeaturedPage() {
 
             <FadeSection delay={0.12} className="mt-6">
               <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-[#2D1510]">
-                A high-intent platform for creators and businesses to share their story with India's modern decision-makers.
+                Are you a creator or business owner with something worth sharing?
+Get featured on Guiderr and tell your story to modern India.
               </p>
             </FadeSection>
           </div>
@@ -127,7 +128,7 @@ export default function GetFeaturedPage() {
         <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-40">
           <div className="max-w-5xl mx-auto">
             <FadeSection className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#C94520]">The Editorial Process</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#C94520]">The Editorial Process to get featured on our website</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-white">
                 A simple, selective path from first message to published feature.
               </h2>
