@@ -100,7 +100,7 @@ There were no tourists. No vehicles. No network.
 
 Just silence.
 
-![Chang La Pass Ride](changla_pass_ktm_motorcycle_duke_390_ride_rohan_raj_wtab70)
+![Chang La Pass Ride](chang-la-pass-rohan-raj-biketrip-ladakh)
 *Chang La Pass — October evening, -10°C. No traffic. No signal. Just the road ahead.*
 
 Rohan was riding with his wife as pillion.
