@@ -1,4 +1,3 @@
-import { BookOpen, Book, Library, GraduationCap, PenTool, Lightbulb, Plane, Compass, Bike } from 'lucide-react';
 import {
   Moped, ChartLineUp, GlobeHemisphereWest,
   Sparkle, Briefcase, Cpu, CarSimple, SunHorizon, TrendUp,
@@ -71,104 +70,111 @@ export default function Hero() {
 
   return (
     <>
-      {/* Hero Section with Split Design */}
-      <section 
-        className="relative min-h-screen flex items-center overflow-hidden"
-      >
-        {/* Gradient Background - Split Design */}
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-teal-500"></div>
-        
-        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end min-h-[80vh]">
-            {/* Left Side - The Pitch */}
-            <div className="relative z-10 space-y-6 lg:space-y-8 animate-fade-in-up">
-                <h1 className="space-y-2">
-                  <span className="block text-5xl lg:text-7xl font-extrabold tracking-tighter text-white leading-[1.1] drop-shadow-lg">
-                  Personal Finance, Adventure &amp; Entrepreneurship.
-                </span>
-              </h1>
+      {/* ── Hero — Traffic Controller ── */}
+      <section className="bg-white border-b border-slate-200 px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-12">
+        <div className="max-w-7xl mx-auto w-full">
 
-                <p className="text-xl font-medium text-white/70">
-                  Hi, I'm Rohan.
+          {/* Copy block */}
+          <div className="mb-10 sm:mb-14 max-w-3xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-5">
+              Build Wealth. Travel India. Think Clearly.
+            </h1>
+            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-6 max-w-2xl">
+              Guiderr simplifies money, movement, and real-world decisions so you don't waste years figuring things out the hard way.
+            </p>
+            <p className="text-base text-slate-500 font-medium">
+              Hi, I'm Rohan. Where do you want to start?
+            </p>
+          </div>
+
+          {/*
+            Desktop asymmetric grid — 4 cols × 2 rows
+              Learn           → col-span-2 row-span-2  (large left dominant)
+              Intelligent Briefs → col-span-2 row-span-1  (top right, wide)
+              The Selection   → col-span-1 row-span-1  (bottom right, left half)
+              Featured Stories → col-span-1 row-span-1  (bottom right, right half)
+
+            Mobile — single-column stack in order:
+              Learn → Briefs → Selection → Stories
+          */}
+          <div className="grid grid-cols-1 sm:grid-cols-4 sm:grid-rows-2 gap-4 sm:gap-6">
+
+            {/* 1. Learn — large left card */}
+            <Link
+              to="/guides"
+              className="group sm:col-span-2 sm:row-span-2 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-orange-800 hover:bg-orange-700 p-8 min-h-[260px] sm:min-h-[440px] transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl active:scale-[0.98]"
+            >
+              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[7rem] sm:text-[10rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">WEALTH</span>
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-4 font-medium">01</p>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 leading-tight">Learn</h2>
+                <p className="mt-3 text-sm text-slate-950/70 max-w-xs">
+                  In-depth guides on money, travel, and life decisions.
                 </p>
-
-              <p className="text-lg sm:text-xl text-white/80 mt-6 leading-relaxed max-w-xl font-light animate-fade-in" style={{ animationDelay: '160ms', animationFillMode: 'both' }}>
-                I build systems on <strong className="font-semibold text-white">Guiderr</strong> to help modern Indians move faster, save smarter, and live bigger.
-              </p>
-            </div>
-
-            {/* Right Side - Knowledge Cloud + Founder Image */}
-            <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] lg:flex items-end justify-center">
-              <div className="relative w-full h-full min-h-screen flex items-end justify-center">
-                {/* Layer 1 (z-0): Floating Book/Reading Icons — The Knowledge Cloud */}
-                <div className="absolute inset-0 w-full h-full z-0">
-                  {/* BookOpen Icon */}
-                  <div className="absolute top-10 left-10 animate-float-soft transform-gpu" style={{ animationDuration: '4s' }}>
-                    <BookOpen className="w-16 h-16 text-white/30" />
-                  </div>
-
-                  {/* Book Icon */}
-                  <div className="absolute top-32 right-20 animate-float-soft transform-gpu" style={{ animationDuration: '5s', animationDelay: '0.5s' }}>
-                    <Book className="w-20 h-20 text-white/25" />
-                  </div>
-
-                  {/* Library Icon */}
-                  <div className="absolute bottom-32 left-16 animate-float-soft transform-gpu" style={{ animationDuration: '4.5s', animationDelay: '1s' }}>
-                    <Library className="w-24 h-24 text-white/20" />
-                  </div>
-
-                  {/* GraduationCap Icon */}
-                  <div className="absolute top-1/2 right-12 animate-float-soft transform-gpu" style={{ animationDuration: '5.5s', animationDelay: '0.3s' }}>
-                    <GraduationCap className="w-18 h-18 text-white/30" />
-                  </div>
-
-                  {/* PenTool Icon */}
-                  <div className="absolute bottom-20 right-1/4 animate-float-soft transform-gpu" style={{ animationDuration: '4.8s', animationDelay: '0.8s' }}>
-                    <PenTool className="w-14 h-14 text-white/25" />
-                  </div>
-
-                  {/* Lightbulb Icon */}
-                  <div className="absolute top-1/3 left-1/3 animate-float-soft transform-gpu" style={{ animationDuration: '4.2s', animationDelay: '1.2s' }}>
-                    <Lightbulb className="w-16 h-16 text-white/30" />
-                  </div>
-
-                  {/* Additional BookOpen Icon */}
-                  <div className="absolute bottom-1/4 left-1/2 animate-float-soft transform-gpu" style={{ animationDuration: '5.2s', animationDelay: '1.5s' }}>
-                    <BookOpen className="w-12 h-12 text-white/20" />
-                  </div>
-
-                  {/* Book Icon - Small */}
-                  <div className="absolute top-1/4 right-1/3 animate-float-soft transform-gpu" style={{ animationDuration: '4.6s', animationDelay: '0.6s' }}>
-                    <Book className="w-10 h-10 text-white/25" />
-                  </div>
-
-                  {/* Plane Icon - Travel */}
-                  <div className="absolute top-20 right-1/4 animate-float-soft transform-gpu" style={{ animationDuration: '5.3s', animationDelay: '1.1s' }}>
-                    <Plane className="w-16 h-16 text-white/20" />
-                  </div>
-
-                  {/* Compass Icon - Travel */}
-                  <div className="absolute bottom-40 right-12 animate-float-soft transform-gpu" style={{ animationDuration: '4.9s', animationDelay: '0.4s' }}>
-                    <Compass className="w-14 h-14 text-white/20" />
-                  </div>
-
-                  {/* Bike Icon - Motorcycle */}
-                  <div className="absolute top-2/3 left-20 animate-float-soft transform-gpu" style={{ animationDuration: '5.1s', animationDelay: '1.3s' }}>
-                    <Bike className="w-18 h-18 text-white/25" />
-                  </div>
-                </div>
-
-                {/* Layer 2 (z-10): Founder Image — anchored to the bottom of the hero */}
-                {/* DISABLED — uncomment to re-enable founder image */}
-                {/* <img
-                  src="/images/founder-image.webp"
-                  alt="Rohan — Founder of Guiderr"
-                  loading="eager"
-                  decoding="async"
-                  className="relative z-10 w-auto h-[86vh] xl:h-[92vh] max-w-none object-contain object-bottom drop-shadow-2xl"
-                /> */}
               </div>
-            </div>
+              <div className="flex items-center gap-2 text-slate-950 font-semibold text-sm mt-8">
+                <span>Browse guides</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </Link>
+
+            {/* 2. Intelligent Briefs — top right, spans full right half */}
+            <Link
+              to="/library"
+              className="group sm:col-span-2 sm:row-span-1 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-amber-500 hover:bg-amber-400 p-6 min-h-[160px] sm:min-h-0 transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl hover:shadow-amber-500/20 active:scale-[0.98]"
+            >
+              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">VAULT</span>
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">02</p>
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-950">Intelligent Briefs</h2>
+                <p className="mt-2 text-sm text-slate-950/70">
+                  Curated reads distilled into quick, high-signal summaries.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-slate-950 font-semibold text-sm mt-4">
+                <span>Go to library</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </Link>
+
+            {/* 3. The Selection — bottom right, left cell */}
+            <Link
+              to="/rohan-selection"
+              className="group sm:col-span-1 sm:row-span-1 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-sky-500 hover:bg-sky-400 p-6 min-h-[160px] sm:min-h-0 transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl hover:shadow-sky-500/30 active:scale-[0.98]"
+            >
+              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">GEAR</span>
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">03</p>
+                <h2 className="text-xl font-bold text-slate-950">The Selection</h2>
+                <p className="mt-2 text-sm text-slate-950/70">
+                  Rohan's personal picks across every category.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-slate-950 font-semibold text-sm mt-4">
+                <span>View picks</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </Link>
+
+            {/* 4. Featured Stories — bottom right, right cell */}
+            <Link
+              to="/featured"
+              className="group sm:col-span-1 sm:row-span-1 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-emerald-500 hover:bg-emerald-400 p-6 min-h-[160px] sm:min-h-0 transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl hover:shadow-emerald-500/30 active:scale-[0.98]"
+            >
+              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">STORIES</span>
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">04</p>
+                <h2 className="text-xl font-bold text-slate-950">Featured Stories</h2>
+                <p className="mt-2 text-sm text-slate-950/70">
+                  Real people, real outcomes — spotlighted on Guiderr.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-slate-950 font-semibold text-sm mt-4">
+                <span>Read stories</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </Link>
+
           </div>
         </div>
       </section>
