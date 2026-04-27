@@ -221,8 +221,8 @@ Just as something he hopes to experience one day.
 
 If you want to see the rides, not just read about them:
 
-📺 YouTube: https://youtube.com/@rrohannr  
-📸 Instagram: https://www.instagram.com/rrohannr  
+📺 **[Watch Rohan’s Motorcycle Rides on YouTube](https://youtube.com/@rrohannr)**  
+📸 **[Follow Rohan’s Riding Updates on Instagram](https://www.instagram.com/rrohannr)**
 
 ---
 
