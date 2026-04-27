@@ -186,8 +186,8 @@ It comes from riding across:
 
 Every piece of gear has a reason. Every modification has a purpose.
 
-![Riding Gear](image_3_placeholder)
-*Built for real conditions — not just for looks.*
+![Riding Gear](ideal-motorcycle-luggage)
+*Built for real conditions - not just for looks.*
 
 ---
 
