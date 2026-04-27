@@ -16,9 +16,7 @@ He has been riding since he was 18. Not occasionally. Not recreationally. But co
 
 ## **Rohan’s Riding Gear & Setup**
 
-For those who keep asking about the exact setup:
-
-👉 https://www.guiderr.in/rohan-selection/riding-gear
+### **[👉 Explore My Riding Gear & Some Trusted Picks](https://www.guiderr.in/rohan-selection/riding-gear)**
 
 ## **Where It Started**
 
@@ -230,9 +228,7 @@ If you want to see the rides, not just read about them:
 
 ## **Rohan’s Riding Gear & Setup**
 
-For those who keep asking about the exact setup:
-
-👉 https://www.guiderr.in/rohan-selection/riding-gear
+### **[👉 Explore My Riding Gear & Some Trusted Picks](https://www.guiderr.in/rohan-selection/riding-gear)**
 
 ---
 
