@@ -75,7 +75,7 @@ That reduces your final return even further.
 
 A simple step-by-step example of how inflation and taxation affect your actual returns is covered in the ebook below.
 
-[**Unlock Intelligent Brief #03 — See What You Actually Keep After Inflation & Tax (₹99)**](buy:REPLACE_WITH_UUID)
+[**Unlock Intelligent Brief #03 — See What You Actually Keep After Inflation & Tax (₹99)**](buy:dbc2d252-2212-47f0-97b5-d1bcb9653753)
 
 ---
 
