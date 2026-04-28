@@ -111,20 +111,20 @@ html {
    └─────────────────────────────────────────────────────────────────────────┘ */
 :root {
   /* INSIGHT (Blue) */
-  --dm-bg-pro:      #6c6c6c;
+  --dm-bg-pro:      #8d262b;
   --dm-accent-pro:  #f9e405;
 
   /* THE BOTTOM LINE (Gold) */
-  --dm-bg-math:     #855c5c;
-  --dm-accent-math: #ffd000;
+  --dm-bg-math:     #0da284;
+  --dm-accent-math: #0a0a0a;
 
   /* REALITY CHECK (Red) */
   --dm-bg-risk:     #0a0a0a;
   --dm-accent-risk: #FF3131;
 
   /* AI COMPANION (Violet) */
-  --dm-bg-ai:       #d9bcbc;
-  --dm-accent-ai:   #A855F7;
+  --dm-bg-ai:       #5fa0c8;
+  --dm-accent-ai:   #000000;
 
   /* BLUEPRINT (Cyan) */
   --dm-bg-blueprint: #4e88ac;
