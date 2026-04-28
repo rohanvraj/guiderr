@@ -73,9 +73,17 @@ Now you pay tax on your gains.
 
 That reduces your final return even further.
 
-A simple step-by-step example of how inflation and taxation affect your actual returns is covered in the ebook below.
-
-[**Unlock Intelligent Brief #03 — See What You Actually Keep After Inflation & Tax (₹99)**](buy:dbc2d252-2212-47f0-97b5-d1bcb9653753)
+> BLUEPRINT: Intelligent Brief #03  
+> This article shows the idea. But most people still don’t see how much of their return actually disappears. **Intelligent Brief #03** breaks it down step-by-step using simple numbers and real-world logic.
+>
+> **Inside Brief #03:**
+> *   **The Real Return Path:** See how ₹100 → ₹120 can shrink to ~₹108 after inflation and tax.
+> *   **The Hidden Leak:** Why you may be paying tax on gains that aren’t real.
+> *   **The Reality Check:** How to quickly estimate what you actually keep from any investment.
+>
+> *Most people look at returns… few understand what they actually keep.*
+>
+> [**Unlock Intelligent Brief #03 — See What You Actually Keep After Inflation & Tax (₹99)**](buy:dbc2d252-2212-47f0-97b5-d1bcb9653753)
 
 ---
 
