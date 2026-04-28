@@ -5,7 +5,7 @@ category: Investing
 author: Guiderr Editorial
 status: published
 image: ice-cream-inflation_001
-featured_image: main_thumbnail_article_image_value_erosion_of_money_because_of_inflation_and_taxation_b4odcc
+featured_image: main_thumbnail_article_image_value_erosion_of_money_because_of_inflation_and_taxation_cs3wn0
 ---
 
 Most people assume something simple:
