@@ -83,9 +83,9 @@ A simple step-by-step example of how inflation and taxation affect your actual r
 
 Let’s simplify it:
 
-- Business return: 20%  
+- Investment return: 20%  
 - Inflation: ~7%  
-- Taxes reduce the remaining gains  
+- Taxes reduce the remaining gains.
 
 What’s left is much smaller than it looks.
 
