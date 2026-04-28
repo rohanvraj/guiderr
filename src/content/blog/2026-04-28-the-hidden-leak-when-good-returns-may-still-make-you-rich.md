@@ -1,5 +1,5 @@
 ---
-title: "The Hidden Leak: When Good Returns May Still Make You Rich"
+title: "The Hidden Leak: Why Good Returns Don’t Always Mean Real Gains"
 date: 2026-04-28T21:26:00.000Z
 category: Investing
 author: Guiderr Editorial
