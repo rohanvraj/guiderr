@@ -137,6 +137,11 @@ Ignoring inflation and taxes can make strong returns look better than they reall
 
 And that’s where most people get misled.
 
+
+The "One Big Number" trap is closely related to the "Growth Illusion" we explored in our previous technical analysis. To understand why efficiency matters more than size, you can read that here:
+[**Decoding Buffett (1977): Capital Efficiency and the Growth Illusion →**](https://www.guiderr.in/guides/2026-04-22-decoding-buffett-1977-capital-efficiency-and-the-growth-illusion)
+
+
 ***
 
 *⚠️ This content is for educational purposes only and does not constitute investment advice. Please consult a qualified professional before making financial decisions.*
