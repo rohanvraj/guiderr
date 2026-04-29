@@ -7,141 +7,176 @@ status: published
 image: ice-cream-inflation_001
 featured_image: main_thumbnail_article_image_value_erosion_of_money_because_of_inflation_and_taxation_cs3wn0
 ---
+# Your 20% Return Isn’t Really 20%
 
-Most people assume something simple:
+Most people believe something simple:
 
-If a business earns good returns, investors will do well.
+If a business earns strong returns,  
+investors will do well.
 
-But that’s not always true.
+Sounds logical.
 
-There is a hidden leak that quietly eats into those returns.
-
-***
-
-## The Ice Cream Company
-
-Imagine you own shares in a simple ice cream company.
-
-### Year 1:
-- The company uses ₹100  
-- It earns ₹20 profit  
-
-That’s a strong result.
-
-The business is clearly doing well.
+But there’s a hidden leak most people never see.
 
 ---
 
-Now let’s move forward.
+## The Ice Cream Company
 
-### Year 2:
-- The company keeps reinvesting profits  
+Let’s keep it simple.
+
+Imagine you own shares in a small ice cream business.
+
+![Where Your Returns Go - Clean Flow Infographic](free_article_value_erosion_of_investments_image_1_yrrpbg)
+
+### Year 1
+
+- The company invests ₹100  
+- It earns ₹20 in profit  
+
+That’s a **20% return**.
+
+Strong. Efficient. Impressive.
+
+---
+
+### Year 2
+
+- The company reinvests its profits  
 - It continues earning around **20% returns**
 
-Everything looks perfect.
+Everything still looks perfect.
 
-The business is consistent. Efficient. Growing.
+The business is consistent. Growing. Reliable.
 
 ---
 
 So you should be getting richer, right?
 
-Not necessarily.
+Not quite.
 
-***
+---
 
-## What You Don’t See
+## The Hidden Leak
 
-There are two things working in the background:
+There are two forces quietly working against you.
+
+You don’t see them in the profit numbers.
+
+But they affect what you actually keep.
+
+---
 
 ### 1. Inflation
 
-If inflation is around **7%**,  
-your money is losing value every year.
+If inflation is around **7%**, your money loses value every year.
 
-So your **20% return is not really 20%**.
+That means:
 
-It’s already lower in real terms.
+> Your 20% return is not really 20%.
+
+A part of it is just keeping up with rising prices.
 
 ---
 
 ### 2. Taxes (When You Exit)
 
-At some point, you sell your shares.
+At some point, you sell your investment.
 
 Now you pay tax on your gains.
 
-That reduces your final return even further.
+Which means:
 
-> BLUEPRINT: Intelligent Brief #03  
-> This article shows the idea. But most people still don’t see how much of their return actually disappears. **Intelligent Brief #03** breaks it down step-by-step using simple numbers and real-world logic.
->
-> **Inside Brief #03:**
-> *   **The Real Return Path:** See how ₹100 → ₹120 can shrink to ~₹108 after inflation and tax.
-> *   **The Hidden Leak:** Why you may be paying tax on gains that aren’t real.
-> *   **The Reality Check:** How to quickly estimate what you actually keep from any investment.
->
-> *Most people look at returns… few understand what they actually keep.*
->
-> [**Unlock Intelligent Brief #03 — See What You Actually Keep After Inflation & Tax (₹99)**](buy:dbc2d252-2212-47f0-97b5-d1bcb9653753)
+- You earned ₹20  
+- But you don’t keep all of it  
 
 ---
 
-## Putting It Together
-
-Let’s simplify it:
-
-- Investment return: 20%  
-- Inflation: ~7%  
-- Taxes reduce the remaining gains.
-
-What’s left is much smaller than it looks.
+![Where Your Returns Go - Hidden Leak Breakdown Analytical](free_article_value_erosion_of_investments_image_1_yrrpbg)
 
 ---
 
-Even though:
-- The business performed well  
-- Profits kept growing  
+## What This Really Means
 
-Your **actual purchasing power** may not grow much.
+Let’s simplify the math:
+
+- Return: **20%**  
+- Inflation: **~7%**  
+- Taxes: reduce gains further  
+
+---
+
+What you’re left with is much smaller than it looks.
+
+---
+
+Even if:
+
+- The business performs well  
+- Profits keep growing  
+
+Your **real purchasing power** may not grow much.
 
 ---
 
 ## The Real Question
 
-It’s not just:
+Most people ask:
 
-“Is the business earning well?”
+> “Is this a good business?”
 
-It is:
+But the better question is:
 
-> “Is it earning enough after inflation and taxes?”
+> “What do I actually keep after inflation and taxes?”
 
 ---
 
-Because if it isn’t,
+Because if the answer is weak,
 
-You are moving forward on paper…
+You are growing on paper…
 
 but not in real life.
 
-***
+---
+
+## Go Deeper (Optional)
+
+> BLUEPRINT: Intelligent Brief #03  
+
+This article shows the idea.
+
+But most people still underestimate how much return disappears.
+
+**Intelligent Brief #03** breaks it down step-by-step using simple numbers.
+
+**Inside Brief #03:**
+- The real return path (₹100 → what you actually keep)  
+- Why you may pay tax on gains that aren’t real  
+- A simple way to estimate your true return  
+
+*Most people look at returns… few understand what they actually keep.*
+
+[**Unlock Intelligent Brief #03 — See What You Actually Keep After Inflation & Tax (₹99)**](buy:dbc2d252-2212-47f0-97b5-d1bcb9653753)
+
+---
 
 ## Final Thought
 
 Good businesses matter.
 
-But **external forces matter just as much**.
+But **what you keep matters more**.
 
 Ignoring inflation and taxes can make strong returns look better than they really are.
 
 And that’s where most people get misled.
 
+---
 
-The "One Big Number" trap is closely related to the "Growth Illusion" we explored in our previous technical analysis. To understand why efficiency matters more than size, you can read that here:
+## Read Next
+
+If this changed how you think about returns, read this next:
+
 [**Decoding Buffett (1977): Capital Efficiency and the Growth Illusion →**](https://www.guiderr.in/guides/2026-04-22-decoding-buffett-1977-capital-efficiency-and-the-growth-illusion)
 
-
-***
+---
 
 *⚠️ This content is for educational purposes only and does not constitute investment advice. Please consult a qualified professional before making financial decisions.*
