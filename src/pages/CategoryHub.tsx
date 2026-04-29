@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -110,6 +110,8 @@ const CATEGORY_THEMES: Record<string, HubTheme> = {
   },
 };
 
+const POSTS_PER_PAGE = 5;
+
 export default function CategoryHub() {
   const { category } = useParams<{ category: string }>();
   const theme = category ? CATEGORY_THEMES[category] : undefined;
@@ -117,6 +119,13 @@ export default function CategoryHub() {
   // getPostsByCategory is synchronous (statically bundled markdown) — safe to
   // call unconditionally before the early return so no hook ordering is violated.
   const posts = theme ? getPostsByCategory(theme.filterKey) : [];
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  // Reset to page 1 whenever the category slug changes.
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [category]);
 
   useEffect(() => {
     if (!theme) return;
@@ -134,6 +143,14 @@ export default function CategoryHub() {
   // Unknown slug (e.g. /contactus, /about caught before this in App.tsx) →
   // graceful fallback so nothing ever 404s.
   if (!theme) return <Navigate to="/library" replace />;
+
+  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const pagePosts  = posts.slice(currentPage * POSTS_PER_PAGE, (currentPage + 1) * POSTS_PER_PAGE);
+
+  function goToPage(p: number) {
+    setCurrentPage(p);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   // ── Derived palette — all driven by theme.dark ─────────────────────────
   const textPrimary   = theme.dark ? 'text-white'    : 'text-slate-900';
@@ -202,7 +219,7 @@ export default function CategoryHub() {
           </div>
         ) : (
           <div className="space-y-4">
-            {posts.map((post, index) => (
+            {pagePosts.map((post, index) => (
               <Link
                 key={post.slug}
                 to={`/guides/${post.slug}`}
@@ -239,6 +256,56 @@ export default function CategoryHub() {
                 </div>
               </Link>
             ))}
+          </div>
+        )}
+
+        {/* ── Pagination ── */}
+        {totalPages > 1 && (
+          <div className="flex flex-wrap items-center justify-between gap-3 mt-10 pt-8 border-t" style={{ borderColor: theme.dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.10)' }}>
+
+            {/* Back to Latest / Previous */}
+            <button
+              onClick={() => goToPage(0)}
+              disabled={currentPage === 0}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{
+                background: theme.dark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.06)',
+                color: theme.dark ? '#fff' : '#1e293b',
+              }}
+            >
+              ↩ Back to Latest
+            </button>
+
+            {/* Numbered page buttons */}
+            <div className="flex items-center gap-1.5">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goToPage(i)}
+                  className="w-9 h-9 rounded-xl text-xs font-bold transition-all"
+                  style={{
+                    background: i === currentPage ? '#7178AB' : theme.dark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.06)',
+                    color: i === currentPage ? '#fff' : theme.dark ? '#cbd5e1' : '#475569',
+                    boxShadow: i === currentPage ? '0 2px 8px rgba(113,120,171,0.35)' : 'none',
+                  }}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+
+            {/* Next */}
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages - 1}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{
+                background: '#7178AB',
+                color: '#fff',
+              }}
+            >
+              Next →
+            </button>
           </div>
         )}
 

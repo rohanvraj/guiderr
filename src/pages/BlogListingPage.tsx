@@ -6,7 +6,7 @@ import { getAllPosts } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
 // ── Constants ──────────────────────────────────────────────────────────────
-const POSTS_PER_PAGE = 12;
+const POSTS_PER_PAGE = 5;
 
 // Maps any ?category= URL param to its clean hub URL (backward compat).
 const PARAM_TO_HUB: Record<string, string> = {
