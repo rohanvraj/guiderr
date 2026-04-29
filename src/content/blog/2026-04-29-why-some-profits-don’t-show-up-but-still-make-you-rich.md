@@ -141,7 +141,7 @@ Both matter.
 >
 > *Some profits are visible… the important ones often aren’t.*
 >
-> [**Unlock Intelligent Brief #04 — See How Hidden Earnings Build Wealth (₹99)**](buy:REPLACE_WITH_UUID)
+> [**Unlock Intelligent Brief #04 — See How Hidden Earnings Build Wealth (₹99)**](buy:3c7d8b8e-16f2-4a68-9ff2-cfc1155d6042)
 
 ***
 
