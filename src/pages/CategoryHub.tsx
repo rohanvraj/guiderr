@@ -273,7 +273,7 @@ export default function CategoryHub() {
                 color: theme.dark ? '#fff' : '#1e293b',
               }}
             >
-              ↩ Back to Latest
+              Back to Latest
             </button>
 
             {/* Numbered page buttons */}
