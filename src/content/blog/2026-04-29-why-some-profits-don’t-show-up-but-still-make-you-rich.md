@@ -57,7 +57,7 @@ So in reality, your total economic benefit is closer to:
 
 ₹100 (shop) + ₹100 (your share of dairy earnings)
 
-But only ₹100 is visible.
+But only ₹100 is visible!
 
 ![Hidden Earnings Iceberg Concept](hidden_earnings_that_may_not_be_visible_directly_blog_article_image_1_ws0ull)
 
