@@ -141,19 +141,19 @@ but not in real life.
 ## Go Deeper (Optional)
 
 > BLUEPRINT: Intelligent Brief #03  
-
-This article shows the idea.
-
-But most people still underestimate how much return disappears.
-
-**Intelligent Brief #03** breaks it down step-by-step using simple numbers.
-
-**Inside Brief #03:**
-- The real return path (₹100 → what you actually keep)  
-- Why you may pay tax on gains that aren’t real  
-- A simple way to estimate your true return  
-
-*Most people look at returns… few understand what they actually keep.*
+>
+> This article shows the idea.
+>
+>But most people still underestimate how much return disappears.
+>
+>**Intelligent Brief #03** breaks it down step-by-step using simple numbers.
+>
+>**Inside Brief #03:**
+>- The real return path (₹100 → what you actually keep)  
+>- Why you may pay tax on gains that aren’t real  
+>- A simple way to estimate your true return  
+>
+>*Most people look at returns… few understand what they actually keep.*
 
 [**Unlock Intelligent Brief #03 — See What You Actually Keep After Inflation & Tax (₹99)**](buy:dbc2d252-2212-47f0-97b5-d1bcb9653753)
 
