@@ -91,7 +91,8 @@ even though one is clearly stronger.
 ![Ownership dilution simple visual](blog_article_image_1_growth_of_company_may_refuce_profit_b6ey2g)
 
 ***
-[**Unlock Intelligent Brief #05 — Learn How Growth Can Reduce Your Share of Profits (₹149)**](buy:a2eb902b-672c-4b17-92d9-4aa0203c7f3d)
+Most investors track growth. Few understand what it actually costs them.
+[**Unlock Intelligent Brief #05 — Learn How Growth Can Reduce Your Share of Profits (₹99)**](buy:a2eb902b-672c-4b17-92d9-4aa0203c7f3d)
 
 ## **What You Actually Gave Away**
 
