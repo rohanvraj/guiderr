@@ -267,7 +267,7 @@ Ask:
 >
 > *Smart investors don’t just track growth — they track what is sacrificed for it.*
 >
-> [**Unlock Intelligent Brief #07 — Learn to Spot Value-Destroying Decisions (₹149)**](buy:REPLACE_WITH_UUID)
+> [**Unlock Intelligent Brief #07 — Learn to Spot Value-Destroying Decisions (₹149)**](buy:a2eb902b-672c-4b17-92d9-4aa0203c7f3d)
 
 ***
 
