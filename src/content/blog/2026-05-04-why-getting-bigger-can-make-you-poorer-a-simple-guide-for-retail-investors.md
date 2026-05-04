@@ -52,8 +52,6 @@ But instead of paying cash:
 👉 You give **50% ownership of your shop**  
 👉 In exchange for **100% of the dairy**
 
----
-
 ### **After the deal:**
 - You own:
   - 50% of your original shop → ₹1,00,000 profit share  
@@ -71,8 +69,6 @@ Before:
 After:
 - Profit = ₹1,50,000  
 
----
-
 ### What happened?
 
 > You gave away half of a high-return business (₹1,00,000 loss)  
@@ -80,7 +76,7 @@ After:
 
 👉 Net result: **₹50,000 loss every year**
 
----
+
 
 ### Important detail:
 
@@ -105,8 +101,6 @@ After:
 - You own **half of a strong business**
 - Plus a **weaker business**
 
----
-
 👉 Simple truth:
 
 > You didn’t just “buy” a dairy.  
@@ -118,13 +112,9 @@ After:
 
 Let’s look deeper.
 
----
-
 ### **If both businesses were equally strong**
 
 You break even.
-
----
 
 ### **If the new business is weaker**
 
@@ -134,8 +124,6 @@ Now:
 
 👉 Overall:
 **Your total earning power drops**
-
----
 
 > Getting bigger does not mean getting richer.
 
@@ -148,8 +136,6 @@ Imagine this:
 Instead of giving 50%,  
 you give **60% of your shop**.
 
----
-
 Now:
 - You no longer control your own business  
 - Decisions may be taken that don’t favor you  
@@ -158,8 +144,6 @@ For example:
 - Cost-cutting  
 - Quality reduction  
 - Long-term decisions sacrificed for short-term gains  
-
----
 
 👉 You may lose both:
 - Control  
@@ -174,8 +158,6 @@ For example:
 Companies don’t use “shops”.
 
 They use **shares**.
-
----
 
 When a company wants to buy another business, it can:
 
@@ -200,8 +182,6 @@ but your share is now smaller.
 
 ![Pizza Slice Visual of Equity Dilution](blog_article_image_3_bigger_company_does_not_always_mean_better_vbrbql)
 
----
-
 > More shares. Less ownership.
 
 ---
@@ -213,7 +193,6 @@ If total profit does not increase enough after the deal,
 
 This is called a drop in **earnings per share (EPS)**.
 
----
 
 > Same pizza. More slices. Smaller share per person.
 
@@ -223,7 +202,6 @@ This is called a drop in **earnings per share (EPS)**.
 
 Sometimes companies may change how they report performance.
 
----
 
 ### Example:
 
@@ -233,23 +211,18 @@ Earlier:
 Now:
 - “Adjusted Profit”  
 
----
-
 Adjusted numbers may:
 - Exclude certain costs  
 - Present a smoother picture  
 
----
+
 
 👉 Ask:
 
 > Why is the old number no longer shown?  
 > What might not be visible here?
 
----
 
-
-***
 
 ## **Why Trust Matters**
 
@@ -258,13 +231,12 @@ Even one poor decision can:
 - Reduce investor confidence  
 - Lower how the company is valued  
 
----
+
 
 ### Simple truth:
 
 > Trust takes years to build… and one decision to damage.
 
-***
 
 ## **A Simple Checklist for You**
 
