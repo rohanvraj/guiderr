@@ -143,6 +143,44 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Compact pocket camera — better than a phone in daylight, zero learning curve.',
   },
 
+  // ── Tech — Air Purifiers (from: top-4-air-purifiers-for-indian-cities article) ──
+  {
+    id: 'levoit-core-mini',
+    name: 'Levoit Core Mini Air Purifier',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'LEVOIT_Core_Mini_Amazon_India_qckau8',
+    link: 'https://amzn.to/4dmz2OW',
+    description: 'H13 True HEPA, 183 Sq Ft coverage, 1.1kg — best compact purifier for desks and small kids\' rooms.',
+  },
+  {
+    id: 'winix-5500-2',
+    name: 'Winix 5500-2 Air Purifier',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'WINIX_5500-2_Air_Purifier_uwshvn',
+    link: 'https://amzn.to/3QLNFTi',
+    description: 'PlasmaWave tech, 1881 Sq Ft coverage, washable carbon filter — industrial-grade for large living rooms.',
+  },
+  {
+    id: 'coway-airmega-150',
+    name: 'Coway Airmega 150',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'Coway_Airmega_150_Air_Purifier_wxu3e9',
+    link: 'https://amzn.to/48HBk8R',
+    description: '99.999% particle removal, 355 Sq Ft, 8,500-hour filter life — most trusted brand for Indian homes.',
+  },
+  {
+    id: 'honeywell-air-touch-v1',
+    name: 'Honeywell Air Touch V1',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'Honeywell_Air_touch_v1_Air_Purifier_quv3rn',
+    link: 'https://amzn.to/3PmaZXh',
+    description: '3-in-1 filtration, 250 Sq Ft — the most affordable reliable brand for a home office.',
+  },
+
   // ── Riding Gear (from: ideal-luggage-setup & bmw-f-450-gs articles) ─────────
   {
     id: 'rynox-magnapod-tankbag',
