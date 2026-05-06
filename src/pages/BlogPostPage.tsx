@@ -361,6 +361,11 @@ export default function BlogPostPage() {
                   in third-party data.
                 </p>
                 <p>
+                  <span className="font-semibold">IMAGE DISCLOSURE:</span> Some images used in
+                  the articles may be AI-generated or illustrative in nature and are used for
+                  representation purposes only.
+                </p>
+                <p>
                   <span className="font-semibold">AFFILIATE:</span> As an Affiliate Partner,
                   Guiderr earns a commission from successful applications or qualifying purchases
                   at no extra cost to you.
