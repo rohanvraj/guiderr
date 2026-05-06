@@ -198,6 +198,25 @@ export default function StartHerePage() {
           </div>
         </section>
 
+        {/* ── Get Featured Strip ── */}
+        <section className="px-4 sm:px-6 lg:px-8 pb-16">
+          <FadeSection>
+            <div className="max-w-4xl mx-auto rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm px-8 py-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-purple-300 mb-1">For Creators &amp; Businesses</p>
+                <p className="text-white font-semibold text-lg leading-snug">Running something worth sharing?</p>
+                <p className="text-purple-200 text-sm mt-1">We feature honest work — paid editorial placements, selectively reviewed.</p>
+              </div>
+              <Link
+                to="/get-featured"
+                className="flex-shrink-0 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition-all hover:bg-purple-50 whitespace-nowrap"
+              >
+                Get featured →
+              </Link>
+            </div>
+          </FadeSection>
+        </section>
+
         {/* ── Philosophy / Stance ── */}
         <section className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32">
           <FadeSection>
@@ -214,8 +233,7 @@ export default function StartHerePage() {
               </blockquote>
               <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
                 When you click an affiliate link in our articles, we may earn a small commission from
-                the partner — at zero extra cost to you. This is how Guiderr stays free to read.
-                Our editorial judgment is never for sale.{' '}
+                the partner — at zero extra cost to you. This is how Guiderr stays free to read.{' '}
                 <Link to="/affiliate-disclosure" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
                   Full disclosure →
                 </Link>
