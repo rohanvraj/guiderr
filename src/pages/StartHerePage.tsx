@@ -42,7 +42,7 @@ const PATHS = [
     color: '#0d9488',
     label: 'Personal Finance',
     ghost: 'FINANCE',
-    tagline: 'Smarter cards. Better credit. Zero guesswork.',
+    tagline: 'Credit cards, savings, and everyday money decisions - explained simply.',
     articles: [
       { title: 'Why Your Credit Card Was Rejected — And How to Fix It', slug: '2026-04-13-understanding-credit-card-rejections-in-2026-how-to-build-your-cibil-for-sbi-and-hdfc-approval' },
       { title: 'Mastering Credit Cards in 2026 — The Frugal Guide', slug: '2026-04-02-mastering-credit-cards-in-2026-a-frugal-guide-to-rewards-risks-and-financial-freedom' },
@@ -57,7 +57,7 @@ const PATHS = [
     color: '#059669',
     label: 'Investing',
     ghost: 'INVESTING',
-    tagline: 'Equity research. Intrinsic value. Long-term wealth.',
+    tagline: 'Long-term investing, valuation, and wealth-building - without noise.',
     articles: [
       { title: 'Investing in 2026: Every Indian Needs a Long-Term Wealth Strategy', slug: '2026-04-05-investing-in-2026-why-every-indian-needs-a-long-term-wealth-strategy' },
       { title: 'ITR 2026: New Tax Rules & the ₹75,000 ELSS Window', slug: '2026-04-13-itr-2026-new-tax-rules-₹75-000-deduction-why-april-is-the-smartest-month-to-invest' },
@@ -70,7 +70,7 @@ const PATHS = [
     color: '#475569',
     label: 'Automotive',
     ghost: 'AUTOMOTIVE',
-    tagline: 'Ride further. Pack smarter. Know your machine.',
+    tagline: 'Motorcycles, gear, and real-world riding - practical and experience-led.',
     articles: [
       { title: 'Planning Your Ladakh Motorcycle Trip in 2026', slug: '2026-04-03-the-definitive-guide-planning-your-ladakh-motorcycle-trip-in-2026' },
       { title: 'The Ideal Motorcycle Luggage Setup for 2026', slug: '2026-04-09-the-ideal-load-designing-the-ideal-motorcycle-luggage-setup-for-2026' },
@@ -85,10 +85,9 @@ const PATHS = [
     color: '#2563eb',
     label: 'Lifestyle',
     ghost: 'LIFESTYLE',
-    tagline: 'Travel cheaper. Live smarter. Buy once, buy right.',
+    tagline: 'Travel, tech, and everyday upgrades - what\'s worth it and what\'s not.',
     articles: [
       { title: 'Visa-Free Horizons and UPI Abroad — Travel in 2026', slug: '2026-04-04-the-new-era-of-indian-travel-in-2026-visa-free-horizons-and-upi-abroad' },
-      { title: 'The Frugal Shield — Why an Emergency Fund Is Non-Negotiable', slug: '2026-04-13-the-frugal-shield-why-an-emergency-fund-is-your-most-important-asset-in-2026' },
       { title: 'The Automated Home — Top Robot Vacuums on Amazon 2026', slug: '2026-04-10-the-automated-home-top-5-robot-vacuum-mop-solutions-on-amazon-2026' },
       { title: 'Smart Queue Management & the Indian Dining Revolution', slug: '2026-04-08-beyond-the-plate-how-smart-queue-management-is-redefining-the-indian-dining-experience-in-2026' },
       { title: 'Best Sunscreens for the Indian Climate in 2026', slug: '2026-04-09-a-guide-to-popular-sunscreens-for-the-indian-climate-in-2026' },
@@ -104,7 +103,7 @@ export default function StartHerePage() {
     document.title = 'Start Here | Guiderr — Smarter Decisions for India\'s Modern Buyer';
     const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     const prevDesc = meta?.content ?? '';
-    if (meta) meta.content = 'New to Guiderr? This page routes you to the best articles, guides, and intelligence reports across Money, Wheels, and Life. Start your smarter-buyer journey here.';
+    if (meta) meta.content = 'New to Guiderr? Start here. Explore practical guides across finance, investing, tech, travel, and lifestyle - built for smarter decisions in modern India.';
     return () => {
       document.title = prev;
       if (meta) meta.content = prevDesc;
@@ -134,7 +133,9 @@ export default function StartHerePage() {
 
             <FadeSection delay={0.12} className="mt-6">
               <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-purple-100">
-                We publish honest articles and blogs to help India's modern buyer make better decisions in Personal Finance, Automobiles, and Lifestyle.
+                Guiderr helps you make smarter decisions - across money, machines, and everyday life.<br className="hidden sm:block" />
+                <br />
+                Just clear thinking, practical insights, and real-world usefulness.
               </p>
             </FadeSection>
           </div>
@@ -144,6 +145,7 @@ export default function StartHerePage() {
         <section aria-labelledby="paths-heading" className="px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32">
           <h2 id="paths-heading" className="sr-only">Browse by Topic</h2>
           <div className="max-w-6xl mx-auto">
+            <p className="text-center text-sm text-purple-200 mb-8">Choose a topic that matters to you - then go deeper.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
               {PATHS.map(({ key, icon: Icon, color, label, ghost, tagline, articles, guideLink }, index) => (
                 <FadeSection key={key} delay={index * 0.06}>
@@ -174,7 +176,7 @@ export default function StartHerePage() {
                             to={`/guides/${a.slug}`}
                             className="text-sm text-slate-700 hover:text-slate-900 leading-snug transition-colors flex items-start gap-2 group/link"
                           >
-                            <span className="text-slate-300 mt-0.5 flex-shrink-0 group-hover/link:text-slate-500 transition-colors">→</span>
+                            <span className="text-slate-400 mt-0.5 flex-shrink-0 group-hover/link:text-slate-500 transition-colors">→</span>
                             {a.title}
                           </Link>
                         </li>
@@ -204,8 +206,11 @@ export default function StartHerePage() {
                 Our Stance
               </p>
               <blockquote className="text-xl sm:text-2xl font-semibold tracking-tight leading-snug text-slate-900 mb-6 max-w-2xl">
-                "We are reader-supported. We use affiliate links and sell intelligence reports.
-                We don't take brand bribes. We don't recommend what we wouldn't buy ourselves."
+                "We are reader-supported.<br />
+                <br />
+                We use affiliate links and may earn a small commission - at no extra cost to you.<br />
+                <br />
+                Our goal is simple: recommend what's genuinely useful, not what pays the most."
               </blockquote>
               <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
                 When you click an affiliate link in our articles, we may earn a small commission from
