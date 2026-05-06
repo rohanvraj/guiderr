@@ -109,7 +109,7 @@ For users spending in foreign currency or travelling abroad.
 - **Best Fit:** International travelers  
 - **Constraint:** Some benefits require usage conditions  
 
-[![Scapia Credit Card](scapia-card-id_vzk05r)](https://bitli.in/51TBMvC)
+[![Scapia Credit Card](scapia-forex-credit-card-apply-now)](https://bitli.in/51TBMvC)
 
 [👉 **Check Offer & Eligibility for Scapia Card**](https://bitli.in/51TBMvC)
 
