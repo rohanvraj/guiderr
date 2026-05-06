@@ -111,7 +111,7 @@ Some users spend in foreign currency or travel internationally.
 
 **💡 Real Spend Trigger:** If you make international transactions or travel abroad at least once a year.
 
-![Scapia Credit Card Visual](scapia-card-id_vzk05r)
+![Scapia Credit Card Visual](scapia-forex-credit-card-apply-now)
 
 [**👉 Check Offer & Eligibility**](https://bitli.in/51TBMvC)
 
