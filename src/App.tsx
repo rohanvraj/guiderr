@@ -3,6 +3,7 @@ import { useEffect, Suspense } from 'react';
 import { supabase } from './utils/supabase';
 import { CartProvider } from './context/CartContext';
 import CartPanel from './components/CartPanel';
+import ScrollToTop from './components/ScrollToTop';
 import { lazyRetry } from './utils/lazyRetry';
 
 // Code-split every page into its own JS chunk.
@@ -71,6 +72,7 @@ function App() {
   return (
     <CartProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <ReferralTracker />
         <CartPanel />
         {/* Suspense fallback: instant white screen — no layout shift, no spinner */}

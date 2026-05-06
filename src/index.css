@@ -111,16 +111,16 @@ html {
    └─────────────────────────────────────────────────────────────────────────┘ */
 :root {
   /* INSIGHT (Blue) */
-  --dm-bg-pro:      #8d262b;
-  --dm-accent-pro:  #f9e405;
+  --dm-bg-pro:      #b9541e;
+  --dm-accent-pro:  #ffffff;
 
   /* THE BOTTOM LINE (Gold) */
   --dm-bg-math:     #0da284;
-  --dm-accent-math: #0a0a0a;
+  --dm-accent-math: #f4f4f4;
 
   /* REALITY CHECK (Red) */
-  --dm-bg-risk:     #0a0a0a;
-  --dm-accent-risk: #FF3131;
+  --dm-bg-risk:     #d4d2d2;
+  --dm-accent-risk: #046337;
 
   /* AI COMPANION (Violet) */
   --dm-bg-ai:       #175881;
@@ -130,7 +130,7 @@ html {
   --dm-bg-blueprint: #4e88ac;
   --dm-accent-blueprint: #000000;
 
-  --dm-text:        #f1f5f9;  /* Crisp off-white for all text in boxes       */
+  --dm-text:        #000000;  /* Crisp off-white for all text in boxes       */
 }
 
 .dm-pro-tip {
