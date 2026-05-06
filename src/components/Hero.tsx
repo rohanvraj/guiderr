@@ -77,7 +77,7 @@ export default function Hero() {
           {/* Copy block */}
           <div className="mb-10 sm:mb-14 max-w-3xl">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-5">
-              Build Wealth. Travel India. Think Clearly.
+              Build Wealth. Travel. Think Clearly.
             </h1>
             <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-6 max-w-2xl">
               Guiderr simplifies money, movement, and real-world decisions so you don't waste years figuring things out the hard way.
