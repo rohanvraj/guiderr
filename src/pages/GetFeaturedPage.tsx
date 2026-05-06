@@ -8,20 +8,20 @@ const FEATURED_WHATSAPP_URL = 'https://wa.me/919890505945?text=Hi%20Guiderr,%20I
 
 const audienceCards = [
   {
-    title: 'Innovative Startups',
-    description: 'Products or services with a clear point of view, looking to reach the right audience.',
+    title: 'Startups',
+    description: 'Early-stage or growing products looking to reach the right audience.',
   },
   {
-    title: 'Independent Creators',
-    description: 'Creators building trust through sharp expertise, credible storytelling, and audience-first education.',
+    title: 'Creators',
+    description: 'People building trust through knowledge, experience, or unique perspective.',
   },
   {
-    title: 'Hobbyist Experts',
+    title: 'Operators & Experts',
     description: 'People with real experience, practical insights, and a story to share.',
   },
   {
-    title: 'Niche Businesses',
-    description: 'Entrepreneurs and their brands doing honest work deserve an audience.',
+    title: 'Businesses',
+    description: 'Entrepreneurs and brands doing honest work who deserve visibility.',
   },
 ];
 
@@ -84,14 +84,18 @@ export default function GetFeaturedPage() {
 
             <FadeSection delay={0.06} className="mt-8">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[0.98] text-white">
-                Want to Get Featured ? Elevate Your Brand on Guiderr.
+                Get Featured on Guiderr
               </h1>
             </FadeSection>
 
             <FadeSection delay={0.12} className="mt-6">
               <p className="max-w-3xl mx-auto text-xl sm:text-2xl leading-10 text-[#2D1510]">
-                Are you a creator or business owner with something worth sharing?
-Get featured on Guiderr and tell your story to modern India.
+                Are you a creator or business owner with something worth sharing?<br />
+                <br />
+                We feature people doing honest work - and help their story reach modern Indian readers.
+              </p>
+              <p className="mt-4 text-sm text-[#2D1510]/70 max-w-xl mx-auto">
+                This is a paid editorial feature.
               </p>
             </FadeSection>
           </div>
@@ -102,7 +106,7 @@ Get featured on Guiderr and tell your story to modern India.
             <FadeSection className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#C94520]">Who Is This For?</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-white">
-                Designed for brands and voices that deserve a more premium introduction.
+                For people and brands building something worth sharing.
               </h2>
             </FadeSection>
 
@@ -130,7 +134,8 @@ Get featured on Guiderr and tell your story to modern India.
             <FadeSection className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#C94520]">The Editorial Process to get featured on our website</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight leading-tight text-white">
-                A simple, selective path from first message to published feature.
+                A simple, selective path from first message to published feature.<br />
+                <span className="text-2xl sm:text-3xl font-medium text-white/70">All submissions are reviewed before approval.</span>
               </h2>
             </FadeSection>
 
@@ -170,7 +175,7 @@ Get featured on Guiderr and tell your story to modern India.
                 Put your story in front of people already researching what to trust next.
               </h2>
               <p className="mt-5 max-w-2xl mx-auto text-lg leading-8 text-slate-600">
-                If your brand, product, or expertise helps modern Indian consumers decide better, start the conversation.
+                If your work helps people make better decisions, we'd like to hear from you.
               </p>
               <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                 <a
@@ -179,7 +184,7 @@ Get featured on Guiderr and tell your story to modern India.
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-[#FF7D5C] bg-[#FF7D5C] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-[#FF6B47] hover:border-[#FF6B47]"
                 >
-                  Connect with us to get featured
+                  Start the conversation with us
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 <a
