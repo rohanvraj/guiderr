@@ -25,18 +25,16 @@
     <meta name="twitter:title" content="Guiderr — Smarter Decisions for Money, Tech, Travel & Life" />
     <meta name="twitter:description" content="Guiderr helps you make smarter decisions across finance, tech, travel, and lifestyle with practical guides and real insights." />
     <meta name="twitter:image" content="https://www.guiderr.in/images/guiderr-logo.webp" />
-    <!-- Google Analytics 4 (GA4) — deferred to after window.load to clear critical path -->
+    <!-- Google Analytics 4 (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLLR4NPTYC"></script>
     <script>
-      window.addEventListener('load', function() {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-CLLR4NPTYC';
-        document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-CLLR4NPTYC');
-      });
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-CLLR4NPTYC');
     </script>
     <!-- Netlify Identity Widget: loaded ONLY for admin/CMS sessions.
          Regular readers (100% of traffic) never download this 53KB script.

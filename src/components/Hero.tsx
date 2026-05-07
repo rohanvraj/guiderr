@@ -80,10 +80,10 @@ export default function Hero() {
               Build Wealth. Travel. Think Clearly.
             </h1>
             <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-6 max-w-2xl">
-              Guiderr simplifies money, movement, and real-world decisions so you don't waste years figuring things out the hard way.
+             Guiderr simplifies money, travel, technology, and everyday decisions - so you can learn faster and avoid expensive mistakes.
             </p>
             <p className="text-base text-slate-500 font-medium">
-              Hi, I'm Rohan. Where do you want to start?
+              Hi! I'm Rohan, the founder of Guiderr, Where do you want to start?
             </p>
           </div>
 
@@ -201,7 +201,7 @@ export default function Hero() {
               {/* Text */}
               <div className="flex-1 min-w-0">
                 <p className="text-base sm:text-lg font-bold text-gray-900 mb-1 tracking-tight">
-                  Share Your Story with Guiderr
+                  Want to Share Your Story on Guiderr?
                 </p>
                 <p className="text-sm text-gray-500 leading-relaxed">
                   We feature independent businesses, innovative creators, and niche experts.
