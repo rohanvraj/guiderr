@@ -108,6 +108,20 @@ const CATEGORY_THEMES: Record<string, HubTheme> = {
     metaTitle: 'Business Guides | Guiderr',
     metaDesc: 'Business guides — strategy, entrepreneurship, freelancing, and side hustle ideas for India.',
   },
+  'ai-lab': {
+    bg: '#1E1B4B',
+    ghostColor: '#7C3AED',
+    ghostLabel: 'INTELLIGENCE',
+    display: 'AI Lab',
+    filterKey: 'AI Lab',
+    dark: true,
+    desk: 'The AI Lab',
+    headline: ['Prompts, Protocols,', 'and AI Playbooks.'],
+    tagline: 'Master AI prompts, character continuity, and productivity frameworks for the intelligence age.',
+    accentColor: '#8B5CF6',
+    metaTitle: 'AI Lab | Guiderr — Prompt Protocols & AI Guides',
+    metaDesc: 'AI Lab on Guiderr — prompt protocols, character continuity guides, and AI productivity frameworks.',
+  },
 };
 
 const POSTS_PER_PAGE = 5;

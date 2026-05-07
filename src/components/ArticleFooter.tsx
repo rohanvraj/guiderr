@@ -11,12 +11,14 @@ const CATEGORY_BLOG_URL: Record<string, string> = {
   Tech:        '/tech',
   Lifestyle:   '/lifestyle',
   Business:    '/business',
+  'AI Lab':    '/ai-lab',
 };
 
 // Human-readable label overrides (blog display + CTA copy).
 const CATEGORY_DISPLAY: Record<string, string> = {
   Finance:     'Personal Finance',
   Motorcycles: 'Automotive',
+  'AI Lab':    'Prompt Protocols',
 };
 
 // Maps frontmatter category → the Library category pill query param.
@@ -30,6 +32,7 @@ const CATEGORY_LIBRARY_PARAM: Record<string, string> = {
   Tech:        'Gadget & Tech',
   Lifestyle:   'Lifestyle',
   Business:    'Business',
+  'AI Lab':    'AI Lab',
 };
 
 interface ArticleFooterProps {
@@ -84,11 +87,11 @@ export default function ArticleFooter({ category }: ArticleFooterProps) {
           </span>
 
           <span className="text-base font-bold text-white leading-snug">
-            Browse {libraryLabel} Briefs →
+            {category === 'AI Lab' ? 'Browse Prompt Protocols →' : `Browse ${libraryLabel} Briefs →`}
           </span>
 
           <span className="text-sm text-white/70 leading-snug">
-            Access all premium frameworks and checklists for {libraryLabel}.
+            {category === 'AI Lab' ? 'Access all Prompt Protocols for AI Lab.' : `Access all premium frameworks and checklists for ${libraryLabel}.`}
           </span>
         </Link>
 

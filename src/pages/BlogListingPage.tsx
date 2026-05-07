@@ -18,6 +18,7 @@ const PARAM_TO_HUB: Record<string, string> = {
   Automotive:         '/automotive',
   Lifestyle:          '/lifestyle',
   Business:           '/business',
+  'AI Lab':           '/ai-lab',
 };
 
 // Colors kept in sync with CategoryHub.tsx CATEGORY_THEMES.
@@ -37,8 +38,9 @@ const DIRECTORY: DirectoryCard[] = [
   { label: 'Travel',           ghost: 'TRAVEL',    url: '/travel',           bg: '#BAE6FD', ghostColor: '#0369A1', dark: false },
   { label: 'Tech',             ghost: 'TECH',      url: '/tech',             bg: '#C7D2FE', ghostColor: '#4338CA', dark: false },
   { label: 'Lifestyle',        ghost: 'STYLE',     url: '/lifestyle',        bg: '#BBF7D0', ghostColor: '#15803D', dark: false },
-  { label: 'Business',         ghost: 'BUSINESS',  url: '/business',         bg: '#FAF9F6', ghostColor: '#475569', dark: false },
-  { label: 'Full Archive',     ghost: 'ALL',       url: null,                bg: '#7178AB', ghostColor: '#ffffff', dark: true  },
+  { label: 'Business',         ghost: 'BUSINESS',       url: '/business',         bg: '#FAF9F6', ghostColor: '#475569', dark: false },
+  { label: 'AI Lab',           ghost: 'INTELLIGENCE',   url: '/ai-lab',           bg: '#1E1B4B', ghostColor: '#7C3AED', dark: true  },
+  { label: 'Full Archive',     ghost: 'ALL',            url: null,                bg: '#7178AB', ghostColor: '#ffffff', dark: true  },
 ];
 
 // Frontmatter `category` → display-friendly label.

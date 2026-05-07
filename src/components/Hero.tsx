@@ -64,6 +64,14 @@ const HERO_TILES = [
     link: '/business',
     Icon: Briefcase, bg: 'bg-indigo-50', border: 'border-indigo-200', color: '#4f46e5',
   },
+  {
+    id: 'ai-lab',
+    label: 'AI Lab',
+    description: 'Mastering prompts, cinematic realism, and AI character continuity.',
+    ghost: 'AI',
+    link: '/ai-lab',
+    Icon: Sparkle, bg: 'bg-violet-50', border: 'border-violet-200', color: '#7c3aed',
+  },
 ];
 
 export default function Hero() {

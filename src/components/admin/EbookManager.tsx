@@ -150,6 +150,7 @@ export default function ProductManager({}: ProductManagerProps) {
           { value: 'Tech',       label: 'Tech' },
           { value: 'Lifestyle',  label: 'Lifestyle' },
           { value: 'Business',   label: 'Business' },
+          { value: 'AI Lab',     label: 'AI Lab (Prompt Protocol)' },
         ];
       case 'zoom_call':
       case 'audit':
