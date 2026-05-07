@@ -1,7 +1,7 @@
 ---
 title: What Makes AI Faces Look Real in 2026
 date: 2026-05-07T23:39:00.000Z
-category: Tech
+category: AI Lab
 author: Guiderr Editorial
 featured_image: thumbnail-ai-prompt-realism-woman-portrait_d9knoq
 ---
