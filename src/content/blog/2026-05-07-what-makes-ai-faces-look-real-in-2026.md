@@ -118,17 +118,4 @@ Realism is not about complexity — it is about feeling natural.
 
 ---
 
-## Unlock Visual Brief #01
 
-Most people can create AI images. Very few can make them feel real over time.
-
-**Visual Brief #01 — Cinematic Realism & Continuity Systems** shows you how to think in a way that makes your images feel like real people and real moments.
-
-Inside you’ll learn:
-- how small imperfections improve realism  
-- how to make faces feel emotionally real  
-- how to connect subject and environment  
-- how to keep the same identity across images  
-- how to think in cinematic moments instead of prompts  
-
-👉 [UnlocK #01 (₹99)](buy:YOUR-UUID-HERE)
