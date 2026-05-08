@@ -53,7 +53,7 @@ Instead of only writing prompts, we must think like cinematographers. How should
 ***
 
 > **BLUEPRINT:**
-> **AI IMAGE MASTER SERIES #01**  
+> **UNLOCK THE AI IMAGE MASTER SERIES #01**  
 > Most creators can generate a good AI image. Very few can create faces that stay realistic and consistent across multiple scenes.  
 >
 > This visual blueprint explores cinematic realism, continuity, skin texture, lighting, and identity consistency using detailed master prompts and real-world photography logic.
