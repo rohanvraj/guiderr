@@ -52,10 +52,12 @@ Instead of only writing prompts, we must think like cinematographers. How should
 
 ***
 
-> **BLUEPRINT: Prompt Protocol #01**
-> Most creators can generate an image, but very few can maintain a consistent identity. I’ve built a 3-page **Prompt Protocol** that shows you my exact 2-step system for "Face-Locking" and the 4 "Black-Label" prompts I use to force natural skin textures.
-> 
-> [**AI IMAGE MASTER SERIES #01: The Realism & Continuity Blueprint - ₹99**](buy:e70921b5-5a59-427d-9b9c-7d27ae2edd7f)
+> **AI IMAGE MASTER SERIES #01**  
+> Most creators can generate a good AI image. Very few can create faces that stay realistic and consistent across multiple scenes.  
+>
+> This visual blueprint explores cinematic realism, continuity, skin texture, lighting, and identity consistency using detailed master prompts and real-world photography logic.
+>
+> [**Unlock The Realism & Continuity Blueprint — ₹99**](buy:e70921b5-5a59-427d-9b9c-7d27ae2edd7f)
 
 ***
 
