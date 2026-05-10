@@ -16,6 +16,7 @@ export default function CartPanel() {
   };
 
   const handleCheckout = () => {
+    setIsCartOpen(false);
     setIsCheckingOut(true);
   };
 
