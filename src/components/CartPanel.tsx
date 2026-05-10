@@ -37,7 +37,7 @@ export default function CartPanel() {
 
       <div
         data-noprint
-        className={`fixed inset-0 bg-black/50 transition-opacity duration-300 z-40 ${
+        className={`fixed inset-0 bg-black/50 transition-opacity duration-300 z-[60] ${
           isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsCartOpen(false)}
@@ -45,13 +45,13 @@ export default function CartPanel() {
 
       <div
         data-noprint
-        className={`fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform transition-transform duration-300 z-50 flex flex-col ${
+        className={`fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform transition-transform duration-300 z-[61] flex flex-col ${
           isCartOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Cart Notification */}
         {notification && (
-          <div className="absolute top-4 left-4 right-4 z-10 bg-blue-50 border border-blue-200 rounded-lg p-3 shadow-lg animate-fade-in">
+          <div className="absolute top-20 left-4 right-4 z-10 bg-blue-50 border border-blue-200 rounded-lg p-3 shadow-lg animate-fade-in">
             <div className="flex items-start justify-between gap-2">
               <p className="text-sm text-blue-800 font-medium">{notification}</p>
               <button
@@ -71,7 +71,7 @@ export default function CartPanel() {
           </div>
           <button
             onClick={() => setIsCartOpen(false)}
-            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-900"
           >
             <X className="w-6 h-6" />
           </button>

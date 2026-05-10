@@ -15,32 +15,32 @@ import { useCart } from '../context/CartContext';
 // Admin can write: > **INSIGHT:** body text
 const MarkdownComponents = {
   blockquote: ({ children }: { children?: React.ReactNode }) => (
-    <div className="my-5 rounded-xl bg-black/30 border border-white/10 px-5 py-4 text-sm leading-relaxed text-white/85 not-italic">
+    <div className="my-5 rounded-xl bg-slate-50 border border-slate-200 px-5 py-4 text-sm leading-relaxed text-slate-700 not-italic">
       {children}
     </div>
   ),
   p: ({ children }: { children?: React.ReactNode }) => (
-    <p className="mb-3 leading-relaxed text-white/80">{children}</p>
+    <p className="mb-3 leading-relaxed text-slate-700">{children}</p>
   ),
   strong: ({ children }: { children?: React.ReactNode }) => (
-    <strong className="font-semibold text-white">{children}</strong>
+    <strong className="font-semibold text-slate-900">{children}</strong>
   ),
   ul: ({ children }: { children?: React.ReactNode }) => (
-    <ul className="mb-3 space-y-1 pl-5 list-disc marker:text-white/40">{children}</ul>
+    <ul className="mb-3 space-y-1 pl-5 list-disc marker:text-slate-400">{children}</ul>
   ),
   ol: ({ children }: { children?: React.ReactNode }) => (
-    <ol className="mb-3 space-y-1 pl-5 list-decimal marker:text-white/40">{children}</ol>
+    <ol className="mb-3 space-y-1 pl-5 list-decimal marker:text-slate-400">{children}</ol>
   ),
   li: ({ children }: { children?: React.ReactNode }) => (
-    <li className="text-white/80 leading-relaxed">{children}</li>
+    <li className="text-slate-700 leading-relaxed">{children}</li>
   ),
   h2: ({ children }: { children?: React.ReactNode }) => (
-    <h2 className="mt-6 mb-2 text-lg font-bold text-white">{children}</h2>
+    <h2 className="mt-6 mb-2 text-lg font-bold text-slate-900">{children}</h2>
   ),
   h3: ({ children }: { children?: React.ReactNode }) => (
-    <h3 className="mt-5 mb-2 text-base font-semibold text-white/90">{children}</h3>
+    <h3 className="mt-5 mb-2 text-base font-semibold text-slate-800">{children}</h3>
   ),
-  hr: () => <hr className="my-6 border-white/10" />,
+  hr: () => <hr className="my-6 border-slate-200" />,
 };
 
 // ─── Page ────────────────────────────────────────────────────────────────────
@@ -102,10 +102,10 @@ export default function LibraryProductPage() {
   // ── Loading state ─────────────────────────────────────────────────────────
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#7178AB' }}>
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <div className="flex-1 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-white/20 border-t-white/80 rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-slate-200 border-t-slate-500 rounded-full animate-spin" />
         </div>
         <Footer />
       </div>
@@ -114,11 +114,11 @@ export default function LibraryProductPage() {
 
   if (isError || !product) {
     return (
-      <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#7178AB' }}>
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
-        <div className="flex-1 flex flex-col items-center justify-center gap-4 text-white px-4">
+        <div className="flex-1 flex flex-col items-center justify-center gap-4 text-slate-900 px-4">
           <p className="text-lg font-semibold">Product not found.</p>
-          <Link to="/library" className="text-white/70 hover:text-white text-sm underline">
+          <Link to="/library" className="text-slate-500 hover:text-slate-900 text-sm underline">
             ← Back to Library
           </Link>
         </div>
@@ -131,7 +131,7 @@ export default function LibraryProductPage() {
   const price = `₹${product.price_in_rupees.toLocaleString('en-IN')}`;
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#7178AB' }}>
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32 sm:pb-20">
@@ -140,7 +140,7 @@ export default function LibraryProductPage() {
         <div className="mb-8">
           <Link
             to="/library"
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Intelligence Vault
@@ -167,17 +167,17 @@ export default function LibraryProductPage() {
           {/* Meta */}
           <div className="flex flex-col justify-center flex-1">
             {product.category && (
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-3">
                 {product.category}
               </p>
             )}
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-3">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-3">
               {product.name}
             </h1>
-            <p className="text-base text-white/60 mb-6">
+            <p className="text-base text-slate-500 mb-6">
               by {product.author || 'Guiderr'}
             </p>
-            <div className="text-4xl font-black text-white mb-8 tracking-tight">
+            <div className="text-4xl font-black text-slate-900 mb-8 tracking-tight">
               {price}
             </div>
 
@@ -185,7 +185,7 @@ export default function LibraryProductPage() {
             <button
               ref={heroBuyRef}
               onClick={handleBuy}
-              className="inline-flex items-center gap-2.5 self-start px-8 py-3.5 bg-white text-[#7178AB] font-bold rounded-full shadow-lg hover:bg-white/90 active:scale-95 transition-all duration-200 text-sm sm:text-base"
+              className="inline-flex items-center gap-2.5 self-start px-8 py-3.5 bg-slate-900 text-white font-bold rounded-full shadow-lg hover:bg-slate-800 active:scale-95 transition-all duration-200 text-sm sm:text-base"
             >
               <ShoppingBag className="w-4 h-4" />
               Buy Now — {price}
@@ -194,12 +194,12 @@ export default function LibraryProductPage() {
         </div>
 
         {/* ── Divider ── */}
-        <div className="border-t border-white/10 mb-10" />
+        <div className="border-t border-slate-200 mb-10" />
 
         {/* ── Description / Synopsis ── */}
         {product.description && (
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/40 mb-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-5">
               What's inside
             </p>
             <div className="text-[15px]">
@@ -214,32 +214,34 @@ export default function LibraryProductPage() {
         <div className="mt-14 flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <button
             onClick={handleBuy}
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-white text-[#7178AB] font-bold rounded-full shadow-lg hover:bg-white/90 active:scale-95 transition-all duration-200 text-sm sm:text-base"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-slate-900 text-white font-bold rounded-full shadow-lg hover:bg-slate-800 active:scale-95 transition-all duration-200 text-sm sm:text-base"
           >
             <ShoppingBag className="w-4 h-4" />
             Buy Now — {price}
           </button>
           <Link
             to="/library"
-            className="text-sm text-white/50 hover:text-white transition-colors"
+            className="text-sm text-slate-400 hover:text-slate-900 transition-colors"
           >
             ← Browse more titles
           </Link>
         </div>
       </main>
 
-      {/* ── Sticky mobile Buy bar ── */}
-      {showStickyBar && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden px-4 pb-4 pt-2 bg-gradient-to-t from-[#4a5080] to-transparent pointer-events-none">
+      {/* ── Sticky mobile Buy bar — slides up once hero button scrolls out of view ── */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-40 sm:hidden px-4 pb-4 pt-3 bg-gradient-to-t from-white/95 to-transparent pointer-events-none transition-all duration-300 ${
+          showStickyBar ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+        }`}
+      >
           <button
             onClick={handleBuy}
-            className="pointer-events-auto w-full flex items-center justify-center gap-2.5 py-4 bg-white text-[#7178AB] font-bold rounded-2xl shadow-2xl active:scale-[0.98] transition-all duration-150 text-base"
+            className="pointer-events-auto w-full flex items-center justify-center gap-2.5 py-4 bg-slate-900 text-white font-bold rounded-2xl shadow-2xl active:scale-[0.98] transition-all duration-150 text-base"
           >
             <ShoppingBag className="w-5 h-5" />
             Buy Now — {price}
           </button>
         </div>
-      )}
 
       <Footer />
     </div>
