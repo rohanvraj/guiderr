@@ -134,10 +134,14 @@ export default function LibraryProductPage() {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32 sm:pb-20">
+      {/*
+        Desktop: single above-the-fold rectangle — 2-col grid, left = cover, right = all details.
+        Mobile: stacked, cover on top, details below, sticky bar handles repeat CTA.
+      */}
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-28 sm:pb-16">
 
         {/* ── Back navigation ── */}
-        <div className="mb-8">
+        <div className="mb-6">
           <Link
             to="/library"
             className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors"
@@ -147,12 +151,12 @@ export default function LibraryProductPage() {
           </Link>
         </div>
 
-        {/* ── Hero: Cover + Meta ── */}
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-12">
+        {/* ── Product rectangle: Cover (left) | Details (right) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-0 lg:gap-0 border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
 
-          {/* Cover */}
-          <div className="w-full md:w-56 flex-shrink-0">
-            <div className="rounded-2xl overflow-hidden shadow-2xl aspect-[3/4]">
+          {/* ── LEFT: Cover ── */}
+          <div className="bg-slate-50 lg:self-start lg:border-r border-slate-100">
+            <div className="aspect-[3/4] w-full rounded-xl overflow-hidden">
               <img
                 src={coverSrc}
                 alt={product.name}
@@ -164,73 +168,66 @@ export default function LibraryProductPage() {
             </div>
           </div>
 
-          {/* Meta */}
-          <div className="flex flex-col justify-center flex-1">
+          {/* ── RIGHT: All details ── */}
+          <div className="flex flex-col px-7 py-7 lg:py-8 lg:px-9 gap-0">
+
+            {/* Category pill */}
             {product.category && (
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-3">
+              <span className="self-start mb-4 px-3 py-0.5 rounded-full bg-slate-100 text-xs font-semibold uppercase tracking-widest text-slate-500">
                 {product.category}
-              </p>
+              </span>
             )}
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-3">
+
+            {/* Title */}
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-snug mb-1">
               {product.name}
             </h1>
-            <p className="text-base text-slate-500 mb-6">
-              by {product.author || 'Guiderr'}
-            </p>
-            <div className="text-4xl font-black text-slate-900 mb-8 tracking-tight">
-              {price}
-            </div>
 
-            {/* Hero Buy Now — watched by IntersectionObserver */}
+            {/* Author */}
+            <p className="text-sm text-slate-400 mb-4">
+              by {product.author || 'Guiderr Editorial'}
+            </p>
+
+            {/* ── Separator 1 ── */}
+            <div className="border-t border-slate-100 mb-4" />
+
+            {/* Synopsis */}
+            {product.description && (
+              <div className="flex-1 overflow-y-auto text-[14px] mb-4 pr-1
+                              [scrollbar-width:thin] [scrollbar-color:#e2e8f0_transparent]">
+                <ReactMarkdown components={MarkdownComponents}>
+                  {product.description}
+                </ReactMarkdown>
+              </div>
+            )}
+
+            {/* ── Separator 2 ── */}
+            <div className="border-t border-slate-100 mb-5" />
+
+            {/* Buy Now — primary action, price embedded, watched by IntersectionObserver */}
             <button
               ref={heroBuyRef}
               onClick={handleBuy}
-              className="inline-flex items-center gap-2.5 self-start px-8 py-3.5 bg-slate-900 text-white font-bold rounded-full shadow-lg hover:bg-slate-800 active:scale-95 transition-all duration-200 text-sm sm:text-base"
+              className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-md hover:bg-slate-800 active:scale-[0.98] transition-all duration-200 text-sm sm:text-base"
             >
               <ShoppingBag className="w-4 h-4" />
               Buy Now — {price}
             </button>
+
+            {/* Back link */}
+            <Link
+              to="/library"
+              className="mt-3 text-center text-xs text-slate-400 hover:text-slate-700 transition-colors"
+            >
+              ← Browse more titles
+            </Link>
           </div>
-        </div>
-
-        {/* ── Divider ── */}
-        <div className="border-t border-slate-200 mb-10" />
-
-        {/* ── Description / Synopsis ── */}
-        {product.description && (
-          <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-5">
-              What's inside
-            </p>
-            <div className="text-[15px]">
-              <ReactMarkdown components={MarkdownComponents}>
-                {product.description}
-              </ReactMarkdown>
-            </div>
-          </div>
-        )}
-
-        {/* ── Bottom CTA ── */}
-        <div className="mt-14 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <button
-            onClick={handleBuy}
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-slate-900 text-white font-bold rounded-full shadow-lg hover:bg-slate-800 active:scale-95 transition-all duration-200 text-sm sm:text-base"
-          >
-            <ShoppingBag className="w-4 h-4" />
-            Buy Now — {price}
-          </button>
-          <Link
-            to="/library"
-            className="text-sm text-slate-400 hover:text-slate-900 transition-colors"
-          >
-            ← Browse more titles
-          </Link>
         </div>
       </main>
 
-      {/* ── Sticky mobile Buy bar — slides up once hero button scrolls out of view ── */}
+      {/* ── Sticky mobile Buy bar — CSS transition, only visible on sm and below ── */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-40 sm:hidden px-4 pb-4 pt-3 bg-gradient-to-t from-white/95 to-transparent pointer-events-none transition-all duration-300 ${
+        className={`fixed bottom-0 left-0 right-0 z-40 sm:hidden px-4 pb-4 pt-3 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none transition-all duration-300 ${
           showStickyBar ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
         }`}
       >
