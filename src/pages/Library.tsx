@@ -1,12 +1,10 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import EbookModal from '../components/EbookModal';
 import { getAllProducts, Product } from '../utils/supabase';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
-import { Ebook } from '../types/ebook';
 
 // Maps raw DB category values → user-facing display labels.
 // The raw value is always used for filtering; only the rendered text changes.
@@ -14,30 +12,11 @@ const CATEGORY_DISPLAY_MAP: Record<string, string> = {
   Finance: 'Personal Finance',
 };
 
-function toEbook(p: Product): Ebook {
-  return {
-    id: p.id,
-    title: p.name,
-    author: p.author || 'Guiderr',
-    price: p.price_in_rupees,
-    cover: p.cover_image_url || '/covers/placeholder.svg',
-    coverImage: p.cover_image_url,
-    pdf: '',
-    category: p.category || '',
-    synopsis: p.description || p.name,
-  };
-}
-
-function ProductCard({
-  product,
-  onOpen,
-}: {
-  product: Product;
-  onOpen: (e: Ebook) => void;
-}) {
+function ProductCard({ product }: { product: Product }) {
+  const navigate = useNavigate();
   return (
     <button
-      onClick={() => onOpen(toEbook(product))}
+      onClick={() => navigate('/library/' + product.id)}
       className="group text-left w-full bg-white/15 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-white/10">
@@ -65,24 +44,7 @@ function ProductCard({
 }
 
 export default function Library() {
-  const [selectedEbook, setSelectedEbook] = useState<Ebook | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [searchParams, setSearchParams] = useSearchParams();
-  // Prevents the deep-link effect from re-opening the modal during a close.
-  const isClosingRef = useRef(false);
-
-  // Open: write ?ebook=<id> into the URL so the link is shareable.
-  const handleOpen = (ebook: Ebook) => {
-    isClosingRef.current = false;
-    setSelectedEbook(ebook);
-    setSearchParams({ ebook: ebook.id }, { replace: true });
-  };
-  // Close: set the guard first so the effect can't race and re-open.
-  const handleClose = () => {
-    isClosingRef.current = true;
-    setSelectedEbook(null);
-    setSearchParams({}, { replace: true });
-  };
 
   useEffect(() => {
     const prev = document.title;
@@ -104,25 +66,6 @@ export default function Library() {
     queryFn: getAllProducts,
     staleTime: 5 * 60 * 1000,
   });
-
-  // Deep-link: ?ebook=<product-id-slug> auto-opens the modal on page load or
-  // when the URL is updated externally (e.g. shared link).
-  // The isClosingRef guard prevents this from re-firing when handleClose()
-  // clears selectedEbook → searchParams hasn't been cleared yet in that render.
-  useEffect(() => {
-    if (isClosingRef.current) {
-      // We're in the middle of a close — don't re-open. Reset the flag so
-      // subsequent genuine navigations still work.
-      isClosingRef.current = false;
-      return;
-    }
-    const ebookSlug = searchParams.get('ebook');
-    if (!ebookSlug || products.length === 0 || selectedEbook) return;
-    const match = products.find(
-      (p) => p.id === ebookSlug || p.name.toLowerCase().replace(/\s+/g, '-') === ebookSlug
-    );
-    if (match) setSelectedEbook(toEbook(match));
-  }, [products, searchParams, selectedEbook]);
 
   // Derive unique categories from live data — alphabetical, no hardcoding.
   const categories = useMemo(() => {
@@ -199,7 +142,7 @@ export default function Library() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
             {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} onOpen={handleOpen} />
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         )}
@@ -213,8 +156,6 @@ export default function Library() {
           </Link>
         </div>
       </main>
-
-      {selectedEbook && <EbookModal ebook={selectedEbook} onClose={handleClose} />}
 
       <Footer />
     </div>

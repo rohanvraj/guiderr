@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { Ebook } from '../types/ebook';
 import { useCart } from '../context/CartContext';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
@@ -60,9 +61,11 @@ export default function EbookModal({ ebook, onClose }: EbookModalProps) {
                 ₹{ebook.price.toLocaleString('en-IN')}
               </div>
 
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-slate-900 mb-2">Synopsis</h4>
-                <p className="text-slate-700 leading-relaxed">{ebook.synopsis}</p>
+              <div className="mb-8">
+                <h4 className="text-lg font-semibold text-slate-900 mb-3">Synopsis</h4>
+                <div className="prose prose-sm prose-slate max-w-none [&>ol]:pl-5 [&>ul]:pl-5 [&>ol]:space-y-1 [&>ul]:space-y-1 [&>p]:leading-relaxed [&>p]:text-slate-700 [&_li]:text-slate-700 [&_strong]:text-slate-900">
+                  <ReactMarkdown>{ebook.synopsis}</ReactMarkdown>
+                </div>
               </div>
 
               <button
