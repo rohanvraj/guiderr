@@ -20,8 +20,10 @@ function categoryToSlug(cat: string): string {
 }
 
 // Explicit overrides for slugs whose DB value can't be inferred by title-casing.
+// Add an entry here whenever the DB category uses non-standard casing (e.g. acronyms).
 const SLUG_OVERRIDES: Record<string, string> = {
   'personal-finance': 'Finance',
+  'ai-lab': 'AI Lab',
 };
 
 // Converts a URL slug back to the raw DB category value.
