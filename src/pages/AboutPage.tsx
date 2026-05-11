@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
 import { CaretLeft } from '@phosphor-icons/react';
+import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
+const FOUNDER_PORTRAIT_SRC = optimizeCloudinaryUrl('ziphly-guiderr-rentfar-queueslip-founder-rohan-raj_mb9yiw_1_lfjpjm', {
+  width: 288,
+  height: 288,
+  crop: 'fill',
+  gravity: 'face',
+  quality: 'auto:eco',
+});
 
 const phases = [
   {
@@ -75,15 +84,37 @@ export default function AboutPage() {
 
         {/* ── Page Header ── */}
         <div className="mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2187FF] mb-4">
-            The Story
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6">
-            Why I Built Guiderr.
-          </h1>
-          <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
-            I didn't build Guiderr to run a blog. I built it because I realized that to see the world with your own eyes, you first have to master the math behind it.
-          </p>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+
+            {/* Left: Copy */}
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2187FF] mb-4">
+                The Story
+              </p>
+
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6">
+                Why I Built Guiderr.
+              </h1>
+
+              <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
+                I didn't build Guiderr to run a blog. I built it because I realized that to see the world with your own eyes, you first have to master the math behind it.
+              </p>
+            </div>
+
+            {/* Right: Founder Portrait */}
+            <div className="flex justify-center lg:justify-end flex-shrink-0">
+              <img
+                src={FOUNDER_PORTRAIT_SRC}
+                alt="Rohan Raj, founder of Guiderr"
+                width={288}
+                height={288}
+                loading="eager"
+                decoding="async"
+                className="w-52 h-52 rounded-full border border-slate-100 shadow-sm object-cover"
+              />
+            </div>
+
+          </div>
         </div>
 
         {/* ── Story Cards (Bento Layout) ── */}
