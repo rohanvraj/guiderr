@@ -105,25 +105,24 @@ export default function Hero() {
                 </p>
               </div>
 
-              {/* Right (desktop): portrait + greeting */}
-              <div className="mt-6 lg:mt-0 lg:flex-shrink-0">
-                <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-center lg:gap-6">
+              {/* Founder portrait + greeting */}
+              <div className="mt-5 lg:mt-0 lg:flex-shrink-0">
+                <div className="flex items-center justify-start gap-3 sm:gap-4 lg:gap-6">
 
-                  <Link to="/about">
+                  <Link to="/about" className="flex-shrink-0">
                     <img
                       src={FOUNDER_PORTRAIT_SRC}
                       alt="Rohan Raj, founder of Guiderr"
-                      width={288}
-                      height={288}
+                      width={240}
+                      height={240}
                       loading="eager"
                       decoding="async"
-                      className="w-40 h-40 lg:w-52 lg:h-52 rounded-full border border-slate-100 shadow-sm object-cover cursor-pointer hover:shadow-md transition-shadow"
+                      className="w-28 h-28 sm:w-32 sm:h-32 lg:w-52 lg:h-52 rounded-full border border-slate-100 shadow-sm object-cover cursor-pointer hover:shadow-md transition-shadow"
                     />
                   </Link>
 
-                  {/* Desktop greeting beside portrait */}
-                  <div className="hidden lg:block max-w-[220px]">
-                    <p className="text-base text-slate-600 leading-relaxed font-medium">
+                  <div className="max-w-[180px] sm:max-w-[220px]">
+                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
                       Hi! I'm Rohan, the founder of Guiderr. Where do you want to start?
                     </p>
                   </div>
