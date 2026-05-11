@@ -22,6 +22,8 @@ Perhaps the most significant update is the move from a single-cylinder to a **ne
 
 > THE MATH: For an expedition from Pune to Sikkim (approx. 2,200km), a parallel-twin can reduce rider fatigue by an estimated 30% compared to a high-strung single cylinder, primarily due to the secondary balance of the engine at sustained highway RPMs.
 
+[![Buy Riding Gear](motorcycle-riding-gear-amazon-affiliate-purchase-links)](https://www.guiderr.in/rohan-selection/riding-gear)
+
 ***
 
 ## **2. Targeting the "Lightweight" Sweet Spot**
