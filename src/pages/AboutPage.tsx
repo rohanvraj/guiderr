@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { CaretLeft } from '@phosphor-icons/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -62,6 +63,15 @@ export default function AboutPage() {
       <Header />
 
       <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
+
+        {/* ── Back Button ── */}
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 text-sm font-medium mb-8 transition-colors"
+        >
+          <CaretLeft size={18} weight="bold" />
+          Back
+        </Link>
 
         {/* ── Page Header ── */}
         <div className="mb-16">

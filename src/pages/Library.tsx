@@ -122,7 +122,7 @@ export default function Library() {
               The latest
             </p>
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.06] mb-4">
-              Premium Blueprints.<br className="hidden sm:block" /> From ₹99.
+              Our Premium Modules<br className="hidden sm:block" /> From ₹99.
             </h1>
             <p className="text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">
               Ebooks, checklists, and frameworks for smarter decisions on motorcycles, money, and modern life.

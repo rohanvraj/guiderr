@@ -3,6 +3,15 @@ import {
   Sparkle, Briefcase, Cpu, CarSimple, SunHorizon, TrendUp,
 } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
+import { optimizeCloudinaryUrl } from '../utils/cloudinary';
+
+const FOUNDER_PORTRAIT_SRC = optimizeCloudinaryUrl('ziphly-guiderr-rentfar-queueslip-founder-rohan-raj_mb9yiw_1_lfjpjm', {
+  width: 288,
+  height: 288,
+  crop: 'fill',
+  gravity: 'face',
+  quality: 'auto:eco',
+});
 
 const FEATURED_BUTTON_CLASSES = 'inline-flex items-center justify-center gap-2 rounded-xl bg-purple-900 hover:bg-purple-950 text-white text-sm font-semibold px-5 py-3 transition-colors shadow-sm';
 const FEATURED_WHATSAPP_URL = 'https://wa.me/919890505945?text=Hi%20Guiderr,%20I%27m%20interested%20in%20getting%20featured.';
@@ -79,20 +88,50 @@ export default function Hero() {
   return (
     <>
       {/* ── Hero — Traffic Controller ── */}
-      <section className="bg-white border-b border-slate-200 px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-12">
+      <section className="bg-white border-b border-slate-200 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8">
         <div className="max-w-7xl mx-auto w-full">
 
           {/* Copy block */}
-          <div className="mb-10 sm:mb-14 max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-5">
-              Build Wealth. Travel. Think Clearly.
-            </h1>
-            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-6 max-w-2xl">
-             Guiderr simplifies money, travel, technology, and everyday decisions - so you can learn faster and avoid expensive mistakes.
-            </p>
-            <p className="text-base text-slate-500 font-medium">
-              Hi! I'm Rohan, the founder of Guiderr, Where do you want to start?
-            </p>
+          <div className="mb-6 sm:mb-8">
+            <div className="flex flex-col lg:flex-row lg:items-start lg:gap-10">
+
+              {/* Left: headline + subtext */}
+              <div className="flex-1">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-5">
+                  Build Wealth. Travel. Think Clearly.
+                </h1>
+                <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl">
+                 Guiderr simplifies money, travel, technology, and everyday decisions - so you can learn faster and avoid expensive mistakes.
+                </p>
+              </div>
+
+              {/* Right (desktop): portrait + greeting */}
+              <div className="mt-6 lg:mt-0 lg:flex-shrink-0">
+                <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-center lg:gap-6">
+
+                  <Link to="/about">
+                    <img
+                      src={FOUNDER_PORTRAIT_SRC}
+                      alt="Rohan Raj, founder of Guiderr"
+                      width={288}
+                      height={288}
+                      loading="eager"
+                      decoding="async"
+                      className="w-40 h-40 lg:w-52 lg:h-52 rounded-full border border-slate-100 shadow-sm object-cover cursor-pointer hover:shadow-md transition-shadow"
+                    />
+                  </Link>
+
+                  {/* Desktop greeting beside portrait */}
+                  <div className="hidden lg:block max-w-[220px]">
+                    <p className="text-base text-slate-600 leading-relaxed font-medium">
+                      Hi! I'm Rohan, the founder of Guiderr. Where do you want to start?
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
           </div>
 
           {/*

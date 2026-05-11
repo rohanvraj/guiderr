@@ -55,13 +55,18 @@ function extractUrl(raw: unknown): string {
  */
 export function optimizeCloudinaryUrl(
   raw: unknown,
-  options: { width?: number; quality?: string } = {}
+  options: { width?: number; height?: number; crop?: string; gravity?: string; quality?: string } = {}
 ): string {
   const url = extractUrl(raw);
   if (!url) return '';
 
-  const { width = 400, quality = 'auto:eco' } = options;
-  const transforms = `f_auto,q_${quality},w_${width}`;
+  const { width = 400, height, crop, gravity, quality = 'auto:eco' } = options;
+  const parts: string[] = [];
+  if (crop) parts.push(`c_${crop}`);
+  if (gravity) parts.push(`g_${gravity}`);
+  if (height) parts.push(`h_${height}`);
+  parts.push(`w_${width}`, `f_auto`, `q_${quality}`);
+  const transforms = parts.join(',');
 
   // Case 1 — Full Cloudinary URL: inject transforms after /upload/
   if (url.includes('res.cloudinary.com')) {
