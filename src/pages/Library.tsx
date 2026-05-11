@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getAllProducts, Product } from '../utils/supabase';
@@ -44,7 +44,8 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export default function Library() {
-  const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeCategory = searchParams.get('category') ?? 'All';
 
   useEffect(() => {
     const prev = document.title;
@@ -113,7 +114,15 @@ export default function Library() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => {
+                  const next = new URLSearchParams(searchParams);
+                  if (cat === 'All') {
+                    next.delete('category');
+                  } else {
+                    next.set('category', cat);
+                  }
+                  setSearchParams(next);
+                }}
                 className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                   activeCategory === cat
                     ? 'bg-white text-slate-900'
