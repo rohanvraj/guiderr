@@ -75,7 +75,7 @@ It helps understanding the **Logic Probe** to identify these hidden earning engi
 *Real value is influenced by future earning power — not just visible assets.*
 * **4. Four Learning Prompts:** Four simple prompts that help readers continue studying the topic using relatable business examples and practical logic breakdowns.
 
-[**Unlock Intelligent Brief #06 — The Replacement Cost Dilemma: Why Companies with Too Many “Physical Things” Can Sometimes Struggle Against Inflation (₹99)**](buy:a2eb902b-672c-4b17-92d9-4aa0203c7f3d)
+[**Unlock Intelligent Brief #06 — The Replacement Cost Dilemma: Why Companies with Too Many “Physical Things” Can Sometimes Struggle Against Inflation (₹99)**](buy:728b9e6e-a51b-4b33-99ad-74c6f7a33ac5)
 
 ***
 
