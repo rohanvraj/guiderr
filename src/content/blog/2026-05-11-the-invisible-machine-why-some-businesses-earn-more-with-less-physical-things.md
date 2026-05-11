@@ -63,9 +63,9 @@ In the 2026 Indian market, it is common to see people impressed by companies tha
 
 ***
 
-**BLUEPRINT: Intelligent Brief #06**
-
-Spotting a "Brand" is easy, but knowing how much to pay for one is where most people fail. **Intelligent Brief #06** provides the **Logic Probe** used by professionals to identify these hidden earning engines.
+**Want to dive deeper ? : Here's our
+Intelligent Brief #06**. 
+It helps understanding the **Logic Probe** to identify these hidden earning engines.
 
 **Inside Brief #06:**
 
