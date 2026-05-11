@@ -115,7 +115,7 @@ export default function Hero() {
               <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[7rem] sm:text-[10rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">WEALTH</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-4 font-medium">01</p>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 leading-tight">Learn</h2>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 leading-tight">Learn for free.</h2>
                 <p className="mt-3 text-sm text-slate-950/70 max-w-xs">
                   In-depth guides on money, travel, and life decisions.
                 </p>
@@ -134,7 +134,7 @@ export default function Hero() {
               <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">VAULT</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">02</p>
-                <h2 className="text-xl sm:text-2xl font-bold text-slate-950">Intelligent Briefs</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-950">Intelligent Briefs: Our Premium Modules.</h2>
                 <p className="mt-2 text-sm text-slate-950/70">
                   Curated reads distilled into quick, high-signal summaries.
                 </p>
@@ -153,7 +153,7 @@ export default function Hero() {
               <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">GEAR</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">03</p>
-                <h2 className="text-xl font-bold text-slate-950">The Selection</h2>
+                <h2 className="text-xl font-bold text-slate-950">The Guiderr Selection.</h2>
                 <p className="mt-2 text-sm text-slate-950/70">
                   Rohan's personal picks across every category.
                 </p>
@@ -172,9 +172,9 @@ export default function Hero() {
               <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">STORIES</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">04</p>
-                <h2 className="text-xl font-bold text-slate-950">Featured Stories</h2>
+                <h2 className="text-xl font-bold text-slate-950">Featured Stories.</h2>
                 <p className="mt-2 text-sm text-slate-950/70">
-                  Real people, real outcomes — spotlighted on Guiderr.
+                  Real people, real outcomes - spotlighted on Guiderr.
                 </p>
               </div>
               <div className="flex items-center gap-2 text-slate-950 font-semibold text-sm mt-4">
