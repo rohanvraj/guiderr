@@ -73,7 +73,7 @@ Spotting a "Brand" is easy, but knowing how much to pay for one is where most pe
 * **The ABC Co. Rivalry:** A breakdown of why a "Factory-Heavy" company may lose efficiency compared to a "Brand-Heavy" business.
 * **The Accountant's Trap:** Why some businesses can appear "expensive" on paper while potentially possessing stronger earning power underneath.
 *Real value is influenced by future earning power — not just visible assets.*
-* **4. Learning Companion Prompts:** Four simple prompts that help readers continue studying the topic using relatable business examples and practical logic breakdowns.
+* **4. Four Learning Prompts:** Four simple prompts that help readers continue studying the topic using relatable business examples and practical logic breakdowns.
 
 [**Unlock Intelligent Brief #06 — The Replacement Cost Dilemma: Why Companies with Too Many “Physical Things” Can Sometimes Struggle Against Inflation (₹99)**](buy:a2eb902b-672c-4b17-92d9-4aa0203c7f3d)
 
