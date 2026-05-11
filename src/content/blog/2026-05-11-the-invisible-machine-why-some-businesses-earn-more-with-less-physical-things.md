@@ -41,7 +41,7 @@ In the 2026 Indian market, it is common to see people impressed by companies tha
 
 **The Logic Scan:** Shop B has an **Invisible Machine**. This machine doesn't show up in the "Freezer" list, but it does all the hard work. When the price of milk rises (inflation), Shop B can raise its prices because customers love the brand. Shop A is stuck.
 
-![Image Placeholder: The Invisible Engine behind a simple storefront](THumbnail-asset-light-business-good-branding-vs-asset-heavy-business-image-1_vvrt58)
+![Image Placeholder: The Invisible Engine behind a simple storefront example](THumbnail-asset-light-business-good-branding-vs-asset-heavy-business-image-1_vvrt58)
 
 > **THE BOTTOM LINE:**
 > **'Asset-Light' businesses—those that use very little Physical Things to make a lot of money—may adapt more efficiently against rising costs. One can identify these by looking for a high 'Asset Turnover Ratio.'**
