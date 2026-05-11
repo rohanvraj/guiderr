@@ -85,6 +85,8 @@ function App() {
             <Route path="/get-featured" element={<GetFeaturedPage />} />
             <Route path="/guides" element={<BlogListingPage />} />
             <Route path="/guides/:slug" element={<BlogPostPage />} />
+            <Route path="/library/:category?" element={<LibraryPage />} />
+            <Route path="/library/product/:id" element={<LibraryProductPage />} />
             <Route path="/:category" element={<CategoryPage />} />
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/stats/:secretKey" element={<CreatorStatsPage />} />
@@ -100,8 +102,6 @@ function App() {
             <Route path="/start-here" element={<StartHerePage />} />
             <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
             <Route path="/investing" element={<InvestingPage />} />
-            <Route path="/library" element={<LibraryPage />} />
-            <Route path="/library/:id" element={<LibraryProductPage />} />
             <Route path="/rohan-selection" element={<RohanSelectionPage />} />
             <Route path="/rohan-selection/:category" element={<RohanSelectionPage />} />
           </Routes>

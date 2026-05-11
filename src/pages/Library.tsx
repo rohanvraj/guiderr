@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getAllProducts, Product } from '../utils/supabase';
@@ -12,11 +12,30 @@ const CATEGORY_DISPLAY_MAP: Record<string, string> = {
   Finance: 'Personal Finance',
 };
 
+// Converts a DB category value to a clean URL slug.
+// Special case: "Finance" → "personal-finance" (matches its display label).
+function categoryToSlug(cat: string): string {
+  if (cat === 'Finance') return 'personal-finance';
+  return cat.toLowerCase().replace(/\s+/g, '-');
+}
+
+// Explicit overrides for slugs whose DB value can't be inferred by title-casing.
+const SLUG_OVERRIDES: Record<string, string> = {
+  'personal-finance': 'Finance',
+};
+
+// Converts a URL slug back to the raw DB category value.
+function slugToCategory(slug: string): string {
+  if (SLUG_OVERRIDES[slug]) return SLUG_OVERRIDES[slug];
+  // Generic fallback: title-case each hyphen-separated word.
+  return slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
 function ProductCard({ product }: { product: Product }) {
   const navigate = useNavigate();
   return (
     <button
-      onClick={() => navigate('/library/' + product.id)}
+      onClick={() => navigate('/library/product/' + product.id)}
       className="group text-left w-full bg-white/15 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-white/10">
@@ -44,8 +63,9 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export default function Library() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const activeCategory = searchParams.get('category') ?? 'All';
+  const { category: categorySlug } = useParams<{ category?: string }>();
+  const navigate = useNavigate();
+  const activeCategory = categorySlug ? slugToCategory(categorySlug) : 'All';
 
   useEffect(() => {
     const prev = document.title;
@@ -115,13 +135,11 @@ export default function Library() {
               <button
                 key={cat}
                 onClick={() => {
-                  const next = new URLSearchParams(searchParams);
                   if (cat === 'All') {
-                    next.delete('category');
+                    navigate('/library');
                   } else {
-                    next.set('category', cat);
+                    navigate('/library/' + categoryToSlug(cat));
                   }
-                  setSearchParams(next);
                 }}
                 className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                   activeCategory === cat
