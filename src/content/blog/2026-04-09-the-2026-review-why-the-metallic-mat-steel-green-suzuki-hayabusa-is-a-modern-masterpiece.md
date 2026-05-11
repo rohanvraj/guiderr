@@ -28,6 +28,8 @@ Suzuki hasn't just focused on paint. The 2025 model features the **Suzuki Intell
 *   **Agility:** Despite its majestic presence, the chassis is perfectly poised, offering stability at high speeds that few other machines can replicate.
 ***
 
+[![Buy Riding Gear](motorcycle-riding-gear-amazon-affiliate-purchase-links)](https://www.guiderr.in/rohan-selection/riding-gear)
+
 ### 🏔️ **Join the Expedition: Pune to Sikkim (June 2026)**
 Ready to take your passion for the open road to the vertical world of the Himalayas? I am leading a niche pack of exactly **10 riders** on a safe, disciplined, and epic journey from Pune to the heart of Sikkim this June. Whether you ride a "Busa" or a dedicated Adventure tourer, this is the ultimate test of man and machine.
 
