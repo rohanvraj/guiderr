@@ -274,7 +274,10 @@ export default function BlogPostPage() {
                       const after = raw.startsWith(keyword) ? raw.slice(keyword.length).trimStart() : raw;
                       return (
                           <p className="mb-1">
-                            <span className="block text-[10px] font-black tracking-[0.3em] uppercase mb-1" style={{ color: labelColor }}>
+                            <span
+                              className="block text-[10px] font-black tracking-[0.3em] uppercase mb-1"
+                              style={{ color: labelColor, fontSize: label === 'PREMIUM MODULE' ? '16px' : undefined }}
+                            >
                               {label}
                             </span>
                             <span className="block mb-3" style={{ width: '20px', height: '2px', backgroundColor: labelColor }} />

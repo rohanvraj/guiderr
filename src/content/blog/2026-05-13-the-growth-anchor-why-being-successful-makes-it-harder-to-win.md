@@ -33,7 +33,7 @@ Wait a minute. The owner only added 10% more capital (the ₹100 they kept), yet
 How did adding ₹100 of capital produce an extra ₹80 of profit? Why did the ROE jump from 10% to 16.36% simply because the money was not paid out? This isn't just luck; it is a specific mathematical phenomenon that separates \"Good\" companies from \"Elite\" ones.
 > **We break down the \"16.36% Mystery\" and show you the exact calculation of *Incremental Returns* in our paid Intelligent Brief below.**
 ***
-> **BLUEPRINT: Intelligent Brief #07**
+> **PREMIUM MODULE: Intelligent Brief #07**
 > While growth is visible, \"Efficiency Jumps\" like the 16.36% ROE above are often missed by retail investors. **Intelligent Brief #07** provides the technical framework to see if management is actually improving the business or just \"hoarding\" your cash.
 > * **The 16.36% Mystery:** The step-by-step calculation showing how ABC Ice Cream Shop nearly doubled its profit by reinvesting just ₹100.
 > * **The ₹1 Wealth Test:** A 3-step audit to check if the money the company kept actually created at least ₹1 of market value.
