@@ -31,7 +31,7 @@ When we look at the new performance of the shop, something strange has happened.
 Wait a minute. The owner only added 10% more capital (the ₹100 they kept), yet the profit jumped by **80%**. Somehow, by keeping your share of the profits, the management didn't just make the business \"Bigger\"—they changed the internal speed of the entire engine.
 **The Cliffhanger:**
 How did adding ₹100 of capital produce an extra ₹80 of profit? Why did the ROE jump from 10% to 16.36% simply because the money was not paid out? This isn't just luck; it is a specific mathematical phenomenon that separates \"Good\" companies from \"Elite\" ones.
-> **We break down the \"16.36% Mystery\" and show you the exact calculation of *Incremental Returns* in our paid Intelligent Brief below.**
+> **We explain the \"16.36% Mystery\" and show you the exact calculation in our Premium Module below.**
 ***
 > **PREMIUM MODULE: Intelligent Brief #07**
 >
