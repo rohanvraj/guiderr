@@ -35,7 +35,7 @@ How did adding ₹100 of capital produce an extra ₹80 of profit? Why did the R
 ***
 > **PREMIUM MODULE: Intelligent Brief #07**
 >
-> In this module, you will learn how to evaluate whether a company is actually creating real wealth when it reinvests profits — or simply recycling capital without meaningful improvement.
+> **In this module, you will learn** how to evaluate whether a company is actually creating real wealth when it reinvests profits — or simply recycling capital without meaningful improvement.
 >
 > We break this down using simple numbers, real-world logic, and step-by-step illustrations so you can clearly see how capital allocation affects long-term returns.
 >
