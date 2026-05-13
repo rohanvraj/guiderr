@@ -258,9 +258,9 @@ export default function BlogPostPage() {
 
                 // Renders the trigger keyword as a small all-caps label pill
                 // above the body text, giving a magazine-sidebar aesthetic.
-                function withLabeledKeyword(keyword: string, labelColor: string): React.ReactNode {
+                function withLabeledKeyword(keyword: string, labelColor: string, displayLabel?: string): React.ReactNode {
                   // Strip trailing colon from the displayed label
-                  const label = keyword.replace(/:$/, '');
+                  const label = displayLabel ?? keyword.replace(/:$/, '');
                   let firstDone = false;
                   return Children.map(children, (child) => {
                     // Drop ALL bare string nodes at the blockquote level.
@@ -314,10 +314,17 @@ export default function BlogPostPage() {
                     </div>
                   );
                 }
+                if (text.startsWith('PREMIUM MODULE:')) {
+                  return (
+                    <div className="dm-blueprint">
+                      {withLabeledKeyword('PREMIUM MODULE:', 'var(--dm-accent-blueprint)')}
+                    </div>
+                  );
+                }
                 if (text.startsWith('BLUEPRINT:')) {
                   return (
                     <div className="dm-blueprint">
-                      {withLabeledKeyword('BLUEPRINT:', 'var(--dm-accent-blueprint)')}
+                      {withLabeledKeyword('BLUEPRINT:', 'var(--dm-accent-blueprint)', 'PREMIUM MODULE')}
                     </div>
                   );
                 }
