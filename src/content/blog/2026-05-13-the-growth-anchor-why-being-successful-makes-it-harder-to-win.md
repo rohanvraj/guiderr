@@ -39,7 +39,7 @@ How did adding ₹100 of capital produce an extra ₹80 of profit? Why did the R
 >
 > We break this down using simple numbers, real-world logic, and step-by-step illustrations so you can clearly see how capital allocation affects long-term returns.
 >
-> **Inside this module, you will understand:**
+> **By the end of the read, you will understand:**
 >
 > * **The 16.36% ROE Jump Explained:** A step-by-step breakdown of how reinvesting just ₹100 can change both profit and return on equity in a simple ABC Ice Cream example.
 >
