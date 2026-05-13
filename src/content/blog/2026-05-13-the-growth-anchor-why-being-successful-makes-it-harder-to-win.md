@@ -50,7 +50,7 @@ How did adding ₹100 of capital produce an extra ₹80 of profit? Why did the R
 > * **Capital Allocation Reality Check:** How to think about whether management is improving business quality or simply expanding size without efficiency gains.
 >
 >
-> [**Unlock Intelligent Brief #07 — Learn How Growth Can Reduce Your Share of Profits (₹99)**](buy:728b9e6e-a51b-4b33-99ad-74c6f7a33ac5)
+> [**Unlock Intelligent Brief #07 — Learn How Growth Can Reduce Your Share of Profits (₹99)**](buy:f05ddcb8-2be4-42d3-9882-6f5417683383)
 ***
 ## **3. The ₹1 Reinvestment Logic**
 **Simple Explanation:** If a business keeps ₹100 instead of paying it out, there are two possible outcomes. If the ₹100 is invested well, future profits increase and the market begins to value the business higher. Shareholders become richer over time even without an immediate dividend. 
