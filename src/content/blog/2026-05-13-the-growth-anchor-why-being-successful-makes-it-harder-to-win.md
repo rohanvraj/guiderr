@@ -34,10 +34,22 @@ How did adding ₹100 of capital produce an extra ₹80 of profit? Why did the R
 > **We break down the \"16.36% Mystery\" and show you the exact calculation of *Incremental Returns* in our paid Intelligent Brief below.**
 ***
 > **PREMIUM MODULE: Intelligent Brief #07**
-> While growth is visible, \"Efficiency Jumps\" like the 16.36% ROE above are often missed by retail investors. **Intelligent Brief #07** provides the technical framework to see if management is actually improving the business or just \"hoarding\" your cash.
-> * **The 16.36% Mystery:** The step-by-step calculation showing how ABC Ice Cream Shop nearly doubled its profit by reinvesting just ₹100.
-> * **The ₹1 Wealth Test:** A 3-step audit to check if the money the company kept actually created at least ₹1 of market value.
-> * **Scale vs. Speed:** A table showing how ABC Co. needs ₹3,900 Crore in profit just to maintain its speed as it grows.
+>
+> In this module, you will learn how to evaluate whether a company is actually creating real wealth when it reinvests profits — or simply recycling capital without meaningful improvement.
+>
+> We break this down using simple numbers, real-world logic, and step-by-step illustrations so you can clearly see how capital allocation affects long-term returns.
+>
+> **Inside this module, you will understand:**
+>
+> * **The 16.36% ROE Jump Explained:** A step-by-step breakdown of how reinvesting just ₹100 can change both profit and return on equity in a simple ABC Ice Cream example.
+>
+> * **The ₹1 Wealth Test Framework:** A practical 3-step logic check to evaluate whether retained earnings are likely to create at least ₹1 of long-term market value.
+>
+> * **Scale vs Speed Problem:** A simple comparison showing why larger companies often need disproportionately higher profits just to maintain the same growth rate.
+>
+> * **Capital Allocation Reality Check:** How to think about whether management is improving business quality or simply expanding size without efficiency gains.
+>
+>
 > [**Unlock Intelligent Brief #07 — Learn How Growth Can Reduce Your Share of Profits (₹99)**](buy:728b9e6e-a51b-4b33-99ad-74c6f7a33ac5)
 ***
 ## **3. The ₹1 Reinvestment Logic**
