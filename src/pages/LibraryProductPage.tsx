@@ -102,6 +102,11 @@ export default function LibraryProductPage() {
   // ── Image skeleton + preload ──────────────────────────────────────────────
   // Track which exact URL has finished loading to avoid route-transition races.
   const [loadedCoverSrc, setLoadedCoverSrc] = useState('');
+  const [isCoverPreviewOpen, setIsCoverPreviewOpen] = useState(false);
+
+  useEffect(() => {
+    setIsCoverPreviewOpen(false);
+  }, [id]);
 
   // Inject a <link rel="preload"> as soon as we know the image URL.
   // Gives the browser a head-start before the <img> tag even renders.
@@ -170,7 +175,7 @@ export default function LibraryProductPage() {
 
           {/* ── LEFT: Cover ── */}
           <div className="bg-slate-100 p-3 lg:border-r-2 lg:border-r-black">
-            <div className={`aspect-[3/4] w-full rounded-xl overflow-hidden transition-colors duration-300 ${isCoverLoaded ? 'bg-slate-100' : 'bg-slate-200 animate-pulse'}`}>
+            <div className={`relative aspect-[3/4] w-full rounded-xl overflow-hidden transition-colors duration-300 ${isCoverLoaded ? 'bg-transparent' : 'bg-slate-200 animate-pulse'}`}>
               <img
                 key={coverSrc}
                 src={coverSrc}
@@ -183,6 +188,12 @@ export default function LibraryProductPage() {
                   (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
                   setLoadedCoverSrc(coverSrc);
                 }}
+              />
+              <button
+                type="button"
+                onClick={() => setIsCoverPreviewOpen(true)}
+                className="hidden lg:block absolute inset-0 cursor-zoom-in"
+                aria-label="Preview cover image"
               />
             </div>
           </div>
@@ -274,6 +285,21 @@ export default function LibraryProductPage() {
           Buy Now — {price}
         </button>
       </div>
+
+      {isCoverPreviewOpen && (
+        <button
+          type="button"
+          onClick={() => setIsCoverPreviewOpen(false)}
+          className="hidden lg:flex fixed inset-0 z-50 items-center justify-center bg-black/45 px-6"
+          aria-label="Close cover preview"
+        >
+          <img
+            src={coverSrc}
+            alt={`${product.name} cover preview`}
+            className="block max-h-[72vh] w-auto max-w-[460px] rounded-2xl border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] object-contain"
+          />
+        </button>
+      )}
 
       <Footer />
     </div>
