@@ -214,10 +214,26 @@ export default function LibraryProductPage() {
               Buy Now — {price}
             </button>
 
+            {/* Trust signals */}
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5">
+              {[
+                'Instant PDF delivery',
+                'Secured by Razorpay',
+                'Read on any device',
+              ].map((item) => (
+                <span key={item} className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+                  <svg className="w-3 h-3 shrink-0 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {item}
+                </span>
+              ))}
+            </div>
+
             {/* Back link */}
             <Link
               to="/library"
-              className="mt-3 text-center text-xs text-slate-400 hover:text-slate-700 transition-colors"
+              className="mt-4 text-center text-xs text-slate-400 hover:text-slate-700 transition-colors"
             >
               ← Browse more titles
             </Link>

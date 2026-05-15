@@ -35,6 +35,16 @@ function slugToCategory(slug: string): string {
 
 function ProductCard({ product }: { product: Product }) {
   const navigate = useNavigate();
+  const descriptionPreview = product.description
+    ? product.description
+        .replace(/#{1,6}\s*/g, '')
+        .replace(/\*\*/g, '')
+        .replace(/\*/g, '')
+        .replace(/^[-•]\s/gm, '')
+        .replace(/\n+/g, ' ')
+        .trim()
+        .slice(0, 110)
+    : '';
   return (
     <button
       onClick={() => navigate('/library/product/' + product.id)}
@@ -50,15 +60,28 @@ function ProductCard({ product }: { product: Product }) {
             (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
           }}
         />
+        <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-widest bg-black/50 text-white/90 rounded-full px-2 py-0.5 backdrop-blur-sm">
+          PDF
+        </span>
       </div>
-      <div className="p-3 sm:p-4">
-        <h3 className="text-sm font-bold text-white leading-snug mb-1 line-clamp-2">
+      <div className="p-3 sm:p-4 flex flex-col gap-1.5">
+        <h3 className="text-sm font-bold text-white leading-snug line-clamp-2">
           {product.name}
         </h3>
-        <p className="text-xs text-white/60 mb-2">by {product.author || 'Guiderr'}</p>
-        <p className="text-base font-bold text-white">
-          ₹{product.price_in_rupees.toLocaleString('en-IN')}
-        </p>
+        <p className="text-xs text-white/50">by {product.author || 'Guiderr'}</p>
+        {descriptionPreview && (
+          <p className="text-[11px] text-white/40 leading-snug line-clamp-2">
+            {descriptionPreview}
+          </p>
+        )}
+        <div className="mt-1.5 pt-2 border-t border-white/15 flex items-center justify-between">
+          <span className="text-sm font-bold text-white">
+            ₹{product.price_in_rupees.toLocaleString('en-IN')}
+          </span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white/80 transition-colors">
+            Read →
+          </span>
+        </div>
       </div>
     </button>
   );
@@ -127,6 +150,14 @@ export default function Library() {
             <p className="text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">
               Ebooks, checklists, and frameworks for smarter decisions on motorcycles, money, and modern life.
             </p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5">
+              {['Instant PDF download', 'Read on any device', 'From ₹99'].map((item) => (
+                <span key={item} className="flex items-center gap-2 text-xs text-white/35 font-medium tracking-wide">
+                  <span className="w-1 h-1 rounded-full bg-white/35 shrink-0" />
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
