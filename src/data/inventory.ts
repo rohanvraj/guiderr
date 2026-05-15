@@ -351,6 +351,53 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Slim crossbody pouch — keeps your phone, wallet, and keys accessible on the go.',
   },
 
+  // ── Lifestyle — Premium Home Gadgets (from: 5-premium-home-gadgets-2026 article) ──
+  {
+    id: 'amazon-echo-4th-gen',
+    name: 'Amazon Echo (4th Gen)',
+    category: 'lifestyle',
+    displayCategory: 'Lifestyle',
+    imageID: 'echo-4th-generation_whrycy',
+    link: 'https://amzn.to/42pZjps',
+    description: 'Premium Dolby audio with 3.0" woofer, Zigbee & Matter hub, motion-activated lights.',
+  },
+  {
+    id: 'bosch-13-dishwasher',
+    name: 'Bosch 13 Place Settings Dishwasher',
+    category: 'lifestyle',
+    displayCategory: 'Lifestyle',
+    imageID: 'Bosch_13_Place_Setting_fits_up_to_70_utensils_al7rnz',
+    link: 'https://amzn.to/4d6gvGK',
+    description: 'Hygiene+ & Intensive Kadhai Program, 99.9% germ kill, uses only 9.5L water.',
+  },
+  {
+    id: 'philips-air-fryer-na231',
+    name: 'PHILIPS Air Fryer NA231/00',
+    category: 'lifestyle',
+    displayCategory: 'Lifestyle',
+    imageID: 'PHILIPS_Air_Fryer_NA231_00_gxtcjg',
+    link: 'https://amzn.to/3R7rMxO',
+    description: 'Smart touch panel, 90% less fat, 13 preset menus for fry, bake, grill, and roast.',
+  },
+  {
+    id: 'godrej-neo-pro-view',
+    name: 'Godrej Neo Pro View Smart Lock',
+    category: 'lifestyle',
+    displayCategory: 'Lifestyle',
+    imageID: 'Godrej_Smart_Lock_Neo_Pro_View_Digital_Lock_onm3kx',
+    link: 'https://amzn.to/4noS2jm',
+    description: '7-in-1 access (fingerprint, PIN, RFID, app), video door phone, audit trail.',
+  },
+  {
+    id: 'sleep-company-smartgrid-ortho',
+    name: 'The Sleep Company SmartGRID Ortho Mattress',
+    category: 'lifestyle',
+    displayCategory: 'Lifestyle',
+    imageID: 'Sleep_Company_SmartGRID_Ortho_Mattress_kmuq4n',
+    link: 'https://amzn.to/4nl4v7v',
+    description: 'Ex-DRDO tech, AIHA certified for back pain, 2500+ air channels, 10-year warranty.',
+  },
+
   // ── Investing (books + demat) ───────────────────────────────────────────────
   {
     id: 'learn-to-earn-peter-lynch',
