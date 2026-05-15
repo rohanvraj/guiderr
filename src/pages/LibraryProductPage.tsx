@@ -201,12 +201,17 @@ export default function LibraryProductPage() {
           {/* ── RIGHT: All details ── */}
           <div className="flex flex-col px-5 py-4 lg:py-4 lg:px-7 gap-0 lg:min-h-0 lg:overflow-hidden">
 
-            {/* Category tag */}
-            {product.category && (
-              <span className="self-start mb-2 px-2.5 py-0.5 border-2 border-black text-[10px] font-bold uppercase tracking-widest text-black">
-                {product.category}
+            {/* Category tag + PDF badge */}
+            <div className="flex items-center gap-2 mb-2">
+              {product.category && (
+                <span className="px-2.5 py-0.5 border-2 border-black text-[10px] font-bold uppercase tracking-widest text-black">
+                  {product.category}
+                </span>
+              )}
+              <span className="px-2.5 py-0.5 border-2 border-black text-[10px] font-bold uppercase tracking-widest text-black">
+                PDF
               </span>
-            )}
+            </div>
 
             {/* Title */}
             <h1 className="text-2xl sm:text-3xl font-extrabold text-black leading-snug mb-1">
