@@ -15,7 +15,7 @@ import { useCart } from '../context/CartContext';
 // Admin can write: > **INSIGHT:** body text
 const MarkdownComponents = {
   blockquote: ({ children }: { children?: React.ReactNode }) => (
-    <div className="my-4 border-l-4 border-black pl-4 text-sm leading-relaxed text-slate-700 not-italic">
+    <div className="my-5 rounded-xl bg-slate-50 border border-slate-200 px-5 py-4 text-sm leading-relaxed text-slate-700 not-italic">
       {children}
     </div>
   ),
@@ -44,7 +44,7 @@ const MarkdownComponents = {
 };
 
 // ─── Page ────────────────────────────────────────────────────────────────────
-export default function LibraryProductPage() {
+export default function LibraryProductPageClassic() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const { addToCart, setIsCartOpen } = useCart();
@@ -99,23 +99,6 @@ export default function LibraryProductPage() {
     setIsCartOpen(true);
   };
 
-  // ── Image skeleton + preload ──────────────────────────────────────────────
-  // Track which exact URL has finished loading to avoid route-transition races.
-  const [loadedCoverSrc, setLoadedCoverSrc] = useState('');
-
-  // Inject a <link rel="preload"> as soon as we know the image URL.
-  // Gives the browser a head-start before the <img> tag even renders.
-  useEffect(() => {
-    if (!product?.cover_image_url) return;
-    const href = optimizeCloudinaryUrl(product.cover_image_url, { width: 600, quality: 'auto:best' });
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = href;
-    document.head.appendChild(link);
-    return () => { if (document.head.contains(link)) document.head.removeChild(link); };
-  }, [product?.cover_image_url]);
-
   // ── Loading state ─────────────────────────────────────────────────────────
   if (isLoading) {
     return (
@@ -144,21 +127,24 @@ export default function LibraryProductPage() {
     );
   }
 
-  const coverSrc = optimizeCloudinaryUrl(product.cover_image_url || '', { width: 600, quality: 'auto:best' });
+  const coverSrc = optimizeCloudinaryUrl(product.cover_image_url || '', { width: 600 });
   const price = `₹${product.price_in_rupees.toLocaleString('en-IN')}`;
-  const isCoverLoaded = loadedCoverSrc === coverSrc;
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-28 sm:pb-16 lg:pb-3">
+      {/*
+        Desktop: single above-the-fold rectangle — 2-col grid, left = cover, right = all details.
+        Mobile: stacked, cover on top, details below, sticky bar handles repeat CTA.
+      */}
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-28 sm:pb-16">
 
         {/* ── Back navigation ── */}
-        <div className="mb-3">
+        <div className="mb-6">
           <Link
             to="/library"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black hover:underline transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Premium Modules
@@ -166,54 +152,49 @@ export default function LibraryProductPage() {
         </div>
 
         {/* ── Product rectangle: Cover (left) | Details (right) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] lg:max-h-[calc(100vh-10rem)] lg:overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-0 lg:gap-0 border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
 
           {/* ── LEFT: Cover ── */}
-          <div className="bg-slate-100 p-3 lg:border-r-2 lg:border-r-black">
-            <div className={`aspect-[3/4] w-full rounded-xl overflow-hidden transition-colors duration-300 ${isCoverLoaded ? 'bg-slate-100' : 'bg-slate-200 animate-pulse'}`}>
+          <div className="bg-slate-50 lg:self-start lg:border-r border-slate-100">
+            <div className="aspect-[3/4] w-full rounded-xl overflow-hidden">
               <img
-                key={coverSrc}
                 src={coverSrc}
                 alt={product.name}
-                loading="eager"
-                fetchPriority="high"
-                className={`w-full h-full object-contain transition-opacity duration-700 ${isCoverLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={() => setLoadedCoverSrc(coverSrc)}
+                className="w-full h-full object-cover"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
-                  setLoadedCoverSrc(coverSrc);
                 }}
               />
             </div>
           </div>
 
           {/* ── RIGHT: All details ── */}
-          <div className="flex flex-col px-5 py-4 lg:py-4 lg:px-7 gap-0 lg:min-h-0 lg:overflow-hidden">
+          <div className="flex flex-col px-7 py-7 lg:py-8 lg:px-9 gap-0">
 
-            {/* Category tag */}
+            {/* Category pill */}
             {product.category && (
-              <span className="self-start mb-2 px-2.5 py-0.5 border-2 border-black text-[10px] font-bold uppercase tracking-widest text-black">
+              <span className="self-start mb-4 px-3 py-0.5 rounded-full bg-slate-100 text-xs font-semibold uppercase tracking-widest text-slate-500">
                 {product.category}
               </span>
             )}
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-black leading-snug mb-1">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-snug mb-1">
               {product.name}
             </h1>
 
             {/* Author */}
-            <p className="text-sm text-slate-500 mb-3">
+            <p className="text-sm text-slate-400 mb-4">
               by {product.author || 'Guiderr Editorial'}
             </p>
 
             {/* ── Separator 1 ── */}
-            <div className="border-t-2 border-black mb-3" />
+            <div className="border-t border-slate-100 mb-4" />
 
             {/* Synopsis */}
             {product.description && (
-              <div className="flex-1 min-h-0 overflow-y-auto text-[14px] mb-3 pr-1
-                              [scrollbar-width:thin] [scrollbar-color:#000_transparent]">
+              <div className="flex-1 overflow-y-auto text-[14px] mb-4 pr-1
+                              [scrollbar-width:thin] [scrollbar-color:#e2e8f0_transparent]">
                 <ReactMarkdown components={MarkdownComponents}>
                   {product.description}
                 </ReactMarkdown>
@@ -221,27 +202,27 @@ export default function LibraryProductPage() {
             )}
 
             {/* ── Separator 2 ── */}
-            <div className="border-t-2 border-black mb-3" />
+            <div className="border-t border-slate-100 mb-5" />
 
             {/* Buy Now — primary action, price embedded, watched by IntersectionObserver */}
             <button
               ref={heroBuyRef}
               onClick={handleBuy}
-              className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#6D28D9] text-white font-bold border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-px hover:-translate-x-px hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px active:shadow-none transition-all duration-150 text-sm sm:text-base"
+              className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-md hover:bg-slate-800 active:scale-[0.98] transition-all duration-200 text-sm sm:text-base"
             >
               <ShoppingBag className="w-4 h-4" />
               Buy Now — {price}
             </button>
 
             {/* Trust signals */}
-            <div className="mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5">
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5">
               {[
                 'Instant PDF delivery',
                 'Secured by Razorpay',
                 'Read on any device',
               ].map((item) => (
-                <span key={item} className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-                  <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <span key={item} className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+                  <svg className="w-3 h-3 shrink-0 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                   {item}
@@ -252,7 +233,7 @@ export default function LibraryProductPage() {
             {/* Back link */}
             <Link
               to="/library"
-              className="mt-2 text-center text-xs text-slate-400 hover:text-black transition-colors"
+              className="mt-4 text-center text-xs text-slate-400 hover:text-slate-700 transition-colors"
             >
               ← Browse more titles
             </Link>
@@ -266,14 +247,14 @@ export default function LibraryProductPage() {
           showStickyBar ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
         }`}
       >
-        <button
-          onClick={handleBuy}
-          className="pointer-events-auto w-full flex items-center justify-center gap-2.5 py-4 bg-[#6D28D9] text-white font-bold border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-px active:translate-y-px active:shadow-none transition-all duration-150 text-base"
-        >
-          <ShoppingBag className="w-5 h-5" />
-          Buy Now — {price}
-        </button>
-      </div>
+          <button
+            onClick={handleBuy}
+            className="pointer-events-auto w-full flex items-center justify-center gap-2.5 py-4 bg-slate-900 text-white font-bold rounded-2xl shadow-2xl active:scale-[0.98] transition-all duration-150 text-base"
+          >
+            <ShoppingBag className="w-5 h-5" />
+            Buy Now — {price}
+          </button>
+        </div>
 
       <Footer />
     </div>
