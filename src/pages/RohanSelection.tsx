@@ -229,8 +229,22 @@ export default function RohanSelection() {
     document.title = category
       ? `${categoryLabel(category)} — Rohan Selection | Guiderr`
       : 'Rohan Selection | Guiderr — Curated Picks';
+    // Canonical
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const canonicalWasPresent = !!canonical;
+    const prevHref = canonical?.href ?? '';
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = category
+      ? `https://www.guiderr.in/rohan-selection/${category}`
+      : 'https://www.guiderr.in/rohan-selection';
     return () => {
       document.title = prev;
+      if (canonicalWasPresent && canonical) canonical.href = prevHref;
+      else canonical?.remove();
     };
   }, [category]);
 

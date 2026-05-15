@@ -101,9 +101,21 @@ export default function Library() {
       meta.content =
         'Download premium ebooks, blueprints, and checklists on Motorcycles, Personal Finance, Travel and more. From ₹99.';
     }
+    // Canonical
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const canonicalWasPresent = !!canonical;
+    const prevHref = canonical?.href ?? '';
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://www.guiderr.in/library';
     return () => {
       document.title = prev;
       if (meta) meta.content = prevDesc;
+      if (canonicalWasPresent && canonical) canonical.href = prevHref;
+      else canonical?.remove();
     };
   }, []);
 

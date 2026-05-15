@@ -19,4 +19,4 @@ Disallow: /superadmin
 Disallow: /stats/
 Disallow: /thank-you
 
-Sitemap: https://guiderr.in/sitemap.xml
+Sitemap: https://www.guiderr.in/sitemap.xml

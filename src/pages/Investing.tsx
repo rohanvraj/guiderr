@@ -26,9 +26,21 @@ export default function InvestingPage() {
       meta.content =
         "Deep-dive equity research, intrinsic value analysis, and long-term wealth strategy guides for India's modern investor.";
     }
+    // Canonical
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const canonicalWasPresent = !!canonical;
+    const prevHref = canonical?.href ?? '';
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://www.guiderr.in/investing';
     return () => {
       document.title = prev;
       if (meta) meta.content = prevDesc;
+      if (canonicalWasPresent && canonical) canonical.href = prevHref;
+      else canonical?.remove();
     };
   }, []);
 

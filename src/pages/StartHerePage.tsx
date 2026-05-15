@@ -104,9 +104,21 @@ export default function StartHerePage() {
     const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     const prevDesc = meta?.content ?? '';
     if (meta) meta.content = 'New to Guiderr? Start here. Explore practical guides across finance, investing, tech, travel, and lifestyle - built for smarter decisions in modern India.';
+    // Canonical
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const canonicalWasPresent = !!canonical;
+    const prevHref = canonical?.href ?? '';
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://www.guiderr.in/start-here';
     return () => {
       document.title = prev;
       if (meta) meta.content = prevDesc;
+      if (canonicalWasPresent && canonical) canonical.href = prevHref;
+      else canonical?.remove();
     };
   }, []);
 

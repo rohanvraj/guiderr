@@ -46,7 +46,7 @@ export default function BlogPostPage() {
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
   const blockedDraft = isDraft && !isLocalhost;
 
-  // ── JSON-LD Article Schema + meta description (Day 4 SEO Hardening) ──────
+  // ── JSON-LD Article Schema + meta + canonical + OG/Twitter (SEO Hardening) ──
   // Fires only when a valid post is found. No library needed.
   useEffect(() => {
     if (!post) return;
@@ -71,7 +71,7 @@ export default function BlogPostPage() {
     script.id = 'article-schema';
     const imageUrl = post.featuredImage
       ? optimizeCloudinaryUrl(post.featuredImage, { width: 1200, quality: 'auto:eco' })
-      : 'https://guiderr.in/images/guiderr-logo.webp';
+      : 'https://www.guiderr.in/images/guiderr-logo.webp';
     script.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -81,29 +81,76 @@ export default function BlogPostPage() {
       author: {
         '@type': 'Person',
         name: post.author || 'Rohan',
-        url: 'https://guiderr.in/about',
+        url: 'https://www.guiderr.in/about',
       },
       publisher: {
         '@type': 'Organization',
         name: 'Guiderr',
-        url: 'https://guiderr.in',
+        url: 'https://www.guiderr.in',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://guiderr.in/images/guiderr-logo.webp',
+          url: 'https://www.guiderr.in/images/guiderr-logo.webp',
         },
       },
       image: imageUrl,
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': `https://guiderr.in/guides/${slug}`,
+        '@id': `https://www.guiderr.in/guides/${slug}`,
       },
     });
     document.head.appendChild(script);
+
+    // ── Canonical ────────────────────────────────────────────────────────────
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const canonicalWasPresent = !!canonical;
+    const prevCanonicalHref = canonical?.href ?? '';
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `https://www.guiderr.in/guides/${slug}`;
+
+    // ── Open Graph & Twitter ─────────────────────────────────────────────────
+    const ogTitle = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
+    const ogDesc  = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
+    const ogImage = document.querySelector<HTMLMetaElement>('meta[property="og:image"]');
+    const ogUrl   = document.querySelector<HTMLMetaElement>('meta[property="og:url"]');
+    const twTitle = document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]');
+    const twDesc  = document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]');
+    const twImage = document.querySelector<HTMLMetaElement>('meta[name="twitter:image"]');
+
+    const prevOgTitle = ogTitle?.content ?? '';
+    const prevOgDesc  = ogDesc?.content  ?? '';
+    const prevOgImage = ogImage?.content ?? '';
+    const prevOgUrl   = ogUrl?.content   ?? '';
+    const prevTwTitle = twTitle?.content ?? '';
+    const prevTwDesc  = twDesc?.content  ?? '';
+    const prevTwImage = twImage?.content ?? '';
+
+    if (ogTitle) ogTitle.content = post.title;
+    if (ogDesc)  ogDesc.content  = descContent;
+    if (ogImage) ogImage.content = imageUrl;
+    if (ogUrl)   ogUrl.content   = `https://www.guiderr.in/guides/${slug}`;
+    if (twTitle) twTitle.content = post.title;
+    if (twDesc)  twDesc.content  = descContent;
+    if (twImage) twImage.content = imageUrl;
 
     return () => {
       document.title = prevTitle;
       if (meta) meta.content = prevDesc;
       document.getElementById('article-schema')?.remove();
+      // Restore canonical
+      if (canonicalWasPresent && canonical) canonical.href = prevCanonicalHref;
+      else canonical?.remove();
+      // Restore OG / Twitter
+      if (ogTitle) ogTitle.content = prevOgTitle;
+      if (ogDesc)  ogDesc.content  = prevOgDesc;
+      if (ogImage) ogImage.content = prevOgImage;
+      if (ogUrl)   ogUrl.content   = prevOgUrl;
+      if (twTitle) twTitle.content = prevTwTitle;
+      if (twDesc)  twDesc.content  = prevTwDesc;
+      if (twImage) twImage.content = prevTwImage;
     };
   }, [post, slug]);
 
