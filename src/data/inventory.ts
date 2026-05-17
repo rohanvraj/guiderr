@@ -181,6 +181,53 @@ export const INVENTORY: InventoryItem[] = [
     description: '3-in-1 filtration, 250 Sq Ft — the most affordable reliable brand for a home office.',
   },
 
+  // ── Tech — Power Stations (from: the-uninterrupted-home-top-5-portable-power-stations article) ──
+  {
+    id: 'ecoflow-delta-2',
+    name: 'EF ECOFLOW DELTA 2  Power Station',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'EF_ECOFLOW_DELTA_2_Portable_Power_Station_db3uy5',
+    link: 'https://amzn.to/4ddkdyb',
+    description: 'Expandable 1-3kWh, 1800W output, 7x faster charging (50 min to 80%) — ultimate home backup.',
+  },
+  {
+    id: 'ecoflow-river-2-pro',
+    name: 'EF ECOFLOW RIVER 2 Pro Power Station',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'EF_ECOFLOW_RIVER_2_Pro_Portable_Power_Station_ssw63p',
+    link: 'https://amzn.to/4uQVdTt',
+    description: '70-minute full charge, 1600W X-Boost, 3000+ cycles, 7.8kg lightweight — ideal for camping and site work.',
+  },
+  {
+    id: 'ecoflow-delta-3-1000-air',
+    name: 'EF ECOFLOW DELTA 3 1000 Air Power Station',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'EF_ECOFLOW_Portable_Power_Station_DELTA_3_1000_Air_efrj6l',
+    link: 'https://amzn.to/49yJ0KM',
+    description: 'True 20ms UPS, 960Wh capacity, 9.9kg, voltage stabilization — professional silent backup for electronics.',
+  },
+  {
+    id: 'ugreen-300w-portable-charger',
+    name: 'UGREEN 300W 48,000mAh  Power Station',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'UGREEN_300W_48_000mAh_Portable_Charger_Power_njr8ne',
+    link: 'https://amzn.to/4uhtgnY',
+    description: '48,000mAh, 5 multi-ports, digital display, SOS mode — digital nomad\'s laptop powerhouse.',
+  },
+  {
+    id: 'ecoflow-river-2-max',
+    name: 'EF ECOFLOW RIVER 2 Max Power Station',
+    category: 'tech',
+    displayCategory: 'Tech',
+    imageID: 'EF_ECOFLOW_Portable_Power_Station_RIVER_2_Max_rihjod',
+    link: 'https://amzn.to/4tD8iPi',
+    description: '1-hour full charge (X-Stream), 1000W output, 512Wh, 6kg — versatile all-rounder with 3000+ cycles.',
+  },
+
   // ── Riding Gear (from: ideal-luggage-setup & bmw-f-450-gs articles) ─────────
   {
     id: 'rynox-magnapod-tankbag',
@@ -406,7 +453,7 @@ export const INVENTORY: InventoryItem[] = [
     displayCategory: 'Investing',
     imageID: 'peter-lynch-learn-to-earn_nfugi0',
     link: 'https://amzn.to/4trbmys',
-    description: 'The clearest introduction to how the stock market works — from the GOAT of investing.',
+    description: 'This book is the clearest introduction to how the stock market works — from the GOAT of investing.',
   },
   {
     id: 'psychology-of-money',
@@ -415,7 +462,7 @@ export const INVENTORY: InventoryItem[] = [
     displayCategory: 'Investing',
     imageID: 'psychology-of-money_lhkbus',
     link: 'https://amzn.to/3QSQx0p',
-    description: 'Morgan Housel\'s masterclass on wealth, greed, and happiness — essential 2026 reading.',
+    description: 'Morgan Housel\'s masterclass on wealth, greed, and happiness — This book is an essential 2026 reading.',
   },
   {
     id: 'coffee-can-investing',
@@ -453,7 +500,7 @@ export const INVENTORY: InventoryItem[] = [
     displayCategory: 'Personal Finance',
     imageID: 'monika-halan-book-click-to-buy_wqis9t',
     link: 'https://amzn.to/4swNUi2',
-    description: 'The gold standard for personal wealth management in the Indian context.',
+    description: 'This book is the gold standard for personal wealth management in the Indian context.',
   },
   {
     id: 'richest-man-in-babylon',
@@ -462,7 +509,7 @@ export const INVENTORY: InventoryItem[] = [
     displayCategory: 'Personal Finance',
     imageID: 'richest-man-in-babylon-tinypng_youvsn',
     link: 'https://amzn.to/4c9fCg5',
-    description: 'Timeless parable on saving, compounding, and "paying yourself first" — a must-read.',
+    description: 'This book is a timeless parable on saving, compounding, and "paying yourself first" — a must-read.',
   },
   {
     id: 'kotak-811-savings-account',

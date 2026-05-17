@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { createPortal } from 'react-dom';
@@ -153,7 +153,15 @@ export default function RohanSelection() {
   const { category } = useParams<{ category?: string }>();
   const [selectedEbook, setSelectedEbook] = useState<Ebook | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState('');
   const isClosingRef = useRef(false);
+
+  // Reset search when the user switches category pills
+  useEffect(() => {
+    setSearchQuery('');
+  }, [category]);
+
+  const deferredQuery = useDeferredValue(searchQuery);
 
   const handleOpenEbook = (ebook: Ebook) => {
     isClosingRef.current = false;
@@ -206,6 +214,24 @@ export default function RohanSelection() {
     // Ebooks first, then affiliates within each category view
     return [...ebooks, ...affiliates];
   }, [category, products]);
+
+  // Client-side search filter — runs on the deferred value to keep typing snappy
+  const filteredItems = useMemo<GridItem[]>(() => {
+    const q = deferredQuery.trim().toLowerCase();
+    if (!q) return gridItems;
+    return gridItems.filter((gi) => {
+      if (gi.kind === 'ebook') {
+        return (
+          gi.product.name.toLowerCase().includes(q) ||
+          (gi.product.description ?? '').toLowerCase().includes(q)
+        );
+      }
+      return (
+        gi.item.name.toLowerCase().includes(q) ||
+        gi.item.description.toLowerCase().includes(q)
+      );
+    });
+  }, [gridItems, deferredQuery]);
 
   // Category pills — union of inventory slugs + ebook slugs
   const allCategorySlugs = useMemo<string[]>(() => {
@@ -306,6 +332,29 @@ export default function RohanSelection() {
           ))}
         </div>
 
+        {/* ── Search bar ── */}
+        <div className="mb-8">
+          <div className="relative w-full sm:max-w-sm">
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search gear and briefs..."
+              aria-label="Search products"
+              className="w-full h-10 pl-4 pr-9 border-2 border-slate-900 bg-white text-sm font-semibold text-slate-900 placeholder:text-slate-400 placeholder:font-normal rounded-lg outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-900 transition-shadow"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear search"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 transition-colors text-base leading-none"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* ── Loading ── */}
         {isLoading && (
           <div className="flex items-center justify-center py-20">
@@ -313,17 +362,41 @@ export default function RohanSelection() {
           </div>
         )}
 
-        {/* ── Empty ── */}
+        {/* ── Empty — no items in category ── */}
         {!isLoading && gridItems.length === 0 && (
           <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-14 text-center">
             <p className="text-slate-500 text-lg">Nothing here yet — check back soon!</p>
           </div>
         )}
 
+        {/* ── Empty — search returned no results ── */}
+        {!isLoading && gridItems.length > 0 && filteredItems.length === 0 && (
+          <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-14 text-center">
+            <p className="text-slate-900 font-bold text-lg mb-2">No results for &ldquo;{searchQuery}&rdquo;</p>
+            <p className="text-slate-500 text-sm">
+              Try a different keyword, or{' '}
+              <button
+                onClick={() => setSearchQuery('')}
+                className="underline underline-offset-2 hover:text-slate-900 transition-colors"
+              >
+                clear the search
+              </button>
+              {category && (
+                <>
+                  {' '}to browse all{' '}
+                  <Link to="/rohan-selection" className="underline underline-offset-2 hover:text-slate-900 transition-colors">
+                    categories
+                  </Link>
+                </>
+              )}.
+            </p>
+          </div>
+        )}
+
         {/* ── Unified Hybrid Grid ── */}
-        {!isLoading && gridItems.length > 0 && (
+        {!isLoading && filteredItems.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
-            {gridItems.map((gi) =>
+            {filteredItems.map((gi) =>
               gi.kind === 'ebook' ? (
                 <EbookCard key={gi.product.id} product={gi.product} onOpen={handleOpenEbook} />
               ) : (
