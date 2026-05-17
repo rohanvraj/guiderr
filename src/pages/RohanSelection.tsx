@@ -126,7 +126,7 @@ function EbookCard({
           }}
         />
         <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-widest bg-[#7178AB] text-white rounded-full px-2 py-0.5">
-          Brief
+          PDF
         </span>
       </div>
       <div className="p-3 flex flex-col flex-1 gap-1">
@@ -221,9 +221,12 @@ export default function RohanSelection() {
     if (!q) return gridItems;
     return gridItems.filter((gi) => {
       if (gi.kind === 'ebook') {
+        // Virtual keywords — searching 'ebook', 'book', or 'pdf' always surfaces all ebooks
+        const virtualTags = 'ebook book pdf brief';
         return (
           gi.product.name.toLowerCase().includes(q) ||
-          (gi.product.description ?? '').toLowerCase().includes(q)
+          (gi.product.description ?? '').toLowerCase().includes(q) ||
+          virtualTags.includes(q)
         );
       }
       return (
