@@ -5,7 +5,7 @@
 // category: matches the route slug (e.g. /rohan-selection/tech).
 //
 // Supported categories: tech | riding-gear | lifestyle |
-//                        investing | personal-finance | credit-cards
+//                        investing | personal-finance | credit-cards | travel
 //
 // Auto-synced from src/content/blog/ on 2026-04-25.
 // Manually preserved: learn-to-earn-peter-lynch, wildhorn-wallet.
@@ -593,6 +593,53 @@ export const INVENTORY: InventoryItem[] = [
     imageID: 'scapia-forex-credit-card-apply-now',
     link: 'https://bitli.in/zB8AYSD',
     description: 'Zero forex markup abroad + free lounge access — the only card you need to travel.',
+  },
+
+  // ── Travel — Mokobara Luggage (from: mokobara articles 2026-05-18) ──────────
+  {
+    id: 'mokobara-transit-backpack',
+    name: 'Mokobara Transit Backpack (30L)',
+    category: 'travel',
+    displayCategory: 'Travel',
+    imageID: 'MOKOBARA_The_Transit_Standard_Backpack_-_30_Litre_Premium_compressed_sgblye',
+    link: 'https://amzn.to/49OFJaf',
+    description: "Mokobara's most popular bag — 30L, 16\" laptop sleeve, water-resistant polyester + vegan leather for daily office and travel use.",
+  },
+  {
+    id: 'mokobara-transit-checkin',
+    name: 'Mokobara Transit Check-in Luggage',
+    category: 'travel',
+    displayCategory: 'Travel',
+    imageID: 'MOKOBARA_The_Transit_Luggage_compressed_zivvgp',
+    link: 'https://amzn.to/493IrbN',
+    description: 'Indestructible polycarbonate shell + Super Silent Ninja Wheels — the 65L go-to bag for 5–7 day trips, rated 4.4★ by 1,000+ buyers.',
+  },
+  {
+    id: 'mokobara-transit-cabin-pro',
+    name: 'Mokobara Transit Cabin Pro',
+    category: 'travel',
+    displayCategory: 'Travel',
+    imageID: 'MOKOBARA_The_Transit_Cabin_Pro__compressed_wvv5xr',
+    link: 'https://amzn.to/4dqRzsd',
+    description: '56cm cabin bag with Hinomoto wheels and front-access laptop compartment — skip the check-in queue on every business trip.',
+  },
+  {
+    id: 'mokobara-transit-set-of-3',
+    name: 'Mokobara Transit Luggage Set of 3',
+    category: 'travel',
+    displayCategory: 'Travel',
+    imageID: 'OKOBARA_Polycarbonate_The_Transit_set_of_3_compressed_i5r6ir',
+    link: 'https://amzn.to/4dhpYLh',
+    description: 'Complete travel overhaul — 40L, 65L, and 100L polycarbonate bags at a bundle discount, rated 4.5★.',
+  },
+  {
+    id: 'mokobara-transit-briefcase',
+    name: 'Mokobara Transit Briefcase',
+    category: 'travel',
+    displayCategory: 'Travel',
+    imageID: 'MOKOBARA_The_Transit_Briefcase__compressed_rd2gdo',
+    link: 'https://amzn.to/49CHdEy',
+    description: '15L executive messenger bag — premium vegan leather + luggage sleeve for effortless airport terminal walks.',
   },
 ];
 
