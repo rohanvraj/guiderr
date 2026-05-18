@@ -14,11 +14,11 @@ Mokobara has redefined travel gear in India. By combining aesthetics with high-p
 
 ## ⚡ Quick Selection Guide
 
-- **For Daily Office & Commute:** [Transit Backpack (30L)](#)
-- **For Weeklong International Trips:** [Transit Check-in Medium](#)
-- **For Short Business Trips (Cabin):** [Transit Cabin Pro](#)
-- **For Maximum Value (Family):** [Transit Luggage Set of 3](#)
-- **For Professional Meetings:** [The Transit Briefcase](#)
+- **For Daily Office & Commute:** [Transit Backpack (30L)](https://amzn.to/49OFJaf)
+- **For Weeklong International Trips:** [Transit Check-in Medium](https://amzn.to/493IrbN)
+- **For Short Business Trips (Cabin):** [Transit Cabin Pro](https://amzn.to/4dqRzsd)
+- **For Maximum Value (Family):** [Transit Luggage Set of 3](https://amzn.to/4dhpYLh)
+- **For Professional Meetings:** [The Transit Briefcase](https://amzn.to/49CHdEy)
 
 ---
 
