@@ -41,7 +41,7 @@ The standout feature is the set of 8 Hinomoto wheels. These Japanese-engineered 
 
 ## 🔒 3. Smart Security & Handling
 
-[![Mokobara TSA Lock and Handle](Screenshot_2026-05-18_at_4.33.21_PM_compressed_fofh1v)](https://amzn.to/3vOrlbx)  
+[![Mokobara TSA Lock and Handle](Screenshot_2026-05-18_at_4.33.21_PM_compressed_fofh1v)](https://amzn.to/4fncgYI)  
 [**👉 Check Price on Amazon**](https://amzn.to/4fncgYI)
 
 - **TSA Lock:** The keyless TSA-approved lock ensures your belongings are safe. Security officers can inspect your bag without breaking the lock.
