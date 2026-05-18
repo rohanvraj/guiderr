@@ -99,7 +99,7 @@ export default function Library() {
     const prevDesc = meta?.content ?? '';
     if (meta) {
       meta.content =
-        'Download premium ebooks, blueprints, and checklists on Motorcycles, Personal Finance, Travel and more. From ₹99.';
+        'Download premium ebooks, blueprints, and checklists on Motorcycles, Personal Finance, Travel and more. From ₹100.';
     }
     // Canonical
     let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -157,13 +157,13 @@ export default function Library() {
               The latest
             </p>
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.06] mb-4">
-              Our Premium Modules<br className="hidden sm:block" /> From ₹99.
+              Our Premium Modules<br className="hidden sm:block" /> From ₹100.
             </h1>
             <p className="text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">
               Ebooks, checklists, and frameworks for smarter decisions on motorcycles, money, and modern life.
             </p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5">
-              {['Instant PDF download', 'Read on any device', 'From ₹99'].map((item) => (
+              {['Instant PDF download', 'Read on any device', 'From ₹100'].map((item) => (
                 <span key={item} className="flex items-center gap-2 text-xs text-white/35 font-medium tracking-wide">
                   <span className="w-1 h-1 rounded-full bg-white/35 shrink-0" />
                   {item}
