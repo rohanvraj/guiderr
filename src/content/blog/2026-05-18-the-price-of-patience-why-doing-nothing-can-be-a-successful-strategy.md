@@ -74,7 +74,7 @@ This means each remaining owner's share automatically becomes larger.
 > * Easy-to-understand valuation illustrations
 > * 4 AI learning prompts for deeper study
 >
-> [**Unlock Intelligent Brief #08 — The Management Logic Scan (₹99)**](buy:f05ddcb8-2be4-42d3-9882-6f5417683383)
+> [**Unlock Intelligent Brief #08 — The Management Logic Scan (₹99)**](buy:a2eb902b-672c-4b17-92d9-4aa0203c7f3d)
 
 ***
 
