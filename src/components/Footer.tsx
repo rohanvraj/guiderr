@@ -38,8 +38,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/rohan-selection" className="text-slate-400 hover:text-white transition-colors">
-                  Rohan Selection
+                <Link to="/top-picks" className="text-slate-400 hover:text-white transition-colors">
+                  Top Picks
                 </Link>
               </li>
               <li>

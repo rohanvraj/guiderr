@@ -2,7 +2,7 @@
 // Each item has a stable `id` slug used in URLs and tracking.
 // imageID: Cloudinary public ID (e.g. 'viaterra-claw_abc123') — same format as
 //          blog markdown images. External URLs also work (passed through unchanged).
-// category: matches the route slug (e.g. /rohan-selection/tech).
+// category: matches the route slug (e.g. /top-picks/tech).
 //
 // Supported categories: tech | riding-gear | lifestyle |
 //                        investing | personal-finance | credit-cards | travel

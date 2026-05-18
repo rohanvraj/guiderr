@@ -183,15 +183,15 @@ export default function Hero() {
               </div>
             </Link>
 
-            {/* 3. The Selection — bottom right, left cell */}
+            {/* 3. Top Picks — bottom right, left cell */}
             <Link
-              to="/rohan-selection"
+              to="/top-picks"
               className="group sm:col-span-1 sm:row-span-1 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-sky-500 hover:bg-sky-400 p-6 min-h-[160px] sm:min-h-0 transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl hover:shadow-sky-500/30 active:scale-[0.98]"
             >
-              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">GEAR</span>
+              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">PICKS</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">03</p>
-                <h2 className="text-xl font-bold text-slate-950">The Guiderr Selection.</h2>
+                <h2 className="text-xl font-bold text-slate-950">Top Picks.</h2>
                 <p className="mt-2 text-sm text-slate-950/70">
                   Rohan's personal picks across every category.
                 </p>

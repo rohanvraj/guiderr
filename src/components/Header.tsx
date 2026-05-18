@@ -69,7 +69,7 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* Selection Link */}
+            {/* Top Picks Link */}
             <div
               className="relative"
               onMouseEnter={() => setHoveredNav('selection')}
@@ -88,10 +88,10 @@ export default function Header() {
                 )}
               </AnimatePresence>
               <Link
-                to="/rohan-selection"
+                to="/top-picks"
                 className="relative z-10 block text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
               >
-                Selection
+                Top Picks
               </Link>
             </div>
 
@@ -227,13 +227,13 @@ export default function Header() {
                 Library
               </Link>
 
-              {/* Selection Link */}
+              {/* Top Picks Link */}
               <Link
-                to="/rohan-selection"
+                to="/top-picks"
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
               >
-                Selection
+                Top Picks
               </Link>
 
               {/* Start Here Link */}

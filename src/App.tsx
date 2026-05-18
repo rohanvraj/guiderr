@@ -1,5 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { useEffect, Suspense } from 'react';
+
+// Redirect /rohan-selection/:category → /top-picks/:category
+function LegacyCategoryRedirect() {
+  const { category } = useParams<{ category: string }>();
+  return <Navigate to={`/top-picks/${category}`} replace />;
+}
 import { supabase } from './utils/supabase';
 import { CartProvider } from './context/CartContext';
 import CartPanel from './components/CartPanel';
@@ -102,8 +108,10 @@ function App() {
             <Route path="/start-here" element={<StartHerePage />} />
             <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
             <Route path="/investing" element={<InvestingPage />} />
-            <Route path="/rohan-selection" element={<RohanSelectionPage />} />
-            <Route path="/rohan-selection/:category" element={<RohanSelectionPage />} />
+            <Route path="/rohan-selection" element={<Navigate to="/top-picks" replace />} />
+            <Route path="/rohan-selection/:category" element={<LegacyCategoryRedirect />} />
+            <Route path="/top-picks" element={<RohanSelectionPage />} />
+            <Route path="/top-picks/:category" element={<RohanSelectionPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

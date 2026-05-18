@@ -196,7 +196,7 @@ export default function RohanSelection() {
   }, [products, searchParams, selectedEbook]);
 
   // Ghost word
-  const ghostWord = category ? categoryLabel(category).toUpperCase() : 'SELECTION';
+  const ghostWord = category ? categoryLabel(category).toUpperCase() : 'TOP PICKS';
 
   // Unified hybrid grid — blend ebooks + affiliates in one array
   const gridItems = useMemo<GridItem[]>(() => {
@@ -256,8 +256,8 @@ export default function RohanSelection() {
   useEffect(() => {
     const prev = document.title;
     document.title = category
-      ? `${categoryLabel(category)} — Rohan Selection | Guiderr`
-      : 'Rohan Selection | Guiderr — Curated Picks';
+      ? `${categoryLabel(category)} — Top Picks | Guiderr`
+      : "Top Picks | Guiderr — Rohan's Curated Picks";
     // Canonical
     let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     const canonicalWasPresent = !!canonical;
@@ -268,8 +268,8 @@ export default function RohanSelection() {
       document.head.appendChild(canonical);
     }
     canonical.href = category
-      ? `https://www.guiderr.in/rohan-selection/${category}`
-      : 'https://www.guiderr.in/rohan-selection';
+      ? `https://www.guiderr.in/top-picks/${category}`
+      : 'https://www.guiderr.in/top-picks';
     return () => {
       document.title = prev;
       if (canonicalWasPresent && canonical) canonical.href = prevHref;
@@ -298,7 +298,7 @@ export default function RohanSelection() {
               Curated by Rohan
             </p>
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.06] mb-4">
-              {category ? categoryLabel(category) : 'The Selection.'}
+              {category ? categoryLabel(category) : "Rohan's Top Picks."}
             </h1>
             <p className="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed">
               {category
@@ -311,7 +311,7 @@ export default function RohanSelection() {
         {/* ── Category filter pills ── */}
         <div className="flex flex-wrap gap-2 mb-10">
           <Link
-            to="/rohan-selection"
+            to="/top-picks"
             className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
               !category
                 ? 'bg-slate-900 text-white'
@@ -323,7 +323,7 @@ export default function RohanSelection() {
           {allCategorySlugs.map((slug) => (
             <Link
               key={slug}
-              to={`/rohan-selection/${slug}`}
+              to={`/top-picks/${slug}`}
               className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                 category === slug
                   ? 'bg-slate-900 text-white'
@@ -387,7 +387,7 @@ export default function RohanSelection() {
               {category && (
                 <>
                   {' '}to browse all{' '}
-                  <Link to="/rohan-selection" className="underline underline-offset-2 hover:text-slate-900 transition-colors">
+                  <Link to="/top-picks" className="underline underline-offset-2 hover:text-slate-900 transition-colors">
                     categories
                   </Link>
                 </>
