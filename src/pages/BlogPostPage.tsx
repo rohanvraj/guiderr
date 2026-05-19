@@ -34,11 +34,29 @@ function makeHeadingId(children: unknown): string {
 }
 
 // Maps article category → matching Library section URL.
-const LIBRARY_MAP: Record<string, string> = {
-  'AI Lab':     '/library/ai-lab',
-  'Investing':  '/library/investing',
-  'Finance':    '/library/personal-finance',
-  'Automotive': '/library/motorcycles',
+// Monetised categories → /library/...; hub-only categories → /top-picks/...
+const DESTINATION_MAP: Record<string, string> = {
+  'AI Lab':        '/library/ai-lab',
+  'Investing':     '/library/investing',
+  'Finance':       '/library/personal-finance',
+  'Tech':          '/top-picks/tech',
+  'Automotive':    '/top-picks/riding-gear',
+  'Lifestyle':     '/top-picks/lifestyle',
+  'Business':      '/top-picks',
+  'Travel':        '/top-picks',
+  'Home & Living': '/top-picks',
+};
+
+const CTA_LABEL_MAP: Record<string, string> = {
+  'AI Lab':        'Explore AI Lab Briefs →',
+  'Investing':     'Explore Investing Briefs →',
+  'Finance':       'Explore Finance Briefs →',
+  'Tech':          'Browse Top Tech Picks →',
+  'Automotive':    'Browse Riding Gear Picks →',
+  'Lifestyle':     'Browse Lifestyle Picks →',
+  'Business':      'Browse Curated Picks →',
+  'Travel':        'Browse Travel Picks →',
+  'Home & Living': 'Browse Home Picks →',
 };
 
 export default function BlogPostPage() {
@@ -199,7 +217,8 @@ export default function BlogPostPage() {
     );
   }
 
-  const libraryHref = LIBRARY_MAP[post.category] ?? '/library';
+  const libraryHref  = DESTINATION_MAP[post.category] ?? '/top-picks';
+  const libraryLabel  = CTA_LABEL_MAP[post.category]  ?? 'Browse Curated Picks →';
 
   return (
     <div className={`min-h-screen ${isFeatured ? 'bg-[#FAF9F7]' : 'bg-gradient-to-b from-slate-50 to-white'}`}>
@@ -482,19 +501,19 @@ export default function BlogPostPage() {
 
       <Footer />
 
-      {/* ── Floating Library CTA Pill ── */}
+      {/* ── Floating CTA Pill (Gumroad neo-brutalist) ── */}
       {showPill && !pillDismissed && (
-        <div className="no-print fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-full bg-slate-900/80 backdrop-blur-md shadow-lg border border-white/10">
+        <div className="no-print fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-[#FFD000]">
           <Link
             to={libraryHref}
-            className="text-white text-sm font-medium tracking-wide whitespace-nowrap hover:text-indigo-300 transition-colors"
+            className="text-black text-sm font-bold tracking-wide whitespace-nowrap"
           >
-            Unlock Premium Modules in the Library →
+            {libraryLabel}
           </Link>
           <button
             onClick={dismissPill}
-            aria-label="Dismiss library prompt"
-            className="text-white/40 hover:text-white transition-colors text-xs leading-none ml-1"
+            aria-label="Dismiss"
+            className="text-black/40 hover:text-black transition-colors text-xs leading-none ml-1 font-bold"
           >
             ✕
           </button>
