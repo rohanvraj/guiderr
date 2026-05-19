@@ -82,9 +82,10 @@ export default function BlogPostPage() {
     if (pillDismissed) return;
     function onScroll() {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 0 && window.scrollY / docHeight >= 0.4) setShowPill(true);
+      if (docHeight > 0 && window.scrollY / docHeight >= 0.3) setShowPill(true);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // check immediately so pill shows correctly after browser scroll restoration on refresh
     return () => window.removeEventListener('scroll', onScroll);
   }, [pillDismissed]);
 
