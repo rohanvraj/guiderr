@@ -29,13 +29,13 @@ const criticalRoutes = ['/', '/start-here'];
 // Priority 0.9 — Revenue / high-value pages
 const revenueRoutes = [
   '/library',
-  '/rohan-selection',
-  '/rohan-selection/tech',
-  '/rohan-selection/riding-gear',
-  '/rohan-selection/lifestyle',
-  '/rohan-selection/investing',
-  '/rohan-selection/personal-finance',
-  '/rohan-selection/credit-cards',
+  '/top-picks',
+  '/top-picks/tech',
+  '/top-picks/riding-gear',
+  '/top-picks/lifestyle',
+  '/top-picks/investing',
+  '/top-picks/personal-finance',
+  '/top-picks/credit-cards',
 ];
 
 // Priority 0.8 — Authority hubs and content indexes

@@ -1,4 +1,4 @@
-import { useEffect, Children, isValidElement } from 'react';
+import { useEffect, useState, Children, isValidElement } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Header from '../components/Header';
@@ -33,6 +33,14 @@ function makeHeadingId(children: unknown): string {
     .replace(/^-|-$/g, '');
 }
 
+// Maps article category → matching Library section URL.
+const LIBRARY_MAP: Record<string, string> = {
+  'AI Lab':     '/library/ai-lab',
+  'Investing':  '/library/investing',
+  'Finance':    '/library/personal-finance',
+  'Automotive': '/library/motorcycles',
+};
+
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const blogPost = slug ? getPostBySlug(slug) : undefined;
@@ -45,6 +53,28 @@ export default function BlogPostPage() {
   const isLocalhost = typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
   const blockedDraft = isDraft && !isLocalhost;
+
+  // ── Floating Library CTA Pill ──────────────────────────────────────────────
+  const [showPill, setShowPill] = useState(false);
+  const [pillDismissed, setPillDismissed] = useState(
+    () => typeof window !== 'undefined' && sessionStorage.getItem('lib-cta-dismissed') === '1'
+  );
+
+  useEffect(() => {
+    if (pillDismissed) return;
+    function onScroll() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0 && window.scrollY / docHeight >= 0.4) setShowPill(true);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [pillDismissed]);
+
+  function dismissPill() {
+    sessionStorage.setItem('lib-cta-dismissed', '1');
+    setPillDismissed(true);
+    setShowPill(false);
+  }
 
   // ── JSON-LD Article Schema + meta + canonical + OG/Twitter (SEO Hardening) ──
   // Fires only when a valid post is found. No library needed.
@@ -168,6 +198,8 @@ export default function BlogPostPage() {
       </div>
     );
   }
+
+  const libraryHref = LIBRARY_MAP[post.category] ?? '/library';
 
   return (
     <div className={`min-h-screen ${isFeatured ? 'bg-[#FAF9F7]' : 'bg-gradient-to-b from-slate-50 to-white'}`}>
@@ -449,6 +481,25 @@ export default function BlogPostPage() {
       </div>
 
       <Footer />
+
+      {/* ── Floating Library CTA Pill ── */}
+      {showPill && !pillDismissed && (
+        <div className="no-print fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-full bg-slate-900/80 backdrop-blur-md shadow-lg border border-white/10">
+          <Link
+            to={libraryHref}
+            className="text-white text-sm font-medium tracking-wide whitespace-nowrap hover:text-indigo-300 transition-colors"
+          >
+            Unlock Premium Modules in the Library →
+          </Link>
+          <button
+            onClick={dismissPill}
+            aria-label="Dismiss library prompt"
+            className="text-white/40 hover:text-white transition-colors text-xs leading-none ml-1"
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </div>
   );
 }
