@@ -9,9 +9,12 @@ export default function Footer() {
 
           {/* Branding */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-8 h-8" strokeWidth={2.5} />
-              <span className="text-2xl font-bold">Guiderr</span>
+            <div className="mb-4">
+              <img src="/images/guiderr-logo.webp" alt="Guiderr Logo" className="h-12 w-auto mb-3" />
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-8 h-8" strokeWidth={2.5} />
+                <span className="text-2xl font-bold">Guiderr</span>
+              </div>
             </div>
             <p className="text-slate-300 leading-relaxed">
               Premium guides, blueprints, and digital resources to help modern Indians move faster, save smarter, and live bigger.
