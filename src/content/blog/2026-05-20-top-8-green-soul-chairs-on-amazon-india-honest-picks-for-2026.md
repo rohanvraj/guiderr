@@ -23,7 +23,7 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 🪑 1. Green Soul Jupiter Superb (The All-Rounder)
 
-[![Green Soul Jupiter Superb](chair5_vdp4k5)](https://amzn.to/42Qjhd9)
+[![Green Soul Jupiter Superb](chair5_x9gp8r-jupiter-superb)](https://amzn.to/42Qjhd9)
 [**👉 Check Price on Amazon**](https://amzn.to/42Qjhd9)
 
 - **Technical Specs:** High back with 2D Lumbar and 2D Armrests. Features a 3D adjustable headrest.
