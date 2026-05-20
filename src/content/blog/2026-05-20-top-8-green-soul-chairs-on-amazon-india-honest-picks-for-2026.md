@@ -1,7 +1,7 @@
 ---
 title: "Top 8 Green Soul Chairs on Amazon India: Honest Picks for 2026"
 date: 2026-05-21T00:47:00.000Z
-category: Tech
+category: Lifestyle
 author: Guiderr Tech
 status: published
 featured_image: greensoul_thumbnail_under_80kb_iptoh8
