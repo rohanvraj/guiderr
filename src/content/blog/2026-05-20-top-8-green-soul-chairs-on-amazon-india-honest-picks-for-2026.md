@@ -108,7 +108,7 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 ## 👹 8. Green Soul Beast (Fabric + PU Hybrid)
 
 [![Green Soul Beast](chair6_jbli2m)](https://amzn.to/4dCfF3k)
-[**👉 Check Price on Amazon**]([add link])
+[**👉 Check Price on Amazon**](https://amzn.to/4dCfF3k)
 
 - **Technical Specs:** A mix of Fabric and PU Leather for breathability. Features 3D Adjustable Armrests.
 - **Mechanism:** Butterfly mechanism with an adjustable/removable lumbar pillow.
