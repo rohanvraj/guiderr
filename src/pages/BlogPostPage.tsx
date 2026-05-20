@@ -34,27 +34,28 @@ function makeHeadingId(children: unknown): string {
 }
 
 // Maps article category → matching Library section URL.
-// Monetised categories → /library/...; hub-only categories → /top-picks/...
+// Library categories (ebooks exist) → /library/...
+// All other categories → /top-picks/<subcategory>
 const DESTINATION_MAP: Record<string, string> = {
   'AI Lab':        '/library/ai-lab',
   'Investing':     '/library/investing',
-  'Finance':       '/library/personal-finance',
+  'Finance':       '/top-picks/personal-finance',
   'Tech':          '/top-picks/tech',
   'Automotive':    '/top-picks/riding-gear',
   'Lifestyle':     '/top-picks/lifestyle',
-  'Business':      '/top-picks',
-  'Travel':        '/top-picks',
+  'Business':      '/top-picks/business',
+  'Travel':        '/top-picks/travel',
   'Home & Living': '/top-picks',
 };
 
 const CTA_LABEL_MAP: Record<string, string> = {
   'AI Lab':        'Explore AI Lab Briefs →',
   'Investing':     'Explore Investing Briefs →',
-  'Finance':       'Explore Finance Briefs →',
+  'Finance':       'Browse Finance Picks →',
   'Tech':          'Browse Top Tech Picks →',
   'Automotive':    'Browse Riding Gear Picks →',
   'Lifestyle':     'Browse Lifestyle Picks →',
-  'Business':      'Browse Curated Picks →',
+  'Business':      'Browse Business Picks →',
   'Travel':        'Browse Travel Picks →',
   'Home & Living': 'Browse Home Picks →',
 };
