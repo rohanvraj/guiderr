@@ -11,7 +11,7 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ---
 
-## ⚡ Quick Selection Guide
+## ⚡ Quick Selection Guide:
 
 - **Best for Professional WFH:** [Jupiter Superb](#https://amzn.to/42Qjhd9) 
 - **Best for Budget Users:** [Seoul X Mid-Back](#https://amzn.to/4v6c5Wt) 
