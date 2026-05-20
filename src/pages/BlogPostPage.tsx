@@ -35,7 +35,7 @@ function makeHeadingId(children: unknown): string {
 
 // Maps article category → matching Library section URL.
 // Library categories (ebooks exist) → /library/...
-// All other categories → /top-picks/<subcategory>
+// All other categories → /top-picks/<subcategory> (or /top-picks if no affiliate links exist)
 const DESTINATION_MAP: Record<string, string> = {
   'AI Lab':        '/library/ai-lab',
   'Investing':     '/library/investing',
@@ -43,7 +43,7 @@ const DESTINATION_MAP: Record<string, string> = {
   'Tech':          '/top-picks/tech',
   'Automotive':    '/top-picks/riding-gear',
   'Lifestyle':     '/top-picks/lifestyle',
-  'Business':      '/top-picks/business',
+  'Business':      '/top-picks',
   'Travel':        '/top-picks/travel',
   'Home & Living': '/top-picks',
 };
@@ -55,7 +55,7 @@ const CTA_LABEL_MAP: Record<string, string> = {
   'Tech':          'Browse Top Tech Picks →',
   'Automotive':    'Browse Riding Gear Picks →',
   'Lifestyle':     'Browse Lifestyle Picks →',
-  'Business':      'Browse Business Picks →',
+  'Business':      'Browse Curated Picks →',
   'Travel':        'Browse Travel Picks →',
   'Home & Living': 'Browse Home Picks →',
 };
