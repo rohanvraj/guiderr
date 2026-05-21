@@ -22,7 +22,7 @@ The 2026 Tiago appears to have a completely revised front fascia. It features sl
 - **Wheels:** A new dual-tone alloy wheel design, with aero inserts specifically for the electric version.
 - **Rear Profile:** A brand-new connected LED taillamp cluster and a sharkfin antenna have been added for a more premium look.
 
-[![2026 Tata Tiago Front View](enhanced_tiago_1_vqpa07)](https://amzn.to/placeholder)
+![2026 Tata Tiago Front View](enhanced_tiago_1_vqpa07)
 
 ---
 
@@ -42,7 +42,7 @@ While the interior remains mostly under wraps, the teaser suggests a few key upd
 
 The most notable technology addition appears to be a **360-degree camera system**, which could be a first-in-segment highlight. Other potential features include a larger touchscreen and a wireless charging pad.
 
-[![Tiago 360-Degree Camera Teaser](enhanced_tiago_2_iwcvdq)](https://amzn.to/placeholder)
+![Tiago 360-Degree Camera Teaser](enhanced_tiago_2_iwcvdq)
 
 ---
 
@@ -67,7 +67,7 @@ The petrol Tiago is expected to retain its 1.2-litre engine, possibly available 
 
 For the **Tiago EV**, rumors suggest larger battery packs may be introduced, potentially leading to better range figures and faster DC charging times.
 
-[![Tiago EV Charging and Badge](enhanced_tiago_3_n446jo)](https://amzn.to/placeholder)
+![Tiago EV Charging and Badge](enhanced_tiago_3_n446jo)
 
 ---
 
