@@ -303,18 +303,17 @@ export default function BlogPostPage() {
             <div
               className="founder-float"
               style={{
-                shapeOutside: 'circle(50%)',
-                borderRadius: '50%',
-                width: '160px',
-                height: '160px',
+                width: '140px',
+                height: '187px', /* 3:4 aspect ratio */
                 overflow: 'hidden',
                 flexShrink: 0,
                 border: '3px solid rgba(212,175,55,0.35)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.10)',
+                borderRadius: '4px',
               }}
             >
               <img
-                src={optimizeCloudinaryUrl((post as import('../utils/blog').FeaturedStory).founderImage, { width: 320, quality: 'auto:eco' })}
+                src={optimizeCloudinaryUrl((post as import('../utils/blog').FeaturedStory).founderImage, { width: 280, quality: 'auto:eco' })}
                 alt={post.author ? `${post.author}` : 'Featured founder'}
                 className="w-full h-full object-cover"
                 loading="eager"

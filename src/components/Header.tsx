@@ -169,7 +169,7 @@ export default function Header() {
                 to="/featured"
                 className="relative z-10 block text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
               >
-                Featured
+                Featured Stories
               </Link>
             </div>
 
@@ -259,7 +259,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
               >
-                Featured
+                Featured Stories
               </Link>
 
               {/* About Link */}
