@@ -40,7 +40,11 @@ export default function Footer() {
                   Get Featured
                 </Link>
               </li>
-              {/* Top Picks — hidden */}
+              <li>
+                <Link to="/top-picks" className="text-slate-400 hover:text-white transition-colors">
+                  Top Picks
+                </Link>
+              </li>
               <li>
                 <Link to="/affiliate-disclosure" className="text-slate-400 hover:text-white transition-colors">
                   Affiliate Disclosure

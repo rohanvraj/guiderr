@@ -2,6 +2,7 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { createPortal } from 'react-dom';
+import { Monitor, Bike, Sparkles, TrendingUp, Wallet, CreditCard, Plane, ShoppingBag } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EbookModal from '../components/EbookModal';
@@ -59,7 +60,21 @@ type GridItem =
 
 // ── Affiliate card (white-background aesthetic) ───────────────────────────────
 
+type CategoryConfig = { gradient: string; iconColor: string; Icon: React.ElementType };
+
+const CATEGORY_STYLE: Record<string, CategoryConfig> = {
+  'tech':             { gradient: 'from-blue-50 to-blue-100',      iconColor: 'text-blue-500',    Icon: Monitor },
+  'riding-gear':      { gradient: 'from-orange-50 to-orange-100',  iconColor: 'text-orange-500',  Icon: Bike },
+  'lifestyle':        { gradient: 'from-purple-50 to-purple-100',  iconColor: 'text-purple-500',  Icon: Sparkles },
+  'investing':        { gradient: 'from-green-50 to-green-100',    iconColor: 'text-green-600',   Icon: TrendingUp },
+  'personal-finance': { gradient: 'from-emerald-50 to-emerald-100', iconColor: 'text-emerald-600', Icon: Wallet },
+  'credit-cards':     { gradient: 'from-slate-50 to-slate-100',    iconColor: 'text-slate-500',   Icon: CreditCard },
+  'travel':           { gradient: 'from-cyan-50 to-cyan-100',      iconColor: 'text-cyan-600',    Icon: Plane },
+};
+
 function AffiliateCard({ item }: { item: InventoryItem }) {
+  const style = CATEGORY_STYLE[item.category] ?? { gradient: 'from-slate-50 to-slate-100', iconColor: 'text-slate-400', Icon: ShoppingBag };
+  const { Icon } = style;
   return (
     <a
       href={item.link}
@@ -67,17 +82,9 @@ function AffiliateCard({ item }: { item: InventoryItem }) {
       rel="noopener noreferrer nofollow"
       className="group flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-        <img
-          src={optimizeCloudinaryUrl(item.imageID, { width: 400, quality: 'auto:eco' })}
-          alt={item.name}
-          loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
-        />
-        <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-widest bg-black/40 text-white rounded-full px-2 py-0.5">
+      <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${style.gradient} flex items-center justify-center`}>
+        <Icon size={48} strokeWidth={1.25} className={`${style.iconColor} opacity-80`} />
+        <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-widest bg-white/70 text-slate-500 rounded-full px-2 py-0.5">
           Ad
         </span>
       </div>
