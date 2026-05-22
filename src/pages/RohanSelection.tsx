@@ -2,7 +2,6 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { createPortal } from 'react-dom';
-import { Monitor, Bike, Sparkles, TrendingUp, Wallet, CreditCard, Plane, ShoppingBag } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EbookModal from '../components/EbookModal';
@@ -58,47 +57,44 @@ type GridItem =
   | { kind: 'ebook'; product: Product }
   | { kind: 'affiliate'; item: InventoryItem };
 
-// ── Affiliate card (white-background aesthetic) ───────────────────────────────
+// ── Affiliate card (text-only, category accent border) ───────────────────────
 
-type CategoryConfig = { gradient: string; iconColor: string; Icon: React.ElementType };
-
-const CATEGORY_STYLE: Record<string, CategoryConfig> = {
-  'tech':             { gradient: 'from-blue-50 to-blue-100',      iconColor: 'text-blue-500',    Icon: Monitor },
-  'riding-gear':      { gradient: 'from-orange-50 to-orange-100',  iconColor: 'text-orange-500',  Icon: Bike },
-  'lifestyle':        { gradient: 'from-purple-50 to-purple-100',  iconColor: 'text-purple-500',  Icon: Sparkles },
-  'investing':        { gradient: 'from-green-50 to-green-100',    iconColor: 'text-green-600',   Icon: TrendingUp },
-  'personal-finance': { gradient: 'from-emerald-50 to-emerald-100', iconColor: 'text-emerald-600', Icon: Wallet },
-  'credit-cards':     { gradient: 'from-slate-50 to-slate-100',    iconColor: 'text-slate-500',   Icon: CreditCard },
-  'travel':           { gradient: 'from-cyan-50 to-cyan-100',      iconColor: 'text-cyan-600',    Icon: Plane },
+// Full class strings kept here so Tailwind JIT includes them at build time
+const CATEGORY_ACCENT: Record<string, string> = {
+  'tech':             'border-t-blue-500',
+  'riding-gear':      'border-t-orange-500',
+  'lifestyle':        'border-t-purple-500',
+  'investing':        'border-t-green-600',
+  'personal-finance': 'border-t-emerald-600',
+  'credit-cards':     'border-t-slate-400',
+  'travel':           'border-t-cyan-600',
 };
 
 function AffiliateCard({ item }: { item: InventoryItem }) {
-  const style = CATEGORY_STYLE[item.category] ?? { gradient: 'from-slate-50 to-slate-100', iconColor: 'text-slate-400', Icon: ShoppingBag };
-  const { Icon } = style;
+  const accent = CATEGORY_ACCENT[item.category] ?? 'border-t-slate-300';
   return (
     <a
       href={item.link}
       target="_blank"
       rel="noopener noreferrer nofollow"
-      className="group flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
+      className={`group flex flex-col bg-white rounded-2xl border border-slate-200 border-t-4 ${accent} overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-300`}
     >
-      <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${style.gradient} flex items-center justify-center`}>
-        <Icon size={48} strokeWidth={1.25} className={`${style.iconColor} opacity-80`} />
-        <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-widest bg-white/70 text-slate-500 rounded-full px-2 py-0.5">
-          Ad
-        </span>
-      </div>
-      <div className="p-3 flex flex-col flex-1 gap-1.5">
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-          {item.displayCategory}
-        </p>
+      <div className="p-4 flex flex-col flex-1 gap-2">
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+            {item.displayCategory}
+          </p>
+          <span className="shrink-0 text-[9px] font-bold uppercase tracking-widest bg-slate-100 text-slate-400 rounded-full px-2 py-0.5">
+            Ad
+          </span>
+        </div>
         <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2 flex-1">
           {item.name}
         </h3>
-        <p className="text-xs text-slate-500 leading-snug line-clamp-2">
+        <p className="text-xs text-slate-500 leading-snug line-clamp-3">
           {item.description}
         </p>
-        <div className="mt-1 pt-2 border-t border-slate-100">
+        <div className="mt-auto pt-3 border-t border-slate-100">
           <span className="text-[10px] font-bold uppercase tracking-widest text-[#7178AB] group-hover:text-slate-900 transition-colors">
             CHECK PRICE →
           </span>
