@@ -264,7 +264,7 @@ export default function BlogPostPage() {
           </span>
         )}
 
-        <h1 className={`text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4`}>
+        <h1 className={`text-3xl sm:text-4xl font-bold leading-tight mb-4${isFeatured ? ' font-display text-[#1a0e05]' : ' text-slate-900'}`}>
           {post.title}
         </h1>
 
@@ -297,14 +297,14 @@ export default function BlogPostPage() {
         {/* Feather-Weight: every inline img is a bare Cloudinary Public ID.
             optimizeCloudinaryUrl builds the full CDN URL with f_auto,q_auto:eco,w_800
             so browsers get WebP/AVIF automatically. loading=lazy protects bandwidth. */}
-        <article className={`prose ${isFeatured ? 'prose-lg' : ''} prose-slate max-w-none prose-headings:font-bold ${isFeatured ? 'prose-a:text-amber-800' : 'prose-a:text-indigo-600'} prose-img:rounded-xl prose-p:leading-[1.75]${isFeatured ? ' featured-lead' : ''}`}>
+        <article className={`prose ${isFeatured ? 'prose-lg' : ''} prose-slate max-w-none prose-headings:font-bold ${isFeatured ? 'prose-a:text-amber-800' : 'prose-a:text-indigo-600'} prose-img:rounded-xl prose-p:leading-[1.6]${isFeatured ? ' featured-lead' : ''}`}>
           {/* Floated founder portrait — only for featured stories with a founder_image */}
           {isFeatured && (post as import('../utils/blog').FeaturedStory).founderImage && (
             <div
               className="founder-float"
               style={{
-                width: '140px',
-                height: '187px', /* 3:4 aspect ratio */
+                width: '240px',
+                height: '320px', /* 3:4 portrait ratio — standard for all founder images */
                 overflow: 'hidden',
                 flexShrink: 0,
                 border: '3px solid rgba(212,175,55,0.35)',
@@ -313,9 +313,9 @@ export default function BlogPostPage() {
               }}
             >
               <img
-                src={optimizeCloudinaryUrl((post as import('../utils/blog').FeaturedStory).founderImage, { width: 280, quality: 'auto:eco' })}
+                src={optimizeCloudinaryUrl((post as import('../utils/blog').FeaturedStory).founderImage, { width: 480, quality: 'auto:eco' })}
                 alt={post.author ? `${post.author}` : 'Featured founder'}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 loading="eager"
               />
             </div>

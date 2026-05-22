@@ -93,14 +93,24 @@ html {
 }
 
 /* ── Featured Article Lead-in Paragraph ─────────────────────────────────────── */
-/* First <p> in a Featured Story gets an editorial "drop-in" treatment.         */
-.featured-lead > p:first-of-type {
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 1.25em; /* 25% larger than prose-lg base for elegant editorial emphasis */
+/* All paragraphs in a Featured Story get consistent editorial sizing.          */
+.featured-lead p {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.15em;
   font-weight: 400;
-  line-height: 1.85;
+  line-height: 1.6;
   letter-spacing: -0.01em;
   color: #2d1a0e;
+  margin-top: 0.85em;
+  margin-bottom: 0.85em;
+}
+
+.featured-lead h1,
+.featured-lead h2,
+.featured-lead h3,
+.featured-lead h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #1a0e05;
 }
 
 /* Floated founder portrait — clears on mobile */

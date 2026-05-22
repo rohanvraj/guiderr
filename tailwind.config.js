@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        editorial: ['"EB Garamond"', 'Georgia', 'serif'],
+        editorial: ['"Lora"', 'Georgia', 'serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
       },
       typography: {
         DEFAULT: {
