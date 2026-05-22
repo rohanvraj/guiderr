@@ -73,7 +73,7 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ---
 
-[![Visual Representation: A modern ergonomic workstation in a home office setup](motorised-table-3_placeholder)](https://amzn.to/4f35Xtb)
+[![Visual Representation: A modern ergonomic workstation in a home office setup](motorised-table-3png_compressed_hjmfau)](https://amzn.to/4f35Xtb)
 
 ---
 
