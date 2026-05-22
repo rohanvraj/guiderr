@@ -56,7 +56,6 @@ To start investing in mutual funds or ELSS, investors typically use online platf
 ### 📚 **Master the Rules of Indian Wealth**
 If you want a step-by-step roadmap to managing your finances in the Indian context, **"Let's Talk Money" by Monika Halan** is the absolute gold standard for practical wealth management.
 
-[![Let's Talk Money by Monika Halan](monika-halan-book-click-to-buy_wqis9t)](https://amzn.to/4swNUi2)
 
 [**👉 Check Price on Amazon: Let's Talk Money by Monika Halan**](https://amzn.to/4swNUi2)
 

@@ -24,7 +24,6 @@ Mokobara has redefined travel gear in India. By combining aesthetics with high-p
 
 ## 🎒 1. Mokobara Transit Backpack (Best for Daily Use)
 
-[![Mokobara Transit Backpack](MOKOBARA_The_Transit_Standard_Backpack_-_30_Litre_Premium_compressed_sgblye)](https://amzn.to/49OFJaf)  
 [**👉 Check Price on Amazon**](https://amzn.to/49OFJaf)
 
 With over **1,900+ ratings**, this is Mokobara's most popular item. It features a 30L capacity and a dedicated 16-inch laptop sleeve. Made from water-resistant polyester and vegan leather, it balances professional looks with rugged durability.
@@ -33,7 +32,6 @@ With over **1,900+ ratings**, this is Mokobara's most popular item. It features 
 
 ## 🧳 2. The Transit Check-in Luggage (Best for Regular Travel)
 
-[![Mokobara Transit Medium Luggage](MOKOBARA_The_Transit_Luggage_compressed_zivvgp)](https://amzn.to/493IrbN)  
 [**👉 Check Price on Amazon**](https://amzn.to/493IrbN)
 
 This is the anchor of the Mokobara lineup. Featuring an indestructible polycarbonate shell and the famous **Super Silent Ninja Wheels**, it has maintained a high 4.4-star rating across 1,000+ buyers. It’s the perfect size (65L) for a 5–7 day trip.
@@ -42,7 +40,6 @@ This is the anchor of the Mokobara lineup. Featuring an indestructible polycarbo
 
 ## ✈️ 3. Transit Cabin Pro (Best for Business Travelers)
 
-[![Mokobara Transit Cabin Pro](MOKOBARA_The_Transit_Cabin_Pro__compressed_wvv5xr)](https://amzn.to/4dqRzsd)  
 [**👉 Check Price on Amazon**](https://amzn.to/4dqRzsd)
 
 Designed for those who want to skip the check-in queue. This 56cm cabin bag includes **Hinomoto wheels** and a front-access laptop compartment. It allows you to breeze through security without opening your main suitcase.
@@ -51,7 +48,6 @@ Designed for those who want to skip the check-in queue. This 56cm cabin bag incl
 
 ## 📦 4. The Transit Luggage Set of 3 (Best Value for Families)
 
-[![Mokobara Luggage Set of 3](OKOBARA_Polycarbonate_The_Transit_set_of_3_compressed_i5r6ir)](https://amzn.to/4dhpYLh)  
 [**👉 Check Price on Amazon**](https://amzn.to/4dhpYLh)
 
 For those who want to overhaul their entire travel gear, this set includes the 40L, 65L, and 100L bags. Buying the set offers a significant discount compared to individual purchases. It is currently rated **4.5 stars**, proving its popularity with long-haul travelers.
@@ -60,7 +56,6 @@ For those who want to overhaul their entire travel gear, this set includes the 4
 
 ## 💼 5. The Transit Briefcase (Best for Executives)
 
-[![Mokobara Transit Briefcase](MOKOBARA_The_Transit_Briefcase__compressed_rd2gdo)](https://amzn.to/49CHdEy)  
 [**👉 Check Price on Amazon**](https://amzn.to/49CHdEy)
 
 This 15L messenger bag is designed for the high-flying executive. It features an "old money" aesthetic with premium vegan leather and nylon. It also includes a luggage sleeve so you can slide it over your suitcase handle for effortless terminal walking.

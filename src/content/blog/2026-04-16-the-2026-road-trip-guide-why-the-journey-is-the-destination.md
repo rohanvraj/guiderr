@@ -25,14 +25,12 @@ My biggest piece of advice? Don’t just drive. Every time the scenery gets awes
 If you are going to take the "Slow Travel" approach, you need to ensure the time spent inside the vehicle is high-quality. Fatigue is the enemy of a great experience.
 
 #### **1. MOKOBARA Pure Memory Foam Travel Pillow**
-[![Mokobara Travel Pillow](mokobara-neck-pillow_ke3sqs)](https://amzn.to/3QuHAKF)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/3QuHAKF)
 
 **The Vibe:** For the passengers or for that quick 20-minute power nap while the machine cools down, this is a game-changer. Unlike cheap inflatable pillows, this is made of pure memory foam with a breathable cover. It’s the "Cloud Forest" edition—designed to keep you rested so you actually have the energy to explore when you reach your stop.
 
 #### **2. Boldfit Multipurpose Chest Bag / Crossbody Pouch**
-[![Boldfit Chest Bag](boldfit-waist-pouch_etjopw)](https://amzn.to/4sIvBXb)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/4sIvBXb)
 

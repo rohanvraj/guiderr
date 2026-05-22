@@ -23,7 +23,6 @@ Traveling in 2026 requires gear that is both stylish and functional. The Mokobar
 
 ## 🧳 1. Indestructible Polycarbonate Build
 
-[![Mokobara Transit Hardshell](Screenshot_2026-05-18_at_4.28.17_PM_compressed_ypcqta)](https://amzn.to/4fncgYI)  
 [**👉 Check Price on Amazon**](https://amzn.to/4fncgYI)
 
 The Transit Luggage features a high-grade polycarbonate shell. It is designed to absorb shocks and impacts during airport handling without cracking. The grooves on the body provide extra structural strength while maintaining a premium gloss finish.
@@ -32,7 +31,6 @@ The Transit Luggage features a high-grade polycarbonate shell. It is designed to
 
 ## 🛞 2. Silent Japanese "Ninja" Wheels
 
-[![Mokobara Hinomoto Wheels](Screenshot_2026-05-18_at_4.29.32_PM_compressed_rnx4zj)](https://amzn.to/4fncgYI)  
 [**👉 Check Price on Amazon**](https://amzn.to/4fncgYI)
 
 The standout feature is the set of 8 Hinomoto wheels. These Japanese-engineered wheels are known as "Ninja Wheels" because they are super silent. They glide effortlessly across airport terminals, carpets, and uneven pavements with 360-degree movement.
@@ -41,7 +39,6 @@ The standout feature is the set of 8 Hinomoto wheels. These Japanese-engineered 
 
 ## 🔒 3. Smart Security & Handling
 
-[![Mokobara TSA Lock and Handle](Screenshot_2026-05-18_at_4.33.21_PM_compressed_fofh1v)](https://amzn.to/4fncgYI)  
 [**👉 Check Price on Amazon**](https://amzn.to/4fncgYI)
 
 - **TSA Lock:** The keyless TSA-approved lock ensures your belongings are safe. Security officers can inspect your bag without breaking the lock.

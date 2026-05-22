@@ -23,7 +23,6 @@ Upgrading your home in 2026 isn't just about luxury—it's about buying back you
 
 ## 🔊 1. Amazon Echo (4th Gen) | Premium Sound with Dolby
 
-[![Amazon Echo 4th Gen Black](echo-4th-generation_whrycy)](https://amzn.to/42pZjps)  
 [**👉 Check Price on Amazon**](https://amzn.to/42pZjps)
 
 - **Premium Audio:** Powered by Dolby with a 3.0" woofer and dual tweeters for deep bass and crisp highs.  
@@ -35,7 +34,6 @@ Upgrading your home in 2026 isn't just about luxury—it's about buying back you
 
 ## 🍽️ 2. Bosch 13 Place Settings Dishwasher (The Time Saver)
 
-[![Bosch 13 placDishwasher](Bosch_13_Place_Setting_fits_up_to_70_utensils_al7rnz)](https://amzn.to/4d6gvGK)  
 [**👉 Check Price on Amazon**](https://amzn.to/4d6gvGK)
 
 - **Indian Kitchen Ready:** Features a specialized Hygiene+ & Intensive Kadhai Program for oily utensils.  
@@ -47,7 +45,6 @@ Upgrading your home in 2026 isn't just about luxury—it's about buying back you
 
 ## 🍗 3. PHILIPS Air Fryer NA231/00 (The Health Investment)
 
-[![PHILIPS Air Fryer NA231/00 with touch panel](PHILIPS_Air_Fryer_NA231_00_gxtcjg)](https://amzn.to/3R7rMxO)  
 [**👉 Check Price on Amazon**](https://amzn.to/3R7rMxO)
 
 - **Smart Tech:** Features a touch panel and sensing technology that adjusts time and heat automatically.  
@@ -58,7 +55,6 @@ Upgrading your home in 2026 isn't just about luxury—it's about buying back you
 
 ## 🔒 4. Godrej Neo Pro View Smart Digital Lock
 
-[![Godrej Neo Pro View Lock](Godrej_Smart_Lock_Neo_Pro_View_Digital_Lock_onm3kx)](https://amzn.to/4noS2jm)  
 [**👉 Check Price on Amazon**](https://amzn.to/4noS2jm)
 
 - **Video Door Phone:** Includes an outdoor camera and a 3.3-inch indoor screen to see visitors clearly.  
@@ -70,7 +66,6 @@ Upgrading your home in 2026 isn't just about luxury—it's about buying back you
 
 ## 😴 5. The Sleep Company SmartGRID Ortho Mattress
 
-[![The Sleep Company SmartGrid Ortho](Sleep_Company_SmartGRID_Ortho_Mattress_kmuq4n)](https://amzn.to/4nl4v7v)  
 [**👉 Check Price on Amazon**](https://amzn.to/4nl4v7v)
 
 - **Patented Tech:** Developed by ex-DRDO scientists; the grid is firm for support and soft for comfort.  

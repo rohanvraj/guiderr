@@ -24,7 +24,6 @@ Finding a reliable laptop under ₹50,000 in India is about knowing your softwar
 *   **Specs:** 8GB RAM, 256GB Storage, 15.6" Full HD.
 *   **Best For:** Long study sessions and 4G/5G SIM connectivity.
 
-[![Primebook 2 Max](prime_book_max_laptop_under_30k_oaghci)](https://amzn.to/4cK4iWF)
 
 [**👉 Check Price on Amazon India**](https://amzn.to/4cK4iWF)
 
@@ -32,7 +31,6 @@ Finding a reliable laptop under ₹50,000 in India is about knowing your softwar
 *   **Specs:** 8GB RAM, 128GB Storage, 14.1" FHD Display.
 *   **Best For:** Portability and watching content on the move.
 
-[![Primebook 2 Pro](prime_book_pro_android_laptop_under_30k_bc164p)](https://amzn.to/42o5QRi)
 
 [**👉 Check Price on Amazon India**](https://amzn.to/42o5QRi)
 
@@ -40,7 +38,6 @@ Finding a reliable laptop under ₹50,000 in India is about knowing your softwar
 *   **Specs:** 6GB RAM, 128GB Storage, 11.6" Display.
 *   **Best For:** Most affordable option for basic browsing and schoolwork.
 
-[![Primebook 2 Neo](prime_book_neo_android_laptop_under_30k_h786ai)](https://amzn.to/4u1VWR8)
 
 [**👉 Check Price on Amazon India**](https://amzn.to/4u1VWR8)
 
@@ -53,7 +50,6 @@ Finding a reliable laptop under ₹50,000 in India is about knowing your softwar
 *   **Specs:** 14th Gen Intel Core 3, 8GB RAM, 512GB SSD.
 *   **Best For:** Reliable office performance and 120Hz smooth display.
 
-[![Dell 15 Inspiron](dell_15_laptop_under_50k_lsebur)](https://amzn.to/4sZ5L1C)
 
 [**👉 Check Price on Amazon India**](https://amzn.to/4sZ5L1C)
 
@@ -61,7 +57,6 @@ Finding a reliable laptop under ₹50,000 in India is about knowing your softwar
 *   **Specs:** AMD Ryzen 5, 16GB RAM, 512GB SSD.
 *   **Best For:** Heavy multitasking with 16GB RAM and a premium metal body.
 
-[![Acer Aspire Lite](acer_aspire_lite_laptop_under_50k_fyibca)](https://amzn.to/4u69ifq)
 
 [**👉 Check Price on Amazon India**](https://amzn.to/4u69ifq)
 
@@ -69,7 +64,6 @@ Finding a reliable laptop under ₹50,000 in India is about knowing your softwar
 *   **Specs:** 13th Gen Intel Core i3, 12GB RAM, 512GB SSD.
 *   **Best For:** General home use, Zoom calls, and student projects.
 
-[![HP 15 Laptop](hp_15_laptop_under_50k_qcpac0)](https://amzn.to/41QfPid)
 
 [**👉 Check Price on Amazon India**](https://amzn.to/41QfPid)
 

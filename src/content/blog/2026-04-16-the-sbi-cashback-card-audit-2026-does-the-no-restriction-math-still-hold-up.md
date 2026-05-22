@@ -22,7 +22,6 @@ The **SBI Cashback Credit Card** is an outlier. It is a pure cashback instrument
 ### 🛡️ Protect Your Cards: My Top Recommendation
 If you carry high-value credit cards, I recommend using an **RFID Blocking Slim Wallet**. It prevents "digital pickpockets" from scanning your cards remotely and fits a professional, minimalist lifestyle.
 
-[![Best RFID Wallet](wildhorn-rfid-wallet-image_v8x0di)](https://amzn.to/3QcUehk)
 
 [👉 **Check Price on Amazon: WildHorn Oliver Green RFID Minimalist Wallet**](https://amzn.to/3QcUehk)
 

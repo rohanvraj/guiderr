@@ -59,7 +59,6 @@ To build a sustainable "Investing Blueprint," I recommend studying these three c
 
 ### 📚 1. Learn to Earn — Peter Lynch
 
-[![Learn to Earn by Peter Lynch](peter-lynch-learn-to-earn_nfugi0)](https://amzn.to/4trbmys)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/4trbmys)
 
@@ -69,7 +68,6 @@ To build a sustainable "Investing Blueprint," I recommend studying these three c
 
 ### 📚 2. The Psychology of Money — Morgan Housel
 
-[![The Psychology of Money](psychology-of-money_lhkbus)](https://amzn.to/3QSQx0p)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/3QSQx0p)
 
@@ -79,7 +77,6 @@ To build a sustainable "Investing Blueprint," I recommend studying these three c
 
 ### 📚 3. Coffee Can Investing — Saurabh Mukherjea
 
-[![Coffee Can Investing](coffee-can-investing_xwe77b)](https://amzn.to/48NoDJr)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/48NoDJr)
 

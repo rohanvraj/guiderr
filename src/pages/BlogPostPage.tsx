@@ -1,6 +1,7 @@
 import { useEffect, useState, Children, isValidElement } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TableOfContents from '../components/TableOfContents';
@@ -321,6 +322,7 @@ export default function BlogPostPage() {
             </div>
           )}
           <ReactMarkdown
+            rehypePlugins={[rehypeRaw]}
             urlTransform={(url) => url}
             components={{
               img: ({ src, alt }) => (

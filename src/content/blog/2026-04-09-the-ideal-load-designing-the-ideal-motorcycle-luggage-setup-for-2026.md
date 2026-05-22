@@ -17,7 +17,6 @@ A tank bag is non-negotiable for any serious tourer. I recommend a capacity of *
 *   **What goes here:** Wallet, power bank, documentation, and cameras like a GoPro or DSLR.
 *   **Pro Tip:** Look for one with external **bottle holders** to stay hydrated on the move.
 
-[![Mounted motorcycle tank bag for quick access](rynox-magnapod-tankbag)](https://amzn.to/48Cj4gK)
 [**👉 Buy a tank Bag on Amazon**](https://amzn.to/48Cj4gK)
 
 ## **2. Saddle Bags: The Secret to Balance**
@@ -26,7 +25,6 @@ I always prefer saddle bags over high-mounted top boxes. By keeping the weight *
 *   **Capacity:** A total of **60 Litres** is the industry standard for a 10-day trip.
 *   **The Pillion Factor:** If you are traveling with a pillion, ensure the saddle bags provide enough legroom and don't touch the exhaust.
 
-[![Low-slung motorcycle saddle bags for better center of gravity](rynox-nomad)](https://amzn.to/4tYcV7d)
 [**👉 Buy Saddle Bags on Amazon**](https://amzn.to/4tYcV7d)
 
 ## **3. The Tail Bag: Versatile Storage**
@@ -34,7 +32,6 @@ For solo riders, the pillion seat is prime real estate. A **30-45 Litre** tail b
 
 *   **Weatherproofing:** Always carry rain covers. If you want a "tension-free" experience in the monsoon, invest in 100% waterproof roll-top dry bags.
 
-[![Motorcycle tail bag secured for long distance travel](Waterproof-Motorcycle-Tailbag)](https://amzn.to/47SZPiZ)
 [**👉 Buy a Motorcycle Tail Bag on Amazon**](https://amzn.to/47SZPiZ)
 
 ## **4. The Survival Kit: Spares and Tools**
@@ -56,7 +53,6 @@ I’ve recorded a detailed video explaining how I set up my own bike for long ex
 ### 🌧️ **Pro-Tip: Don't Let the Rain Stop Your Ride**
 Weather in India is unpredictable. If your bags aren't already 100% waterproof, a high-visibility rain cover is a must-have accessory to keep your electronics and dry clothes safe from the monsoon or unexpected showers.
 
-[![Universal Waterproof Rain Cover for Bags](rain-cover-for-bag_ph8aoh)](https://amzn.to/3Qgf8fr)
 [**👉 Buy Universal Waterproof Rain Cover on Amazon**](https://amzn.to/3Qgf8fr)
 
 ***
@@ -66,7 +62,6 @@ Weather in India is unpredictable. If your bags aren't already 100% waterproof, 
 ### 🛠️ **Recommended Gear for 2026**
 If you are looking for a reliable, frugal way to handle flats on the road, this is the portable inflator I personally carry. 
 
-[![Qubo Smart Portable Tyre Inflator for Motorcycles](qubo-inflator)](https://amzn.to/4srOzBw)
 [**👉 Check Price on Amazon: Portable Electric Tyre Inflator for Motorcycles**](https://amzn.to/4srOzBw)
 
 ***

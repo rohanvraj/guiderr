@@ -24,7 +24,6 @@ Unlike traditional vacuuming, these 2-in-1 devices handle both dry dust and wet 
 A powerful all-rounder that features an Eco-Friendly Multi-Cyclone Auto Empty Station. With 10,000 Pa suction and Zero Tangle 2.0 technology, it is designed for large Indian homes (up to 3500+ sq ft).
 
 **Price:** ₹32,999  
-[![ECOVACS DEEBOT N30 Plus](ECOVACS-DEEBOT-N30-Plus-robot-vacuum_hgupxa)](https://amzn.to/4cyUAYi)
 [**👉 Check Current Price on Amazon**](https://amzn.to/4cyUAYi)
 
 ***
@@ -33,7 +32,6 @@ A powerful all-rounder that features an Eco-Friendly Multi-Cyclone Auto Empty St
 The L10 Prime focuses on "hands-off" mopping. It features self-cleaning dual mop pads with auto-drying and a 3L water tank system. Its 7mm mop-lifting feature ensures your carpets stay dry while your hard floors stay sparkling.
 
 **Price:** ₹29,999  
-[![DREAME L10 Prime Robot Vacuum](DREAME-L10-Prime-Robot-Vacuum_eprgl8)](https://amzn.to/4t4MmNu)
 [**👉 Check Current Price on Amazon**](https://amzn.to/4t4MmNu)
 
 ***
@@ -42,7 +40,6 @@ The L10 Prime focuses on "hands-off" mopping. It features self-cleaning dual mop
 The "Standard" version of the N30 Plus, offering the same 10,000 Pa suction and Zero Tangle tech but without the auto-empty station. This is the most frugal choice for those who don't mind emptying the bin manually to save on cost.
 
 **Price:** ₹23,999  
-[![ECOVACS DEEBOT N30 White](ECOVACS-DEEBOT-N30-White-Robot-Vacuum-Cleaner_zldldv)](https://amzn.to/3PSuwP9)
 [**👉 Check Current Price on Amazon**](https://amzn.to/3PSuwP9)
 
 ***
@@ -51,7 +48,6 @@ The "Standard" version of the N30 Plus, offering the same 10,000 Pa suction and 
 For homes with stubborn dust, the D20 Ultra packs a massive 13,000Pa suction. It offers a 370-minute long-life battery and an auto-empty station designed to last for 100 days without a bag change.
 
 **Price:** ₹39,999  
-[![DREAME D20 Ultra Robot Vacuum](DREAME-D20-Ultra-Robot-Vacuum_xbn3fm)](https://amzn.to/47OaYS3)
 [**👉 Check Current Price on Amazon**](https://amzn.to/47OaYS3)
 
 ***
@@ -60,7 +56,6 @@ For homes with stubborn dust, the D20 Ultra packs a massive 13,000Pa suction. It
 The pinnacle of cleaning tech. It features a staggering 25,000 Pa suction and a full "Omni-Station" that handles self-emptying and hot air-drying of the mops. This is a premium investment for the ultimate "set-and-forget" experience.
 
 **Price:** ₹64,999  
-[![ECOVACS Deebot N50 PRO Omni](ECOVACS-Deebot-N50-PRO-Omni2-robot-vacuum_x6knfu)](https://amzn.to/3Q4gI40)
 [**👉 Check Current Price on Amazon**](https://amzn.to/3Q4gI40)
 
 ***

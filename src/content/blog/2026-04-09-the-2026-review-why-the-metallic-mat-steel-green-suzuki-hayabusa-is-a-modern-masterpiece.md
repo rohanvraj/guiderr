@@ -50,7 +50,7 @@ With an ex-showroom price starting around **₹18 Lakhs**, the Hayabusa remains 
 ### 🛡️ **Protect Your Investment**
 A bike this legendary deserves world-class protection. Whether you ride a Hayabusa or a 300cc tourer, a **High-Quality UV-Protected Water Resistant Cover** is essential for maintaining that Matte Green finish.
 
-[![Best Premium Bike Cover for Superbikes](xxl-premium-bike-cover_cicbmd)](https://amzn.to/41r7Sjh)
+[**👉 Check Price on Amazon: Premium Bike Cover**](https://amzn.to/41r7Sjh)
 
 ***
 

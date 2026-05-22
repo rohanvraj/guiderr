@@ -23,7 +23,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 🪑 1. Green Soul Jupiter Superb (The All-Rounder)
 
-[![Green Soul Jupiter Superb](chair5_x9gp8r-jupiter-superb)](https://amzn.to/42Qjhd9)
 [**👉 Check Price on Amazon**](https://amzn.to/42Qjhd9)
 
 - **Technical Specs:** High back with 2D Lumbar and 2D Armrests. Features a 3D adjustable headrest.
@@ -35,7 +34,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 💰 2. Green Soul Seoul X (The Compact Budget Pick)
 
-[![Green Soul Seoul X](chair4_vyg2sl)](https://amzn.to/4v6c5Wt)
 [**👉 Check Price on Amazon**](https://amzn.to/4v6c5Wt)
 
 - **Technical Specs:** Mid-back design with a thick molded foam seat and fabric material.
@@ -47,7 +45,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 🎮 3. Green Soul Monster Ultimate S (Premium Gaming Gear)
 
-[![Green Soul Monster Ultimate S](chair3_ewwf1p)](https://amzn.to/4unyqi6)
 [**👉 Check Price on Amazon**](https://amzn.to/4unyqi6)
 
 - **Technical Specs:** Breathable premium Spandex + PU Leather. Features 4D Adjustable Armrests.
@@ -59,7 +56,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 💼 4. Green Soul Vienna (The Executive Leatherette)
 
-[![Green Soul Vienna](chair2_xgi4vq)](https://amzn.to/3PiCXmW)
 [**👉 Check Price on Amazon**](https://amzn.to/3PiCXmW)
 
 - **Technical Specs:** High back with wood internal frame and breathable bonded leather.
@@ -71,7 +67,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 🏎️ 5. Green Soul Raptor 2.0 (Racing Edition)
 
-[![Green Soul Raptor 2.0](chair_1_s83i1a)](https://amzn.to/4wHLArW)
 [**👉 Check Price on Amazon**](https://amzn.to/4wHLArW)
 
 - **Technical Specs:** High-density molded foam with premium PU leather. Features 3D armrests (height, angle, depth).
@@ -83,7 +78,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 🕊️ 6. Green Soul Zodiac Lite (Modern Mesh Design)
 
-[![Green Soul Zodiac Lite](chair8_ezedec)](https://amzn.to/4tLzZFo)
 [**👉 Check Price on Amazon**](https://amzn.to/4tLzZFo)
 
 - **Technical Specs:** Glass Fiber frame with 1D Armrests and 1D Headrest. Chrome-finished metal base.
@@ -95,7 +89,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 🩺 7. Green Soul Kiev Orthopedic (Boss Chair Comfort)
 
-[![Green Soul Kiev Orthopedic](chair7_fyqf5m)](https://amzn.to/4nFEoZf)
 [**👉 Check Price on Amazon**](https://amzn.to/4nFEoZf)
 
 - **Technical Specs:** Features "Pressure Point Technology" and a 4-inch memory foam seat. 
@@ -107,7 +100,6 @@ Back pain is a major hurdle for productivity. If you sit for 8+ hours a day, you
 
 ## 👹 8. Green Soul Beast (Fabric + PU Hybrid)
 
-[![Green Soul Beast](chair6_jbli2m)](https://amzn.to/4dCfF3k)
 [**👉 Check Price on Amazon**](https://amzn.to/4dCfF3k)
 
 - **Technical Specs:** A mix of Fabric and PU Leather for breathability. Features 3D Adjustable Armrests.

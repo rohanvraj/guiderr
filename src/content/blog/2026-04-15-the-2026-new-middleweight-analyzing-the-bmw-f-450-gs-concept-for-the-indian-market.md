@@ -51,7 +51,6 @@ For riders entering the premium ADV segment, documenting the journey has become 
 
 ### 📸 Insta360 X5 - Waterproof 8K 360° Action Camera
 
-[![Insta360 X5](insta-360-x5-camera_agaojb)](https://amzn.to/4cPikXh)
 
 [👉 **Check Availability on Amazon**](https://amzn.to/4cPikXh)
 
@@ -64,7 +63,6 @@ A bike of this caliber deserves a luggage system that won't fail at 15,000 feet.
 
 ### 🎒 ViaTerra Claw Motorcycle Tail Bag (72L)
 
-[![ViaTerra Claw](viaterra-claw-motorcycle-luggage_ipqmnx)](https://amzn.to/41EbmPw)
 
 [👉 **Check Availability on Amazon**](https://amzn.to/41EbmPw)
 

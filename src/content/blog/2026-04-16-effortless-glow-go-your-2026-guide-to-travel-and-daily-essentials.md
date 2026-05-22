@@ -28,14 +28,12 @@ Today, we’re looking at a few must-haves that help you stay refreshed and orga
 A great routine is only as good as its organization. Whether it's in your car’s glove box or your work tote, these picks keep things seamless:
 
 #### **1. Batfield Large Capacity "Litchi" Travel Pouch**
-[![Batfield Cosmetic Bag](makeup-travel-bag_anaexe)](https://amzn.to/4vyY8Bp)
 
 [👉 **Check it out on Amazon India**](https://amzn.to/4vyY8Bp)
 
 **The Vibe:** This isn't just a makeup bag; it’s a total life-saver for organization. Made from chic Litchi PU leather, it features smart dividers to keep your serums separate from your lipsticks. It’s 100% vegan and cruelty-free, making it a beautiful, ethical choice for the modern woman.
 
 #### **2. Vega Premium Eyelash Curler (EC-02)**
-[![Vega Eyelash Curler](eye-lash-shaper_h4mfud)](https://amzn.to/4trnaAT)
 
 [👉 **Check it out on Amazon India**](https://amzn.to/4trnaAT)
 

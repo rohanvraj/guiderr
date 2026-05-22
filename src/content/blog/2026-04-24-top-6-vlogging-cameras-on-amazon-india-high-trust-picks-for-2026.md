@@ -22,7 +22,6 @@ Starting a YouTube or Instagram channel in 2026? Skip the confusion—here are *
 
 ## 🎥 1. Sony ZV-E10 (Best for Serious Creators)
 
-[![Sony ZV-E10](sony_zve10_m2_ubwsdb)](https://amzn.to/4e2tz0C)  
 [**👉 Check Price on Amazon**](https://amzn.to/4e2tz0C)
 
 - 4K video + background blur (interchangeable lenses)  
@@ -33,7 +32,6 @@ Starting a YouTube or Instagram channel in 2026? Skip the confusion—here are *
 
 ## ✈️ 2. DJI Osmo Pocket 3 (Best for Travel)
 
-[![DJI Osmo Pocket 3](dji_osmo_pocket_3_egpm0w)](https://amzn.to/4vOrlbx)  
 [**👉 Check Price on Amazon**](https://amzn.to/4vOrlbx)
 
 - Built-in gimbal → super stable video  
@@ -44,7 +42,6 @@ Starting a YouTube or Instagram channel in 2026? Skip the confusion—here are *
 
 ## 🏍️ 3. Insta360 X3 (Best for Action)
 
-[![Insta360 X3](insta_360_x3_k0xqbn)](https://amzn.to/4eriC9d)  
 [**👉 Check Price on Amazon**](https://amzn.to/4eriC9d)
 
 - 360° video (reframe later)  
@@ -55,7 +52,6 @@ Starting a YouTube or Instagram channel in 2026? Skip the confusion—here are *
 
 ## 📸 4. Canon EOS R50 (Best All-Rounder)
 
-[![Canon EOS R50](canon_r50_r3ezbc)](https://amzn.to/4d4Giik)  
 [**👉 Check Price on Amazon**](https://amzn.to/4d4Giik)
 
 - Excellent autofocus (tracks your face)  
@@ -66,7 +62,6 @@ Starting a YouTube or Instagram channel in 2026? Skip the confusion—here are *
 
 ## 📦 5. Kicteck Camcorder (Lowest Budget Start)
 
-[![Kicteck Camcorder](kicteck_camcorder_ndkftf)](https://amzn.to/4d3rGQa)  
 [**👉 Check Price on Amazon**](https://amzn.to/4d3rGQa)
 
 - Cheapest way to start  
@@ -79,7 +74,6 @@ Starting a YouTube or Instagram channel in 2026? Skip the confusion—here are *
 
 ## 👜 6. Kodak Pixpro FZ45 (Compact Option)
 
-[![Kodak Pixpro FZ45](kodak_pixpro_rljs8h)](https://amzn.to/4cM5rgA)  
 [**👉 Check Price on Amazon**](https://amzn.to/4cM5rgA)
 
 - Pocket-size camera  

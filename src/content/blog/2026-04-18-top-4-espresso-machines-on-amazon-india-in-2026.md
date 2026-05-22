@@ -29,7 +29,6 @@ Here are my top 4 picks on Amazon India to help you stop settling for instant co
 
 If you’re just beginning your home brewing journey, you don't need a massive budget to get a great shot. The Vantro is a sleek, semi-automatic machine that looks and feels like a high-end appliance without the intimidating price tag.
 
-[![Vantro Espresso Machine](vantro-espresso-machine_cwvasq)](https://amzn.to/4eetKGn)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/4eetKGn)
 
@@ -41,7 +40,6 @@ If you’re just beginning your home brewing journey, you don't need a massive b
 
 This is the machine I recommend most often. It’s compact, elegant, and has a massive community of fans for a reason—it’s incredibly consistent.
 
-[![DeLonghi Dedica](De_Longhi-Dedica-espresso-machine_x52df1)](https://amzn.to/4vEmdXg)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/4vEmdXg)
 
@@ -53,7 +51,6 @@ This is the machine I recommend most often. It’s compact, elegant, and has a m
 
 This is for the person who sees coffee as a ritual. It’s a high-performance hybrid that gives you total control but adds a built-in grinder and a smart touch display to make life easier.
 
-[![DeLonghi La Specialista](DeLonghi-LaSpecialista-espresso-machine_pjkgi3)](https://amzn.to/3OxRNWa)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/3OxRNWa)
 
@@ -65,7 +62,6 @@ This is for the person who sees coffee as a ritual. It’s a high-performance hy
 
 If you want a high-quality cappuccino but don't want to spend your morning cleaning up or learning how to "tamp" coffee, the Philips LatteGo is the ultimate solution.
 
-[![Philips LatteGo](PHILIPS_Versuni-Latte-espresso-machine_xxhygy)](https://amzn.to/4cQHhT3)
 
 [👉 **Check Availability on Amazon India**](https://amzn.to/4cQHhT3)
 

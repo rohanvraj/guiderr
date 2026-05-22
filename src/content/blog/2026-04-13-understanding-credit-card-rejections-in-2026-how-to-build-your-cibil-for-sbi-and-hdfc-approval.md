@@ -58,7 +58,6 @@ Digital apps are great, but for many, a physical record of monthly expenses help
 ### 📝 **Frugal Tool: The Path to Financial Discipline**
 Building a high CIBIL score starts with tracking every rupee. The **TINYCHANGE Pro Planning Planner** is a B5-sized productivity journal specifically designed for goal setting and expense tracking. It includes over 400 stickers to help you visualize your progress and stay consistent with your budget—the exact discipline needed to move from "Rejected" to "Approved."
 
-[![TINYCHANGE Pro Planning Planner - Productivity & Finance Journal](budget-time-calendar-daily-planner_xxau63)](https://amzn.to/3Qasn1e)
 
 [**👉 Check Price on Amazon: TINYCHANGE Pro Planning & Productivity Diary**](https://amzn.to/3Qasn1e)
 
