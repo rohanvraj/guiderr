@@ -22,7 +22,6 @@ Here are the top 4 performers on Amazon India based on real user reviews and tec
 
 ## 🌪️ 1. Most Popular: LEVOIT Core Mini
 This is the highest-rated compact purifier. Its H13 True HEPA filter removes 99.97% of dust and smoke effortlessly.
-![Levoit Core Mini compact air purifier for small rooms India](LEVOIT_Core_Mini_Amazon_India_qckau8)
 [**👉 Check Price on Amazon India**](https://amzn.to/4dmz2OW)
 * **Key Features:** Very light (1.1kg), 2-year warranty, and adds fragrance to the air.
 * **Best For:** Your work desk or a small kids' room.
@@ -31,7 +30,6 @@ This is the highest-rated compact purifier. Its H13 True HEPA filter removes 99.
 
 ## 🏠 2. The Powerhouse: WINIX 5500-2
 Built for large open spaces. It uses "PlasmaWave" technology to clean air at an industrial level.
-![Winix 5500-2 heavy duty air purifier for large halls](WINIX_5500-2_Air_Purifier_uwshvn)
 [**👉 Check Price on Amazon India**](https://amzn.to/3QLNFTi)
 * **Key Features:** Washable carbon filter, smart sensors, and auto-cleaning mode.
 * **Best For:** Large living rooms, pet hair, and heavy smoke.
@@ -40,7 +38,6 @@ Built for large open spaces. It uses "PlasmaWave" technology to clean air at an 
 
 ## 🛡️ 3. Best Value: Coway Airmega 150
 Coway is the most trusted brand for Indian homes. The Airmega 150 is famous for its long-lasting 8,500-hour filter.
-![Coway Airmega 150 best air purifier for Indian homes](Coway_Airmega_150_Air_Purifier_wxu3e9)
 [**👉 Check Price on Amazon India**](https://amzn.to/48HBk8R)
 * **Key Features:** Removes 99.999% of tiny particles, 7-year motor warranty.
 * **Best For:** Families who want the lowest maintenance cost over many years.
@@ -51,7 +48,6 @@ Coway is the most trusted brand for Indian homes. The Airmega 150 is famous for 
 
 ## ⚡ 4. Best Budget: Honeywell Air Touch V1
 Honeywell is a global leader in air safety. The V1 gives you a 3-in-1 cleaning system at a very affordable price.
-![Honeywell Air Touch V1 budget friendly air purifier](Honeywell_Air_touch_v1_Air_Purifier_quv3rn)
 [**👉 Check Price on Amazon India**](https://amzn.to/3PmaZXh)
 * **Key Features:** Active carbon filter for smells, 1-year warranty.
 * **Best For:** Buyers on a budget who want a reliable brand name.
@@ -63,7 +59,7 @@ Honeywell is a global leader in air safety. The V1 gives you a 3-in-1 cleaning s
 * **For Best Cleaning:** Pick the **[Coway Airmega 150](https://amzn.to/48HBk8R)**.  
 * **For Huge Halls:** Pick the **[Winix 5500-2](https://amzn.to/3QLNFTi)**.
 
-[![Watch my Air Purifiers Video on YouTube](top_picks_air_purifiers_on_amazon_india_2026_uywwhy)](https://youtu.be/P09TlosMOeY?si=IIxDVq4UUuvwJC21)
+[Watch my Air Purifiers Video on YouTube](https://youtu.be/P09TlosMOeY?si=IIxDVq4UUuvwJC21)
 
 **Looking to save more?**
 [Read our 2026 Review: Is the SBI Cashback Card still the best? →](https://www.guiderr.in/guides/2026-04-16-the-sbi-cashback-card-audit-2026-does-the-no-restriction-math-still-hold-up)

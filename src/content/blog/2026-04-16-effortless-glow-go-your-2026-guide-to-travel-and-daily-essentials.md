@@ -16,7 +16,7 @@ Today, we’re looking at a few must-haves that help you stay refreshed and orga
 
 **The Smart Move:** If you are looking to restock your vanity or build a mini travel kit, their current **Summer Glow Sale** is the perfect timing. You can pick up **2 of your favorites for just ₹699**, which is a great way to save while ensuring your skin stays pampered.
 
-[![Dot & Key Summer Glow](dot-key-second-pic-makeup_ewof61)](https://bitli.in/l1q90L7)
+[Dot & Key Summer Glow](https://bitli.in/l1q90L7)
 
 [👉 **Shop the Dot & Key Summer Glow Sale (2 for ₹699) Here**](https://bitli.in/l1q90L7)
 

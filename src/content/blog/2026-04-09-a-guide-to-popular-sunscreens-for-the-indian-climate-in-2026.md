@@ -32,7 +32,6 @@ Designed specifically for Indian skin, this formula combines the barrier-repairi
 *   **SPF/PA:** SPF 50+ PA++++.
 *   **Best for:** Those looking to moisturize and brighten simultaneously.
 
-![Dr. Sheth's Ceramide Sunscreen Bottle](Dr-Sheth-Ceramide-Vitamin-C-Sunscreen)
 
 [**👉 Check Price on Amazon**](https://amzn.to/4caykm5)
 
@@ -44,7 +43,6 @@ This sunscreen uses a "C-Hyaluron" complex along with papaya extracts to provide
 *   **SPF/PA:** SPF 50+ PA++++.
 *   **Best for:** Achieving a "glow" look without heaviness.
 
-![Aqualogica Glow Plus Sunscreen Tube](Aqualogica-Glow-Dewy-Gel-Sunscreen)
 
 [**👉 Check Price on Amazon**](https://amzn.to/47KRcHa)
 
@@ -56,7 +54,6 @@ A favorite for those who prioritize hydration, this aqua-gel formula feels like 
 *   **SPF/PA:** SPF 50 PA++++.
 *   **Best for:** Oily and combination skin types.
 
-![Derma Co Hyaluronic Sunscreen Aqua Gel](The-Derma-Co-Hyaluronic-Sunscreen)
 
 [**👉 Check Price on Amazon**](https://amzn.to/4sUaG4u)
 
@@ -68,7 +65,6 @@ A global classic known for its "Dry-Touch" technology, ensuring your skin doesn'
 *   **SPF/PA:** SPF 50+ PA++++.
 *   **Best for:** Outdoor sports, swimming, or heavy sweating.
 
-![Neutrogena Ultrasheer Dry Touch Sunscreen](Neutrogena-Ultrasheer-Sunscreen)
 
 [**👉 Check Price on Amazon**](https://amzn.to/4dDGsOr)
 
@@ -80,7 +76,6 @@ This water-light formula has seen a massive surge in popularity, with over 10,00
 *   **SPF/PA:** SPF 50.
 *   **Best for:** All skin types looking for a quick-absorbing, brightening daily shield.
 
-![Dot and Key Super Bright Sunscreen](DOT-KEY-Vitamin-C-E-Sunscreen)
 
 [**👉 Check Price on Amazon**](https://amzn.to/47UcFNU)
 
