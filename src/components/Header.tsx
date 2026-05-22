@@ -69,31 +69,7 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* Top Picks Link */}
-            <div
-              className="relative"
-              onMouseEnter={() => setHoveredNav('selection')}
-              onMouseLeave={() => setHoveredNav(null)}
-            >
-              <AnimatePresence>
-                {hoveredNav === 'selection' && (
-                  <motion.div
-                    layoutId="nav-pill"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-0 rounded-lg bg-slate-700/10 border border-slate-500/50"
-                    transition={{ type: 'spring', stiffness: 350, damping: 45 }}
-                  />
-                )}
-              </AnimatePresence>
-              <Link
-                to="/top-picks"
-                className="relative z-10 block text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
-              >
-                Top Picks
-              </Link>
-            </div>
+            {/* Top Picks Link — hidden from nav */}
 
             {/* Start Here Link */}
             <div
@@ -227,14 +203,7 @@ export default function Header() {
                 Library
               </Link>
 
-              {/* Top Picks Link */}
-              <Link
-                to="/top-picks"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
-              >
-                Top Picks
-              </Link>
+              {/* Top Picks Link — hidden from nav */}
 
               {/* Start Here Link */}
               <Link
