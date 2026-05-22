@@ -46,7 +46,7 @@ const CATEGORY_THEMES: Record<string, HubTheme> = {
     filterKey: 'Automotive',
     dark: true,
     desk: 'The Garage',
-    headline: ['Two Wheels.', 'Zero Regrets.'],
+    headline: ['Automotive Insights.', 'From an Enthusiast.'],
     tagline: 'Motorcycle reviews, maintenance guides, and buying advice for Indian roads.',
     accentColor: '#94a3b8',
     metaTitle: 'Automotive Guides | Guiderr',
