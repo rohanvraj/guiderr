@@ -18,6 +18,7 @@ export interface FeaturedStory {
   category: string;
   author: string;
   featuredImage: string;
+  founderImage: string;
   body: string;
 }
 
@@ -128,6 +129,7 @@ export function getAllFeaturedStories(): FeaturedStory[] {
         category: metadata.category || 'Featured Story',
         author: metadata.author || '',
         featuredImage: metadata.featured_image || '',
+        founderImage: metadata.founder_image || '',
         body,
       };
     })

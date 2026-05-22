@@ -107,4 +107,12 @@ collections:
           Enter the Cloudinary Public ID only (e.g. featured/story-cover).
           In Cloudinary Dashboard -> Media Library -> click image -> copy the
           Public ID from the right panel. Do NOT paste the full URL.
+      - label: "Founder / Subject Portrait"
+        name: "founder_image"
+        widget: "string"
+        required: false
+        hint: >-
+          Optional. Cloudinary Public ID of the founder or subject's portrait photo.
+          This appears as a circular floated image at the start of the article,
+          with text wrapping around it. Same format as Featured Image — Public ID only.
       - { label: "Body", name: "body", widget: "markdown" }

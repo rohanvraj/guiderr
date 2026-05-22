@@ -95,11 +95,26 @@ html {
 /* ── Featured Article Lead-in Paragraph ─────────────────────────────────────── */
 /* First <p> in a Featured Story gets an editorial "drop-in" treatment.         */
 .featured-lead > p:first-of-type {
-  font-size: 1.2rem;
-  font-weight: 500;
-  line-height: 1.8;
-  letter-spacing: -0.025em;
-  color: #1e293b; /* slate-800 */
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.05em; /* Slight emphasis over the lg prose base, not a jump */
+  font-weight: 400;
+  line-height: 1.85;
+  letter-spacing: -0.01em;
+  color: #2d1a0e;
+}
+
+/* Floated founder portrait — clears on mobile */
+.founder-float {
+  float: left;
+  margin-right: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+@media (max-width: 640px) {
+  .founder-float {
+    float: none;
+    display: block;
+    margin: 0 auto 1.25rem;
+  }
 }
 
 /* ── Premium Design Modules (Ebook-Look Callout Boxes) ──────────────────────── */

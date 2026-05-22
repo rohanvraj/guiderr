@@ -17,7 +17,7 @@ export default function FeaturedStoriesPage() {
   const stories = getAllFeaturedStories();
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6]">
+    <div className="min-h-screen bg-[#F5EFE0]">
       <Header />
 
       <main className="pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
@@ -27,7 +27,7 @@ export default function FeaturedStoriesPage() {
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-yellow-700 mb-2">
             The Spotlight Series
           </p>
-          <h1 className="text-6xl sm:text-8xl font-black tracking-tighter text-slate-900 leading-none mb-3">
+          <h1 className="text-6xl sm:text-8xl font-black tracking-tighter font-editorial text-slate-900 leading-none mb-3">
             Featured Stories
           </h1>
           <p className="text-slate-500 text-base max-w-xl">
@@ -44,7 +44,7 @@ export default function FeaturedStoriesPage() {
             {stories.map((story) => (
               <article
                 key={story.slug}
-                className="group relative overflow-hidden bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow"
+                className="group relative overflow-hidden bg-[#FBF7EF] rounded-2xl shadow-sm border border-amber-200/60 hover:shadow-md transition-shadow"
               >
                 <Link
                   to={`/featured/${story.slug}`}
@@ -64,8 +64,8 @@ export default function FeaturedStoriesPage() {
                     )}
                   </div>
 
-                  {/* ── Content side (55%) — Champagne tint ── */}
-                  <div className="sm:w-[55%] bg-[#FAF9F6] px-6 py-7 sm:px-8 sm:py-8 relative overflow-hidden flex flex-col justify-center">
+                  {/* ── Content side (55%) — Parchment tint ── */}
+                  <div className="sm:w-[55%] bg-[#F5EFE0] px-6 py-7 sm:px-8 sm:py-8 relative overflow-hidden flex flex-col justify-center">
 
                     {/* Ghost category typography — moves on card hover */}
                     {story.category && (
@@ -98,7 +98,7 @@ export default function FeaturedStoriesPage() {
                     )}
 
                     {/* Title */}
-                    <h2 className="relative z-10 text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-slate-700 transition-colors leading-snug mb-3">
+                    <h2 className="relative z-10 text-xl sm:text-2xl font-bold font-editorial text-slate-900 group-hover:text-slate-700 transition-colors leading-snug mb-3">
                       {story.title}
                     </h2>
 
@@ -126,7 +126,7 @@ export default function FeaturedStoriesPage() {
                           </>
                         )}
                       </div>
-                      <span className="text-xs font-semibold text-yellow-700 group-hover:translate-x-1 transition-transform inline-block">
+                      <span className="text-xs font-semibold text-amber-800 group-hover:translate-x-1 transition-transform inline-block">
                         Read →
                       </span>
                     </div>
@@ -139,7 +139,7 @@ export default function FeaturedStoriesPage() {
         )}
 
         {/* ── CTA banner ── */}
-        <div className="mt-14 sm:mt-16 rounded-[2rem] border border-violet-100 bg-white px-6 py-10 sm:px-10 sm:py-14 text-center">
+        <div className="mt-14 sm:mt-16 rounded-[2rem] border border-amber-200/50 bg-[#FBF7EF] px-6 py-10 sm:px-10 sm:py-14 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 mb-4">Want your brand here?</p>
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
             Put your story in front of people already researching what to trust next.

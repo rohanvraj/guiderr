@@ -228,7 +228,7 @@ export default function BlogPostPage() {
   const libraryLabel  = CTA_LABEL_MAP[post.category]  ?? 'Browse Curated Picks →';
 
   return (
-    <div className={`min-h-screen ${isFeatured ? 'bg-[#FAF9F7]' : 'bg-gradient-to-b from-slate-50 to-white'}`}>
+    <div className={`min-h-screen ${isFeatured ? 'bg-[#F5EFE0]' : 'bg-gradient-to-b from-slate-50 to-white'}`}>
       <Header />
 
       {/*
@@ -244,8 +244,8 @@ export default function BlogPostPage() {
           <TableOfContents content={post.body} />
 
           {/* pb-24 on mobile ensures last CTA clears the fixed Quick Nav pill */}
-          <main className="min-w-0 flex-1 max-w-3xl pb-24 sm:pb-10">
-            <Link to={isFeatured ? '/featured' : '/guides'} className="no-print text-sm text-indigo-600 hover:underline mb-6 inline-block">
+          <main className={`min-w-0 flex-1 max-w-3xl pb-24 sm:pb-10${isFeatured ? ' font-editorial' : ''}`}>
+            <Link to={isFeatured ? '/featured' : '/guides'} className={`no-print text-sm ${isFeatured ? 'text-amber-800' : 'text-indigo-600'} hover:underline mb-6 inline-block`}>
               &larr; Back to {isFeatured ? 'Featured Stories' : 'Guides'}
             </Link>
 
@@ -259,12 +259,12 @@ export default function BlogPostPage() {
             )}
 
         {post.category && (
-          <span className="block text-xs font-semibold uppercase tracking-wide text-indigo-600 mb-3">
+          <span className={`block text-xs font-semibold uppercase tracking-wide ${isFeatured ? 'text-amber-800' : 'text-indigo-600'} mb-3`}>
             {post.category}
           </span>
         )}
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+        <h1 className={`text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4`}>
           {post.title}
         </h1>
 
@@ -297,7 +297,30 @@ export default function BlogPostPage() {
         {/* Feather-Weight: every inline img is a bare Cloudinary Public ID.
             optimizeCloudinaryUrl builds the full CDN URL with f_auto,q_auto:eco,w_800
             so browsers get WebP/AVIF automatically. loading=lazy protects bandwidth. */}
-        <article className={`prose prose-slate max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-xl prose-p:leading-[1.75]${isFeatured ? ' featured-lead' : ''}`}>
+        <article className={`prose ${isFeatured ? 'prose-lg' : ''} prose-slate max-w-none prose-headings:font-bold ${isFeatured ? 'prose-a:text-amber-800' : 'prose-a:text-indigo-600'} prose-img:rounded-xl prose-p:leading-[1.75]${isFeatured ? ' featured-lead' : ''}`}>
+          {/* Floated founder portrait — only for featured stories with a founder_image */}
+          {isFeatured && (post as import('../utils/blog').FeaturedStory).founderImage && (
+            <div
+              className="founder-float"
+              style={{
+                shapeOutside: 'circle(50%)',
+                borderRadius: '50%',
+                width: '160px',
+                height: '160px',
+                overflow: 'hidden',
+                flexShrink: 0,
+                border: '3px solid rgba(212,175,55,0.35)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.10)',
+              }}
+            >
+              <img
+                src={optimizeCloudinaryUrl((post as import('../utils/blog').FeaturedStory).founderImage, { width: 320, quality: 'auto:eco' })}
+                alt={post.author ? `${post.author}` : 'Featured founder'}
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+            </div>
+          )}
           <ReactMarkdown
             urlTransform={(url) => url}
             components={{
