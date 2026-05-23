@@ -22,15 +22,23 @@ This guide focuses on the models that actually make sense for Indian homes in 20
 
 ---
 
-## ⚡ Quick Comparison (Click on link for latest prices as they may vary)
+## ⚡ Quick Comparison  
+*(Click on product links for latest pricing and availability, as prices may change over time.)*
 
-| Model | Best For | Key Feature | Approx Price |
-|---|---|---|---|
-| [ECOVACS N30 Plus](https://amzn.to/4cyUAYi) | Most Indian families | Auto-empty + anti-tangle | ₹32,999 |
-| [DREAME L10 Prime](https://amzn.to/4t4MmNu) | Better wet mopping | Self-drying rotating mops | ₹29,999 |
-| [ECOVACS N30 White](https://amzn.to/3PSuwP9) | Budget-conscious buyers | Same core cleaning performance | ₹23,999 |
-| [DREAME D20 Ultra](https://amzn.to/47OaYS3) | Heavy dust environments | 13,000 Pa suction | ₹39,999 |
-| [ECOVACS N50 PRO Omni](https://amzn.to/3Q4gI40) | Premium automation | Hot-water mop cleaning | ₹64,999 |
+- [**ECOVACS N30 Plus**](https://amzn.to/4cyUAYi)  
+  Best for most Indian families • Auto-empty station • Anti-tangle cleaning • Approx ₹32,999
+
+- [**DREAME L10 Prime**](https://amzn.to/4t4MmNu)  
+  Best for wet mopping • Self-drying rotating mop pads • Approx ₹29,999
+
+- [**ECOVACS N30 White**](https://amzn.to/3PSuwP9)  
+  Budget-friendly option • Same core cleaning performance • Approx ₹23,999
+
+- [**DREAME D20 Ultra**](https://amzn.to/47OaYS3)  
+  Best for heavy dust • Powerful 13,000 Pa suction • Approx ₹39,999
+
+- [**ECOVACS N50 PRO Omni**](https://amzn.to/3Q4gI40)  
+  Premium automation • Hot-water mop cleaning • Approx ₹64,999
 
 ---
 
