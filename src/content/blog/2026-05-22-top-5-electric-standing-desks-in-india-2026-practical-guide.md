@@ -18,11 +18,11 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ## ⚡ Quick Selection Guide
 
-- **For Heavy Setups (Dual Monitors + PC):** [JIN OFFICE Titan Premium](https://amzn.to/4dYbccy)
-- **For Maximum Peace of Mind:** [Wakefit Notiq Standing Desk](https://amzn.to/4o3tnBn)
-- **For Better Stability on a Budget:** [JIN OFFICE Octave](https://amzn.to/4nLtjGa)
-- **For Safety-First Homes (Rounded Edges):** [Green Soul Imperium](https://amzn.to/4wPENN2) 
-- **For Extra Large Desk Space:** [ErgoYou SM3 Series](https://amzn.to/4f35Xtb)
+- **For Heavy Setups (Dual Monitors + PC):** [JIN OFFICE Titan Premium](https://amzn.to/49mm2Xf)
+- **For Maximum Peace of Mind:** [Wakefit Notiq Standing Desk](https://amzn.to/49kJ4xT)
+- **For Better Stability on a Budget:** [JIN OFFICE Octave](https://amzn.to/4wMJtD3)
+- **For Safety-First Homes (Rounded Edges):** [Green Soul Imperium](https://amzn.to/4usTmUR) 
+- **For Extra Large Desk Space:** [ErgoYou SM3 Series](https://amzn.to/4up1gyE)
 
 ---
 
@@ -36,7 +36,7 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ---
 
-[![Visual Representation: A high-performance electric sit-stand desk setup](motorised-table-2_compressed_hlifji)](https://amzn.to/4nS0TdG)
+[![Visual Representation: A high-performance electric sit-stand desk setup](motorised-table-2_compressed_hlifji)](https://amzn.to/49mm2Xf)
 
 ---
 
@@ -50,6 +50,10 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ---
 
+[**👉 Check Price on Amazon**](https://amzn.to/49kJ4xT)
+
+---
+
 ## 💰 3. JIN OFFICE Octave (The Stability Specialist)
 
 - **Best for:** Users who type heavily and hate desk wobbling.
@@ -60,7 +64,7 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ---
 
-[![Visual Representation: A functional standing desk with accessories](motorised-table-4_compressed_aie0jr)](https://amzn.to/4nLtjGa)
+[![Visual Representation: A functional standing desk with accessories](motorised-table-4_compressed_aie0jr)](https://amzn.to/4wMJtD3)
 
 ---
 
@@ -73,7 +77,7 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ---
 
-[![Visual Representation: A modern ergonomic workstation in a home office setup](motorised-table-3png_compressed_hjmfau)](https://amzn.to/4f35Xtb)
+[![Visual Representation: A modern ergonomic workstation in a home office setup](motorised-table-3png_compressed_hjmfau)](https://amzn.to/4usTmUR)
 
 ---
 
@@ -87,7 +91,7 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ---
 
-[![Visual Representation: A spacious modern workspace in standing mode](motorised-table-1_compressed_ycynww)](https://amzn.to/4wPENN2)
+[![Visual Representation: A spacious modern workspace in standing mode](motorised-table-1_compressed_ycynww)](https://amzn.to/4up1gyE)
 
 ---
 
