@@ -43,6 +43,7 @@ const DESTINATION_MAP: Record<string, string> = {
   'Finance':       '/top-picks/personal-finance',
   'Tech':          '/top-picks/tech',
   'Automotive':    '/top-picks/riding-gear',
+  'Motorcycles':   '/top-picks/riding-gear',
   'Lifestyle':     '/top-picks/lifestyle',
   'Business':      '/top-picks',
   'Travel':        '/top-picks/travel',
@@ -54,7 +55,8 @@ const CTA_LABEL_MAP: Record<string, string> = {
   'Investing':     'Explore Investing Briefs →',
   'Finance':       'Browse Finance Picks →',
   'Tech':          'Browse Top Tech Picks →',
-  'Automotive':    'Browse Riding Gear Picks →',
+  'Automotive':    'Browse Riding & Auto Gear →',
+  'Motorcycles':   'Browse Riding Gear →',
   'Lifestyle':     'Browse Lifestyle Picks →',
   'Business':      'Browse Curated Picks →',
   'Travel':        'Browse Travel Picks →',
@@ -225,9 +227,11 @@ export default function BlogPostPage() {
     );
   }
 
-  const libraryHref  = DESTINATION_MAP[post.category] ?? '/top-picks';
-  const libraryLabel  = CTA_LABEL_MAP[post.category]  ?? 'Browse Curated Picks →';
-  const hasAmazonLink = !!(post as BlogPost).amazonAffiliateLink?.trim();
+  const libraryHref      = DESTINATION_MAP[post.category] ?? '/top-picks';
+  const libraryLabel     = CTA_LABEL_MAP[post.category]   ?? 'Browse Curated Picks →';
+  const hasAmazonLink    = !!(post as BlogPost).amazonAffiliateLink?.trim();
+  const hasInternalRoute = post.category in DESTINATION_MAP;
+  const showPillCTA      = hasAmazonLink || hasInternalRoute;
 
   return (
     <div className={`min-h-screen ${isFeatured ? 'bg-[#F5EFE0]' : 'bg-gradient-to-b from-slate-50 to-white'}`}>
@@ -534,16 +538,25 @@ export default function BlogPostPage() {
       <Footer />
 
       {/* ── Floating CTA Pill (Gumroad neo-brutalist) ── */}
-      {hasAmazonLink && showPill && !pillDismissed && (
+      {showPillCTA && showPill && !pillDismissed && (
         <div className="no-print fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-[#FFD000]">
-          <a
-            href={(post as BlogPost).amazonAffiliateLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-black text-sm font-bold tracking-wide whitespace-nowrap"
-          >
-            🛒 Check Price on Amazon →
-          </a>
+          {hasAmazonLink ? (
+            <a
+              href={(post as BlogPost).amazonAffiliateLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black text-sm font-bold tracking-wide whitespace-nowrap"
+            >
+              🛒 Check Price on Amazon →
+            </a>
+          ) : (
+            <Link
+              to={libraryHref}
+              className="text-black text-sm font-bold tracking-wide whitespace-nowrap"
+            >
+              {libraryLabel}
+            </Link>
+          )}
           <button
             onClick={dismissPill}
             aria-label="Dismiss"
