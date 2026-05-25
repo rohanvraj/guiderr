@@ -62,7 +62,7 @@
 ### Robot Vacuums
 - ECOVACS DEEBOT N30 Plus = `ECOVACS-DEEBOT-N30-Plus-robot-vacuum_hgupxa` | [Link](https://amzn.to/4cyUAYi)
 - DREAME L10 Prime = `DREAME-L10-Prime-Robot-Vacuum_eprgl8` | [Link](https://amzn.to/4t4MmNu)
-- ECOVACS DEEBOT N30 (White) = `ECOVACS-DEEBOT-N30-White-Robot-Vacuum-Cleaner_zldldv` | [Link](https://amzn.to/3PSuwP9)
+- ECOVACS DEEBOT N30 (White) = `ECOVACS_DEEBOT_N30_White_bv7joa` | [Link](https://amzn.to/3PSuwP9) # done 👍
 - DREAME D20 Ultra = `DREAME-D20-Ultra-Robot-Vacuum_xbn3fm` | [Link](https://amzn.to/47OaYS3)
 - ECOVACS Deebot N50 PRO Omni = `ECOVACS-Deebot-N50-PRO-Omni2-robot-vacuum_x6knfu` | [Link](https://amzn.to/3Q4gI40)
 
