@@ -25,19 +25,19 @@ This guide focuses on the models that actually make sense for Indian homes in 20
 ## ⚡ Quick Comparison  
 *(Click on product links for latest pricing and availability, as prices may change over time.)*
 
-- [**ECOVACS N30 Plus**](https://amzn.to/4cyUAYi)  
+- [**ECOVACS N30 Plus**](https://amzn.to/4uuGz4m)  
   Best for most Indian families • Auto-empty station • Anti-tangle cleaning • Approx ₹32,999
 
-- [**DREAME L10 Prime**](https://amzn.to/4t4MmNu)  
+- [**DREAME L10 Prime**](https://amzn.to/4uupW8Z)  
   Best for wet mopping • Self-drying rotating mop pads • Approx ₹29,999
 
-- [**ECOVACS N30 White**](https://amzn.to/3PSuwP9)  
+- [**ECOVACS N30 White**](https://amzn.to/4uvaCsV)  
   Budget-friendly option • Same core cleaning performance • Approx ₹23,999
 
-- [**DREAME D20 Ultra**](https://amzn.to/47OaYS3)  
+- [**DREAME D20 Ultra**](https://amzn.to/4e0gOTI)  
   Best for heavy dust • Powerful 13,000 Pa suction • Approx ₹39,999
 
-- [**ECOVACS N50 PRO Omni**](https://amzn.to/3Q4gI40)  
+- [**ECOVACS N50 PRO Omni**](https://amzn.to/4fGHmKV)  
   Premium automation • Hot-water mop cleaning • Approx ₹64,999
 
 ---
@@ -57,7 +57,7 @@ before purchasing.
 
 # 🧹 1. ECOVACS DEEBOT N30 Plus — The Balanced Pick for Most Homes
 
-[**👉 Check Current Price on Amazon**](https://amzn.to/4cyUAYi)
+[**👉 Check Current Price on Amazon**](https://amzn.to/4uuGz4m)
 
 ### Best For
 Busy professionals and families living in 2BHK or 3BHK apartments who want minimal maintenance.
@@ -87,7 +87,7 @@ The overall reliability and relatively better metro-city support network make th
 
 # 🧼 2. DREAME L10 Prime — The Mopping Specialist
 
-[**👉 Check Current Price on Amazon**](https://amzn.to/4t4MmNu)
+[**👉 Check Current Price on Amazon**](https://amzn.to/4uupW8Z)
 
 ### Best For
 Homes with mostly tile or hard flooring where mopping quality matters more than maximum suction.
@@ -116,7 +116,7 @@ Neglecting maintenance can clog internal water mechanisms over time.
 
 # 💰 3. ECOVACS DEEBOT N30 White — The Smarter Budget Option
 
-[**👉 Check Current Price on Amazon**](https://amzn.to/3PSuwP9)
+[**👉 Check Current Price on Amazon**](https://amzn.to/4uvaCsV)
 
 ### Best For
 Smaller apartments and buyers who want flagship-level cleaning performance without paying for a docking ecosystem.
@@ -150,7 +150,7 @@ If manually emptying the bin once daily doesn't bother you, this is arguably the
 
 # 🌪️ 4. DREAME D20 Ultra — The Deep Cleaning Machine
 
-[**👉 Check Current Price on Amazon**](https://amzn.to/47OaYS3)
+[**👉 Check Current Price on Amazon**](https://amzn.to/4e0gOTI)
 
 ### Best For
 Homes near construction zones, larger houses, or users prioritizing maximum vacuum performance.
@@ -177,7 +177,7 @@ In Indian urban environments, realistic expectations are often much lower.
 
 # 👑 5. ECOVACS DEEBOT N50 PRO Omni — The Luxury Automation Pick
 
-[**👉 Check Current Price on Amazon**](https://amzn.to/3Q4gI40)
+[**👉 Check Current Price on Amazon**](https://amzn.to/4fGHmKV)
 
 ### Best For
 People who want the closest thing possible to a fully automated floor-cleaning system.
