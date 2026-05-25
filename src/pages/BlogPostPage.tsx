@@ -227,6 +227,7 @@ export default function BlogPostPage() {
 
   const libraryHref  = DESTINATION_MAP[post.category] ?? '/top-picks';
   const libraryLabel  = CTA_LABEL_MAP[post.category]  ?? 'Browse Curated Picks →';
+  const hasAmazonLink = !!(post as BlogPost).amazonAffiliateLink?.trim();
 
   return (
     <div className={`min-h-screen ${isFeatured ? 'bg-[#F5EFE0]' : 'bg-gradient-to-b from-slate-50 to-white'}`}>
@@ -533,14 +534,16 @@ export default function BlogPostPage() {
       <Footer />
 
       {/* ── Floating CTA Pill (Gumroad neo-brutalist) ── */}
-      {showPill && !pillDismissed && (
+      {hasAmazonLink && showPill && !pillDismissed && (
         <div className="no-print fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-[#FFD000]">
-          <Link
-            to={libraryHref}
+          <a
+            href={(post as BlogPost).amazonAffiliateLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-black text-sm font-bold tracking-wide whitespace-nowrap"
           >
-            {libraryLabel}
-          </Link>
+            🛒 Check Price on Amazon →
+          </a>
           <button
             onClick={dismissPill}
             aria-label="Dismiss"

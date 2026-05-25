@@ -9,6 +9,7 @@ export interface BlogPost {
   featuredImage: string;
   body: string;
   status: string;
+  amazonAffiliateLink: string;
 }
 
 export interface FeaturedStory {
@@ -86,6 +87,7 @@ function getAllPostsRaw(): BlogPost[] {
         featuredImage: metadata.featured_image || '',
         body,
         status: metadata.status || 'published',
+        amazonAffiliateLink: metadata.amazon_affiliate_link || '',
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
