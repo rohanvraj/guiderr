@@ -65,8 +65,15 @@ const CTA_LABEL_MAP: Record<string, string> = {
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
-  const blogPost = slug ? getPostBySlug(slug) : undefined;
-  const featuredStory = slug ? getFeaturedStoryBySlug(slug) : undefined;
+  const normalizedSlug = slug?.replace(/'/g, '’');
+  const blogPost = slug
+    ? getPostBySlug(slug) ??
+      (normalizedSlug && normalizedSlug !== slug ? getPostBySlug(normalizedSlug) : undefined)
+    : undefined;
+  const featuredStory = slug
+    ? getFeaturedStoryBySlug(slug) ??
+      (normalizedSlug && normalizedSlug !== slug ? getFeaturedStoryBySlug(normalizedSlug) : undefined)
+    : undefined;
   const post = blogPost ?? featuredStory;
   const isFeatured = !!featuredStory && !blogPost;
 
@@ -78,9 +85,7 @@ export default function BlogPostPage() {
 
   // ── Floating Library CTA Pill ──────────────────────────────────────────────
   const [showPill, setShowPill] = useState(false);
-  const [pillDismissed, setPillDismissed] = useState(
-    () => typeof window !== 'undefined' && sessionStorage.getItem('lib-cta-dismissed') === '1'
-  );
+  const [pillDismissed, setPillDismissed] = useState(false);
 
   useEffect(() => {
     if (pillDismissed) return;
@@ -99,7 +104,6 @@ export default function BlogPostPage() {
   }, [pillDismissed]);
 
   function dismissPill() {
-    sessionStorage.setItem('lib-cta-dismissed', '1');
     setPillDismissed(true);
     setShowPill(false);
   }
@@ -229,7 +233,10 @@ export default function BlogPostPage() {
 
   const libraryHref      = DESTINATION_MAP[post.category] ?? '/top-picks';
   const libraryLabel     = CTA_LABEL_MAP[post.category]   ?? 'Browse Curated Picks →';
-  const hasAmazonLink    = !!(post as BlogPost).amazonAffiliateLink?.trim();
+  const amazonLinkFromFrontmatter = blogPost?.amazonAffiliateLink?.trim() ?? '';
+  const amazonLinkFromBody = post.body.match(/https?:\/\/(?:www\.)?(?:amzn\.to|amazon\.[^\s)\]]+)/i)?.[0] ?? '';
+  const amazonCtaHref = amazonLinkFromFrontmatter || amazonLinkFromBody;
+  const hasAmazonLink = !!amazonCtaHref;
   const hasInternalRoute = post.category in DESTINATION_MAP;
   const showPillCTA      = hasAmazonLink || hasInternalRoute;
 
@@ -539,10 +546,10 @@ export default function BlogPostPage() {
 
       {/* ── Floating CTA Pill (Gumroad neo-brutalist) ── */}
       {showPillCTA && showPill && !pillDismissed && (
-        <div className="no-print fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-[#FFD000]">
+        <div className="no-print fixed bottom-28 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-[#FFD000]">
           {hasAmazonLink ? (
             <a
-              href={(post as BlogPost).amazonAffiliateLink}
+              href={amazonCtaHref}
               target="_blank"
               rel="noopener noreferrer"
               className="text-black text-sm font-bold tracking-wide whitespace-nowrap"
