@@ -26,10 +26,10 @@ On paper, two shops might look identical. In reality, their value can differ by 
 * **Real Owner Earnings: ₹9 Lakh**
 **Sweet Shop B (High Upkeep):**
 * Reported Profit: ₹10 Lakh
-* Yearly Maintenance: ₹6 Lakh
-* **Real Owner Earnings: ₹4 Lakh**
+* Yearly Maintenance: ₹3 Lakh
+* **Real Owner Earnings: ₹7 Lakh**
 **The Reality:** In this scenario, Shop A is significantly more valuable. One can observe that "Asset-Light" businesses typically provide higher Owner Earnings because they do not have to "re-purchase" their own equipment every few years just to stay operational.
-![Comparing Two Shops: Same Profit, Different Owner Value](image_id_two_shops_comparison)
+![Comparing Two Shops: Same Profit, Different Owner Value](concept1_ezkwtm)
 ***
 ## **3. The \"Cash Flow\" Illusion**
 There is a common metric called "Cash Flow" that adds back non-cash expenses like **Depreciation** to the profit. While this sounds technical, it can create a logical trap if the cost of replacing equipment is high.
