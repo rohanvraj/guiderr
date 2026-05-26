@@ -20,10 +20,12 @@ In the high-growth Indian market, record profit headlines are common. Most parti
 ***
 ## **2. Comparing Two Businesses: Same Profit, Different Reality**
 On paper, two shops might look identical. In reality, their value can differ by more than 2x based on their maintenance needs.
+
 **Dhaba A (Low Upkeep):**
 * Reported Profit: ₹10 Lakh
 * Yearly Maintenance: ₹1 Lakh
 * **Real Owner Earnings: ₹9 Lakh**
+
 **Dhaba B (High Upkeep):**
 * Reported Profit: ₹10 Lakh
 * Yearly Maintenance: ₹3 Lakh
