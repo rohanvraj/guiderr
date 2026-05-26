@@ -5,7 +5,7 @@ category: Tech
 author: Guiderr
 featured_image: thumbnail_air_purifiers_for_blog_xe6y7j
 status: published
-amazon_affiliate_link: https://amzn.to/42RE0xh
+amazon_affiliate_link: https://amzn.to/43tJu1n
 ---
 
 With city pollution hitting record highs in 2026, air purifiers are now a basic home need. Don't get confused by too many models. To get the best value, focus on two things: **CADR (Air Flow)** and **Filter Life** of the air putifiers.
