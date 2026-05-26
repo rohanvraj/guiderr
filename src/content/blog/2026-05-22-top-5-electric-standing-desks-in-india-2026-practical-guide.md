@@ -2,12 +2,13 @@
 title: "Top 5 Electric Standing Desks in India: 2026 Practical Guide"
 date: 2026-05-23T01:40:00.000Z
 category: Tech
+author: Guiderr Gadgets
+featured_image: standing-motorised-desk-thumbnail_compressed_vhhsvw
+amazon_affiliate_link: https://amzn.to/4nUFkt0
+status: published
 image:
   - ADD IMAGE ID: AI Concept - A clean
   - modern standing desk in a bright Indian apartment
-author: Guiderr Gadgets
-status: published
-featured_image: standing-motorised-desk-thumbnail_compressed_vhhsvw
 ---
 
 Sitting for 9 hours a day in a cramped home office is a recipe for long-term back pain. While standing desks are becoming popular in India, many buyers realize too late that a wobbly desk or a noisy motor can ruin their concentration.
