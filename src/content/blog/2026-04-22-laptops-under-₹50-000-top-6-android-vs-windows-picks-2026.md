@@ -2,10 +2,11 @@
 title: "Laptops Under ₹50,000: Top 6 Android vs Windows Picks (2026)"
 date: 2026-04-22T17:51:00.000Z
 category: Tech
-image: laptop-audit-50k-india_vzk05r
 author: Guiderr Editorial
-status: published
 featured_image: android_vs_windows_laptops_ow2zwa
+amazon_affiliate_link: https://amzn.to/4v797AK
+status: published
+image: laptop-audit-50k-india_vzk05r
 ---
 
 Finding a reliable laptop under ₹50,000 in India is about knowing your software needs. This guide compares the best-rated Android-based Primebooks and traditional Windows laptops available on Amazon today.
