@@ -171,7 +171,7 @@ export default function LibraryProductPage() {
         </div>
 
         {/* ── Product rectangle: Cover (left) | Details (right) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] lg:max-h-[calc(100vh-10rem)] lg:overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]lg:h-[calc(100vh-10rem)] lg:overflow-hidden">
 
           {/* ── LEFT: Cover ── */}
           <div className="bg-slate-100 p-3 lg:border-r-2 lg:border-r-black">
