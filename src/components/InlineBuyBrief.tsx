@@ -85,7 +85,7 @@ export default function InlineBuyBrief({ productId, label }: InlineBuyBriefProps
         tabIndex={0}
         onClick={() => setModalOpen(true)}
         onKeyDown={(e) => e.key === 'Enter' && setModalOpen(true)}
-        className="not-prose group my-8 flex items-center gap-4 rounded-2xl border border-white/20 bg-[#7178AB]/15 backdrop-blur-md p-4 cursor-pointer hover:bg-[#7178AB]/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg select-none"
+        className="not-prose group my-8 flex items-center gap-4 rounded-xl border-2 border-black bg-[#FFD000] p-4 cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150 select-none"
         aria-label={`Buy ${product.name}`}
       >
         {/* Cover thumbnail — visible on all screen sizes, forced block */}
@@ -106,7 +106,7 @@ export default function InlineBuyBrief({ productId, label }: InlineBuyBriefProps
           <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-[#7178AB] mb-0.5">
             Intelligence Brief
           </span>
-          <span className="block text-sm font-bold text-slate-900 leading-snug line-clamp-2 group-hover:text-[#7178AB] transition-colors duration-300">
+          <span className="block text-sm font-bold text-black leading-snug line-clamp-2">
             {label || product.name}
           </span>
           {product.author && (
@@ -118,10 +118,10 @@ export default function InlineBuyBrief({ productId, label }: InlineBuyBriefProps
 
         {/* Price + CTA */}
         <span className="flex flex-col items-end gap-1.5 shrink-0">
-          <span className="text-base font-extrabold text-slate-900">
+          <span className="text-base font-extrabold text-black">
             ₹{product.price_in_rupees.toLocaleString('en-IN')}
           </span>
-          <span className="flex items-center gap-1.5 rounded-full bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 group-hover:bg-[#7178AB] transition-colors duration-300">
+          <span className="flex items-center gap-1.5 rounded-lg border-2 border-black bg-black text-[#FFD000] text-xs font-semibold px-3 py-1.5 transition-colors duration-150">
             <ShoppingBag className="w-3.5 h-3.5" />
             Buy Report
           </span>

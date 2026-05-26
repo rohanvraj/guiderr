@@ -136,26 +136,26 @@ html {
    └─────────────────────────────────────────────────────────────────────────┘ */
 :root {
   /* INSIGHT (Blue) */
-  --dm-bg-pro:      #f7c120;
+  --dm-bg-pro:      #386c47;
   --dm-accent-pro:  #ffffff;
 
   /* THE BOTTOM LINE (Gold) */
-  --dm-bg-math:     #0da284;
+  --dm-bg-math:     #725d8f;
   --dm-accent-math: #f4f4f4;
 
   /* REALITY CHECK (Red) */
-  --dm-bg-risk:     #d4d2d2;
+  --dm-bg-risk:     #865555;
   --dm-accent-risk: #046337;
 
   /* AI COMPANION (Violet) */
-  --dm-bg-ai:       #aed0c9;
+  --dm-bg-ai:       #62507b;
   --dm-accent-ai:   #191b0f;
 
   /* BLUEPRINT (Cyan) */
-  --dm-bg-blueprint: #8ed4c8;
-  --dm-accent-blueprint: #000000;
+  --dm-bg-blueprint: #5c5c5c;
+  --dm-accent-blueprint: #afafaf;
 
-  --dm-text:        #000000;  /* Crisp off-white for all text in boxes       */
+  --dm-text:        #ffffff;  /* Crisp off-white for all text in boxes       */
 }
 
 .dm-pro-tip {
@@ -207,7 +207,8 @@ html {
   width: 100% !important;
   box-sizing: border-box;
   margin: 2rem 0;
-  border-left: 3px solid var(--dm-accent-blueprint);
+  border: 2px solid #000000;
+box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
   background-color: var(--dm-bg-blueprint) !important;
   color: var(--dm-text);
   padding: 2rem;
@@ -221,7 +222,8 @@ html {
 .prose .dm-blueprint {
   background-color: var(--dm-bg-blueprint) !important;
   color: var(--dm-text) !important;
-  border-left-color: var(--dm-accent-blueprint) !important;
+  border: 2px solid #000000 !important;
+box-shadow: 4px 4px 0px 0px rgba(0,0,0,1) !important;
   padding: 2rem !important;
   margin-top: 2rem !important;
   margin-bottom: 2rem !important;
@@ -233,7 +235,13 @@ html {
 /* ── InlineBuyBrief card: "one shade darker" inside all DM boxes ─────────────
    Background: pure black (#000000) contrasts with the charcoal (#0a0a0a) box.
    Scoped tightly — does not affect standard white-background article cards.   */
-.dm-blueprint .not-prose,
+.dm-blueprint .not-prose {
+  background-color: #f7c900 !important;
+  border-color: #000000 !important;
+border-width: 2px !important;
+  box-shadow: 2px 2px 0px 0px rgba(0,0,0,1) !important;
+  margin-top: 1.25rem !important;
+}
 .dm-pro-tip .not-prose,
 .dm-math .not-prose,
 .dm-risk-audit .not-prose,
@@ -250,7 +258,7 @@ html {
 .dm-math .not-prose .text-slate-900,
 .dm-risk-audit .not-prose .text-slate-900,
 .dm-ai-companion .not-prose .text-slate-900 {
-  color: #f1f5f9 !important;
+  color: #3c3c3c !important;
 }
 
 /* Author byline: readable without competing with the title */
@@ -259,7 +267,7 @@ html {
 .dm-math .not-prose .text-slate-500,
 .dm-risk-audit .not-prose .text-slate-500,
 .dm-ai-companion .not-prose .text-slate-500 {
-  color: #94a3b8 !important;
+  color: #000000 !important;
 }
 
 /* "Buy Report" pill: semi-transparent white makes it pop on pure black */
@@ -269,7 +277,7 @@ html {
 .dm-risk-audit .not-prose .bg-slate-900,
 .dm-ai-companion .not-prose .bg-slate-900 {
   background-color: rgba(255, 255, 255, 0.15) !important;
-  color: #f8fafc !important;
+  color: #000000 !important;
 }
 
 /* Strip prose blockquote default styling inside design modules */
