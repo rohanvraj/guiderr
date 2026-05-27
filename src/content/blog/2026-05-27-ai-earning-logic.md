@@ -17,7 +17,7 @@ If everyone has a "free stove" (basic AI tools), why would anyone pay a "chef" (
 **The Tradeoff:** Learning this technical side takes more time than just "chatting," but it makes your work significantly more valuable to any brand that needs realism for their advertising.
 > **THE BOTTOM LINE:** Quality is the only durable filter in a world of free tools. When the cost of production drops toward zero, the market tends to pay a premium only for work that successfully bypasses the "Uncanny Valley."
 
-![The Camera Logic: Lens Physics vs. Generic Text Prompts](ChatGPT_Image_May_27_2026_05_12_48_PM_furp6v)
+![The Camera Logic: Lens Physics vs. Generic Text Prompts](ChatGPT_Image_May_27_2026_05_26_49_PM_m3rtkk)
 
 ***
 ## **2. The 'Income Layer': Selling Consistency, Not Just Art**
@@ -27,7 +27,9 @@ If everyone has a "free stove" (basic AI tools), why would anyone pay a "chef" (
 * **The Brand's Reality:** A recurring photoshoot cost of ₹15,000 per quarter becomes a one-time "Digital Asset Pack" fee of ₹3,000—a significant reduction in their recurring capital expenditure.
 * **The Creator's Reality:** A creator who builds and licenses three to five such brand faces may observe a compounding income stream that does not require new production each month.
 > **THE BOTTOM LINE:** The "Income Layer" of AI is built on providing business solutions, not art. One can observe that the most reliable returns in this space tend to come from creating permanent digital assets that reduce a company's recurring expenses—not from selling individual images.
+
 ![The Consistency Engine: One Digital Face Across Multiple Brand Settings](ChatGPT_Image_May_27_2026_05_23_47_PM_qgbuzg)
+
 ***
 ## **3. The Distribution Gap: Why Skill Alone Does Not Pay**
 **The Concept:** Technical skill is only 50% of the income equation. The remaining 50% is **Distribution**—getting your work in front of people who have both the problem and the budget to solve it.
