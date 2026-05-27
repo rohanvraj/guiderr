@@ -163,13 +163,29 @@ export default function Library() {
               Ebooks, checklists, and frameworks for smarter decisions on motorcycles, money, and modern life.
             </p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5">
-              {['Instant PDF download', 'Read on any device', 'From ₹100'].map((item) => (
-                <span key={item} className="flex items-center gap-2 text-xs text-white/35 font-medium tracking-wide">
-                  <span className="w-1 h-1 rounded-full bg-white/35 shrink-0" />
-                  {item}
-                </span>
-              ))}
-            </div>
+  {['Pay once. Own forever.', 'No auto-renewal', 'Instant PDF after payment', 'UPI · Cards · NetBanking', 'Secured by Razorpay'].map((item) => (
+    <span key={item} className="flex items-center gap-2 text-xs text-white/35 font-medium tracking-wide">
+      <span className="w-1 h-1 rounded-full bg-white/35 shrink-0" />
+      {item}
+    </span>
+  ))}
+</div>
+
+{/* Payment trust bar */}
+<div className="flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-white/10">
+  <span className="text-[10px] font-semibold uppercase tracking-widest text-white/25">
+    Payments secured by
+  </span>
+  <span className="text-xs font-bold text-white/50 tracking-wide">
+    Razorpay
+  </span>
+  <span className="text-white/15 text-xs">·</span>
+  <span className="text-[11px] text-white/35 font-medium">₹ UPI</span>
+  <span className="text-white/15 text-xs">·</span>
+  <span className="text-[11px] text-white/35 font-medium">All major cards</span>
+  <span className="text-white/15 text-xs">·</span>
+  <span className="text-[11px] text-white/35 font-medium">Net Banking</span>
+</div>
           </div>
         </div>
 
