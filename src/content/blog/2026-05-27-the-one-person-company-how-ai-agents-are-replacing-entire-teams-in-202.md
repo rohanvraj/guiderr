@@ -1,5 +1,5 @@
 ---
-title: "The One-Person Company: How AI Agents Are Replacing Entire Teams in 202"
+title: "The One-Person Company: How AI Agents Are Replacing Entire Teams in 2026"
 date: 2026-05-28T02:15:00.000Z
 category: AI Lab
 author: Guiderr AI Editorial
