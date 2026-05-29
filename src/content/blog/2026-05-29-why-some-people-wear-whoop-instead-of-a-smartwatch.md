@@ -32,6 +32,8 @@ The key metrics are different. Instead of step counts, a health wearable focuses
 
 None of this is new science. Athletes and sports coaches have used HRV data for decades. Health wearables bring that same data to everyday people.
 
+[**👉 Check Out WHOOP on Amazon India**](https://amzn.to/3RDIG7t)
+
 ---
 
 [![WHOOP fitness wearable band on wrist](whoop_fitness_band_2_rr0i0u)](https://amzn.to/3RDIG7t)
