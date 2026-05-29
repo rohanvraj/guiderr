@@ -98,10 +98,10 @@ export default function Hero() {
               {/* Left: headline + subtext */}
               <div className="flex-1">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-5">
-                  Build Wealth. Travel. Think Clearly.
+                  Smarter Decisions on Money, Gear, Travel and Tech.
                 </h1>
                 <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl">
-                 Guiderr simplifies money, travel, technology, and everyday decisions - so you can learn faster and avoid expensive mistakes.
+                 One person. Lots of research. Written simply.
                 </p>
               </div>
 
@@ -123,7 +123,7 @@ export default function Hero() {
 
                   <div className="max-w-[180px] sm:max-w-[220px]">
                     <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
-                      Hi! I'm Rohan, the founder of Guiderr. Where do you want to start?
+                      Hi! I'm Rohan. I built Guiderr to help Indians make better decisions with their money and time. That's the aim, at least.
                     </p>
                   </div>
 
@@ -148,14 +148,15 @@ export default function Hero() {
             {/* 1. Learn — large left card */}
             <Link
               to="/guides"
-              className="group sm:col-span-2 sm:row-span-2 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-orange-800 hover:bg-orange-700 p-8 min-h-[260px] sm:min-h-[440px] transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl active:scale-[0.98]"
+              className="group sm:col-span-2 sm:row-span-2 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-orange-500 hover:bg-orange-400 p-8 min-h-[260px] sm:min-h-[440px] transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl active:scale-[0.98]"
             >
-              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[7rem] sm:text-[10rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">WEALTH</span>
+              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[7rem] sm:text-[10rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">READ</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-4 font-medium">01</p>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 leading-tight">Learn for free.</h2>
-                <p className="mt-3 text-sm text-slate-950/70 max-w-xs">
-                  In-depth guides on money, travel, and life decisions.
+                <p className="mt-3 text-[15px] sm:text-base font-medium text-slate-950/70 max-w-xs">
+                  Honest guides on money, gear, travel, and tech. 
+The research is the work.
                 </p>
               </div>
               <div className="flex items-center gap-2 text-slate-950 font-semibold text-sm mt-8">
@@ -169,12 +170,12 @@ export default function Hero() {
               to="/library"
               className="group sm:col-span-2 sm:row-span-1 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-amber-500 hover:bg-amber-400 p-6 min-h-[160px] sm:min-h-0 transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl hover:shadow-amber-500/20 active:scale-[0.98]"
             >
-              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">VAULT</span>
+              <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">LIBRARY</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">02</p>
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-950">Intelligent Briefs: Our Premium Modules.</h2>
-                <p className="mt-2 text-sm text-slate-950/70">
-                  Curated reads distilled into quick, high-signal summaries.
+                <p className="mt-2 text-[15px] sm:text-base text-slate-950/70 font-medium">
+                 Deep-dive PDF modules on investing, AI, riding, and more. One time Purchase starting ₹100.
                 </p>
               </div>
               <div className="flex items-center gap-2 text-slate-950 font-semibold text-sm mt-4">
@@ -186,13 +187,13 @@ export default function Hero() {
             {/* 3. Top Picks — bottom right, left cell */}
             <Link
               to="/top-picks"
-              className="group sm:col-span-1 sm:row-span-1 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-sky-500 hover:bg-sky-400 p-6 min-h-[160px] sm:min-h-0 transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl hover:shadow-sky-500/30 active:scale-[0.98]"
+              className="group sm:col-span-1 sm:row-span-1 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-sky-300 hover:bg-sky-200 p-6 min-h-[160px] sm:min-h-0 transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl hover:shadow-sky-500/30 active:scale-[0.98]"
             >
               <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[5rem] sm:text-[7rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">PICKS</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">03</p>
                 <h2 className="text-xl font-bold text-slate-950">Top Picks.</h2>
-                <p className="mt-2 text-sm text-slate-950/70">
+                <p className="mt-2 text-[15px] sm:text-base font-medium text-slate-950/70">
                   Rohan's personal picks across every category.
                 </p>
               </div>
@@ -211,7 +212,7 @@ export default function Hero() {
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-3 font-medium">04</p>
                 <h2 className="text-xl font-bold text-slate-950">Featured Stories.</h2>
-                <p className="mt-2 text-sm text-slate-950/70">
+                <p className="mt-2 text-[15px] sm:text-base font-medium text-slate-950/70">
                   Real people, real outcomes - spotlighted on Guiderr.
                 </p>
               </div>
