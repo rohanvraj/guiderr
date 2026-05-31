@@ -1,5 +1,5 @@
 ---
-title: The Best Green Soul Chairs Right Now
+title: Best Green Soul Office Chairs in India 2026 -  8 Picks Worth Buying
 date: 2026-05-21T00:47:00.000Z
 category: Lifestyle
 author: Guiderr Tech
