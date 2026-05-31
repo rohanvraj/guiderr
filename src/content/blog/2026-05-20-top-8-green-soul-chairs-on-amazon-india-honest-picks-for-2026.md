@@ -1,5 +1,6 @@
 ---
-title: Best Green Soul Office Chairs in India 2026 -  8 Picks Worth Buying
+title: Green Soul Jupiter Pro and 7 Other Office Chairs -  Current Prices on
+  Amazon India 2026
 date: 2026-05-21T00:47:00.000Z
 category: Lifestyle
 author: Guiderr Tech
