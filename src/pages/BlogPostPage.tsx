@@ -63,6 +63,57 @@ const CTA_LABEL_MAP: Record<string, string> = {
   'Home & Living': 'Browse Home Picks →',
 };
 
+// ── LiteYouTube ───────────────────────────────────────────────────────────────
+// Renders a static YouTube thumbnail + CSS play button. Zero YouTube JS on page
+// load — the iframe (youtube-nocookie.com) is injected only on user click.
+// Cost: one ~10 KB thumbnail from img.youtube.com. Lighthouse impact: none.
+// Shortcode usage in Decap CMS: [Watch: Title](yt:VIDEO_ID)
+function LiteYouTube({ videoId, title }: { videoId: string; title: string }) {
+  const [activated, setActivated] = useState(false);
+
+  if (activated) {
+    return (
+      <div className="relative w-full aspect-video my-8 rounded-xl overflow-hidden shadow-md">
+        <iframe
+          className="absolute inset-0 w-full h-full"
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      className="relative block w-full aspect-video my-8 rounded-xl overflow-hidden cursor-pointer group shadow-md"
+      onClick={() => setActivated(true)}
+      aria-label={`Play video: ${title}`}
+    >
+      <img
+        src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+        alt={title}
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      {/* Play button overlay */}
+      <span className="absolute inset-0 flex items-center justify-center">
+        <span className="flex items-center justify-center w-16 h-16 rounded-full bg-red-600 group-hover:bg-red-500 transition-colors shadow-lg">
+          <svg className="w-6 h-6 text-white ml-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+      </span>
+      {/* Title caption at bottom */}
+      <span className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/70 to-transparent text-white text-sm font-medium text-left truncate">
+        {title}
+      </span>
+    </button>
+  );
+}
+
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const normalizedSlug = slug?.replace(/'/g, '’');
@@ -350,6 +401,17 @@ export default function BlogPostPage() {
               // py-2 inline-block so touch targets are ≥44px on mobile.
               // Image-wrapped links are already large enough — skip the padding.
               a: ({ href, children }) => {
+                // ── YouTube Lite embed shortcode ──────────────────────────────
+                // Usage in Decap CMS: [Watch: Title](yt:VIDEO_ID)
+                // Renders a thumbnail-first player — no YouTube JS until click.
+                if (href?.startsWith('yt:')) {
+                  const videoId = href.slice(3).trim();
+                  const title = typeof children === 'string'
+                    ? children
+                    : extractHeadingText(children);
+                  return <LiteYouTube videoId={videoId} title={title} />;
+                }
+
                 // ── Intelligence Brief shortcode ─────────────────────────────
                 // Usage in Decap CMS: [Buy the Full Report →](buy:UUID-HERE)
                 // Optional custom label from link text; UUID is immutable.

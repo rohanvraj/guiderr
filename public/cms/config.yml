@@ -50,7 +50,13 @@ collections:
         widget: "string"
         required: false
         hint: "Paste your Amazon amzn.to affiliate link here. Leave blank to hide the CTA button on this article."
-      - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: >-
+          Shortcodes — Intelligence Brief buy button: [Buy the Full Report →](buy:PRODUCT-UUID).
+          YouTube lite embed (thumbnail-first, zero JS until click): [Watch: Your Title Here](yt:VIDEO_ID).
+          VIDEO_ID is the part after ?v= in any YouTube URL (e.g. youtube.com/watch?v=dQw4w9WgXcQ → ID is dQw4w9WgXcQ).
     view_filters:
       - label: "Motorcycles"
         field: category
