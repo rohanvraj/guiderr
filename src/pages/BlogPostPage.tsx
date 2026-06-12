@@ -67,13 +67,22 @@ const CTA_LABEL_MAP: Record<string, string> = {
 // Renders a static YouTube thumbnail + CSS play button. Zero YouTube JS on page
 // load — the iframe (youtube-nocookie.com) is injected only on user click.
 // Cost: one ~10 KB thumbnail from img.youtube.com. Lighthouse impact: none.
-// Shortcode usage in Decap CMS: [Watch: Title](yt:VIDEO_ID)
-function LiteYouTube({ videoId, title }: { videoId: string; title: string }) {
+// Shortcode usage in Decap CMS:
+//   Long-format : [Watch: Title](yt:VIDEO_ID)
+//   Shorts/vertical: [Watch: Title](yt-short:VIDEO_ID)
+function LiteYouTube({ videoId, title, vertical = false }: { videoId: string; title: string; vertical?: boolean }) {
   const [activated, setActivated] = useState(false);
+
+  // Vertical (Shorts) wrapper: fixed max-width centred, 9:16 ratio
+  // Landscape wrapper: full-width, 16:9 ratio
+  const wrapperClass = vertical
+    ? 'relative block w-full max-w-[360px] mx-auto my-8 rounded-xl overflow-hidden shadow-md'
+    : 'relative w-full aspect-video my-8 rounded-xl overflow-hidden shadow-md';
+  const wrapperStyle = vertical ? { aspectRatio: '9/16' } : undefined;
 
   if (activated) {
     return (
-      <div className="relative w-full aspect-video my-8 rounded-xl overflow-hidden shadow-md">
+      <div className={wrapperClass} style={wrapperStyle}>
         <iframe
           className="absolute inset-0 w-full h-full"
           src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
@@ -88,7 +97,8 @@ function LiteYouTube({ videoId, title }: { videoId: string; title: string }) {
   return (
     <button
       type="button"
-      className="relative block w-full aspect-video my-8 rounded-xl overflow-hidden cursor-pointer group shadow-md"
+      className={`relative block cursor-pointer group ${wrapperClass}`}
+      style={wrapperStyle}
       onClick={() => setActivated(true)}
       aria-label={`Play video: ${title}`}
     >
@@ -96,7 +106,7 @@ function LiteYouTube({ videoId, title }: { videoId: string; title: string }) {
         src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
         alt={title}
         loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-center"
       />
       {/* Play button overlay */}
       <span className="absolute inset-0 flex items-center justify-center">
@@ -402,8 +412,16 @@ export default function BlogPostPage() {
               // Image-wrapped links are already large enough — skip the padding.
               a: ({ href, children }) => {
                 // ── YouTube Lite embed shortcode ──────────────────────────────
-                // Usage in Decap CMS: [Watch: Title](yt:VIDEO_ID)
+                // Long-format : [Watch: Title](yt:VIDEO_ID)         → 16:9
+                // Shorts/vertical: [Watch: Title](yt-short:VIDEO_ID) → 9:16
                 // Renders a thumbnail-first player — no YouTube JS until click.
+                if (href?.startsWith('yt-short:')) {
+                  const videoId = href.slice(9).trim();
+                  const title = typeof children === 'string'
+                    ? children
+                    : extractHeadingText(children);
+                  return <LiteYouTube videoId={videoId} title={title} vertical />;
+                }
                 if (href?.startsWith('yt:')) {
                   const videoId = href.slice(3).trim();
                   const title = typeof children === 'string'
