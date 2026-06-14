@@ -1,5 +1,5 @@
 ---
-title: "Top 5 Electric Standing Desks in India: 2026 Practical Guide"
+title: Which Motorised Standing Desk Should You Buy in India? 5 Top Picks (2026)
 date: 2026-05-23T01:40:00.000Z
 category: Tech
 author: Guiderr Gadgets
