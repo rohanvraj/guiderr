@@ -1,6 +1,5 @@
 ---
-title: Why the Metallic Mat Steel Green Suzuki Hayabusa is a Modern Masterpiece
-  of 2026
+title: Is Metallic Mat Steel Green Colour the Best-Looking Suzuki Hayabusa Ever Made?
 date: 2026-04-09T18:37:00.000Z
 category: Automotive
 author: Rohan
