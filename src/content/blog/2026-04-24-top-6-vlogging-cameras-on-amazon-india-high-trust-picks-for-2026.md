@@ -1,5 +1,5 @@
 ---
-title: "Top 6 Vlogging Cameras on Amazon India: High-Trust Picks for 2026"
+title: "Best Vlogging Cameras in India (2026): 6 Picks Worth Buying"
 date: 2026-04-25T01:13:00.000Z
 category: Tech
 author: Guiderr editorial
