@@ -6,7 +6,7 @@ import { getAllPosts } from '../utils/blog';
 import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 
 // ── Constants ──────────────────────────────────────────────────────────────
-const POSTS_PER_PAGE = 5;
+const POSTS_PER_PAGE = 6;
 
 // Maps any ?category= URL param to its clean hub URL (backward compat).
 const PARAM_TO_HUB: Record<string, string> = {
@@ -53,7 +53,7 @@ function displayCategory(cat: string): string {
 export default function BlogListingPage() {
   const allPosts = getAllPosts();
   const [searchParams] = useSearchParams();
-  const [showArchive, setShowArchive] = useState(false);
+  const [showArchive, setShowArchive] = useState(true);
   const [page, setPage] = useState(0);
 
   // Backward-compat redirects — hooks are all called above this early return.
@@ -160,14 +160,14 @@ export default function BlogListingPage() {
           })}
         </div>
 
-        {/* ── Full Archive (hidden until card clicked) ── */}
+       {/* ── Latest Guides ── */}
         {showArchive && (
           <div id="archive-section" className="scroll-mt-28">
             {/* Archive header */}
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-6 pb-5 border-b border-slate-100">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400 mb-1">
-                  Full Archive
+                  Latest Guides
                 </p>
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                   All {allPosts.length} Guides
