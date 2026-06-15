@@ -568,6 +568,9 @@ export default function BlogPostPage() {
           </ReactMarkdown>
         </article>
 
+         {/* ── "Next Steps" Footer ── */}
+            <ArticleFooter category={post.category} />
+
         {/* ── Fine Print ── */}
         {(() => {
           return (
@@ -619,8 +622,6 @@ export default function BlogPostPage() {
           );
         })()}
 
-            {/* ── "Next Steps" Footer ── */}
-            <ArticleFooter category={post.category} />
           </main>
 
         </div>
