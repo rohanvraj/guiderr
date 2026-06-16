@@ -2,11 +2,12 @@
 title: "2026 Tata Tiago & Tiago EV Facelift: A Sneak Peek at the Sharp New Design"
 date: 2026-05-21T17:32:00.000Z
 category: Automotive
+author: Guiderr Automotive
+featured_image: ChatGPT_Image_Jun_16_2026_04_52_08_PM_sdvhya
+amazon_affiliate_link: https://amzn.to/3SI5ROm
+status: published
 image:
   - ADD IMAGE ID HERE
-author: Guiderr Automotive
-status: published
-featured_image: ""
 ---
 
 Tata Motors has released a fresh teaser for the upcoming Tiago and Tiago EV facelift. The design signals a clear shift from the previous rounded aesthetic to a much sharper, edgy profile. While the official launch is set for **May 28**, the teaser offers a glimpse into the exterior changes and potential safety upgrades.
