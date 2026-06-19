@@ -1,5 +1,5 @@
 ---
-title: Green Soul Jupiter Pro and 7 Other Office Chairs -  Current Prices on Amazon India 2026
+title: Green Soul Office Chairs - Which One Is Actually Worth Buying in 2026?
 date: 2026-05-21T00:47:00.000Z
 category: Lifestyle
 author: Guiderr Tech
