@@ -58,7 +58,7 @@ export default function RohanSelection() {
             <p className="text-slate-500 mb-10 text-lg leading-relaxed max-w-md mx-auto">{currentSub.description}</p>
             <a href={currentSub.amazonUrl} target="_blank" rel="noopener noreferrer sponsored" 
                className="inline-block w-full py-6 bg-slate-900 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl hover:bg-orange-500 transition-all active:scale-95">
-              Shop on Amazon →
+              {currentSub.amazonUrl.includes('amazon') ? "Shop on Amazon →" : "Check Offer Now →"}
             </a>
           </div>
         ) : (
@@ -96,8 +96,9 @@ export default function RohanSelection() {
                     </div>
                     <div className="p-5 text-center">
                       <h3 className="font-black text-slate-900 uppercase tracking-tight text-sm leading-none mb-1">{item.label}</h3>
-                      <p className="text-[9px] font-bold text-orange-500 uppercase tracking-widest">{isHubList ? "Explore Hub →" : "Amazon →"}</p>
-                    </div>
+                      <p className="text-[9px] font-bold text-orange-500 uppercase tracking-widest">
+                        {!isHubList ? ((item as any).amazonUrl?.includes('amazon') ? "Amazon →" : "Check Offer →") : "Explore Hub →"}
+                    </p>          </div>
                   </Component>
                 );
               })}

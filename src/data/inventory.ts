@@ -110,7 +110,7 @@ export const INVENTORY: InventoryItem[] = [
     amazonUrl: `https://www.amazon.in/s?k=ergonomic+office+chair+green+soul&tag=${TAG}`,
     emoji: '🪑',
     imageId: 'ChatGPT_Image_Jun_18_2026_01_14_28_AM_nbkj4w'
-  }
+  },
   
   // ─── INVESTING ──────────────────────────────────────────────────────────
   {
