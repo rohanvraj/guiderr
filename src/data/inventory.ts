@@ -1,813 +1,122 @@
-// Static affiliate inventory — zero DB hits.
-// Each item has a stable `id` slug used in URLs and tracking.
-// imageID: Cloudinary public ID (e.g. 'viaterra-claw_abc123') — same format as
-//          blog markdown images. External URLs also work (passed through unchanged).
-// category: matches the route slug (e.g. /top-picks/tech).
-//
-// Supported categories: tech | riding-gear | lifestyle |
-//                        investing | personal-finance | credit-cards | travel
-//
-// Auto-synced from src/content/blog/ on 2026-04-25.
-// Manually preserved: learn-to-earn-peter-lynch, wildhorn-wallet.
+// src/data/inventory.ts
+
+export interface Hub {
+  id: string;
+  label: string;
+  description: string;
+  emoji: string;
+  imageId: string;
+}
 
 export interface InventoryItem {
   id: string;
-  name: string;
-  category: string;   // used for route-based filtering
-  displayCategory: string;
-  imageID: string;    // Cloudinary public ID or external URL
-  link: string;       // affiliate / product link
+  category: 'tech' | 'riding-gear' | 'travel' | 'lifestyle'; 
+  label: string;
   description: string;
+  amazonUrl: string;
+  emoji: string;
+  imageId: string;
 }
 
-export const INVENTORY: InventoryItem[] = [
+const TAG = 'rohan198609-21';
 
-  // ── Tech — Laptops (from: laptops-under-₹50-000 article) ───────────────────
-  {
-    id: 'primebook-2-max',
-    name: 'Primebook 2 Max',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'prime_book_max_laptop_under_30k_oaghci',
-    link: 'https://amzn.to/4cK4iWF',
-    description: '8GB RAM, 256GB, 15.6" FHD — best Android laptop for long study sessions with 4G/5G SIM.',
-  },
-  {
-    id: 'primebook-2-pro',
-    name: 'Primebook 2 Pro',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'prime_book_pro_android_laptop_under_30k_bc164p',
-    link: 'https://amzn.to/42o5QRi',
-    description: '8GB RAM, 14.1" FHD — portable Android laptop ideal for content on the move.',
-  },
-  {
-    id: 'primebook-2-neo',
-    name: 'Primebook 2 Neo',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'prime_book_neo_android_laptop_under_30k_h786ai',
-    link: 'https://amzn.to/4u1VWR8',
-    description: 'Most affordable Android laptop — perfect for basic browsing and schoolwork.',
-  },
-  {
-    id: 'dell-15-inspiron',
-    name: 'Dell 15 Inspiron',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'dell_15_laptop_under_50k_lsebur',
-    link: 'https://amzn.to/4sZ5L1C',
-    description: '14th Gen Intel Core 3, 512GB SSD, 120Hz display — reliable Windows workhorse.',
-  },
-  {
-    id: 'acer-aspire-lite',
-    name: 'Acer Aspire Lite',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'acer_aspire_lite_laptop_under_50k_fyibca',
-    link: 'https://amzn.to/4u69ifq',
-    description: 'AMD Ryzen 5, 16GB RAM, 512GB SSD + metal body — best multitasker under ₹50k.',
-  },
-  {
-    id: 'hp-15-laptop',
-    name: 'HP 15 Laptop',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'hp_15_laptop_under_50k_qcpac0',
-    link: 'https://amzn.to/41QfPid',
-    description: '13th Gen Intel i3, 12GB RAM, 512GB SSD — great for Zoom calls and student projects.',
-  },
-
-  // ── Tech — Cameras (from: top-6-vlogging-cameras article) ──────────────────
-  {
-    id: 'sony-zv-e10',
-    name: 'Sony ZV-E10',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'sony_zve10_m2_ubwsdb',
-    link: 'https://amzn.to/4e2tz0C',
-    description: '4K + interchangeable lenses — the serious creator\'s camera for YouTube studio content.',
-  },
-  {
-    id: 'dji-osmo-pocket-3',
-    name: 'DJI Osmo Pocket 3',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'dji_osmo_pocket_3_egpm0w',
-    link: 'https://amzn.to/4vOrlbx',
-    description: 'Built-in gimbal, rotating screen, pocket-size — best for solo travel and daily vlogs.',
-  },
-  {
-    id: 'insta360-x3',
-    name: 'Insta360 X3',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'insta_360_x3_k0xqbn',
-    link: 'https://amzn.to/4eriC9d',
-    description: '360° video, invisible selfie stick effect — perfect for riding, travel, and action.',
-  },
-  {
-    id: 'insta360-x5',
-    name: 'Insta360 X5',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'insta-360-x5-camera_agaojb',
-    link: 'https://amzn.to/4cPikXh',
-    description: 'Latest 360° flagship — upgraded sensor, better stabilization, 8K capture.',
-  },
-  {
-    id: 'canon-eos-r50',
-    name: 'Canon EOS R50',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'canon_r50_r3ezbc',
-    link: 'https://amzn.to/4d4Giik',
-    description: 'Best all-rounder — excellent face-tracking autofocus and natural skin tones.',
-  },
-  {
-    id: 'kicteck-camcorder',
-    name: 'Kicteck Camcorder',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'kicteck_camcorder_ndkftf',
-    link: 'https://amzn.to/4d3rGQa',
-    description: 'Cheapest way to start vlogging — comes with a full kit to learn the basics.',
-  },
-  {
-    id: 'kodak-pixpro-fz45',
-    name: 'Kodak Pixpro FZ45',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'kodak_pixpro_rljs8h',
-    link: 'https://amzn.to/4cM5rgA',
-    description: 'Compact pocket camera — better than a phone in daylight, zero learning curve.',
-  },
-
-  // ── Tech — Air Purifiers (from: top-4-air-purifiers-for-indian-cities article) ──
-  {
-    id: 'levoit-core-mini',
-    name: 'Levoit Core Mini Air Purifier',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'LEVOIT_Core_Mini_Amazon_India_qckau8',
-    link: 'https://amzn.to/4dmz2OW',
-    description: 'H13 True HEPA, 183 Sq Ft coverage, 1.1kg — best compact purifier for desks and small kids\' rooms.',
-  },
-  {
-    id: 'winix-5500-2',
-    name: 'Winix 5500-2 Air Purifier',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'WINIX_5500-2_Air_Purifier_uwshvn',
-    link: 'https://amzn.to/3QLNFTi',
-    description: 'PlasmaWave tech, 1881 Sq Ft coverage, washable carbon filter — industrial-grade for large living rooms.',
-  },
-  {
-    id: 'coway-airmega-150',
-    name: 'Coway Airmega 150',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Coway_Airmega_150_Air_Purifier_wxu3e9',
-    link: 'https://amzn.to/48HBk8R',
-    description: '99.999% particle removal, 355 Sq Ft, 8,500-hour filter life — most trusted brand for Indian homes.',
-  },
-  {
-    id: 'honeywell-air-touch-v1',
-    name: 'Honeywell Air Touch V1',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Honeywell_Air_touch_v1_Air_Purifier_quv3rn',
-    link: 'https://amzn.to/3PmaZXh',
-    description: '3-in-1 filtration, 250 Sq Ft — the most affordable reliable brand for a home office.',
-  },
-
-  // ── Tech — Power Stations (from: the-uninterrupted-home-top-5-portable-power-stations article) ──
-  {
-    id: 'ecoflow-delta-2',
-    name: 'EF ECOFLOW DELTA 2  Power Station',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'EF_ECOFLOW_DELTA_2_Portable_Power_Station_db3uy5',
-    link: 'https://amzn.to/4ddkdyb',
-    description: 'Expandable 1-3kWh, 1800W output, 7x faster charging (50 min to 80%) — ultimate home backup.',
-  },
-  {
-    id: 'ecoflow-river-2-pro',
-    name: 'EF ECOFLOW RIVER 2 Pro Power Station',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'EF_ECOFLOW_RIVER_2_Pro_Portable_Power_Station_ssw63p',
-    link: 'https://amzn.to/4uQVdTt',
-    description: '70-minute full charge, 1600W X-Boost, 3000+ cycles, 7.8kg lightweight — ideal for camping and site work.',
-  },
-  {
-    id: 'ecoflow-delta-3-1000-air',
-    name: 'EF ECOFLOW DELTA 3 1000 Air Power Station',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'EF_ECOFLOW_Portable_Power_Station_DELTA_3_1000_Air_efrj6l',
-    link: 'https://amzn.to/49yJ0KM',
-    description: 'True 20ms UPS, 960Wh capacity, 9.9kg, voltage stabilization — professional silent backup for electronics.',
-  },
-  {
-    id: 'ugreen-300w-portable-charger',
-    name: 'UGREEN 300W 48,000mAh  Power Station',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'UGREEN_300W_48_000mAh_Portable_Charger_Power_njr8ne',
-    link: 'https://amzn.to/4uhtgnY',
-    description: '48,000mAh, 5 multi-ports, digital display, SOS mode — digital nomad\'s laptop powerhouse.',
-  },
-  {
-    id: 'ecoflow-river-2-max',
-    name: 'EF ECOFLOW RIVER 2 Max Power Station',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'EF_ECOFLOW_Portable_Power_Station_RIVER_2_Max_rihjod',
-    link: 'https://amzn.to/4tD8iPi',
-    description: '1-hour full charge (X-Stream), 1000W output, 512Wh, 6kg — versatile all-rounder with 3000+ cycles.',
-  },
-
-  // ── Tech — Car Accessories (from: top-10-car-accessories-on-amazon-india article) ──
-  {
-    id: 'shakti-s3-pressure-washer',
-    name: 'Shakti Technology S3 Pressure Washer',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.29.26_PM_j6apof',
-    link: 'https://amzn.to/4dVbl0m',
-    description: '1800W motor, 120 Bar pressure, 8m hose + foam pot — professional snow wash at home with auto-stop trigger.',
-  },
-  {
-    id: 'agaro-supreme-pressure-washer',
-    name: 'AGARO Supreme Pressure Washer',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.40.48_PM_eisz6o',
-    link: 'https://amzn.to/4ui34cK',
-    description: '6.5L/min flow, adjustable nozzle (low to high-speed spray), auto pump shutoff — fast cleaning for large SUVs.',
-  },
-  {
-    id: 'bergmann-typhoon-inflator',
-    name: 'Bergmann Typhoon Digital Inflator',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.27.41_PM_chapic',
-    link: 'https://amzn.to/4uqrLE7',
-    description: 'Solid metal body, 150W pure copper motor, inflates 0–30 PSI in ~2 min, auto cut-off at preset PSI.',
-  },
-  {
-    id: 'onelap-quikflate-plus',
-    name: 'Onelap Quikflate Plus',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.39.23_PM_coi3tv',
-    link: 'https://amzn.to/4wIngWW',
-    description: '7800mAh wireless + 12V wired backup, 6-inch bright LED display, anti-vibration rubber pads — best for multiple vehicles.',
-  },
-  {
-    id: 'tusa-drive-x-air-pump',
-    name: 'TUSA Drive X Portable Air Pump',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.31.58_PM_lqir8g',
-    link: 'https://amzn.to/4a3MUvp',
-    description: 'Inflates flat tyre to 30 PSI in under 4 min, 12.1ft cable, built-in LED — one-press operation for night emergencies.',
-  },
-  {
-    id: 'seznik-4in1-vacuum-blower',
-    name: 'SEZNIK 4-in-1 Vacuum & Blower',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.37.47_PM_pwp1rb',
-    link: 'https://amzn.to/4nIwhLA',
-    description: 'BLDC motor, 15000PA suction, 3 speeds, 11 attachments, 6000mAh with Type-C fast charge — vacuum + powerful air blower.',
-  },
-  {
-    id: 'tusa-v1-cordless-vacuum',
-    name: 'TUSA Cordless Vacuum V1',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.33.09_PM_wlmavq',
-    link: 'https://amzn.to/42Mx1pi',
-    description: 'Dual mode wireless (6000mAh) + 12V wired, full charge in 3 hrs, 22 min runtime, 6-month extendable warranty.',
-  },
-  {
-    id: '70mai-a510-dash-cam',
-    name: '70mai A510 HDR 3K Dash Cam',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.35.45_PM_c8vuao',
-    link: 'https://amzn.to/4tH0yLX',
-    description: '3K 1944P front + FHD rear HDR recording, built-in ADAS lane/collision warnings, G-Sensor auto-locks accident footage.',
-  },
-  {
-    id: 'vantro-200w-car-inverter',
-    name: 'Vantro 200W Car Power Inverter',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'Screenshot_2026-05-21_at_4.34.23_PM_txqxvt',
-    link: 'https://amzn.to/49dmA1C',
-    description: '12V DC to 220V AC, 4 USB ports (Type-C + QC3.0), LCD battery monitor, built-in safety fuse — charge laptops on the go.',
-  },
-  {
-    id: 'amazon-basics-inflatable-car-bed',
-    name: 'Amazon Basics Inflatable Car Bed',
-    category: 'tech',
-    displayCategory: 'Tech',
-    imageID: 'inflatable_car_bed_fhrrj8',
-    link: 'https://amzn.to/4uu4Do4',
-    description: 'Soft flocked PVC, 300 kg capacity, fits Sedans/SUVs/Minivans, includes 2 pillows + electric pump — road trip essential.',
-  },
-
-  // ── Riding Gear (from: ideal-luggage-setup & bmw-f-450-gs articles) ─────────
-  {
-    id: 'rynox-magnapod-tankbag',
-    name: 'Rynox Magnapod Tank Bag',
-    category: 'riding-gear',
-    displayCategory: 'Riding Gear',
-    imageID: 'rynox-magnapod-tankbag',
-    link: 'https://amzn.to/48Cj4gK',
-    description: '10–15L quick-access hub — wallet, power bank, docs and GoPro while you ride.',
-  },
-  {
-    id: 'rynox-nomad-saddle-bags',
-    name: 'Rynox Nomad Saddle Bags',
-    category: 'riding-gear',
-    displayCategory: 'Riding Gear',
-    imageID: 'rynox-nomad',
-    link: 'https://amzn.to/4tYcV7d',
-    description: 'Low-slung 60L saddle bags — equal weight on both sides for perfect handling.',
-  },
-  {
-    id: 'waterproof-motorcycle-tail-bag',
-    name: 'Waterproof Motorcycle Tail Bag',
-    category: 'riding-gear',
-    displayCategory: 'Riding Gear',
-    imageID: 'Waterproof-Motorcycle-Tailbag',
-    link: 'https://amzn.to/47SZPiZ',
-    description: '30–45L roll-top dry bag — 100% waterproof for clothes and camping gear.',
-  },
-  {
-    id: 'rain-cover-for-bag',
-    name: 'Universal Waterproof Rain Cover',
-    category: 'riding-gear',
-    displayCategory: 'Riding Gear',
-    imageID: 'rain-cover-for-bag_ph8aoh',
-    link: 'https://amzn.to/3Qgf8fr',
-    description: 'High-vis monsoon cover for any bag — keeps electronics and dry clothes safe.',
-  },
-  {
-    id: 'qubo-tyre-inflator',
-    name: 'Qubo Smart Portable Tyre Inflator',
-    category: 'riding-gear',
-    displayCategory: 'Riding Gear',
-    imageID: 'qubo-inflator',
-    link: 'https://amzn.to/4srOzBw',
-    description: 'Compact electric inflator — never get stranded on a flat in the middle of nowhere.',
-  },
-  {
-    id: 'xxl-premium-bike-cover',
-    name: 'XXL Premium Superbike Cover',
-    category: 'riding-gear',
-    displayCategory: 'Riding Gear',
-    imageID: 'xxl-premium-bike-cover_cicbmd',
-    link: 'https://amzn.to/41r7Sjh',
-    description: 'Heavy-duty waterproof cover for large motorcycles — protects against dust and UV.',
-  },
-  {
-    id: 'viaterra-claw-tail-bag',
-    name: 'ViaTerra Claw Tail Bag',
-    category: 'riding-gear',
-    displayCategory: 'Riding Gear',
-    imageID: 'viaterra-claw-motorcycle-luggage_ipqmnx',
-    link: 'https://amzn.to/41EbmPw',
-    description: 'The standard for Indian touring — bomber build, fits adventure bikes perfectly.',
-  },
-
-  // ── Lifestyle — Robot Vacuums (from: automated-home article) ───────────────
-  {
-    id: 'ecovacs-deebot-n30-plus',
-    name: 'ECOVACS DEEBOT N30 Plus',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'ECOVACS-DEEBOT-N30-Plus-robot-vacuum_hgupxa',
-    link: 'https://amzn.to/4cyUAYi',
-    description: '10,000 Pa suction, auto-empty station, Zero Tangle 2.0 — best value robot mop.',
-  },
-  {
-    id: 'dreame-l10-prime',
-    name: 'DREAME L10 Prime',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'DREAME-L10-Prime-Robot-Vacuum_eprgl8',
-    link: 'https://amzn.to/4t4MmNu',
-    description: 'Self-cleaning dual mop pads + 7mm mop-lift — carpets stay dry, floors stay clean.',
-  },
-  {
-    id: 'ecovacs-deebot-n30-white',
-    name: 'ECOVACS DEEBOT N30 (White)',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'ECOVACS-DEEBOT-N30-White-Robot-Vacuum-Cleaner_zldldv',
-    link: 'https://amzn.to/3PSuwP9',
-    description: 'Same 10,000 Pa engine without the auto-empty station — the frugal choice under ₹25k.',
-  },
-  {
-    id: 'dreame-d20-ultra',
-    name: 'DREAME D20 Ultra',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'DREAME-D20-Ultra-Robot-Vacuum_xbn3fm',
-    link: 'https://amzn.to/47OaYS3',
-    description: '13,000 Pa suction + 370-min battery + 100-day auto-empty — for stubborn dust.',
-  },
-  {
-    id: 'ecovacs-deebot-n50-pro-omni',
-    name: 'ECOVACS Deebot N50 PRO Omni',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'ECOVACS-Deebot-N50-PRO-Omni2-robot-vacuum_x6knfu',
-    link: 'https://amzn.to/3Q4gI40',
-    description: '25,000 Pa + hot-air mop drying + full Omni-station — the set-and-forget flagship.',
-  },
-
-  // ── Lifestyle — Espresso (from: top-4-espresso-machines article) ───────────
-  {
-    id: 'vantro-espresso-machine',
-    name: 'VANTRO Espresso Machine (20 Bar)',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'vantro-espresso-machine_cwvasq',
-    link: 'https://amzn.to/4eetKGn',
-    description: 'Best entry-level machine — 20-bar pressure and touch controls for beginners.',
-  },
-  {
-    id: 'delonghi-dedica',
-    name: 'DeLonghi Dedica Style EC685',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'De_Longhi-Dedica-espresso-machine_x52df1',
-    link: 'https://amzn.to/4vEmdXg',
-    description: 'The most recommended all-rounder — heats in 40 sec, compact, latte-art ready.',
-  },
-  {
-    id: 'delonghi-la-specialista',
-    name: 'DeLonghi La Specialista Touch',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'DeLonghi-LaSpecialista-espresso-machine_pjkgi3',
-    link: 'https://amzn.to/3OxRNWa',
-    description: 'Built-in grinder + smart display + cold brew — full café experience at home.',
-  },
-  {
-    id: 'philips-lattego',
-    name: 'PHILIPS LatteGo EP2230',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'PHILIPS_Versuni-Latte-espresso-machine_xxhygy',
-    link: 'https://amzn.to/4cQHhT3',
-    description: 'One-touch cappuccino, easiest milk system to clean — for those who value their time.',
-  },
-
-  // ── Lifestyle — Travel Essentials (from: road-trip-guide article) ──────────
-  {
-    id: 'mokobara-travel-pillow',
-    name: 'MOKOBARA Memory Foam Travel Pillow',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'mokobara-neck-pillow_ke3sqs',
-    link: 'https://amzn.to/3QuHAKF',
-    description: 'Pure memory foam + breathable cover — proper rest on long road trips and flights.',
-  },
-  {
-    id: 'boldfit-chest-bag',
-    name: 'Boldfit Multipurpose Chest Bag',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'boldfit-waist-pouch_etjopw',
-    link: 'https://amzn.to/4sIvBXb',
-    description: 'Slim crossbody pouch — keeps your phone, wallet, and keys accessible on the go.',
-  },
-
-  // ── Lifestyle — Premium Home Gadgets (from: 5-premium-home-gadgets-2026 article) ──
-  {
-    id: 'amazon-echo-4th-gen',
-    name: 'Amazon Echo (4th Gen)',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'echo-4th-generation_whrycy',
-    link: 'https://amzn.to/42pZjps',
-    description: 'Premium Dolby audio with 3.0" woofer, Zigbee & Matter hub, motion-activated lights.',
-  },
-  {
-    id: 'bosch-13-dishwasher',
-    name: 'Bosch 13 Place Settings Dishwasher',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'Bosch_13_Place_Setting_fits_up_to_70_utensils_al7rnz',
-    link: 'https://amzn.to/4d6gvGK',
-    description: 'Hygiene+ & Intensive Kadhai Program, 99.9% germ kill, uses only 9.5L water.',
-  },
-  {
-    id: 'philips-air-fryer-na231',
-    name: 'PHILIPS Air Fryer NA231/00',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'PHILIPS_Air_Fryer_NA231_00_gxtcjg',
-    link: 'https://amzn.to/3R7rMxO',
-    description: 'Smart touch panel, 90% less fat, 13 preset menus for fry, bake, grill, and roast.',
-  },
-  {
-    id: 'godrej-neo-pro-view',
-    name: 'Godrej Neo Pro View Smart Lock',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'Godrej_Smart_Lock_Neo_Pro_View_Digital_Lock_onm3kx',
-    link: 'https://amzn.to/4noS2jm',
-    description: '7-in-1 access (fingerprint, PIN, RFID, app), video door phone, audit trail.',
-  },
-  {
-    id: 'sleep-company-smartgrid-ortho',
-    name: 'The Sleep Company SmartGRID Ortho Mattress',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'Sleep_Company_SmartGRID_Ortho_Mattress_kmuq4n',
-    link: 'https://amzn.to/4nl4v7v',
-    description: 'Ex-DRDO tech, AIHA certified for back pain, 2500+ air channels, 10-year warranty.',
-  },
-
-  // ── Lifestyle — Ergonomic Chairs (from: top-8-green-soul-chairs article) ───
-  {
-    id: 'greensoul-jupiter-superb',
-    name: 'Green Soul Jupiter Superb',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair5_x9gp8r-jupiter-superb',
-    link: 'https://amzn.to/42Qjhd9',
-    description: 'High-density mesh, 2D lumbar, 3D headrest, 135° recline — best all-rounder for long WFH sessions up to 120 kg.',
-  },
-  {
-    id: 'greensoul-seoul-x',
-    name: 'Green Soul Seoul X',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair4_vyg2sl',
-    link: 'https://amzn.to/4v6c5Wt',
-    description: 'Budget mid-back fabric chair, 135° recline lockable at 90° — best value pick for heights 5\'–5\'10" up to 90 kg.',
-  },
-  {
-    id: 'greensoul-monster-ultimate-s',
-    name: 'Green Soul Monster Ultimate S',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair3_ewwf1p',
-    link: 'https://amzn.to/4unyqi6',
-    description: 'Spandex + PU leather, 4D armrests, Deer Mechanism 90–180° any-position lock — built for serious professionals and gamers.',
-  },
-  {
-    id: 'greensoul-vienna',
-    name: 'Green Soul Vienna',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair2_xgi4vq',
-    link: 'https://amzn.to/3PiCXmW',
-    description: 'Diamond-stitched bonded leather executive chair, 135° tilt, wood frame — boss chair aesthetics up to 110 kg.',
-  },
-  {
-    id: 'greensoul-raptor-2',
-    name: 'Green Soul Raptor 2.0',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair_1_s83i1a',
-    link: 'https://amzn.to/4wHLArW',
-    description: 'PU leather racing chair, 90°–180° tilt-lock, 3D armrests, 3-year warranty — great for power-nap breaks between tasks.',
-  },
-  {
-    id: 'greensoul-zodiac-lite',
-    name: 'Green Soul Zodiac Lite',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair8_ezedec',
-    link: 'https://amzn.to/4tLzZFo',
-    description: 'Glass fiber frame, synchro-tilt 2:1 ratio, chrome base, 110 kg capacity — modern mesh design for spine alignment.',
-  },
-  {
-    id: 'greensoul-kiev-orthopedic',
-    name: 'Green Soul Kiev Orthopedic',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair7_fyqf5m',
-    link: 'https://amzn.to/4nFEoZf',
-    description: 'Pressure Point Technology, 4-inch memory foam seat, 7-inch curved lumbar — designed for orthopedic relief up to 120 kg.',
-  },
-  {
-    id: 'greensoul-beast',
-    name: 'Green Soul Beast',
-    category: 'lifestyle',
-    displayCategory: 'Lifestyle',
-    imageID: 'chair6_jbli2m',
-    link: 'https://amzn.to/4dCfF3k',
-    description: 'Fabric + PU hybrid, 3D armrests, butterfly mechanism, bucket seat — free installation, supports up to 120 kg.',
-  },
-
-  // ── Investing (books + demat) ───────────────────────────────────────────────
-  {
-    id: 'learn-to-earn-peter-lynch',
-    name: 'Learn to Earn by Peter Lynch',
-    category: 'investing',
-    displayCategory: 'Investing',
-    imageID: 'peter-lynch-learn-to-earn_nfugi0',
-    link: 'https://amzn.to/4trbmys',
-    description: 'This book is the clearest introduction to how the stock market works — from the GOAT of investing.',
-  },
-  {
-    id: 'psychology-of-money',
-    name: 'The Psychology of Money',
-    category: 'investing',
-    displayCategory: 'Investing',
-    imageID: 'psychology-of-money_lhkbus',
-    link: 'https://amzn.to/3QSQx0p',
-    description: 'Morgan Housel\'s masterclass on wealth, greed, and happiness — This book is an essential 2026 reading.',
-  },
-  {
-    id: 'coffee-can-investing',
-    name: 'Coffee Can Investing',
-    category: 'investing',
-    displayCategory: 'Investing',
-    imageID: 'coffee-can-investing_xwe77b',
-    link: 'https://amzn.to/48NoDJr',
-    description: 'The Indian guide to buy-and-hold compounding — written for the patient long-term investor.',
-  },
-  {
-    id: 'angel-one-demat',
-    name: 'Angel One — Free Demat Account',
-    category: 'investing',
-    displayCategory: 'Investing',
-    imageID: 'ANGEL-ONE-BROKER-ACCOUNT-OPENING-2026',
-    link: 'https://bitli.in/khd2fUF',
-    description: 'Zero brokerage for delivery trades — the fastest digital KYC demat account in India.',
-  },
-
-  // ── Personal Finance (books + tools + savings) ─────────────────────────────
-  {
-    id: 'wildhorn-wallet',
-    name: 'WildHorn RFID Leather Wallet',
-    category: 'personal-finance',
-    displayCategory: 'Personal Finance',
-    imageID: 'wildhorn-rfid-wallet-image_v8x0di',
-    link: 'https://amzn.to/3QcUehk',
-    description: 'Slim RFID-blocking genuine leather wallet — Oliver Green edition for the minimalist.',
-  },
-  {
-    id: 'lets-talk-money-monika-halan',
-    name: "Let's Talk Money by Monika Halan",
-    category: 'personal-finance',
-    displayCategory: 'Personal Finance',
-    imageID: 'monika-halan-book-click-to-buy_wqis9t',
-    link: 'https://amzn.to/4swNUi2',
-    description: 'This book is the gold standard for personal wealth management in the Indian context.',
-  },
-  {
-    id: 'richest-man-in-babylon',
-    name: 'The Richest Man in Babylon',
-    category: 'personal-finance',
-    displayCategory: 'Personal Finance',
-    imageID: 'richest-man-in-babylon-tinypng_youvsn',
-    link: 'https://amzn.to/4c9fCg5',
-    description: 'This book is a timeless parable on saving, compounding, and "paying yourself first" — a must-read.',
-  },
-  {
-    id: 'kotak-811-savings-account',
-    name: 'Kotak 811 Zero-Balance Account',
-    category: 'personal-finance',
-    displayCategory: 'Personal Finance',
-    imageID: 'kotak-811-zero-balance-savings-account_dypv3h',
-    link: 'https://bitli.in/qio3jbz',
-    description: '6–7% interest on daily balance, zero fees — the smartest home for your emergency fund.',
-  },
-  {
-    id: 'tinychange-pro-diary',
-    name: 'TINYCHANGE Pro Planning Diary',
-    category: 'personal-finance',
-    displayCategory: 'Personal Finance',
-    imageID: 'budget-time-calendar-daily-planner_xxau63',
-    link: 'https://amzn.to/3Qasn1e',
-    description: 'Productivity + budget planner in one — track spending, goals, and daily habits.',
-  },
-  {
-    id: 'document-organizer',
-    name: 'Fireproof Document Organizer',
-    category: 'personal-finance',
-    displayCategory: 'Personal Finance',
-    imageID: 'document-organiser_2_asfga3',
-    link: 'https://amzn.to/4c98znD',
-    description: 'Fireproof & waterproof bag for insurance bonds, passports, and property deeds.',
-  },
-
-  // ── Credit Cards ────────────────────────────────────────────────────────────
-  {
-    id: 'axis-myzone-card',
-    name: 'Axis Bank MyZone Credit Card',
-    category: 'credit-cards',
-    displayCategory: 'Credit Cards',
-    imageID: 'my-zone-creditcard-axis-bank',
-    link: 'https://bitli.in/iugx8rD',
-    description: 'Free SonyLiv + Swiggy discounts — best entry-level lifestyle card with zero annual fee.',
-  },
-  {
-    id: 'axis-indian-oil-card',
-    name: 'Axis Indian Oil RuPay Card',
-    category: 'credit-cards',
-    displayCategory: 'Credit Cards',
-    imageID: 'Axis-Indian-Oil-Rupay-Credit-Card-1_ovlzrt',
-    link: 'https://bitli.in/fjEkWUJ',
-    description: 'Turn every fuel fill-up into free travel — 4% reward on Indian Oil petrol stations.',
-  },
-  {
-    id: 'sbi-cashback-card',
-    name: 'SBI Cashback Credit Card',
-    category: 'credit-cards',
-    displayCategory: 'Credit Cards',
-    imageID: 'sbi-cashback-credit-card-32kb_iun40j',
-    link: 'https://bitli.in/9RGV2zP',
-    description: '5% cashback on all online spends — no category restriction, the math always works.',
-  },
-  {
-    id: 'kotak-league-platinum',
-    name: 'Kotak League Platinum Card',
-    category: 'credit-cards',
-    displayCategory: 'Credit Cards',
-    imageID: 'image-2-kotak-platinum-league-card_ifvvtd',
-    link: 'https://bitli.in/UVlHqyk',
-    description: 'Lifetime free rewards card — zero maintenance entry into the Kotak ecosystem.',
-  },
-  {
-    id: 'idfc-first-wow-card',
-    name: 'IDFC FIRST WOW Credit Card',
-    category: 'credit-cards',
-    displayCategory: 'Credit Cards',
-    imageID: 'wow-credit-card-apply-now-idfc-click-to-apply',
-    link: 'https://bitli.in/lxCv0gU',
-    description: 'Guaranteed approval path — the fastest way to build your CIBIL score from zero.',
-  },
-  {
-    id: 'scapia-zero-forex-card',
-    name: 'Scapia Zero-Forex Travel Card',
-    category: 'credit-cards',
-    displayCategory: 'Credit Cards',
-    imageID: 'scapia-forex-credit-card-apply-now',
-    link: 'https://bitli.in/zB8AYSD',
-    description: 'Zero forex markup abroad + free lounge access — the only card you need to travel.',
-  },
-
-  // ── Travel — Mokobara Luggage (from: mokobara articles 2026-05-18) ──────────
-  {
-    id: 'mokobara-transit-backpack',
-    name: 'Mokobara Transit Backpack (30L)',
-    category: 'travel',
-    displayCategory: 'Travel',
-    imageID: 'MOKOBARA_The_Transit_Standard_Backpack_-_30_Litre_Premium_compressed_sgblye',
-    link: 'https://amzn.to/49OFJaf',
-    description: "Mokobara's most popular bag — 30L, 16\" laptop sleeve, water-resistant polyester + vegan leather for daily office and travel use.",
-  },
-  {
-    id: 'mokobara-transit-checkin',
-    name: 'Mokobara Transit Check-in Luggage',
-    category: 'travel',
-    displayCategory: 'Travel',
-    imageID: 'MOKOBARA_The_Transit_Luggage_compressed_zivvgp',
-    link: 'https://amzn.to/493IrbN',
-    description: 'Indestructible polycarbonate shell + Super Silent Ninja Wheels — the 65L go-to bag for 5–7 day trips, rated 4.4★ by 1,000+ buyers.',
-  },
-  {
-    id: 'mokobara-transit-cabin-pro',
-    name: 'Mokobara Transit Cabin Pro',
-    category: 'travel',
-    displayCategory: 'Travel',
-    imageID: 'MOKOBARA_The_Transit_Cabin_Pro__compressed_wvv5xr',
-    link: 'https://amzn.to/4dqRzsd',
-    description: '56cm cabin bag with Hinomoto wheels and front-access laptop compartment — skip the check-in queue on every business trip.',
-  },
-  {
-    id: 'mokobara-transit-set-of-3',
-    name: 'Mokobara Transit Luggage Set of 3',
-    category: 'travel',
-    displayCategory: 'Travel',
-    imageID: 'OKOBARA_Polycarbonate_The_Transit_set_of_3_compressed_i5r6ir',
-    link: 'https://amzn.to/4dhpYLh',
-    description: 'Complete travel overhaul — 40L, 65L, and 100L polycarbonate bags at a bundle discount, rated 4.5★.',
-  },
-  {
-    id: 'mokobara-transit-briefcase',
-    name: 'Mokobara Transit Briefcase',
-    category: 'travel',
-    displayCategory: 'Travel',
-    imageID: 'MOKOBARA_The_Transit_Briefcase__compressed_rd2gdo',
-    link: 'https://amzn.to/49CHdEy',
-    description: '15L executive messenger bag — premium vegan leather + luggage sleeve for effortless airport terminal walks.',
-  },
+export const HUBS: Hub[] = [
+  { id: 'tech', label: 'Tech', description: 'Smart home gadgets, power solutions, and electronics.', emoji: '💻', imageId: 'dji_osmo_pocket_3_egpm0w' },
+  { id: 'riding-gear', label: 'Riding Gear', description: 'Jackets, helmets, and motorcycle luggage.', emoji: '🏍️', imageId: 'viaterra-claw-motorcycle-luggage_ipqmnx' },
+  { id: 'travel', label: 'Travel', description: 'Premium luggage and essentials for the road.', emoji: '✈️', imageId: 'hard_suitcase_image_1_erwlwh' },
+  { id: 'lifestyle', label: 'Lifestyle', description: 'Home, kitchen, and ergonomic essentials.', emoji: '🏠', imageId: 'De_Longhi-Dedica-espresso-machine_x52df1' }
 ];
 
-// All unique category slugs (for nav/filter generation)
-export const INVENTORY_CATEGORIES = [...new Set(INVENTORY.map((i) => i.category))];
+export const INVENTORY: InventoryItem[] = [
+  // ─── TECH HUB ──────────────────────────────────────────────────────────
+  {
+    id: 'robot-vacuums',
+    category: 'tech',
+    label: 'Robot Vacuums',
+    description: 'Hands-free floor cleaning for Indian homes.',
+    amazonUrl: `https://www.amazon.in/s?k=robot+vacuum+mop&tag=${TAG}`,
+    emoji: '🤖',
+    imageId: 'ECOVACS-DEEBOT-N30-Plus-robot-vacuum_hgupxa'
+  },
+  {
+    id: 'power-stations',
+    category: 'tech',
+    label: 'Power Stations',
+    description: 'Portable backup power for camping and home emergencies.',
+    amazonUrl: `https://www.amazon.in/s?k=portable+power+station+ecoflow+jackery&tag=${TAG}`,
+    emoji: '🔋',
+    imageId: 'EF_ECOFLOW_DELTA_2_Portable_Power_Station_db3uy5'
+  },
+  {
+    id: 'laptops',
+    category: 'tech',
+    label: 'Work Laptops',
+    description: 'The best Windows and Android laptops for productivity.',
+    amazonUrl: `https://www.amazon.in/s?k=laptop+under+50000+dell+hp+acer&tag=${TAG}`,
+    emoji: '🖥️',
+    imageId: 'dell_15_laptop_under_50k_lsebur'
+  },
+  {
+    id: 'car-accessories',
+    category: 'tech',
+    label: 'Car Gadgets',
+    description: 'Dash cams, tire inflators, and vacuum cleaners.',
+    amazonUrl: `https://www.amazon.in/s?k=car+dash+cam+inflator+vacuum&tag=${TAG}`,
+    emoji: '🚗',
+    imageId: '70mai_a510_dash_cam_image'
+  },
+
+  // ─── RIDING GEAR HUB ────────────────────────────────────────────────────
+  {
+    id: 'riding-apparel',
+    category: 'riding-gear',
+    label: 'Riding Apparel',
+    description: 'Protective jackets, pants, and gloves for motorcyclists.',
+    amazonUrl: `https://www.amazon.in/s?k=motorcycle+riding+jacket+pants+gloves&tag=${TAG}`,
+    emoji: '🛡️',
+    imageId: 'rynox-magnapod-tankbag'
+  },
+  {
+    id: 'motorcycle-luggage',
+    category: 'riding-gear',
+    label: 'Motorcycle Luggage',
+    description: 'Saddle bags, tail bags, and tank bags for touring.',
+    amazonUrl: `https://www.amazon.in/s?k=motorcycle+saddle+bags+tail+bag+viaterra+rynox&tag=${TAG}`,
+    emoji: '🧳',
+    imageId: 'viaterra-claw-motorcycle-luggage_ipqmnx'
+  },
+
+  // ─── TRAVEL HUB ─────────────────────────────────────────────────────────
+  {
+    id: 'suitcases',
+    category: 'travel',
+    label: 'Travel Bags',
+    description: 'Indestructible cabin and check-in luggage.',
+    amazonUrl: `https://www.amazon.in/s?k=travel+bags+luggage+mokobara&tag=${TAG}`,
+    emoji: '✈️',
+    imageId: 'MOKOBARA_The_Transit_Luggage_compressed_zivvgp'
+  },
+
+  // ─── LIFESTYLE HUB ──────────────────────────────────────────────────────
+  {
+    id: 'espresso-machines',
+    category: 'lifestyle',
+    label: 'Espresso Machines',
+    description: 'Cafe-quality coffee and espresso at home.',
+    amazonUrl: `https://www.amazon.in/s?k=espresso+machine+delonghi+philips&tag=${TAG}`,
+    emoji: '☕',
+    imageId: 'De_Longhi-Dedica-espresso-machine_x52df1'
+  },
+  {
+    id: 'ergonomic-chairs',
+    category: 'lifestyle',
+    label: 'Office Chairs',
+    description: 'Comfortable seating for long work-from-home sessions.',
+    amazonUrl: `https://www.amazon.in/s?k=ergonomic+office+chair+green+soul&tag=${TAG}`,
+    emoji: '🪑',
+    imageId: 'chair5_x9gp8r-jupiter-superb'
+  }
+  
+  // --- ADD NEW CATEGORIES HERE ---
+  // Just copy a block, change the id/label, and set the category to 'tech', 'travel', etc.
+];

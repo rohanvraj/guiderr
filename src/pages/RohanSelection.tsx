@@ -1,436 +1,116 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
-import { useParams, Link, useSearchParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { createPortal } from 'react-dom';
+import React, { useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { HUBS, INVENTORY } from '../data/inventory';
+import { optimizeCloudinaryUrl } from '../utils/cloudinary';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import EbookModal from '../components/EbookModal';
-import { getAllProducts, Product } from '../utils/supabase';
-import { optimizeCloudinaryUrl } from '../utils/cloudinary';
-import { INVENTORY, InventoryItem } from '../data/inventory';
-import { Ebook } from '../types/ebook';
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-function toEbook(p: Product): Ebook {
-  return {
-    id: p.id,
-    title: p.name,
-    author: p.author || 'Guiderr',
-    price: p.price_in_rupees,
-    cover: p.cover_image_url || '/covers/placeholder.svg',
-    coverImage: p.cover_image_url,
-    pdf: '',
-    category: p.category || '',
-    synopsis: p.description || p.name,
-  };
-}
-
-// Map route slug → DB category string.
-// Only add a pairing here when ebooks for that category actually exist in the DB.
-// Unmapped slugs (e.g. credit-cards, tech, lifestyle) will show zero ebooks — intentional.
-const SLUG_TO_DB_CATEGORY: Record<string, string> = {
-  investing: 'Investing',
-  'personal-finance': 'Finance',
-  'riding-gear': 'Motorcycles',
-};
-
-// Category slug → human-readable display label (Title Case)
-const CATEGORY_LABELS: Record<string, string> = {
-  tech: 'Tech',
-  investing: 'Investing',
-  'personal-finance': 'Personal Finance',
-  'riding-gear': 'Riding Gear',
-  lifestyle: 'Lifestyle',
-  'credit-cards': 'Credit Cards',
-  motorcycles: 'Motorcycles',
-  finance: 'Finance',
-  travel: 'Travel',
-};
-
-function categoryLabel(slug: string): string {
-  return CATEGORY_LABELS[slug] ?? slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-// Unified grid item: either an ebook or an affiliate product
-type GridItem =
-  | { kind: 'ebook'; product: Product }
-  | { kind: 'affiliate'; item: InventoryItem };
-
-// ── Affiliate card (text-only, category accent border) ───────────────────────
-
-// Full class strings kept here so Tailwind JIT includes them at build time
-const CATEGORY_ACCENT: Record<string, string> = {
-  'tech':             'border-t-blue-500',
-  'riding-gear':      'border-t-orange-500',
-  'lifestyle':        'border-t-purple-500',
-  'investing':        'border-t-green-600',
-  'personal-finance': 'border-t-emerald-600',
-  'credit-cards':     'border-t-slate-400',
-  'travel':           'border-t-cyan-600',
-};
-
-function AffiliateCard({ item }: { item: InventoryItem }) {
-  const accent = CATEGORY_ACCENT[item.category] ?? 'border-t-slate-300';
-  return (
-    <a
-      href={item.link}
-      target="_blank"
-      rel="noopener noreferrer nofollow"
-      className={`group flex flex-col bg-white rounded-2xl border border-slate-200 border-t-4 ${accent} overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-300`}
-    >
-      <div className="p-4 flex flex-col flex-1 gap-2">
-        <div className="flex items-start justify-between gap-2">
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-            {item.displayCategory}
-          </p>
-          <span className="shrink-0 text-[9px] font-bold uppercase tracking-widest bg-slate-100 text-slate-400 rounded-full px-2 py-0.5">
-            Ad
-          </span>
-        </div>
-        <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2 flex-1">
-          {item.name}
-        </h3>
-        <p className="text-xs text-slate-500 leading-snug line-clamp-3">
-          {item.description}
-        </p>
-        <div className="mt-auto pt-3 border-t border-slate-100">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#7178AB] group-hover:text-slate-900 transition-colors">
-            CHECK PRICE →
-          </span>
-        </div>
-      </div>
-    </a>
-  );
-}
-
-// ── Ebook card (white-background aesthetic) ────────────────────────────────────
-
-function EbookCard({
-  product,
-  onOpen,
-}: {
-  product: Product;
-  onOpen: (e: Ebook) => void;
-}) {
-  return (
-    <button
-      onClick={() => onOpen(toEbook(product))}
-      className="group text-left flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
-    >
-      <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
-        <img
-          src={optimizeCloudinaryUrl(product.cover_image_url || '', { width: 400 })}
-          alt={product.name}
-          loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/covers/placeholder.svg';
-          }}
-        />
-        <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-widest bg-[#7178AB] text-white rounded-full px-2 py-0.5">
-          PDF
-        </span>
-      </div>
-      <div className="p-3 flex flex-col flex-1 gap-1">
-        <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2 flex-1">
-          {product.name}
-        </h3>
-        <p className="text-xs text-slate-500">by {product.author || 'Guiderr'}</p>
-        <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-100">
-          <span className="text-base font-extrabold text-slate-900">
-            ₹{product.price_in_rupees.toLocaleString('en-IN')}
-          </span>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#7178AB] group-hover:text-slate-900 transition-colors">
-            BUY →
-          </span>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-// ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function RohanSelection() {
-  const { category } = useParams<{ category?: string }>();
-  const [selectedEbook, setSelectedEbook] = useState<Ebook | null>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState('');
-  const isClosingRef = useRef(false);
+  const { hubId, subId } = useParams<{ hubId?: string; subId?: string }>();
 
-  // Reset search when the user switches category pills
+  const currentHub = HUBS.find(h => h.id === hubId);
+  const currentSub = INVENTORY.find(p => p.id === subId);
+  const hubItems = INVENTORY.filter(p => p.category === hubId);
+
   useEffect(() => {
-    setSearchQuery('');
-  }, [category]);
+    window.scrollTo(0, 0);
+    const title = currentSub ? currentSub.label : currentHub ? currentHub.label : "Top Picks";
+    document.title = `${title} | Guiderr`;
+  }, [currentHub, currentSub]);
 
-  const deferredQuery = useDeferredValue(searchQuery);
-
-  const handleOpenEbook = (ebook: Ebook) => {
-    isClosingRef.current = false;
-    setSelectedEbook(ebook);
-    setSearchParams({ ebook: ebook.id }, { replace: true });
-  };
-  const handleCloseEbook = () => {
-    isClosingRef.current = true;
-    setSelectedEbook(null);
-    setSearchParams({}, { replace: true });
-  };
-
-  // Ebooks — reuses existing React Query cache (zero extra DB hits)
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ['library-all-products'],
-    queryFn: getAllProducts,
-    staleTime: 5 * 60 * 1000,
-  });
-
-  // Deep-link: auto-open modal when ?ebook=<id> is in the URL (e.g. shared links).
-  // isClosingRef prevents re-opening during a close when the two state updates
-  // (selectedEbook → null, searchParams → {}) haven't both flushed yet.
-  useEffect(() => {
-    if (isClosingRef.current) {
-      isClosingRef.current = false;
-      return;
-    }
-    const ebookSlug = searchParams.get('ebook');
-    if (!ebookSlug || products.length === 0 || selectedEbook) return;
-    const match = products.find((p) => p.id === ebookSlug);
-    if (match) setSelectedEbook(toEbook(match));
-  }, [products, searchParams, selectedEbook]);
-
-  // Ghost word
-  const ghostWord = category ? categoryLabel(category).toUpperCase() : 'TOP PICKS';
-
-  // Unified hybrid grid — blend ebooks + affiliates in one array
-  const gridItems = useMemo<GridItem[]>(() => {
-    const affiliates: GridItem[] = (
-      category ? INVENTORY.filter((i) => i.category === category) : INVENTORY
-    ).map((item) => ({ kind: 'affiliate', item }));
-
-    const dbCat = category ? SLUG_TO_DB_CATEGORY[category] : null;
-    // If a category is active but has no DB mapping, return [] — never fall back
-    // to the full product list (that caused briefs bleeding into unrelated categories).
-    const ebooks: GridItem[] = (
-      dbCat ? products.filter((p) => p.category === dbCat) : category ? [] : products
-    ).map((product) => ({ kind: 'ebook', product }));
-
-    // Ebooks first, then affiliates within each category view
-    return [...ebooks, ...affiliates];
-  }, [category, products]);
-
-  // Client-side search filter — runs on the deferred value to keep typing snappy
-  const filteredItems = useMemo<GridItem[]>(() => {
-    const q = deferredQuery.trim().toLowerCase();
-    if (!q) return gridItems;
-    return gridItems.filter((gi) => {
-      if (gi.kind === 'ebook') {
-        // Virtual keywords — searching 'ebook', 'book', or 'pdf' always surfaces all ebooks
-        const virtualTags = 'ebook book pdf brief';
-        return (
-          gi.product.name.toLowerCase().includes(q) ||
-          (gi.product.description ?? '').toLowerCase().includes(q) ||
-          virtualTags.includes(q)
-        );
-      }
-      return (
-        gi.item.name.toLowerCase().includes(q) ||
-        gi.item.description.toLowerCase().includes(q)
-      );
-    });
-  }, [gridItems, deferredQuery]);
-
-  // Category pills — union of inventory slugs + ebook slugs
-  const allCategorySlugs = useMemo<string[]>(() => {
-    const fromInventory = [...new Set(INVENTORY.map((i) => i.category))];
-    const fromEbooks = [
-      ...new Set(
-        products
-          .map(
-            (p) =>
-              Object.entries(SLUG_TO_DB_CATEGORY).find(([, v]) => v === p.category)?.[0]
-          )
-          .filter((s): s is string => Boolean(s))
-      ),
-    ];
-    return [...new Set([...fromInventory, ...fromEbooks])];
-  }, [products]);
-
-  // SEO
-  useEffect(() => {
-    const prev = document.title;
-    document.title = category
-      ? `${categoryLabel(category)} — Top Picks | Guiderr`
-      : "Top Picks | Guiderr — Rohan's Curated Picks";
-    // Canonical
-    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    const canonicalWasPresent = !!canonical;
-    const prevHref = canonical?.href ?? '';
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.appendChild(canonical);
-    }
-    canonical.href = category
-      ? `https://www.guiderr.in/top-picks/${category}`
-      : 'https://www.guiderr.in/top-picks';
-    return () => {
-      document.title = prev;
-      if (canonicalWasPresent && canonical) canonical.href = prevHref;
-      else canonical?.remove();
-    };
-  }, [category]);
+  const backLink = currentSub ? `/top-picks/${hubId}` : '/top-picks';
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
-
-        {/* ── Page header with ghost word ── */}
-        <div className="group relative mb-12">
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -left-2 top-0 select-none font-black uppercase leading-none tracking-[-0.08em] transition-transform duration-700 group-hover:translate-x-8"
-            style={{ fontSize: 'clamp(3.5rem, 11vw, 7.5rem)', color: '#475569', opacity: 0.05 }}
-          >
-            {ghostWord}
-          </span>
-
-          <div className="relative z-10 pt-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 mb-5">
-              Curated by Rohan
-            </p>
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.06] mb-4">
-              {category ? categoryLabel(category) : "Rohan's Top Picks."}
-            </h1>
-            <p className="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed">
-              {category
-                ? `Hand-picked ${categoryLabel(category).toLowerCase()} — resources I personally use or recommend.`
-                : 'Every resource I recommend — across investing, tech, gear, and modern life.'}
-            </p>
-          </div>
-        </div>
-
-        {/* ── Category filter pills ── */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          <Link
-            to="/top-picks"
-            className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-              !category
-                ? 'bg-slate-900 text-white'
-                : 'bg-slate-100 border border-slate-200 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            All
-          </Link>
-          {allCategorySlugs.map((slug) => (
-            <Link
-              key={slug}
-              to={`/top-picks/${slug}`}
-              className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-                category === slug
-                  ? 'bg-slate-900 text-white'
-                  : 'bg-slate-100 border border-slate-200 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              {categoryLabel(slug)}
-            </Link>
-          ))}
-        </div>
-
-        {/* ── Search bar ── */}
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 pt-32 pb-20">
+        
+        {/* BACK NAV */}
         <div className="mb-8">
-          <div className="relative w-full sm:max-w-sm">
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search gear and briefs..."
-              aria-label="Search products"
-              className="w-full h-10 pl-4 pr-9 border-2 border-slate-900 bg-white text-sm font-semibold text-slate-900 placeholder:text-slate-400 placeholder:font-normal rounded-lg outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-900 transition-shadow"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                aria-label="Clear search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 transition-colors text-base leading-none"
-              >
-                ×
-              </button>
-            )}
-          </div>
+          {hubId ? (
+            <Link to={backLink} className="group inline-flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-colors">
+              <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-slate-100">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">
+                {currentSub ? `Back to ${currentHub?.label}` : "Back to Hubs"}
+              </span>
+            </Link>
+          ) : (
+            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">Rohan's Recommendations</div>
+          )}
         </div>
 
-        {/* ── Loading ── */}
-        {isLoading && (
-          <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-slate-200 border-t-slate-600 rounded-full animate-spin" />
+        {currentSub ? (
+          /* BRIDGE VIEW (Bio Links) */
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-2xl mx-auto text-center px-4">
+             <div className="aspect-square w-full max-w-sm mx-auto mb-10 bg-slate-50 rounded-[3rem] flex items-center justify-center overflow-hidden shadow-2xl shadow-orange-100 border border-slate-100 relative">
+               <img 
+  src={optimizeCloudinaryUrl(currentSub.imageId, { width: 800, height: 800, crop: 'fill', quality: 'auto', format: 'auto' })} 
+  alt={currentSub.label} 
+  className="w-full h-full object-cover" 
+/>
+               <div className="absolute inset-0 border-[12px] border-white/10 pointer-events-none" />
+            </div>
+            <h1 className="text-4xl sm:text-6xl font-black text-slate-900 mb-4 uppercase tracking-tighter leading-none">{currentSub.label}</h1>
+            <p className="text-slate-500 mb-10 text-lg leading-relaxed max-w-md mx-auto">{currentSub.description}</p>
+            <a href={currentSub.amazonUrl} target="_blank" rel="noopener noreferrer sponsored" 
+               className="inline-block w-full py-6 bg-slate-900 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl hover:bg-orange-500 transition-all active:scale-95">
+              Shop on Amazon →
+            </a>
           </div>
+        ) : (
+          /* GRID VIEW */
+          <>
+            <div className="mb-12">
+              <h1 className="text-5xl sm:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85] mb-6">
+                {currentHub ? currentHub.label : "Top Picks."}
+              </h1>
+              <p className="text-slate-500 text-sm sm:text-base font-medium max-w-md leading-relaxed">
+                {currentHub ? currentHub.description : "My curated selection of gear and tools for a better lifestyle."}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+              {(currentHub ? hubItems : HUBS).map((item) => {
+                const isHubList = !hubId;
+                const Component = isHubList ? Link : 'a';
+                const props = isHubList 
+                  ? { to: `/top-picks/${item.id}` } 
+                  : { href: (item as any).amazonUrl, target: '_blank', rel: 'noopener noreferrer sponsored' };
+
+                return (
+                  <Component key={item.id} {...(props as any)}
+                    className="group flex flex-col bg-slate-50 rounded-[2.5rem] border border-slate-100 hover:border-orange-200 hover:shadow-xl transition-all duration-500 overflow-hidden"
+                  >
+                    <div className="aspect-square flex items-center justify-center bg-white m-2 rounded-[2rem] overflow-hidden relative">
+                       <img 
+  src={optimizeCloudinaryUrl(item.imageId, { width: 600, height: 600, crop: 'fill', quality: 'auto', format: 'auto' })} 
+  alt={item.label} 
+  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+  loading="lazy" 
+/>
+                       <div className="absolute inset-0 border-[8px] border-white/5 pointer-events-none" />
+                    </div>
+                    <div className="p-5 text-center">
+                      <h3 className="font-black text-slate-900 uppercase tracking-tight text-sm leading-none mb-1">{item.label}</h3>
+                      <p className="text-[9px] font-bold text-orange-500 uppercase tracking-widest">{isHubList ? "Explore Hub →" : "Amazon →"}</p>
+                    </div>
+                  </Component>
+                );
+              })}
+            </div>
+          </>
         )}
 
-        {/* ── Empty — no items in category ── */}
-        {!isLoading && gridItems.length === 0 && (
-          <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-14 text-center">
-            <p className="text-slate-500 text-lg">Nothing here yet — check back soon!</p>
-          </div>
-        )}
-
-        {/* ── Empty — search returned no results ── */}
-        {!isLoading && gridItems.length > 0 && filteredItems.length === 0 && (
-          <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-14 text-center">
-            <p className="text-slate-900 font-bold text-lg mb-2">No results for &ldquo;{searchQuery}&rdquo;</p>
-            <p className="text-slate-500 text-sm">
-              Try a different keyword, or{' '}
-              <button
-                onClick={() => setSearchQuery('')}
-                className="underline underline-offset-2 hover:text-slate-900 transition-colors"
-              >
-                clear the search
-              </button>
-              {category && (
-                <>
-                  {' '}to browse all{' '}
-                  <Link to="/top-picks" className="underline underline-offset-2 hover:text-slate-900 transition-colors">
-                    categories
-                  </Link>
-                </>
-              )}.
-            </p>
-          </div>
-        )}
-
-        {/* ── Unified Hybrid Grid ── */}
-        {!isLoading && filteredItems.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
-            {filteredItems.map((gi) =>
-              gi.kind === 'ebook' ? (
-                <EbookCard key={gi.product.id} product={gi.product} onOpen={handleOpenEbook} />
-              ) : (
-                <AffiliateCard key={gi.item.id} item={gi.item} />
-              )
-            )}
-          </div>
-        )}
-
-        {/* ── Affiliate disclosure ── */}
-        <p className="text-xs text-slate-400 text-center mt-12">
-          Some links are affiliate links. We earn a small commission at no extra cost to you.{' '}
-          <Link
-            to="/affiliate-disclosure"
-            className="underline underline-offset-2 hover:text-slate-600 transition-colors"
-          >
-            Full disclosure →
-          </Link>
-        </p>
+        <footer className="mt-24 pt-10 border-t border-slate-100 text-center">
+          <p className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-relaxed max-w-lg mx-auto">
+            Disclosure: As an Amazon Associate, Guiderr earns from qualifying purchases. This helps support our free content.
+          </p>
+        </footer>
       </main>
-
-      {/* EbookModal portalled to body — escapes any parent CSS scope */}
-      {selectedEbook &&
-        createPortal(
-          <EbookModal ebook={selectedEbook} onClose={handleCloseEbook} />,
-          document.body
-        )}
-
       <Footer />
     </div>
   );

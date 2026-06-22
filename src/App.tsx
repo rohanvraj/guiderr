@@ -111,7 +111,8 @@ function App() {
             <Route path="/rohan-selection" element={<Navigate to="/top-picks" replace />} />
             <Route path="/rohan-selection/:category" element={<LegacyCategoryRedirect />} />
             <Route path="/top-picks" element={<RohanSelectionPage />} />
-            <Route path="/top-picks/:category" element={<RohanSelectionPage />} />
+            <Route path="/top-picks/:hubId" element={<RohanSelectionPage />} />
+            <Route path="/top-picks/:hubId/:subId" element={<RohanSelectionPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
