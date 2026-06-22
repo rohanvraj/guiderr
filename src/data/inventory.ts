@@ -21,10 +21,10 @@ export interface InventoryItem {
 const TAG = 'rohan198609-21';
 
 export const HUBS: Hub[] = [
-  { id: 'tech', label: 'Tech', description: 'Smart home gadgets, power solutions, and electronics.', emoji: '💻', imageId: 'dji_osmo_pocket_3_egpm0w' },
-  { id: 'riding-gear', label: 'Riding Gear', description: 'Jackets, helmets, and motorcycle luggage.', emoji: '🏍️', imageId: 'viaterra-claw-motorcycle-luggage_ipqmnx' },
+  { id: 'tech', label: 'Tech', description: 'Smart home gadgets, power solutions, and electronics.', emoji: '💻', imageId: 'ChatGPT_Image_Jun_22_2026_08_22_08_PM_alrhjk' },
+  { id: 'riding-gear', label: 'Riding Gear', description: 'Jackets, helmets, and motorcycle luggage.', emoji: '🏍️', imageId: 'riding_gear_thumbnail_s6kd4h' },
   { id: 'travel', label: 'Travel', description: 'Premium luggage and essentials for the road.', emoji: '✈️', imageId: 'hard_suitcase_image_1_erwlwh' },
-  { id: 'lifestyle', label: 'Lifestyle', description: 'Home, kitchen, and ergonomic essentials.', emoji: '🏠', imageId: 'De_Longhi-Dedica-espresso-machine_x52df1' }
+  { id: 'lifestyle', label: 'Lifestyle', description: 'Home, kitchen, and ergonomic essentials.', emoji: '🏠', imageId: 'ChatGPT_Image_Jun_22_2026_08_30_23_PM_vuxlfa' }
 ];
 
 export const INVENTORY: InventoryItem[] = [
@@ -36,7 +36,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Hands-free floor cleaning for Indian homes.',
     amazonUrl: `https://www.amazon.in/s?k=robot+vacuum+mop&tag=${TAG}`,
     emoji: '🤖',
-    imageId: 'ECOVACS-DEEBOT-N30-Plus-robot-vacuum_hgupxa'
+    imageId: 'ECOVACS_DEEBOT_N30_White_bv7joa'
   },
   {
     id: 'power-stations',
@@ -45,7 +45,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Portable backup power for camping and home emergencies.',
     amazonUrl: `https://www.amazon.in/s?k=portable+power+station+ecoflow+jackery&tag=${TAG}`,
     emoji: '🔋',
-    imageId: 'EF_ECOFLOW_DELTA_2_Portable_Power_Station_db3uy5'
+    imageId: 'ChatGPT_Image_Jun_22_2026_08_37_35_PM_fytnbg'
   },
   {
     id: 'laptops',
@@ -54,17 +54,9 @@ export const INVENTORY: InventoryItem[] = [
     description: 'The best Windows and Android laptops for productivity.',
     amazonUrl: `https://www.amazon.in/s?k=laptop+under+50000+dell+hp+acer&tag=${TAG}`,
     emoji: '🖥️',
-    imageId: 'dell_15_laptop_under_50k_lsebur'
+    imageId: 'android_vs_windows_laptops_ow2zwa'
   },
-  {
-    id: 'car-accessories',
-    category: 'tech',
-    label: 'Car Gadgets',
-    description: 'Dash cams, tire inflators, and vacuum cleaners.',
-    amazonUrl: `https://www.amazon.in/s?k=car+dash+cam+inflator+vacuum&tag=${TAG}`,
-    emoji: '🚗',
-    imageId: '70mai_a510_dash_cam_image'
-  },
+
 
   // ─── RIDING GEAR HUB ────────────────────────────────────────────────────
   {
@@ -74,7 +66,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Protective jackets, pants, and gloves for motorcyclists.',
     amazonUrl: `https://www.amazon.in/s?k=motorcycle+riding+jacket+pants+gloves&tag=${TAG}`,
     emoji: '🛡️',
-    imageId: 'rynox-magnapod-tankbag'
+    imageId: 'ChatGPT_Image_Jun_22_2026_08_46_00_PM_ox1z4c'
   },
   {
     id: 'motorcycle-luggage',
@@ -83,7 +75,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Saddle bags, tail bags, and tank bags for touring.',
     amazonUrl: `https://www.amazon.in/s?k=motorcycle+saddle+bags+tail+bag+viaterra+rynox&tag=${TAG}`,
     emoji: '🧳',
-    imageId: 'viaterra-claw-motorcycle-luggage_ipqmnx'
+    imageId: 'ChatGPT_Image_Jun_22_2026_08_44_45_PM_dccxj3'
   },
 
   // ─── TRAVEL HUB ─────────────────────────────────────────────────────────
@@ -94,7 +86,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Indestructible cabin and check-in luggage.',
     amazonUrl: `https://www.amazon.in/s?k=travel+bags+luggage+mokobara&tag=${TAG}`,
     emoji: '✈️',
-    imageId: 'MOKOBARA_The_Transit_Luggage_compressed_zivvgp'
+    imageId: 'ChatGPT_Image_Jun_22_2026_08_42_24_PM_psp675'
   },
 
   // ─── LIFESTYLE HUB ──────────────────────────────────────────────────────
@@ -105,7 +97,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Cafe-quality coffee and espresso at home.',
     amazonUrl: `https://www.amazon.in/s?k=espresso+machine+delonghi+philips&tag=${TAG}`,
     emoji: '☕',
-    imageId: 'De_Longhi-Dedica-espresso-machine_x52df1'
+    imageId: 'ChatGPT_Image_Jun_22_2026_08_30_23_PM_vuxlfa'
   },
   {
     id: 'ergonomic-chairs',
@@ -114,7 +106,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'Comfortable seating for long work-from-home sessions.',
     amazonUrl: `https://www.amazon.in/s?k=ergonomic+office+chair+green+soul&tag=${TAG}`,
     emoji: '🪑',
-    imageId: 'chair5_x9gp8r-jupiter-superb'
+    imageId: 'ChatGPT_Image_Jun_18_2026_01_14_28_AM_nbkj4w'
   }
   
   // --- ADD NEW CATEGORIES HERE ---
