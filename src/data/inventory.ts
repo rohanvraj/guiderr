@@ -10,7 +10,7 @@ export interface Hub {
 
 export interface InventoryItem {
   id: string;
-  category: 'tech' | 'riding-gear' | 'travel' | 'lifestyle'; 
+  category: 'tech' | 'riding-gear' | 'travel' | 'lifestyle' | 'investing' | 'personal-finance' | 'credit-cards';
   label: string;
   description: string;
   amazonUrl: string;
@@ -24,7 +24,10 @@ export const HUBS: Hub[] = [
   { id: 'tech', label: 'Tech', description: 'Smart home gadgets, power solutions, and electronics.', emoji: '💻', imageId: 'ChatGPT_Image_Jun_22_2026_08_22_08_PM_alrhjk' },
   { id: 'riding-gear', label: 'Riding Gear', description: 'Jackets, helmets, and motorcycle luggage.', emoji: '🏍️', imageId: 'riding_gear_thumbnail_s6kd4h' },
   { id: 'travel', label: 'Travel', description: 'Premium luggage and essentials for the road.', emoji: '✈️', imageId: 'hard_suitcase_image_1_erwlwh' },
-  { id: 'lifestyle', label: 'Lifestyle', description: 'Home, kitchen, and ergonomic essentials.', emoji: '🏠', imageId: 'ChatGPT_Image_Jun_22_2026_08_30_23_PM_vuxlfa' }
+  { id: 'lifestyle', label: 'Lifestyle', description: 'Home, kitchen, and ergonomic essentials.', emoji: '🏠', imageId: 'ChatGPT_Image_Jun_22_2026_08_30_23_PM_vuxlfa' },
+  { id: 'investing', label: 'Investing', description: 'Tools and books to build long-term wealth.', emoji: '📈', imageId: 'psychology-of-money_lhkbus' },
+  { id: 'personal-finance', label: 'Finance', description: 'Banking and savings tools for Indians.', emoji: '💰', imageId: 'monika-halan-book-click-to-buy_wqis9t' },
+  { id: 'credit-cards', label: 'Credit Cards', description: 'Best rewards and cashback cards in India.', emoji: '💳', imageId: 'sbi-cashback-credit-card-32kb_iun40j' }
 ];
 
 export const INVENTORY: InventoryItem[] = [
@@ -109,6 +112,36 @@ export const INVENTORY: InventoryItem[] = [
     imageId: 'ChatGPT_Image_Jun_18_2026_01_14_28_AM_nbkj4w'
   }
   
+  // ─── INVESTING ──────────────────────────────────────────────────────────
+  {
+    id: 'investing-essentials',
+    category: 'investing',
+    label: 'Investing Books',
+    description: 'The foundation of wealth: Psychology of Money & Peter Lynch.',
+    amazonUrl: `https://www.amazon.in/s?k=psychology+of+money+peter+lynch+books&tag=${TAG}`,
+    emoji: '📚',
+    imageId: 'psychology-of-money_lhkbus'
+  },
+  // ─── PERSONAL FINANCE ───────────────────────────────────────────────────
+  {
+    id: 'finance-tools',
+    category: 'personal-finance',
+    label: 'Wealth Management',
+    description: 'Top-rated savings accounts and financial planners.',
+    amazonUrl: `https://bitli.in/qio3jbz`, // Your Kotak 811 EarnKaro link
+    emoji: '🏦',
+    imageId: 'monika-halan-book-click-to-buy_wqis9t'
+  },
+  // ─── CREDIT CARDS ───────────────────────────────────────────────────────
+  {
+    id: 'cashback-cards',
+    category: 'credit-cards',
+    label: 'Cashback Cards',
+    description: 'The SBI & Axis power-duo for 5% savings online.',
+    amazonUrl: `https://bitli.in/76MvAMA`, // Your SBI Cashback EarnKaro link
+    emoji: '💳',
+    imageId: 'sbi-cashback-credit-card-32kb_iun40j'
+  }
   // --- ADD NEW CATEGORIES HERE ---
   // Just copy a block, change the id/label, and set the category to 'tech', 'travel', etc.
 ];

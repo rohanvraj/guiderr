@@ -24,18 +24,20 @@ function getPublishedRoutes(contentDir: string, urlPrefix: string): string[] {
 
 // ── Route lists ───────────────────────────────────────────────────────────────
 // Priority 1.0 — Critical entry points
-const criticalRoutes = ['/', '/start-here'];
+const criticalRoutes = ['/start-here'];
 
+// Priority 0.9 — Revenue / high-value pages
 // Priority 0.9 — Revenue / high-value pages
 const revenueRoutes = [
   '/library',
   '/top-picks',
   '/top-picks/tech',
   '/top-picks/riding-gear',
+  '/top-picks/travel',          // ADDED: For your Mokobara/Luggage revenue
   '/top-picks/lifestyle',
-  '/top-picks/investing',
-  '/top-picks/personal-finance',
-  '/top-picks/credit-cards',
+  '/top-picks/investing',       // KEPT: For your book/demat revenue
+  '/top-picks/personal-finance', // KEPT: For your banking revenue
+  '/top-picks/credit-cards',    // KEPT: For your EarnKaro revenue
 ];
 
 // Priority 0.8 — Authority hubs and content indexes
@@ -86,6 +88,7 @@ const allRoutes = [
 // vite-plugin-sitemap accepts a Record<route, value> with '*' as fallback.
 function buildPriorityMap(): Record<string, number> {
   const map: Record<string, number> = {};
+   map['/'] = 1.0; // Explicitly set homepage priority
   criticalRoutes.forEach((r) => (map[r] = 1.0));
   revenueRoutes.forEach((r) => (map[r] = 0.9));
   featuredRoutes.forEach((r) => (map[r] = 0.9));
@@ -98,6 +101,7 @@ function buildPriorityMap(): Record<string, number> {
 
 function buildChangefreqMap(): Record<string, string> {
   const map: Record<string, string> = {};
+  map['/'] = 'weekly'; // Explicitly set homepage frequency
   criticalRoutes.forEach((r) => (map[r] = 'weekly'));
   revenueRoutes.forEach((r) => (map[r] = 'weekly'));
   hubRoutes.forEach((r) => (map[r] = 'weekly'));
