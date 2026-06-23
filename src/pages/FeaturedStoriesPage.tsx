@@ -20,10 +20,23 @@ export default function FeaturedStoriesPage() {
     <div className="min-h-screen bg-[#F5EFE0]">
       <Header />
 
-      <main className="pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <main className="pt-24 sm:pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+  {/* --- BACK TO HOME NAVIGATION --- */}
+  <div className="mb-6">
+    <Link to="/" className="group inline-flex items-center gap-3 text-slate-500/70 hover:text-slate-900 transition-colors">
+      <div className="w-9 h-9 rounded-full bg-white/50 flex items-center justify-center group-hover:bg-white transition-all border border-amber-300/40 shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </div>
+      <span className="text-[10px] font-black uppercase tracking-[0.25em]">Back to Home</span>
+    </Link>
+  </div>
 
-        {/* ── Magazine masthead ── */}
-        <div className="mb-10 border-b border-slate-200 pb-6">
+  {/* ── Magazine masthead ── */}
+  <div className="mb-10 border-b border-slate-200 pb-6">
+
+    
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-yellow-700 mb-2">
             The Spotlight Series
           </p>

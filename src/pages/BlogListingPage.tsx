@@ -88,6 +88,23 @@ export default function BlogListingPage() {
 
       <main className="pt-28 sm:pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
 
+        {/* --- BACK TO HOME NAVIGATION --- */}
+<div className="mb-8">
+  <Link 
+    to="/" 
+    className="group inline-flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors"
+  >
+    <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-all border border-slate-100 shadow-sm">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </div>
+    <span className="text-[10px] font-black uppercase tracking-[0.25em]">
+      Back to Home
+    </span>
+  </Link>
+</div>
+
         {/* ── Page header ── */}
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Guides</h1>

@@ -148,7 +148,7 @@ export default function Hero() {
             {/* 1. Learn — large left card */}
             <Link
               to="/guides"
-              className="group sm:col-span-2 sm:row-span-2 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-orange-500 hover:bg-orange-400 p-8 min-h-[260px] sm:min-h-[440px] transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl active:scale-[0.98]"
+              className="group sm:col-span-2 sm:row-span-2 relative overflow-hidden flex flex-col justify-between rounded-2xl bg-red-500 hover:bg-red-400 p-8 min-h-[260px] sm:min-h-[440px] transition-all duration-200 ease-out cursor-pointer hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-xl active:scale-[0.98]"
             >
               <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[7rem] sm:text-[10rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">READ</span>
               <div>

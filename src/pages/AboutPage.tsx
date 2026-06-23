@@ -73,14 +73,17 @@ export default function AboutPage() {
 
       <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
 
-        {/* ── Back Button ── */}
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 text-sm font-medium mb-8 transition-colors"
-        >
-          <CaretLeft size={18} weight="bold" />
-          Back
-        </Link>
+       {/* --- BACK TO HOME NAVIGATION --- */}
+<div className="mb-10">
+  <Link to="/" className="group inline-flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors">
+    <div className="w-9 h-9 rounded-full bg-white/50 flex items-center justify-center group-hover:bg-white transition-all border border-blue-200/50 shadow-sm">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </div>
+    <span className="text-[10px] font-black uppercase tracking-[0.25em]">Back to Home</span>
+  </Link>
+</div>
 
         {/* ── Page Header ── */}
         <div className="mb-16">

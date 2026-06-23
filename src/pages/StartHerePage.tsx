@@ -125,12 +125,22 @@ export default function StartHerePage() {
   return (
     <div className="min-h-screen bg-purple-900">
       <Header />
+<main className="pt-32 sm:pt-36 lg:pt-40">
+  {/* --- BACK TO HOME NAVIGATION --- */}
+  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Link to="/" className="group inline-flex items-center gap-3 text-purple-300 hover:text-white transition-colors">
+      <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-all border border-white/10 shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </div>
+      <span className="text-[10px] font-black uppercase tracking-[0.25em]">Back to Home</span>
+    </Link>
+  </div>
 
-      <main className="pt-32 sm:pt-36 lg:pt-40">
-
-        {/* ── Hero ── */}
-        <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pb-32">
-          <div className="max-w-5xl mx-auto text-center">
+  {/* ── Hero ── (Reduced pt-16 to pt-8 to fix the excessive space) */}
+  <section className="px-4 sm:px-6 lg:px-8 pt-8 pb-24 sm:pb-32">
+    <div className="max-w-5xl mx-auto text-center">
             <FadeSection>
               <div className="inline-flex items-center rounded-full border border-purple-700 bg-white/10 px-4 py-2 text-sm font-medium text-purple-50 shadow-sm backdrop-blur-sm">
                 Welcome to Guiderr

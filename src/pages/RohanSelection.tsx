@@ -39,7 +39,14 @@ export default function RohanSelection() {
               </span>
             </Link>
           ) : (
-            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">Rohan's Recommendations</div>
+            <Link to="/" className="group inline-flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors">
+  <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-all border border-slate-100 shadow-sm">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+  </div>
+  <span className="text-[10px] font-black uppercase tracking-[0.25em]">Back to Home</span>
+</Link>
           )}
         </div>
 
