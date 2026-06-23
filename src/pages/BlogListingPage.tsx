@@ -115,7 +115,7 @@ export default function BlogListingPage() {
 
         {/* ── Directory section label ── */}
         <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400 mb-4">
-          Select a Vertical
+          Select a Topic
         </p>
 
         {/* ── Directory Grid — 2 cols mobile, 4 cols md+ ── */}
