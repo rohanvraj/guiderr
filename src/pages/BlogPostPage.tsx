@@ -50,6 +50,19 @@ const DESTINATION_MAP: Record<string, string> = {
   'Home & Living': '/top-picks',
 };
 
+const CATEGORY_HUB_MAP: Record<string, string> = {
+  'Finance':          '/personal-finance',
+  'Personal Finance': '/personal-finance',
+  'Investing':        '/investing',
+  'Automotive':       '/automotive',
+  'Motorcycles':      '/automotive',
+  'Travel':           '/travel',
+  'Tech':             '/tech',
+  'Lifestyle':        '/lifestyle',
+  'Business':         '/business',
+  'AI Lab':           '/ai-lab',
+};
+
 const CTA_LABEL_MAP: Record<string, string> = {
   'AI Lab':        'Explore AI Lab Briefs →',
   'Investing':     'Explore Investing Briefs →',
@@ -319,9 +332,26 @@ export default function BlogPostPage() {
 
           {/* pb-24 on mobile ensures last CTA clears the fixed Quick Nav pill */}
           <main className={`min-w-0 flex-1 max-w-3xl pb-24 sm:pb-10${isFeatured ? ' font-editorial' : ''}`}>
-            <Link to={isFeatured ? '/featured' : '/guides'} className={`no-print text-sm ${isFeatured ? 'text-amber-800' : 'text-indigo-600'} hover:underline mb-6 inline-block`}>
-              &larr; Back to {isFeatured ? 'Featured Stories' : 'Guides'}
-            </Link>
+           {/* --- SMART CONTEXTUAL NAVIGATION --- */}
+<div className="mb-8 no-print">
+  <Link 
+    to={isFeatured ? '/featured' : (CATEGORY_HUB_MAP[post.category] || '/guides')} 
+    className={`group inline-flex items-center gap-3 ${isFeatured ? 'text-amber-800/70 hover:text-amber-900' : 'text-slate-400 hover:text-slate-900'} transition-colors`}
+  >
+    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border shadow-sm ${
+      isFeatured 
+        ? 'bg-white/50 border-amber-200/50 group-hover:bg-white' 
+        : 'bg-slate-50 border-slate-100 group-hover:bg-slate-100'
+    }`}>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </div>
+    <span className="text-[10px] font-black uppercase tracking-[0.25em]">
+      Back to {isFeatured ? 'Featured' : (post.category || 'Guides')}
+    </span>
+  </Link>
+</div>
 
             {/* Gold Spotlight badge for featured articles */}
             {isFeatured && (

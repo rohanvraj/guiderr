@@ -48,8 +48,26 @@ export default function InvestingPage() {
     <div className="min-h-screen bg-slate-950 flex flex-col">
       <Header />
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
-        <div className="group relative mb-20">
+      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-28">
+
+  {/* --- BACK TO GUIDES NAVIGATION --- */}
+  <div className="mb-10">
+    <Link 
+      to="/guides" 
+      className="group inline-flex items-center gap-3 text-slate-400 hover:text-white transition-colors"
+    >
+      <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-all border border-white/10 shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </div>
+      <span className="text-[10px] font-black uppercase tracking-[0.25em]">
+        Back to Guides
+      </span>
+    </Link>
+  </div>
+
+  <div className="group relative mb-20">
           <span
             aria-hidden="true"
             className="pointer-events-none absolute -left-2 top-0 select-none text-[5rem] sm:text-[8rem] font-black uppercase leading-none tracking-[-0.08em] text-white/[0.04] transition-transform duration-700 group-hover:translate-x-8 group-hover:text-white/[0.07]"
@@ -154,12 +172,7 @@ export default function InvestingPage() {
         )}
 
         <div className="pt-14 text-center">
-          <Link
-            to="/guides"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-300 transition-colors"
-          >
-            ← All Guides
-          </Link>
+        
         </div>
       </main>
 

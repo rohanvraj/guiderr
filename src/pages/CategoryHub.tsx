@@ -199,9 +199,30 @@ export default function CategoryHub() {
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: theme.bg }}>
       <Header />
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-28">
+      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-28">
 
-        {/* ── Masthead ── */}
+  {/* --- BACK TO GUIDES NAVIGATION --- */}
+  <div className="mb-10">
+    <Link 
+      to="/guides" 
+      className={`group inline-flex items-center gap-3 ${backLink} transition-colors`}
+    >
+      <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-all border shadow-sm ${
+        theme.dark 
+          ? 'bg-white/10 border-white/10 group-hover:bg-white/20' 
+          : 'bg-black/5 border-black/10 group-hover:bg-black/10'
+      }`}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </div>
+      <span className="text-[10px] font-black uppercase tracking-[0.25em]">
+        Back to Guides
+      </span>
+    </Link>
+  </div>
+
+  {/* ── Masthead ── */}        {/* ── Masthead ── */}
         <div className="group relative mb-20">
 
           {/* Ghost word — drifts on cursor-enter via pure CSS, zero JS */}
@@ -336,12 +357,7 @@ export default function CategoryHub() {
         )}
 
         <div className="pt-14 text-center">
-          <Link
-            to="/guides"
-            className={`inline-flex items-center gap-2 text-sm font-semibold ${backLink} transition-colors`}
-          >
-            ← All Guides
-          </Link>
+          
         </div>
       </main>
 
