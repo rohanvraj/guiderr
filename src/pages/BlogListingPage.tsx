@@ -25,22 +25,23 @@ const PARAM_TO_HUB: Record<string, string> = {
 interface DirectoryCard {
   label: string;
   ghost: string;
-  url: string | null; // null = Full Archive (revealed inline)
+  url: string | null;
   bg: string;
   ghostColor: string;
   dark: boolean;
+  imageId?: string;
 }
 
 const DIRECTORY: DirectoryCard[] = [
-  { label: 'Personal Finance', ghost: 'FINANCE',  url: '/personal-finance', bg: '#FFB3B3', ghostColor: '#FF6B6B', dark: false },
-  { label: 'Investing',        ghost: 'INVESTING', url: '/investing',        bg: '#0f172a', ghostColor: '#334155', dark: true  },
-  { label: 'Automotive',       ghost: 'WHEELS',    url: '/automotive',       bg: '#475569', ghostColor: '#1E293B', dark: true  },
-  { label: 'Travel',           ghost: 'TRAVEL',    url: '/travel',           bg: '#BAE6FD', ghostColor: '#0369A1', dark: false },
-  { label: 'Tech',             ghost: 'TECH',      url: '/tech',             bg: '#C7D2FE', ghostColor: '#4338CA', dark: false },
-  { label: 'Lifestyle',        ghost: 'STYLE',     url: '/lifestyle',        bg: '#BBF7D0', ghostColor: '#15803D', dark: false },
-  { label: 'Business',         ghost: 'BUSINESS',       url: '/business',         bg: '#FAF9F6', ghostColor: '#475569', dark: false },
-  { label: 'AI Lab',           ghost: 'INTELLIGENCE',   url: '/ai-lab',           bg: '#1E1B4B', ghostColor: '#7C3AED', dark: true  },
-  { label: 'Full Archive',     ghost: 'ALL',            url: null,                bg: '#7178AB', ghostColor: '#ffffff', dark: true  },
+  { label: 'Personal Finance', ghost: 'MONEY', url: '/personal-finance', bg: '#FFB3B3', ghostColor: '#ffffff', dark: false, imageId: 'ChatGPT_Image_Jun_23_2026_12_12_22_PM_gz8tny' },
+  { label: 'Investing', ghost: 'WEALTH', url: '/investing', bg: '#ffffff', ghostColor: '#ffffff', dark: true, imageId: 'stock-market-screen-image_cvy8wj' },
+  { label: 'Automotive', ghost: 'RIDE', url: '/automotive', bg: '#ffffff', ghostColor: '#ffffff', dark: true, imageId: 'ChatGPT_Image_Jun_23_2026_12_00_59_PM_cbdamt' },
+  { label: 'Travel', ghost: 'WANDER', url: '/travel', bg: '#BAE6FD', ghostColor: '#ffffff', dark: false, imageId: 'ChatGPT_Image_Jun_23_2026_12_07_41_PM_qqxmjh' },
+  { label: 'Tech', ghost: 'GEAR', url: '/tech', bg: '#C7D2FE', ghostColor: '#ffffff', dark: false, imageId: 'ChatGPT_Image_Jun_23_2026_04_23_43_PM_za62s9' },
+  { label: 'Lifestyle', ghost: 'LIVE', url: '/lifestyle', bg: '#BBF7D0', ghostColor: '#ffffff', dark: false, imageId: 'ChatGPT_Image_Jun_23_2026_12_03_31_PM_vtfz6o' },
+  { label: 'Business', ghost: 'BUILD', url: '/business', bg: '#FAF9F6', ghostColor: '#ffffff', dark: false, imageId: 'ChatGPT_Image_Jun_23_2026_12_08_03_PM_q4oth7' },
+  { label: 'AI Lab', ghost: 'FUTURE', url: '/ai-lab', bg: '#ffffff', ghostColor: '#ffffff', dark: true, imageId: 'ChatGPT_Image_Jun_23_2026_04_21_40_PM_yyhgb0' },
+  { label: 'Full Archive', ghost: 'ALL', url: null, bg: '#7178AB', ghostColor: '#ffffff', dark: true },
 ];
 
 // Frontmatter `category` → display-friendly label.
@@ -104,24 +105,36 @@ export default function BlogListingPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12">
           {DIRECTORY.map((card) => {
             const isArchive = card.url === null;
-            const textPrimary = card.dark ? 'text-white'      : 'text-slate-900';
-            const textSub     = card.dark ? 'text-white/50'   : 'text-slate-500/80';
-            const textArrow   = card.dark ? 'text-white/70'   : 'text-slate-600';
+            const hasImage = !!card.imageId;
+const textPrimary = hasImage || card.dark ? 'text-white' : 'text-slate-900';
+const textSub     = hasImage || card.dark ? 'text-white/70' : 'text-slate-500/80';
+const textArrow   = hasImage || card.dark ? 'text-white/80' : 'text-slate-600';
 
             const cardInner = (
               <div
                 className="group relative overflow-hidden rounded-2xl h-36 sm:h-44 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl cursor-pointer"
                 style={{ backgroundColor: card.bg }}
               >
+
+              {/* Category image — shows when imageId is set */}
+                {card.imageId && (
+                  <img
+                    src={optimizeCloudinaryUrl(card.imageId, { width: 400, quality: 'auto:eco' })}
+                    alt={card.label}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
+
                 {/* Ghost word — drifts on hover, pure CSS, zero JS */}
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -right-1 bottom-0 select-none font-black uppercase leading-none tracking-[-0.08em] transition-transform duration-700 group-hover:translate-x-3"
+                 className="pointer-events-none absolute right-3 bottom-2 select-none font-black uppercase leading-none tracking-[-0.05em]"
                   style={{
-                    fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
-                    color: card.ghostColor,
-                    opacity: card.dark ? 0.22 : 0.20,
-                  }}
+  fontSize: 'clamp(1.4rem, 3vw, 2.2rem)',
+  color: card.ghostColor,
+ opacity: 0.55,
+}}
                 >
                   {card.ghost}
                 </span>
