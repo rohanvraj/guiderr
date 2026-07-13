@@ -60,6 +60,16 @@ export const INVENTORY: InventoryItem[] = [
     imageId: 'ChatGPT_Image_Jul_13_2026_01_40_21_PM_pd5ien'
   },
 
+  {
+  id: 'ninja-blender',
+  category: 'tech',
+  label: 'Ninja Blender',
+  description: 'High-performance professional blender for smoothies, nut butters, and frozen drinks.',
+  amazonUrl: 'https://amzn.to/4p0X0Dy',
+  emoji: '🥤',
+  imageId: 'ChatGPT_Image_Jul_5_2026_05_34_11_PM_esdhpo' // Upload your Squooshed AI image to Cloudinary and use that ID
+},
+
 
   // ─── RIDING GEAR HUB ────────────────────────────────────────────────────
   {
