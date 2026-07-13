@@ -57,7 +57,7 @@ export const INVENTORY: InventoryItem[] = [
     description: 'The best Windows and Android laptops for productivity.',
     amazonUrl: `https://www.amazon.in/s?k=laptop+under+50000+dell+hp+acer&tag=${TAG}`,
     emoji: '🖥️',
-    imageId: 'android_vs_windows_laptops_ow2zwa'
+    imageId: 'ChatGPT_Image_Jul_13_2026_01_40_21_PM_pd5ien'
   },
 
 
