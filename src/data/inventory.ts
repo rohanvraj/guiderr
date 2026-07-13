@@ -70,6 +70,16 @@ export const INVENTORY: InventoryItem[] = [
   imageId: 'ChatGPT_Image_Jul_5_2026_05_34_11_PM_esdhpo' // Upload your Squooshed AI image to Cloudinary and use that ID
 },
 
+{
+    id: 'portronics-beem-470',
+    category: 'tech',
+    label: 'Portronics Beem 470',
+    description: 'Smart 1080p Full HD LED projector with a unique rotatable design and built-in Netflix/Prime Video apps. theater-grade 4500 Lumens.',
+    amazonUrl: 'https://link.amazon/B0gKc6kKU',
+    emoji: '📽️',
+    imageId: 'ChatGPT_Image_Jul_13_2026_04_47_23_PM_mpfhp0' // Replace this after your Cloudinary upload
+  },
+
 
   // ─── RIDING GEAR HUB ────────────────────────────────────────────────────
   {
