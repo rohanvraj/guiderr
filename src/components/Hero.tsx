@@ -123,7 +123,7 @@ export default function Hero() {
 
                   <div className="max-w-[180px] sm:max-w-[220px]">
                     <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
-                      Hi! I'm Rohan. I built Guiderr to help Indians make better decisions with their money and time. That's the aim, at least.
+                      Hi! I'm Rohan. I built Guiderr to help Indians make better decisions with their money and time. That's the aim.
                     </p>
                   </div>
 
