@@ -111,6 +111,38 @@ export const INVENTORY: InventoryItem[] = [
     imageId: 'ChatGPT_Image_Jun_22_2026_08_44_45_PM_dccxj3'
   },
 
+  {
+
+  id: 'touring-jackets',
+  category: 'riding-gear',
+  label: 'Touring Jackets',
+  description: 'Protective touring motorcycle jackets for all-weather comfort and long-distance riding.',
+  amazonUrl: 'https://link.amazon/B0hyCK5CY',
+  emoji: '🧥',
+  imageId: 'ChatGPT_Image_Jul_14_2026_04_53_41_PM_ytpf3l'
+
+},
+
+{
+  id: 'riding-pants',
+  category: 'riding-gear',
+  label: 'Riding Pants',
+  description: 'Protective motorcycle riding pants designed for touring, commuting, and long-distance adventures.',
+  amazonUrl: 'https://link.amazon/B07ev018w',
+  emoji: '👖',
+  imageId: 'ChatGPT_Image_Jul_14_2026_04_52_02_PM_mon8ru'
+},
+
+{
+  id: 'riding-gloves',
+  category: 'riding-gear',
+  label: 'Riding Gloves',
+  description: 'Protective motorcycle riding gloves for touring, daily commuting, and all-weather comfort.',
+  amazonUrl: 'https://link.amazon/B046K9I1f',
+  emoji: '🧤',
+  imageId: 'ChatGPT_Image_Jul_14_2026_04_58_26_PM_jnfq32'
+},
+
   // ─── TRAVEL HUB ─────────────────────────────────────────────────────────
   {
     id: 'suitcases',
