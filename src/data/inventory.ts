@@ -163,15 +163,15 @@ export const INVENTORY: InventoryItem[] = [
     imageId: 'monika-halan-book-click-to-buy_wqis9t'
   },
 
-  {
-    id: 'wakefit-ortho-mattress',
-    category: 'lifestyle',
-    label: 'Wakefit Ortho Mattress',
-    description: 'Orthopedic memory foam mattress with ShapeSense technology and a 10-year warranty. Perfect for spinal alignment.',
-    amazonUrl: 'https://link.amazon/B08sp4bxz',
-    emoji: '🛏️',
-    imageId: 'ChatGPT_Image_Jul_13_2026_03_15_58_PM_qqvlzx' // Replace this once you upload your Squooshed AI stamp
-  },
+ {
+  id: 'mattresses',
+  category: 'lifestyle',
+  label: 'Mattresses',
+  description: 'Compare the best memory foam, orthopedic, latex, and hybrid mattresses for better sleep.',
+  amazonUrl: 'https://link.amazon/B06GkgRgc',
+  emoji: '🛏️',
+  imageId: 'ChatGPT_Image_Jul_14_2026_03_34_09_PM_zr6lja'
+},
 
   // ─── CREDIT CARDS ───────────────────────────────────────────────────────
   {
