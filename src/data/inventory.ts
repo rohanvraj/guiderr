@@ -80,6 +80,16 @@ export const INVENTORY: InventoryItem[] = [
     imageId: 'ChatGPT_Image_Jul_13_2026_04_47_23_PM_mpfhp0' // Replace this after your Cloudinary upload
   },
 
+{
+  id: 'electric-irons',
+  category: 'tech',
+  label: 'Electric Irons',
+  description: 'Top steam irons, dry irons, and garment steamers for wrinkle-free clothes.',
+  amazonUrl: 'https://link.amazon/B03DGeSIU',
+  emoji: '👔',
+  imageId: 'GC_181_ippzh7'
+},
+
 
   // ─── RIDING GEAR HUB ────────────────────────────────────────────────────
   {
