@@ -65,7 +65,7 @@ The goal is to find a desk that stays stable at its highest point and has a moto
 
 ---
 
-[![Visual Representation: A functional standing desk with accessories](motorised-table-4_compressed_aie0jr)](https://amzn.to/4wMJtD3)
+[![Visual Representation: A functional standing desk with accessories](ChatGPT_Image_Jul_19_2026_10_29_26_AM_gndf0x)](https://amzn.to/4wMJtD3)
 
 ---
 
