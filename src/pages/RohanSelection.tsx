@@ -8,17 +8,26 @@ import Footer from '../components/Footer';
 export default function RohanSelection() {
   const { hubId, subId } = useParams<{ hubId?: string; subId?: string }>();
 
-  const currentHub = HUBS.find(h => h.id === hubId);
-  const currentSub = INVENTORY.find(p => p.id === subId);
-  const hubItems = INVENTORY.filter(p => p.category === hubId);
+  // Smart Resolution: Handle /top-picks/:hubId, /top-picks/:hubId/:subId, AND direct product links like /top-picks/:productId
+  let currentHub = HUBS.find(h => h.id === hubId);
+  let currentSub = INVENTORY.find(p => p.id === subId);
+
+  if (!currentSub && hubId) {
+    const directProduct = INVENTORY.find(p => p.id === hubId);
+    if (directProduct) {
+      currentSub = directProduct;
+      currentHub = HUBS.find(h => h.id === directProduct.category);
+    }
+  }
+
+  const hubItems = INVENTORY.filter(p => p.category === (currentSub ? currentSub.category : hubId));
+  const backLink = currentSub ? `/top-picks/${currentSub.category}` : '/top-picks';
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const title = currentSub ? currentSub.label : currentHub ? currentHub.label : "Top Picks";
     document.title = `${title} | Guiderr`;
   }, [currentHub, currentSub]);
-
-  const backLink = currentSub ? `/top-picks/${hubId}` : '/top-picks';
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -40,25 +49,25 @@ export default function RohanSelection() {
             </Link>
           ) : (
             <Link to="/" className="group inline-flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors">
-  <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-all border border-slate-100 shadow-sm">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M19 12H5M12 19l-7-7 7-7"/>
-    </svg>
-  </div>
-  <span className="text-[10px] font-black uppercase tracking-[0.25em]">Back to Home</span>
-</Link>
+              <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-all border border-slate-100 shadow-sm">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-[0.25em]">Back to Home</span>
+            </Link>
           )}
         </div>
 
         {currentSub ? (
-          /* BRIDGE VIEW (Bio Links) */
+          /* BRIDGE VIEW (Bio Links) - Clicking button opens Amazon affiliate link */
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-2xl mx-auto text-center px-4">
              <div className="aspect-square w-full max-w-sm mx-auto mb-10 bg-slate-50 rounded-[3rem] flex items-center justify-center overflow-hidden shadow-2xl shadow-orange-100 border border-slate-100 relative">
                <img 
-  src={optimizeCloudinaryUrl(currentSub.imageId, { width: 800, height: 800, crop: 'fill', quality: 'auto', format: 'auto' })} 
-  alt={currentSub.label} 
-  className="w-full h-full object-cover" 
-/>
+                 src={optimizeCloudinaryUrl(currentSub.imageId, { width: 800, height: 800, crop: 'fill', quality: 'auto', format: 'auto' })} 
+                 alt={currentSub.label} 
+                 className="w-full h-full object-cover" 
+               />
                <div className="absolute inset-0 border-[12px] border-white/10 pointer-events-none" />
             </div>
             <h1 className="text-4xl sm:text-6xl font-black text-slate-900 mb-4 uppercase tracking-tighter leading-none">{currentSub.label}</h1>
@@ -69,7 +78,7 @@ export default function RohanSelection() {
             </a>
           </div>
         ) : (
-          /* GRID VIEW */
+          /* GRID VIEW - Clicking product card opens Guiderr Bridge Page */
           <>
             <div className="mb-12">
               <h1 className="text-5xl sm:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85] mb-6">
@@ -83,30 +92,32 @@ export default function RohanSelection() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
               {(currentHub ? hubItems : HUBS).map((item) => {
                 const isHubList = !hubId;
-                const Component = isHubList ? Link : 'a';
-                const props = isHubList 
-                  ? { to: `/top-picks/${item.id}` } 
-                  : { href: (item as any).amazonUrl, target: '_blank', rel: 'noopener noreferrer sponsored' };
+                const destination = isHubList 
+                  ? `/top-picks/${item.id}` 
+                  : `/top-picks/${hubId}/${item.id}`;
 
                 return (
-                  <Component key={item.id} {...(props as any)}
+                  <Link 
+                    key={item.id} 
+                    to={destination}
                     className="group flex flex-col bg-slate-50 rounded-[2.5rem] border border-slate-100 hover:border-orange-200 hover:shadow-xl transition-all duration-500 overflow-hidden"
                   >
                     <div className="aspect-square flex items-center justify-center bg-white m-2 rounded-[2rem] overflow-hidden relative">
                        <img 
-  src={optimizeCloudinaryUrl(item.imageId, { width: 600, height: 600, crop: 'fill', quality: 'auto', format: 'auto' })} 
-  alt={item.label} 
-  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-  loading="lazy" 
-/>
+                         src={optimizeCloudinaryUrl(item.imageId, { width: 600, height: 600, crop: 'fill', quality: 'auto', format: 'auto' })} 
+                         alt={item.label} 
+                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                         loading="lazy" 
+                       />
                        <div className="absolute inset-0 border-[8px] border-white/5 pointer-events-none" />
                     </div>
                     <div className="p-5 text-center">
                       <h3 className="font-black text-slate-900 uppercase tracking-tight text-sm leading-none mb-1">{item.label}</h3>
                       <p className="text-[9px] font-bold text-orange-500 uppercase tracking-widest">
-                        {!isHubList ? ((item as any).amazonUrl?.includes('amazon') ? "Amazon →" : "Check Offer →") : "Explore Hub →"}
-                    </p>          </div>
-                  </Component>
+                        {isHubList ? "Explore Hub →" : "View Pick →"}
+                      </p>
+                    </div>
+                  </Link>
                 );
               })}
             </div>
