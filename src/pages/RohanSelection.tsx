@@ -74,7 +74,7 @@ export default function RohanSelection() {
             <p className="text-slate-500 mb-10 text-lg leading-relaxed max-w-md mx-auto">{currentSub.description}</p>
             <a href={currentSub.amazonUrl} target="_blank" rel="noopener noreferrer sponsored" 
                className="inline-block w-full py-6 bg-slate-900 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl hover:bg-orange-500 transition-all active:scale-95">
-              {currentSub.amazonUrl.includes('amazon') ? "Shop on Amazon →" : "Check Offer Now →"}
+              {(currentSub.amazonUrl.includes('amazon') || currentSub.amazonUrl.includes('amzn.to')) ? "Shop on Amazon →" : "Check Offer Now →"}
             </a>
           </div>
         ) : (
