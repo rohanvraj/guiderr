@@ -90,6 +90,16 @@ export const INVENTORY: InventoryItem[] = [
   imageId: 'GC_181_ippzh7'
 },
 
+{
+    id: 'hamilton-beach-steamer',
+    category: 'tech',
+    label: 'Hamilton Beach 3-in-1 Steamer',
+    description: '1700W patented 3-in-1 garment steamer, steam iron & dry iron with 10-year Durathon soleplate warranty and auto shut-off.',
+    amazonUrl: 'https://link.amazon/B0g29MwQC', // <-- Paste your Amazon affiliate link here
+    emoji: '💨',
+    imageId: 'HAMILTON_BEACH_3_IN_1_bdmus6' // <-- Upload product image to Cloudinary and paste the Public ID here
+  },
+
 
   // ─── RIDING GEAR HUB ────────────────────────────────────────────────────
   {
