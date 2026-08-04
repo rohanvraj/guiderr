@@ -131,7 +131,7 @@ export default function RohanSelection() {
 
         <footer className="mt-16 sm:mt-24 pt-8 border-t border-slate-100 text-center">
           <p className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-relaxed max-w-lg mx-auto">
-            Disclosure: As an Amazon Associate, Guiderr earns from qualifying purchases. This helps support our free content.
+            Disclosure: As an Amazon Associate, Guiderr earns from qualifying purchases. This helps support our free content. Images maybe AI generated and are for representational purposes only. Appearance & features may differ. Availability is subject to change. Please check the product page for the most up-to-date information.
           </p>
         </footer>
       </main>

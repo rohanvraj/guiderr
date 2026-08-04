@@ -215,6 +215,17 @@ export const INVENTORY: InventoryItem[] = [
   imageId: 'ChatGPT_Image_Jul_14_2026_03_34_09_PM_zr6lja'
 },
 
+{
+    id: 'tata-1mg-whey-protein',
+    category: 'lifestyle',
+    label: 'Tata 1mg Whey Protein',
+    description: 'Clean whey protein isolate and concentrate blend delivering 24g of protein, 5.6g BCAAs, and 30 Billion CFU probiotics for muscle recovery and easy digestion.',
+    amazonUrl: 'https://link.amazon/B0iql0izm',
+    emoji: '💪',
+    imageId: 'tata-1mg-whey-isolate_bbcjl1' 
+  },
+
+
   // ─── CREDIT CARDS ───────────────────────────────────────────────────────
   {
     id: 'cashback-cards',
