@@ -1,5 +1,5 @@
 ---
-title: "The Honest Look at Air Fryers in India: Are They Worth the Kitchen Space?"
+title: "Air Fryers in India: Are They Worth the Kitchen Space?"
 date: 2026-06-12T16:00:00.000Z
 category: Lifestyle
 author: Guiderr editorial
