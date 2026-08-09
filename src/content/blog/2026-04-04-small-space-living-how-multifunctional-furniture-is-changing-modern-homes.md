@@ -11,7 +11,7 @@ The days of dedicated "guest rooms" are fading. Today, a single room often serve
 
 **The Rise of the 3-in-1 Philosophy**
 
-Modern interior design now prioritizes pieces that offer more than one utility. A standard sofa takes up significant floor space while remaining idle 80% of the time. In contrast, the new generation of foldable furniture—like the popular Uberlyfe series—functions as a sofa, a lounger for movie nights, and a full-size bed for guests.
+Modern interior design now prioritizes pieces that offer more than one utility. A standard sofa takes up significant floor space while remaining idle 80% of the time. In contrast, the new generation of foldable furniture..like the popular Uberlyfe series—functions as a sofa, a lounger for movie nights, and a full-size bed for guests.
 
 The transition time for these pieces has dropped significantly, with most modern mechanisms allowing a change in layout in under 15 seconds.
 
