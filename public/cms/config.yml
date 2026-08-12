@@ -36,6 +36,7 @@ collections:
           - "Tech"
           - "Lifestyle"
           - "AI Lab"
+          - "Art"
       - { label: "Author Name", name: "author", widget: "string", required: false }
       - label: "Featured Image"
         name: "featured_image"
@@ -85,6 +86,9 @@ collections:
       - label: "AI Lab"
         field: category
         pattern: "AI Lab"
+      - label: "Art"
+        field: category
+        pattern: "Art"
 
   - name: "featured"
     label: "Featured Stories"
@@ -107,6 +111,7 @@ collections:
           - "Business"
           - "Lifestyle"
           - "AI Lab"
+          - "Art"
       - { label: "Author Name", name: "author", widget: "string", required: false }
       - label: "Featured Image"
         name: "featured_image"

@@ -19,6 +19,7 @@ const PARAM_TO_HUB: Record<string, string> = {
   Lifestyle:          '/lifestyle',
   Business:           '/business',
   'AI Lab':           '/ai-lab',
+  'Art':              '/art',
 };
 
 // Colors kept in sync with CategoryHub.tsx CATEGORY_THEMES.
@@ -41,6 +42,7 @@ const DIRECTORY: DirectoryCard[] = [
   { label: 'Lifestyle', ghost: 'LIVE', url: '/lifestyle', bg: '#BBF7D0', ghostColor: '#ffffff', dark: false, imageId: 'ChatGPT_Image_Jun_23_2026_12_03_31_PM_vtfz6o' },
   { label: 'Business', ghost: 'BUILD', url: '/business', bg: '#FAF9F6', ghostColor: '#ffffff', dark: false, imageId: 'ChatGPT_Image_Jun_23_2026_12_08_03_PM_q4oth7' },
   { label: 'AI Lab', ghost: 'FUTURE', url: '/ai-lab', bg: '#ffffff', ghostColor: '#ffffff', dark: true, imageId: 'ChatGPT_Image_Jun_23_2026_04_21_40_PM_yyhgb0' },
+  { label: 'Art', ghost: 'CREATE', url: '/art', bg: '#994561', ghostColor: '#ffffff', dark: false, imageId: 'art_category_image_ha4mtg' },
   { label: 'Full Archive', ghost: 'ALL', url: null, bg: '#7178AB', ghostColor: '#ffffff', dark: true },
 ];
 

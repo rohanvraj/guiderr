@@ -81,6 +81,14 @@ const HERO_TILES = [
     link: '/ai-lab',
     Icon: Sparkle, bg: 'bg-violet-50', border: 'border-violet-200', color: '#7c3aed',
   },
+  {
+  id: 'art',
+  label: 'Art',
+  description: 'AI art, digital creativity, and visual storytelling for modern creators.',
+  ghost: 'ART',
+  link: '/art',
+  Icon: Sparkle, bg: 'bg-pink-50', border: 'border-pink-200', color: '#db2777',
+},
 ];
 
 export default function Hero() {

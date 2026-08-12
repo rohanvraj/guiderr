@@ -122,6 +122,22 @@ const CATEGORY_THEMES: Record<string, HubTheme> = {
     metaTitle: 'AI Lab | Guiderr — Prompt Protocols & AI Guides',
     metaDesc: 'AI Lab on Guiderr — prompt protocols, character continuity guides, and AI productivity frameworks.',
   },
+
+  art: {
+  bg: '#FFF0F5',
+  ghostColor: '#EC4899',
+  ghostLabel: 'ART',
+  display: 'Art',
+  filterKey: 'Art',
+  dark: false,
+  desk: 'The Studio',
+  headline: ['Create Boldly.', 'Share Widely.'],
+  tagline: 'Visual storytelling, artistic vision, and the art of human expression..',
+  accentColor: '#db2777',
+  metaTitle: 'Art & Creativity Guides | Guiderr',
+  metaDesc: 'Art and creativity guides — AI-generated art, digital tools, and visual storytelling for Indian creators.',
+},
+
 };
 
 const POSTS_PER_PAGE = 5;
