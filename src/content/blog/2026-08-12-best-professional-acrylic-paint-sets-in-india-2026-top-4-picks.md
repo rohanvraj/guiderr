@@ -11,9 +11,6 @@ In the high-speed digital world of **2026**, many Indian professionals are turni
 
 The smarter decision isn't to buy more colors—it's to buy better **pigment**. High-ticket acrylics aren't just for professionals; they are for anyone who wants their work to look vibrant and last for decades.
 
-### 🎥 Savita's Take: The Tactile Joy of Heavy Body Acrylics
-[Watch: Why I started painting to manage work stress](yt:dQw4w9WgXcQ)
-
 [**👉 Explore the 2026 Professional Art Collection on Amazon**](https://amzn.to/3W0P1GY)
 
 ***
