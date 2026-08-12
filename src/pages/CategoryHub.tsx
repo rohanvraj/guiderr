@@ -131,7 +131,7 @@ const CATEGORY_THEMES: Record<string, HubTheme> = {
   filterKey: 'Art',
   dark: false,
   desk: 'The Studio',
-  headline: ['Create Boldly.', 'Share Widely.'],
+headline: ['Paint Your Truth.', 'Move the World.'],
   tagline: 'Visual storytelling, artistic vision, and the art of human expression..',
   accentColor: '#db2777',
   metaTitle: 'Art & Creativity Guides | Guiderr',
