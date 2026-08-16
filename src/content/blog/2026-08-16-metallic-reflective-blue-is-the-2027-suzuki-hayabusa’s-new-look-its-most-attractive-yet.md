@@ -42,7 +42,7 @@ The Hayabusa is often described as a "falcon" because of its wind-cheating shape
 
 ---
 
-[![Visual Representation: A high-end blue superbike parked in a modern Indian garage](2027-hayabusa-metallicblue_xd28lb)]
+![Visual Representation: A high-end blue superbike parked in a modern Indian garage](2027-hayabusa-metallicblue_xd28lb)
 
 ---
 
