@@ -1,6 +1,5 @@
 ---
-title: Metallic Reflective Blue - Is the 2027 Suzuki Hayabusa’s New Look Its
-  Most Attractive Yet?
+title: "2027 Suzuki Hayabusa: Is Metallic Blue Its Best Looking Colour Yet?"
 date: 2026-08-16T15:40:00.000Z
 category: Automotive
 image:
