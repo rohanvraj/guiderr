@@ -28,7 +28,7 @@ The star of the new international lineup is a striking shade officially called *
 
 Before handling a machine with this much power, having the right protection is a non-negotiable step.
 
-### **[👉 Explore My Riding Gear & Some Trusted Picks](https://www.guiderr.in/rohan-selection/riding-gear)**
+### **[👉 Explore Riding Gear & Some Trusted Picks](https://www.guiderr.in/rohan-selection/riding-gear)**
 
 ---
 
