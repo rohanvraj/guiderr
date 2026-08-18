@@ -72,7 +72,7 @@ The 2027 Suzuki Hayabusa doesn't need to change its "insides" to stay relevant. 
 
 - [Top 10 Car Accessories for Indian Roads →](https://www.guiderr.in/guides/2026-05-21-top-10-car-accessories-on-amazon-india-high-trust-picks-for-2026)
 - [Some Roads Don’t End: Riding Across India with Rohan Raj →](https://www.guiderr.in/featured/2026-04-27-some-roads-don%E2%80%99t-end-riding-across-india-with-rohan-raj)
-- [The Definitive Guide: Planning Your Ladakh Motorcycle Trip →](e-guide-planning-your-ladakh-motorcycle-trip-in-2026)
+- [The Definitive Guide: Planning Your Ladakh Motorcycle Trip →](https://www.guiderr.in/guides/2026-04-03-the-definitive-guide-planning-your-ladakh-motorcycle-trip-in-2026)
 
 ---
 
