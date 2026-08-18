@@ -143,7 +143,7 @@ export default function Header() {
                 to="/guides"
                 className="relative z-10 block text-slate-700 hover:text-slate-900 font-medium transition-colors px-3 py-2"
               >
-                Guides
+                Read
               </Link>
             </div>
 
@@ -251,7 +251,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-2 px-4 text-slate-700 hover:text-slate-900 hover:bg-white/30 rounded-lg font-medium transition-all"
               >
-                Guides
+                Read
               </Link>
 
               <Link
