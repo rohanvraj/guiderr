@@ -161,7 +161,7 @@ export default function Hero() {
               <span aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 -right-3 text-[7rem] sm:text-[10rem] font-black uppercase tracking-[-0.05em] text-black/10 transition-transform duration-200 group-hover:-translate-y-1">READ</span>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-950/50 mb-4 font-medium">01</p>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 leading-tight">Learn for free.</h2>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 leading-tight">Read for free.</h2>
                 <p className="mt-3 text-[15px] sm:text-base font-medium text-slate-950/70 max-w-xs">
                   Honest guides on money, gear, travel, and tech. 
 The research is the work.
