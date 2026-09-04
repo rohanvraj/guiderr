@@ -41,17 +41,22 @@ In the 2026 Indian market, a common habit among retail participants is booking a
 ![Visual Representation: A side-by-side comparison of a branded product raising prices with ease versus a generic commodity facing customer resistance](1988-3)
 
 > **THE BOTTOM LINE:** If a business cannot raise its selling prices during periods of inflation without losing customers to a cheaper rival, its competitive position is weak. Sustainable wealth is built in businesses that possess genuine pricing freedom.
-***
-> ## **BLUEPRINT: Intelligent Brief #10**
-> Knowing how to identify an exceptional business is only half the battle. Knowing how to value corporate events and hold capital with discipline is where real outperformance occurs.
->
-> **Inside Brief #10: The Capital Allocation & Valuation Masterclass:**
-> * **The 63-Year Compounding Proof:** A breakdown of how a 20% annual return turns ₹1,000 into ₹9.7 Crore compared to just ₹4.05 Lakh at a 10% market rate.
-> * **The Three-Question Audit Sheet:** A step-by-step checklist to evaluate Indian annual reports beyond standard accounting figures.
-> * **The Low-Overhead Retail Model:** How businesses with massive selection, high inventory turnover, and rock-bottom operating costs build unbreakable competitive barriers.
-> * **4 AI Research Prompts:** Specialized prompts to help you audit CEO capital allocation and verify management candor in annual reports.
->
-> [**Unlock Intelligent Brief #09: Same Profit. Very Different Value. Here's Why (₹99)**](buy:dfcda2bd-517d-45b5-a05b-fe1e2456ed34)
+> ## **BLUEPRINT: Intelligent Brief #09**
+> Most investors look at "Net Profit" to judge a company. They are often looking at an accounting mirage. A business can report record-breaking profits while quietly spending every rupee just to stay alive. Professional owners call this the **Treadmill Trap**.
+> 
+> **Inside this Logic Scan, you will discover:**
+> * **The Two-Shop Puzzle:** A forensic look at how accounting rules hide the real cash sitting in the bank.
+> * **The Take-Home Formula:** A simple 3-step calculation to find the real cash a business releases to its owners.
+> * **The Treadmill Test:** A mathematical comparison of two firms with identical ₹12 Crore profits to see which is 2.5x more valuable.
+> * **The Tax Soak Logic:** Why government tax cuts often help the customer instead of the owner.
+> 
+> **Includes:**
+> * **The ABC vs XYZ Case Study:** A side-by-side mathematical comparison of Asset-Light vs Asset-Heavy models.
+> * **4 AI Research Prompts:** Specialized prompts to help you use ChatGPT or Claude to understand this concept better.
+> 
+> **Real wealth is found in the cash the business releases to you, not the ink on the report. Unlock the probe today.**
+> 
+> [**Unlock Intelligent Brief #09 — The Owner Earnings Probe (₹99)**](buy:dfcda2bd-517d-45b5-a05b-fe1e2456ed34)
 ***
 ## **Read Next**
 * [**What a Famous Dhaba Actually Earns** →](https://www.guiderr.in/guides/2026-05-26-what-a-famous-dhaba-may-actually-be-earning)
